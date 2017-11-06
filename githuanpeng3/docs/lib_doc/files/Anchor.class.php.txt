@@ -1,0 +1,742 @@
+<?php
+namespace hp\lib;
+
+use hp;
+use hp\lib\User;
+
+class Anchor extends User
+{
+	public $uid = '';//用户uid
+	private $_db = '';//数据库对象
+
+	/**
+	 * Anchor constructor 初始化
+	 *
+	 * @param string $uid 用户id
+	 * @param string $db  数据库对象
+	 */
+	public function __construct( $uid = '', $db = '' )
+	{
+		if( $uid )
+		{
+			$this->uid = (int)$uid;
+		}
+		if( $db )
+		{
+			$this->_db = $db;
+		}
+		else
+		{
+			$this->_db = new DBHelperi_huanpeng();
+		}
+		parent::__construct( $uid, $this->_db );
+		return true;
+	}
+
+	/**
+	 * 添加主播金豆
+	 *
+	 * @param $bean 要添加的金豆数量
+	 *
+	 * @return bool  添加成功 返回true|失败false
+	 */
+	public function addAnchorBean( $bean )
+	{
+		if( empty( $bean ) )
+		{
+			return false;
+		}
+		$bean = $this->_exchangeToHpBean( $bean );
+		$sql = "UPDATE anchor SET bean = bean + $bean where uid=$this->uid";
+		$res = $this->_db->doSql( $sql );
+		if( false !== $res )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+	/**
+	 * 更新主播金豆（消费）
+	 *
+	 * @param $bean    消费金豆数额
+	 * @param $balance 校准
+	 *
+	 * @return bool 成功返回true ｜ 失败fals
+	 */
+	public function updateAnchorBean( $bean, $balance )
+	{
+		if( empty( $bean ) || empty( $balance ) )
+		{
+			return false;
+		}
+		$bean = $this->_exchangeToHpBean( $bean );
+		$balance = $this->_exchangeToHpBean( $balance );
+		$sql = "UPDATE anchor set bean = bean - $bean where uid=$this->uid and bean >= $bean and bean = $balance";
+		$res = $this->_db->doSql( $sql );
+		if( false !== $res )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * 更新主播金币（消费）
+	 *
+	 * @param $coin 用户金币余额
+	 *
+	 * @return bool 成功返回true  失败返回false
+	 */
+	public function updateAnchorCoin( $coin )
+	{
+		if( empty( $coin ) )
+		{
+			return false;
+		}
+		$coin = $this->_exchangeToHpCoin( $coin );
+		$res = $this->_db->where( 'uid=' . $this->uid )->update( 'anchor', array( 'coin' => $coin ) );
+		if( false !== $res )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+	/**
+	 * 获取主播财产（金豆｜金币）
+	 *
+	 * @return array
+	 * array(
+	 *  'bean' => 0,//金豆
+	 *  'coin' => 0//金币
+	 * );
+	 */
+	public function getAnchorProperty()
+	{
+		$res = $this->_db->field( 'bean,coin' )->where( 'uid=' . $this->uid )->limit( 1 )->select( 'anchor' );
+		if( $res && false !== $res )
+		{
+			$bean = $this->_exchangeToBean( $res[0]['bean'] );
+			$coin = $this->_exchangeToCoin( $res[0]['coin'] );
+			return array( 'bean' => $bean, 'coin' => $coin );
+		}
+		else
+		{
+			return array( 'bean' => 0, 'coin' => 0 );
+		}
+	}
+
+	/**
+	 * 欢朋豆 转换成金豆
+	 *
+	 * @param $hpBean 欢朋豆
+	 *
+	 * @return float
+	 */
+	private function _exchangeToBean( $hpBean )
+	{
+		return ( $hpBean / 1000 );
+	}
+
+	/**
+	 * 欢朋币转换成金币
+	 *
+	 * @param $hpCoin 欢朋币
+	 *
+	 * @return float
+	 */
+	private function _exchangeToCoin( $hpCoin )
+	{
+		return $hpCoin / 20;
+	}
+
+	/**
+	 * 金豆转换成欢朋豆
+	 *
+	 * @param $bean 金豆
+	 *
+	 * @return mixed
+	 */
+	private function _exchangeToHpBean( $bean )
+	{
+		return $bean * 1000;
+	}
+
+	/**
+	 * 金币转换成欢朋币
+	 *
+	 * @param $coin 金币
+	 *
+	 * @return mixed
+	 */
+	private function _exchangeToHpCoin( $coin )
+	{
+		return $coin * 20;
+	}
+
+	/**
+	 * 添加经验值
+	 *
+	 * @param $exp 经验值
+	 *
+	 * @return array 返回 是否升级|和等级领个字段  isUp：0未升级 1升级 level 当前等级数
+	 * array( 'isUp' => 0, 'level' => 7 );
+	 */
+	public function addAnchorExp( $exp )
+	{
+		$isUp = 0;
+		$levelInfo = $this->_getNowAnchorLevelInfo();//未加经验前的等级和经验值
+		$addres = $this->_addExp( $exp );//添加经验值
+		if( $addres )
+		{
+			$userLevelList = $this->_getAnchorLevelInfoList();
+			$exp += (int)$levelInfo['integral'];
+			$level = $levelInfo['level'];
+			$nextLevelExp = $userLevelList[$level];
+			if( $exp >= (int)$nextLevelExp )
+			{
+				$maxExp = max( array_values( $userLevelList ) );
+				if( $exp < $maxExp )
+				{
+					$uplevel = $this->_updateAnchorLevel( $level );
+					if( $uplevel )
+					{
+						$isUp = 1;
+					}
+				}
+			}
+		}
+		if( $isUp )
+		{
+			$lv = $levelInfo['level'] + 1;
+		}
+		else
+		{
+			$lv = $levelInfo['level'];
+		}
+		return array( 'isUp' => $isUp, 'level' => $lv );
+	}
+
+	/**
+	 * @param $exp 经验值
+	 *
+	 * @return bool 成功返回true  失败返回false
+	 */
+	private function _addExp( $exp )
+	{
+		$sql = "update anchor set integral= integral + $exp  where uid = $this->uid";
+		$res = $this->_db->doSql( $sql );
+		if( false !== $res )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * 更新主播等级
+	 *
+	 * @param int $level 等级
+	 *
+	 * @return bool  更新成功返回true  失败返回false
+	 */
+	private function _updateAnchorLevel( $level )
+	{
+		if( empty( $level ) )
+		{
+			return false;
+		}
+		$res = $this->_db->where( 'uid=' . $this->uid )->update( 'anchor', array( 'level' => $level ) );
+		if( false !== $res )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * 获取主播等级信息
+	 *
+	 * @return array array(
+	 * 'level' => 0, //等级
+	 * 'integral' => 0 //经验值
+	 * );
+	 */
+	private function _getNowAnchorLevelInfo()
+	{
+		$res = $this->_db->field( 'level,integral' )->where( 'uid=' . $this->uid )->limit( 1 )->select( 'anchor' );
+		if( $res && false !== $res )
+		{
+			return array( 'level' => $res[0]['level'], 'integral' => $res[0]['integral'] );
+		}
+		else
+		{
+			return array( 'level' => 0, 'integral' => 0 );
+		}
+	}
+
+	/**
+	 * 获取主播等级列表信息
+	 *
+	 * @return array array(1=>10)  key为等级 值为经验值
+	 */
+	private function _getAnchorLevelInfoList()
+	{
+		$levelList = array();
+		$res = $this->_db->select( 'anchorlevel' );
+		if( $res && false !== $res )
+		{
+			foreach ( $res as $v )
+			{
+				$levelList[$v['level']] = $v['integral'];
+			}
+		}
+		return $levelList;
+	}
+
+	/**
+	 * 获取主播等级｜经验值
+	 *
+	 * @return array  array(
+	 * 'level' => '',//等级
+	 * 'integral' => ''//经验值
+	 * )
+	 */
+	public function getAnchorLevel()
+	{
+		return $this->_getNowAnchorLevelInfo();
+	}
+
+	/**
+	 * 是否是主播
+	 *
+	 * @param int    $uid 用户uid
+	 * @param object $db
+	 *
+	 * @return bool  true:是主播 false:不是主播
+	 */
+	public static function isAnchor( $uid, $db )
+
+	{
+		$isBlack = self::isBlack( $uid, $db );
+		if( $isBlack )
+		{
+			return -5030;//黑名单主播
+		}
+		else
+		{
+			if( !RN_MODEL )
+			{
+				$res = $db->field( 'uid' )->where( 'uid=' . $uid )->limit( 1 )->select( 'anchor' );
+				if($res){
+					return true;
+				}else{
+					return -5017;
+				}
+			}
+			else
+			{
+				$isAnchor = $db->field( 'uid' )->where( 'uid=' . $uid )->limit( 1 )->select( 'anchor' );
+				$isRealAnchor = self::isRealAnchor( $uid, $db );
+				if( $isAnchor && ( $isRealAnchor == true ) )
+				{
+					return  true;
+				}
+				else
+				{
+					return  -5028;
+				}
+			}
+		}
+
+	}
+
+	/**
+	 * 是否已通过实名审核
+	 *
+	 * @param int    $uid 用户uid
+	 * @param object $db
+	 *
+	 * @return bool true:已实名审核  false:未实名审核
+	 */
+	public static function isRealAnchor( $uid, $db )
+	{
+		$res = $db->field( 'status' )->where( 'uid=' . $uid )->limit( 1 )->select( 'userrealname' );
+		if( $res[0]['status'] == RN_PASS )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * 是否是黑名单主播
+	 *
+	 * @param int    $uid 主播uid
+	 * @param object $db
+	 *
+	 * @return bool true:是黑名单主播  false:不是黑名单主播
+	 */
+	public static function isBlack( $uid, $db )
+	{
+		$res = $db->field( 'luid' )->where( 'luid=' . $uid )->limit( 1 )->select( 'anchor_blackList' );
+		if( $res )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * 是否正在直播
+	 *
+	 * @return bool true:正在直播 false:没有直播
+	 */
+	public function isLiving()
+	{
+		$res = $this->_db->field( 'liveid' )->where( 'uid=' . $this->uid and 'status=' . LIVE )->limit( 1 )->select( 'live' );
+		if( $res )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * 获取房间号
+	 *
+	 * @return bool|mixed  返回房间号
+	 */
+	public function getRoomID()
+	{
+		$res = $this->getRoomIDs( $this->uid, $this->_db );
+		if( false !== $res )
+		{
+			return $res[$this->uid];
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * 批量获取房间id
+	 *
+	 * @param string $luids 主播id列表 用逗号隔开 如:90,2780
+	 * @param object $db
+	 *
+	 * @return array|bool
+	 */
+	public static function getRoomIDs( $luids, $db )
+	{
+		$list = array();
+		if( empty( $luids ) )
+		{
+			return false;
+		}
+		$res = $db->field( 'uid,roomid' )->where( "uid  in ($luids)" )->select( 'roomid' );
+		if( $res )
+		{
+			foreach ( $res as $v )
+			{
+				$list[$v['uid']] = $v['roomid'];
+			}
+		}
+		return $list;
+	}
+
+	/**
+	 * 获取关注主播的用户数
+	 *
+	 * @return int  返回粉丝数
+	 */
+	public function getFollowNumber()
+	{
+		$res = $this->_db->field( 'count(*) as  total' )->where( "uid2=$this->uid" )->select( 'userfollow' );
+		if( $res )
+		{
+			return $res[0]['total'];
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	/**
+	 *批量获取关注主播的用户数
+	 *
+	 * @param array  $luidsArray 主播id  多个用数组 如:array(2789,3541)
+	 * @param object $db
+	 *
+	 * @return array array('3'=>'15')  key主播id,value粉丝数
+	 */
+	public static function getMornAnchorFans( $luidsArray, $db )
+	{
+		$list = array();
+		if( empty( $luidsArray ) || !is_array( $luidsArray ) )
+		{
+			return false;
+		}
+		$uids = implode( ',', $luidsArray );
+		$res = $db->field( 'uid2,count(uid1) as total' )->where( "uid2 in ($uids)   group  by uid2" )->select( 'userfollow' );
+		if( $res )
+		{
+			foreach ( $res as $v )
+			{
+				$list['uid2'] = $v['total'];
+			}
+		}
+		return $list;
+	}
+
+	/**
+	 * 获取房管列表
+	 *
+	 * @param $page
+	 * @param $size
+	 *
+	 * @return array array(3,90,16,7887) 返回房管uid数组
+	 */
+	public function roomManagerList( $page, $size )
+	{
+		$list = array();
+		$res = $this->_db->field( 'uid' )->where( "luid=$this->uid" )->order( 'ctime desc' )->limit( $page, $size )->select( 'roommanager' );
+		if( $res )
+		{
+			foreach ( $res as $v )
+			{
+				array_push( $list, $v['uid'] );
+			}
+		}
+		return $list;
+	}
+
+	/**
+	 * 添加房管
+	 *
+	 * @param int $adminId 待添加用户id
+	 *
+	 * @return bool  添加成功返回 true  失败返回false
+	 */
+	public function addRoomManager( $adminId )
+	{
+		if( empty( $adminId ) )
+		{
+			return false;
+		}
+		$checkIsExist = $this->_db->where( "luid=$this->uid and uid = $adminId" )->select( 'roommanager' );
+		if( !empty( $checkIsExist ) )
+		{
+			return true;
+		}
+		else
+		{
+			$data = array(
+				'luid' => $this->uid,
+				'uid' => $adminId,
+				'ctime' => date( 'Y-m-d H:i:s' )
+			);
+			$res = $this->_db->insert( 'roommanager', $data );
+			if( false !== $res )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 取消房管
+	 *
+	 * @param array $uid 房管id 支持批处理 批量的话传参数如 array(2398,459);
+	 *
+	 * @return bool 取消成功返回 true  失败返回false
+	 */
+	public function delRoomManager( $uidArray )
+	{
+		if( empty( $uidArray ) || !is_array( $uidArray ) )
+		{
+			return false;
+		}
+		$adminids = implode( ',', $uidArray );
+		$res = $this->_db->where( "luid=$this->uid and uid in ($adminids)" )->delete( 'roommanager' );
+		if( $res )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+	/**
+	 * 主播欢朋币收益纪录
+	 *
+	 * @param string $from 开始时间 如 '2017-03-01 00:00:00'
+	 * @param string $to   截至时间 如 '2017-03-31 23:59:59'
+	 * @param int    $size 每页数量
+	 * @param int    $page 页码
+	 *
+	 * @return array 二维数组 array(
+	 * array(
+	 *     'luid'=>2780,//收礼人id
+	 *     'liveid'=>9527,//直播id
+	 *     'uid'=>90,//送礼人id
+	 *     'giftid'=>31,//礼物id
+	 *     'giftnum'=>'',//欢朋特饮
+	 *     'ctime'=>''//赠送时间
+	 * ));
+	 */
+	public function getReceiveCoinRecord( $from, $to, $page, $size )
+	{
+		if( empty( $from ) || empty( $to ) )
+		{
+			return false;
+		}
+		$res = $this->_db->where( "luid = $this->uid and ctime BETWEEN '$from' and '$to'" )->order( 'ctime DESC' )->limit( $page, $size )->select( 'giftrecordcoin' );
+		if( $res )
+		{
+			return $res;
+		}
+		else
+		{
+			return array();
+		}
+	}
+
+
+	/**
+	 * 主播欢朋豆收益纪录
+	 *
+	 * @param string $from 开始时间 如 '2017-03-01 00:00:00'
+	 * @param string $to   截至时间 如 '2017-03-31 23:59:59'
+	 * @param int    $size 每页数量
+	 * @param int    $page 页码
+	 *
+	 * @return array 二维数组 array(
+	 * array(
+	 *     'luid'=>2780,//收礼人id
+	 *     'liveid'=>9527,//直播id
+	 *     'uid'=>90,//送礼人id
+	 *     'giftid'=>31,//礼物id
+	 *     'giftnum'=>'',//欢朋豆
+	 *     'ctime'=>''//赠送时间
+	 * ));
+	 */
+	public function getReceiveBeanRecord( $from, $to, $page, $size )
+	{
+		if( empty( $from ) || empty( $to ) )
+		{
+			return false;
+		}
+		$res = $this->_db->where( "luid = $this->uid and ctime BETWEEN '$from' and '$to'" )->order( 'ctime DESC' )->limit( $page, $size )->select( 'giftrecord' );
+		if( $res )
+		{
+			return $res;
+		}
+		else
+		{
+			return array();
+		}
+	}
+
+	/**
+	 * 获取某场直播的金豆收益
+	 *
+	 * @param int $liveid 直播id
+	 *
+	 * @return int 金豆数
+	 */
+	public function getBeanIncomeForLive( $liveid )
+	{
+		//TODO
+	}
+
+	/**
+	 * 获取某场直播的金币收益
+	 *
+	 * @param int $liveid 直播id
+	 *
+	 * @return int 金币数
+	 */
+	public function getCoinIncomeForLive( $liveid )
+	{
+		//TODO
+	}
+
+	/**
+	 * 获取今日获取金币数
+	 * 这个接口需要调用财务类的相关接口
+	 *
+	 * @return float 金币数
+	 */
+	public function getTodayCoinIncome()
+	{
+		//TODO
+	}
+
+	/**
+	 * 今日获取金豆数
+	 *
+	 * @return float  返回金豆数
+	 */
+	public function getTodayBeanIncome()
+	{
+		//TODO
+	}
+
+	/**
+	 * 本月获取金币数  这个接口需要调用财务类的相关接口
+	 *
+	 * @return float 金币数
+	 */
+	public function getMonthCoinIncome()
+	{
+		//TODO
+	}
+
+	/**
+	 * 本月获取金豆数
+	 *
+	 * @return float  返回金豆数
+	 */
+	public function getMonthBeanIncome()
+	{
+		//TODO
+	}
+
+}

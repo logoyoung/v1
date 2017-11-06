@@ -1,0 +1,51 @@
+@hpColor: #ff7800;
+@myrem: 75rem;
+
+button {
+  border: 0 none;
+}
+
+.go-backbtn {
+	width: 56/@myrem;
+	height: 56/@myrem;
+	position: absolute;
+	left: 32/@myrem;
+	top: 16/@myrem;
+	background: url(../../assets/image/icon_back.png) no-repeat;
+	background-size: 56/@myrem;
+}
+.search-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 32/@myrem;
+    display: block;
+	  width: 56/@myrem;
+    height: 56/@myrem;
+    background: url("../../assets/image/icon_search.png") no-repeat;
+    background-size: contain;
+    &.no-bg {
+      background: none;
+      width: auto;
+      height: auto;
+      color: @hpColor;
+      font-size: 32/@myrem;
+    }
+}
+
+.clearfix::after {
+  display: block;
+  content: '';
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+  clear: both;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}

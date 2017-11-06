@@ -1,0 +1,172 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    -webkit-touch-callout: none;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    // overflow-y: scroll;
+    overflow: hidden;
+    font-family: "微软雅黑";
+    background-color: #fac747;
+    color: #fff;
+    position: relative;
+}
+button{
+    outline: none;
+    -webkit-appearance: none;
+    background: transparent;
+}
+
+.content {
+    padding-bottom: 3.75rem;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.content .top-img {
+    height: 20rem;
+    background: url("../../img/scjl/bg.png") top center no-repeat;
+    background-size: cover;
+}
+
+.content .blank-box {
+    margin: -4rem auto 4rem;
+}
+
+.content .blank-box .blank-1,
+.content .blank-box .blank-2,
+.content .blank-box .blank-3,
+.content .blank-box .blank-4 {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.content .blank-box .blank-1 {
+    position: relative;
+    width: 100%;
+    height: 5.8rem;
+    margin: 2rem 0;
+}
+
+.content .blank-box .blank-1 .button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.content .blank-box .blank-1-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 5.8rem;
+    z-index: 0;
+}
+
+.content .blank-box .blank-2-bg,
+.content .blank-box .blank-3-bg,
+.content .blank-box .blank-4-bg {
+    height: 1.875rem;
+    margin-top: 1rem;
+}
+
+.content .blank-box .blank-1-bg {
+    background: url("../../img/scjl/blank-1-bg.png") center center no-repeat;
+     background-size: 100% 110%;
+    background-position-y: -0.5rem;
+}
+
+.content .blank-box .blank-2-bg {
+    background: url("../../img/scjl/blank-2-bg.png") top center no-repeat;
+    background-size: cover;
+}
+
+.content .blank-box .blank-3-bg {
+    background: url("../../img/scjl/blank-3-bg.png") top center no-repeat;
+    background-size: cover;
+}
+
+.content .blank-box .blank-4-bg {
+    background: url("../../img/scjl/blank-4-bg.png") top center no-repeat;
+    background-size: cover;
+}
+
+.content .blank-box p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin: 0.2rem 0;
+}
+
+.download-tip {
+  height: 2.66666667rem;
+  position: fixed;
+  left: 0.55555556rem;
+  right: 0.55555556rem;
+  bottom: 1%;
+  border-radius: 1.33333333rem;
+  background: -webkit-linear-gradient(left, #ffaf61, #ff7800);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.close-btn {
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  margin-left: 0.83333333rem;
+  background-color: transparent;
+}
+.close-btn .close-img {
+  width: 100%;
+  height: 100%;
+}
+.logo {
+  width: 2.11111111rem;
+  height: 2.11111111rem;
+  margin: 0 0.88888889rem;
+  border-radius: 0.55555556rem;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo .logo-img {
+  width: 1.55555556rem;
+  height: 1.55555556rem;
+}
+.info {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  color: #ffffff;
+}
+.info .font-big {
+  font-size: 1rem;
+  padding-bottom: 0.16666667rem;
+}
+.info .font-small {
+  font-size: 0.77777778rem;
+  padding-top: 0.16666667rem;
+}

@@ -1,0 +1,70 @@
+@charset "UTF-8";
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 微软雅黑;
+}
+html .retrieve-container,
+body .retrieve-container {
+    width: 100%;
+    min-width: 1200px;
+    background-color: whitesmoke;
+}
+html .retrieve-container .retrieve-header,
+body .retrieve-container .retrieve-header {
+    width: 100%;
+    height: 66px;
+    margin-bottom: 25px;
+    background-color: white;
+}
+html .retrieve-container .retrieve-content,
+body .retrieve-container .retrieve-content {
+    width: 90%;
+    min-width: 980px;
+    min-height: 640px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 2%;
+}
+html .retrieve-container .retrieve-content .content-title h2,
+body .retrieve-container .retrieve-content .content-title h2 {
+    font-size: 28px;
+    width: 120px;
+    margin-bottom: 10px;
+    color: #333333;
+}
+html .retrieve-container .retrieve-content .content-title hr,
+body .retrieve-container .retrieve-content .content-title hr {
+    background-color: whitesmoke;
+}
+html .retrieve-container .retrieve-content .content-middle,
+body .retrieve-container .retrieve-content .content-middle {
+    display: none;
+}
+html .retrieve-container .retrieve-content .content-success,
+body .retrieve-container .retrieve-content .content-success {
+    display: none;
+}
+html .retrieve-container .retrieve-content .content-bottom,
+body .retrieve-container .retrieve-content .content-bottom {
+    display: none;
+}
+html .retrieve-container .retrieve-content .updateIE,
+body .retrieve-container .retrieve-content .updateIE{
+    display: block;
+    width: 790px;
+    font-size: 35px;
+    text-align: center;
+    margin: 100px auto;
+    color: #666666;
+}
+html .retrieve-container .retrieve-content .updateIE a,
+body .retrieve-container .retrieve-content .updateIE a{
+    color: #ff7800;
+}
+html .retrieve-container .retrieve-footer,
+body .retrieve-container .retrieve-footer{
+    display: none;
+}

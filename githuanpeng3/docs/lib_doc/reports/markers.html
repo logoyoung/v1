@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>     &raquo; Markers
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/hp.html">\hp</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">127</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">31</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+            <ul class="side-nav nav nav-list">
+                <li class="nav-header">Navigation</li>
+                                                                        <li><a href="#finance.class.php"><i class="icon-file"></i> finance.class.php</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="#User.class.php"><i class="icon-file"></i> User.class.php</a></li>
+                                                                                                                                                                                                                <li><a href="#LiveRoom.class.php"><i class="icon-file"></i> LiveRoom.class.php</a></li>
+                                                                                                                                                                                                                <li><a href="#Anchor.class.php"><i class="icon-file"></i> Anchor.class.php</a></li>
+                                                                                                                                                                                                                <li><a href="#Task.class.php"><i class="icon-file"></i> Task.class.php</a></li>
+                                                                                                                            </ul>
+        </div>
+
+        <div class="span10 offset2">
+
+            <ul class="breadcrumb">
+                <li><a href="../"><i class="icon-map-marker"></i></a><span class="divider">\</span></li>
+                <li>Markers</li>
+            </ul>
+
+            
+            <div id="marker-accordion">
+                                                            <div class="package-contents">
+                            <a name="finance.class.php" id="finance.class.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                finance.class.php
+                                <small style="float: right;padding-right: 10px;">9</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>317</td>
+                                            <td>: set error</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>421</td>
+                                            <td>: set error</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>500</td>
+                                            <td>: set error</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>677</td>
+                                            <td>充值成功的促销活动应该在此处体现</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>710</td>
+                                            <td>set errorno</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>1038</td>
+                                            <td>:set serror</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>1120</td>
+                                            <td>set error</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>1375</td>
+                                            <td>Implement getReceivedGBByDay() method.</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>1384</td>
+                                            <td>GET received gb by time on month tables</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                                                                                                                                                                                                                                                <div class="package-contents">
+                            <a name="User.class.php" id="User.class.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                User.class.php
+                                <small style="float: right;padding-right: 10px;">3</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>927</td>
+                                            <td></td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>1548</td>
+                                            <td></td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>1559</td>
+                                            <td></td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                        <div class="package-contents">
+                            <a name="LiveRoom.class.php" id="LiveRoom.class.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                LiveRoom.class.php
+                                <small style="float: right;padding-right: 10px;">11</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>306</td>
+                                            <td>userMsg methods</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>312</td>
+                                            <td>直播间禁言处理流程</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>381</td>
+                                            <td>执行送礼流程</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>510</td>
+                                            <td>start</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>525</td>
+                                            <td>stop</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>540</td>
+                                            <td>createRoomTreasure</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>553</td>
+                                            <td>getUserGroup</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>563</td>
+                                            <td>getRoomUser</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>577</td>
+                                            <td>getRoomUserByLuid</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>591</td>
+                                            <td>sendTestRoomMsg</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>462</td>
+                                            <td>test模式送礼处理</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                        <div class="package-contents">
+                            <a name="Anchor.class.php" id="Anchor.class.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Anchor.class.php
+                                <small style="float: right;padding-right: 10px;">6</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>686</td>
+                                            <td></td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>698</td>
+                                            <td></td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>709</td>
+                                            <td></td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>719</td>
+                                            <td></td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>729</td>
+                                            <td></td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>739</td>
+                                            <td></td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                        <div class="package-contents">
+                            <a name="Task.class.php" id="Task.class.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Task.class.php
+                                <small style="float: right;padding-right: 10px;">2</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>144</td>
+                                            <td></td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>156</td>
+                                            <td></td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                    </div>
+        </div>
+    </section>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/hp.html">\hp</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on 
+Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /usr/lib/php/pear/phpDocumentor/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
+April 10th, 2017 at 10:18.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

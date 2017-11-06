@@ -1,0 +1,184 @@
+ased # 用户表
+# rip, rport, rtime 是注册相关信息， lip,lport,ltime 是最后登录信息
+CREATE TABLE `user` (
+  `uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` char(30) NOT NULL DEFAULT '',
+  `nick` varchar(30) NOT NULL DEFAULT '',
+  `password` varchar(32) NOT NULL DEFAULT '',
+  `pic` varchar(100) NOT NULL DEFAULT '',
+  `rip` int(10) unsigned NOT NULL DEFAULT '0',
+  `rport` int(10) unsigned NOT NULL DEFAULT '0',
+  `rtime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `lip` int(10) unsigned NOT NULL DEFAULT '0',
+  `lport` int(10) unsigned NOT NULL DEFAULT '0',
+  `ltime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  encpass varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`uid`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+# 直播表
+# status直播状态，0进行中，10已结束
+# stream 直播流名称，发起直播时生成
+# upcount 收到的点赞数
+CREATE TABLE `live` (
+  `liveid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `stream` varchar(100) NOT NULL,
+  `server` varchar(100) NOT NULL,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gametid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gameid` int(10) unsigned DEFAULT '0',
+  `gamename` varchar(100) DEFAULT '',
+  `title` varchar(100) DEFAULT '',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `poster` varchar(100) NOT NULL DEFAULT '',
+  `upcount` int(10) unsigned NOT NULL DEFAULT '0',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `orientation` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 录相表
+# viewcount 播放数
+CREATE TABLE `video` (
+  `videoid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gametid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gameid` int(10) unsigned DEFAULT '0',
+  `gamename` varchar(100) DEFAULT '',
+  `title` varchar(100) DEFAULT '',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `length` int(10) unsigned NOT NULL,
+  `poster` varchar(100) NOT NULL DEFAULT '',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `viewcount` int(10) unsigned NOT NULL,
+  `vfile` varchar(100) NOT NULL DEFAULT '',
+  `orientation` tinyint(3) unsigned NOT NULL,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`videoid`),
+  KEY `uid` (`uid`),
+  KEY `gameid` (`gameid`),
+  KEY `gametid` (`gametid`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 游戏分类
+CREATE TABLE `gametype` (
+  `gametid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL DEFAULT '',
+  `icon` varchar(100) NOT NULL DEFAULT '',
+  `ord` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`gametid`),
+  KEY `ord` (`ord`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 游戏
+CREATE TABLE `game` (
+  `gameid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `gametid` int(10) unsigned NOT NULL DEFAULT '0',
+  `name` varchar(100) NOT NULL DEFAULT '',
+  `icon` varchar(100) NOT NULL DEFAULT '',
+  `poster` varchar(100) NOT NULL DEFAULT '',
+  `ord` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`gameid`),
+  KEY `gametid` (`gametid`,`ord`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 用户关注
+# uid1 关注 uid2
+CREATE TABLE `userfollow` (
+  `uid1` int(10) unsigned NOT NULL DEFAULT '0',
+  `uid2` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid1`,`uid2`),
+  KEY `uid2` (`uid2`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 游戏关注
+CREATE TABLE `gamefollow` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gameid` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid`,`gameid`),
+  KEY `gameid` (`gameid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 视频收藏
+CREATE TABLE `videofollow` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `videoid` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid`,`videoid`),
+  KEY `videoid` (`videoid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 视频评论
+CREATE TABLE `videocomment` (
+  `videoid` int(10) unsigned NOT NULL DEFAULT '0',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `rate` tinyint(3) unsigned NOT NULL,
+  `comment` blob NOT NULL,
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid`,`videoid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 直播用户列表
+CREATE TABLE `liveuser` (
+  `liveid` int(10) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL,
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`liveid`,`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 直播室在线用户列表
+CREATE TABLE `liveroom` (
+  `luid` int(10) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL,
+  `userip` int(10) unsigned NOT NULL DEFAULT '0',
+  `userport` int(10) unsigned NOT NULL DEFAULT '0',
+  `serverip` int(10) unsigned NOT NULL DEFAULT '0',
+  `serverport` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`luid`,`uid`),
+  KEY `tm` (`tm`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 直播聊天记录
+ CREATE TABLE `livemsg` (
+  `msgid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `luid` int(10) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL,
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `msg` blob NOT NULL,
+  PRIMARY KEY (`msgid`),
+  KEY `luid` (`luid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 意见反馈
+CREATE TABLE `feedback` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `feedback` blob NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+//iphone 推送通知设置
+create table push_notify_set(
+    `id` int(10) unsigned not null auto_increment,
+    `uid` int(10) unsigned not null default 0,
+    `deviceToken` varchar(100) not null default '',
+    `isopen` tinyint(3) not null default '',
+    `ctime` timestamp not null default current_timestamp,
+    primary key (`id`),
+    UNIQUE (`uid`, `deviceToken`)
+);

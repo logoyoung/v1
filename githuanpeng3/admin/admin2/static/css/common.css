@@ -1,0 +1,2865 @@
+/**/
+body {
+    /*全局字体*/
+    /*全局背景颜色*/
+    background-color: #f2f2f2;
+    overflow:scroll;
+    overflow-x:hidden;
+    font: 12px"Microsoft YaHei UI", "Microsoft YaHei", STHeiti, "PingFang SC", PingFang, Helvetica, Arial;
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: block;
+}
+a {
+    text-decoration: none;
+}
+a:link {
+    color: inherit;
+}
+a:active {
+    color: inherit;
+}
+button::-moz-focus-inner {
+    border: 0;
+}
+img {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.none {
+    display: none;
+}
+.clear {
+    content:'';
+    height: 0;
+    clear: both;
+    display: table;
+}
+/*分割线*/
+.border {
+    height: 1px;
+    display: block;
+    border-top: 1px solid;
+}
+/*用户图标*/
+.anchor_icon {
+    width: 15px;
+    height: 15px;
+    background-image: url('../img/icon/icon_set_1.png');
+    background-repeat: no-repeat;
+}
+.anchor_icon.anchor {
+    background-position: -309px -85px;
+}
+.anchor_icon.gamename {
+    background-position: -20px -83px;
+}
+.anchor_icon.arrow_bt {
+    background-position: -282px -81px;
+}
+.anchor_icon.phone {
+    background-position: -258px -82px;
+}
+.anchor_icon.share {
+    background-position: -51px -81px;
+}
+.anchor_icon.taskIcon {
+    background-position: -398px -215px;
+}
+.anchor_icon.signIcon {
+    background-position: -394px -211px;
+}
+.anchor_icon.viewerIcon {
+    background-position: -200px -81px;
+}
+.anchor_icon.viewerIcon2 {
+    background-position: -550px -85px;
+}
+.anchor_icon.viewerCountIcon {
+    background-position: -571px -214px;
+}
+.anchor_icon.viewTimeIcon {
+    background-position: -110px -82px;
+}
+.anchor_icon.playingIcon {
+    background-position: -338px -109px;
+}
+.anchor_icon.unplayIcon {
+    background-position: -338px -81px;
+}
+.anchor_icon.unplayIcon2 {
+    background-position: -200px -81px;
+}
+.anchor_icon.commentIcon {
+    background-position: -170px -82px;
+}
+.anchor_icon.hpcoin {
+    background-position: -398px -81px;
+}
+.anchor_icon.hpbean {
+    background-position: -369px -82px;
+}
+.anchor_icon.bean {
+    background-position: -369px -56px;
+}
+.anchor_icon.liveIcon {
+    background-position: -100px -207px;
+}
+.anchor_icon.gameIcon {
+    background-position: -58px -208px;
+}
+.anchor_icon.followIcon {
+    background-position: -223px -207px;
+}
+.anchor_icon.followIcon2 {
+    background-position: -223px -249px;
+}
+.anchor_icon.followIcon3 {
+    background-position: -400px -135px;
+}
+.anchor_icon.historyIcon {
+    background-position: -140px -210px;
+}
+.anchor_icon.helpIcon {
+    background-position: -16px -210px;
+}
+.anchor_icon.beAnchorIcon {
+    background-position: -182px -207px;
+}
+.anchor_icon.pushLiveIcon {
+    background-position: -619px -251px
+}
+.anchor_icon.closeLiveIcon {
+    background-position: -569px -251px;
+}
+.anchor_icon.beAnchorIcon2 {
+    background-position: -187px -252px;
+}
+.anchor_icon.contribuIcon {
+    background-position: -346px -202px;
+}
+.anchor_icon.emoji {
+    background-position: -22px -144px;
+}
+.anchor_icon.emoji.open {
+    background-position: -22px -178px;
+}
+.anchor_icon.clearMsg {
+    background-position: -156px -145px;
+}
+.anchor_icon.blockScreen {
+    background-position: -169px -111px;
+}
+.anchor_icon.blockScreen.locked {
+    background-position: -214px -179px;
+}
+.anchor_icon.setIcon {
+    background-position: -230px -80px;
+}
+.anchor_icon.likeIcon {
+    background-position: -528px -215px;
+}
+.anchor_icon.likeIcon2 {
+    background-position: -528px -257px;
+}
+.anchor_icon.collectVideoIcon {
+    background-position: -485px -215px;
+}
+.anchor_icon.collectVideoIcon2 {
+    background-position: -485px -257px;
+}
+.anchor_icon.videoCommentIcon {
+    background-position: -624px -214px;
+}
+.anchor_icon.videoShare {
+    background-position: -673px -212px;
+}
+.anchor_icon.freshenIcon {
+    background-position: -142px -84px;
+}
+.anchor_icon.lv1 {
+    background-position: -428px -54px;
+}
+.anchor_icon.lv2 {
+    background-position: -460px -54px;
+}
+.anchor_icon.lv3 {
+    background-position: -490px -54px;
+}
+.anchor_icon.lv4 {
+    background-position: -520px -54px;
+}
+.anchor_icon.lv5 {
+    background-position: -550px -54px;
+}
+.anchor_icon.lv6 {
+    background-position: -580px -54px;
+}
+.anchor_icon.lv7 {
+    background-position: -610px -54px;
+}
+.anchor_icon.lv8 {
+    background-position: -640px -54px;
+}
+.anchor_icon.lv9 {
+    background-position: -670px -54px;
+}
+.anchorLvl-icon {
+    background: url('../img/icon/anchorLvl-icon.png') no-repeat;
+}
+.anchorLvl-icon.lv1 {
+    background-position: -3px 0;
+}
+.anchorLvl-icon.lv2 {
+    background-position: -45px 0;
+}
+.anchorLvl-icon.lv3 {
+    background-position: -87px 0;
+}
+.anchorLvl-icon.lv4 {
+    background-position: -129px 0;
+}
+.anchorLvl-icon.lv5 {
+    background-position: -172px 0;
+}
+.anchorLvl-icon.lv6 {
+    background-position: -214px 0;
+}
+.anchorLvl-icon.lv7 {
+    background-position: -257px 0;
+}
+.anchorLvl-icon.lv8 {
+    background-position: -299px 0;
+}
+.anchorLvl-icon.lv9 {
+    background-position: -341px 0;
+}
+.anchorLvl-icon.lv10 {
+    background-position: -383px 0;
+}
+/*用户等级图标*/
+.userLvl-icon {
+    background: url('../img/icon/userLvl-icon.png') no-repeat;
+}
+.userLvl-icon.level1 {
+    background-position: -1px -2px;
+}
+.userLvl-icon.level2 {
+    background-position: -1px -28px;
+}
+.userLvl-icon.level3 {
+    background-position: -1px -54px;
+}
+.userLvl-icon.level4 {
+    background-position: -1px -81px;
+}
+.userLvl-icon.level5 {
+    background-position: -1px -107px;
+}
+.userLvl-icon.level6 {
+    background-position: -1px -133px;
+}
+.userLvl-icon.level7 {
+    background-position: -1px -159px;
+}
+.userLvl-icon.level8 {
+    background-position: -1px -186PX;
+}
+.userLvl-icon.level9 {
+    background-position: -1px -212px;
+}
+.userLvl-icon.level10 {
+    background-position: -1px -238px;
+}
+.userLvl-icon.level11 {
+    background-position: -67px -2px;
+}
+.userLvl-icon.level12 {
+    background-position: -67px -28px;
+}
+.userLvl-icon.level13 {
+    background-position: -67px -54px;
+}
+.userLvl-icon.level14 {
+    background-position: -67px -81px;
+}
+.userLvl-icon.level15 {
+    background-position: -67px -107px;
+}
+.userLvl-icon.level16 {
+    background-position: -67px -133px;
+}
+.userLvl-icon.level17 {
+    background-position: -67px -159px;
+}
+.userLvl-icon.level18 {
+    background-position: -67px -186px;
+}
+.userLvl-icon.level19 {
+    background-position: -67px -212px;
+}
+.userLvl-icon.level20 {
+    background-position: -67px -238px;
+}
+.userLvl-icon.level21 {
+    background-position: -135px -2px;
+}
+.userLvl-icon.level22 {
+    background-position: -135px -28px;
+}
+.userLvl-icon.level23 {
+    background-position: -135px -54px;
+}
+.userLvl-icon.level24 {
+    background-position: -135px -81px;
+}
+.userLvl-icon.level25 {
+    background-position: -135px -107px;
+}
+.userLvl-icon.level26 {
+    background-position: -135px -133px;
+}
+.userLvl-icon.level27 {
+    background-position: -135px -159px;
+}
+.userLvl-icon.level28 {
+    background-position: -135px -186px;
+}
+.userLvl-icon.level29 {
+    background-position: -135px -212px;
+}
+.userLvl-icon.level30 {
+    background-position: -135px -238px;
+}
+/*个人中心图标*/
+.personal_icon {
+    width: 15px;
+    height: 15px;
+    background-image: url('../img/icon/personal_icon.png');
+    background-repeat: no-repeat;
+}
+.personal_icon.anchorIcon {
+    background-position: -9px -6px;
+}
+.personal_icon.msgIcon {
+    background-position: -39px -5px;
+}
+.personal_icon.followIcon {
+    background-position: -69px -5px;
+}
+.personal_icon.inviteIcon {
+    background-position: -129px -5px;
+}
+.personal_icon.beAnchorIcon {
+    background-position: -99px -6px;
+}
+.personal_icon.beAnchorIcon2 {
+    background-position: -99px -130px;
+}
+.personal_icon.giftHistoryIcon {
+    background-position: -9px -50px;
+}
+.personal_icon.zoneIcon {
+    background-position: -39px -50px;
+}
+.personal_icon.myCoinIcon {
+    background-position: -69px -50px;
+}
+.personal_icon.roomManageIcon {
+    background-position: -99px -50px;
+}
+.personal_icon.homePageIcon {
+    background-position: -185px -50px;
+}
+.personal_icon.rechargeIcon {
+    background-position: -129px -50px;
+}
+.personal_icon.userIcon {
+    background-position: -9px -102px;
+}
+.personal_icon.sexIcon {
+    background-position: -41px -101px;
+}
+.personal_icon.mailIcon {
+    background-position: -74px -102px;
+}
+.personal_icon.phoneIcon {
+    background-position: -135px -102px;
+}
+.personal_icon.locaIcon{
+    background-position: -215px -102px;
+}
+.personal_icon.bankCardIcon {
+    background-position: -106px -102px;
+}
+.personal_icon.realNameIcon {
+    background-position: -184px -102px;
+}
+.personal_icon.levelupIcon {
+    background-position: -61px -137px;
+}
+.personal_icon.arrow_bt {
+    background-position: -82px -139px;
+}
+.personal_icon.arrow_up {
+    background-position: -82px -139px;
+    transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+.personal_icon.close {
+    background-position: -39px -139px;
+}
+.personal_icon.close2 {
+    background-position: -186px -7px;
+}
+.personal_icon.playingIcon {
+    background-position: -161px -101px;
+}
+.personal_icon.sel {
+    background-position: -157px -52px;
+}
+.cretify_icon {
+    background-image: url('../img/icon/beanchor_icon.png');
+    background-repeat: no-repeat;
+}
+.cretify_icon.mail {
+    background-position: -88px -2px;
+}
+.cretify_icon.mail.finish {
+    background-position: -5px -2px;
+}
+.cretify_icon.phone {
+    background-position: -88px -82px;
+}
+.cretify_icon.phone.finish {
+    background-position: -5px -82px;
+}
+.cretify_icon.person {
+    background-position: -88px -162px;
+}
+.cretify_icon.person.finish {
+    background-position: -5px -162px;
+}
+/*银行logo图标*/
+.bank_icon {
+    background-image: url('../img/icon/bank_logo.png');
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+}
+.bank_icon.icbc {
+    background-position: 0 0;
+}
+.bank_icon.ccb {
+    background-position: 0 -18px;
+}
+.bank_icon.abc {
+    background-position: 0 -36px;
+}
+.bank_icon.bcm {
+    background-position: 0 -54px;
+}
+.bank_icon.boc {
+    background-position: 0 -72px;
+}
+.bank_icon.cmbc {
+    background-position: 0 -90px;
+}
+.bank_icon.cmb {
+    background-position: 0 -108px;
+}
+.bank_icon.psbc {
+    background-position: 0 -126px;
+}
+.share_icon {
+    background-image: url('../img/icon/invite_icon.png');
+    background-repeat: no-repeat;
+}
+.share_icon.weibo {
+    background-position: -1px -5px;
+}
+.share_icon.qzone {
+    background-position: -57px -5px;
+}
+.share_icon.qqfriend {
+    background-position: -107px -5px;
+}
+.share_icon.qqwb {
+    background-position: -1px -51px;
+}
+.share_icon.wxfriend {
+    background-position: -57px -51px;
+}
+.share_icon.copylink {
+    background-position: -107px -51px;
+}
+/*排行榜排名图标*/
+.numFirst {
+}
+.numSecond {
+}
+.numThird {
+}
+.otherNum {
+    text-align: center;
+}
+/*按钮 button*/
+.btn {
+    background-color: #e0e0e0;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #999;
+    margin-left: 5px;
+    outline: none;
+    border: 1px solid #e0e0e0;
+}
+/*emoji*/
+.hpemoji {
+    background-color: #ffffff;
+    border: 1px #dfe6f6 solid;
+    margin-top: 4px;
+    padding: 2px;
+}
+.hpemoji table {
+    max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.hpemoji table td {
+    padding: 0;
+}
+.hpemoji table td img {
+    cursor: pointer;
+    border: 1px solid #fff;
+}
+.hpemoji table td img:hover {
+    border: 1px solid #0066cc;
+}
+/*
+ *侧边栏样式
+ */
+.sidebar {
+    width: 60px;
+    height: 100%;
+    min-height: 520px;
+    background-color: #313539;
+    float: left;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+.sidebar .no-data .no-data-logo {
+    float: left;
+    width: 44px;
+    height: 44px;
+    border-radius: 100%;
+    margin: 0 0 12px 0;
+}
+.sidebar .no-data .no-data-title {
+    margin: 0 0 12px 12px;
+    float: left;
+    width: auto;
+    line-height: 44px;
+}
+.sidebar .sidebar_list {
+    height: 70px;
+    color: #aeb7be;
+    font-size: 12px;
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 1px solid #24272a;
+    cursor: pointer;
+}
+.sidebar .sidebar_list a {
+    color: #f2f2f2;
+}
+.sidebar .sidebar_list:hover {
+    background-color: #24272a;
+}
+.sidebar .sidebar_list .viewall {
+    background-color: #f5f5f5;
+    width: 100%;
+    height: 40px;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 40px;
+    text-align: center;
+    display: block;
+    color: #666666;
+}
+.sidebar .sidebar_list .viewall:hover {
+    background-color: #e0e0e0;
+}
+#personal_info {
+    position: absolute;
+    left: 60px;
+    top: 44px;
+    width: 332px;
+    display: none;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    box-shadow: 0 0 1px 1px #ddd;
+    -webkit-box-shadow: 0 0 1px 1px #ddd;
+    -o-box-shadow: 0 0 1px 1px #ddd;
+    -moz-box-shadow: 0 0 1px 1px #ddd;
+}
+#personal_info:before {
+    content:"";
+    position: absolute;
+    top: 15px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #cccccc;
+    left: -8px;
+}
+#personal_info:after {
+    content:"";
+    position: absolute;
+    top: 15px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #ffffff;
+    left: -7px;
+}
+#personal_info .p_detail {
+    margin: 15px 20px 0;
+    width: 312px;
+    float: left;
+}
+#personal_info .p_detail .p_face {
+    width: 44px;
+    height: 44px;
+    float: left;
+    overflow: hidden;
+}
+#personal_info .p_detail .p_face img {
+    border-radius: 44px;
+}
+#personal_info .p_detail .p_info {
+    float: left;
+    margin-left: 10px;
+    overflow: hidden;
+}
+#personal_info .p_detail .p_info p {
+    float: left;
+    margin: 2px 5px 8px 5px;
+    font-size: 14px;
+    line-height: 14px;
+    color: #333;
+}
+#personal_info .p_detail .p_info span {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 0 3px;
+}
+#personal_info .p_detail .p_info .count {
+    width: 50px;
+    text-align: left;
+    font-size: 12px;
+    line-height: 23px;
+    color: #999999;
+    margin-left: 0;
+}
+#personal_info .p_detail #recharge {
+    width: 62px;
+    height: 30px;
+    float: right;
+    color: #fff;
+    background-color: #ff7800;
+    cursor: pointer;
+    line-height: 28px;
+    font-size: 14px;
+    border: 1px solid #ff7800;
+    margin-right: 17px;
+    margin-top: 8px;
+    border-radius: 2px;
+}
+#personal_info .p_detail #recharge:hover {
+    background-color: #ED7205;
+    border-color: #ED7205;
+}
+#personal_info .p_level {
+    float: left;
+    width: 312px;
+    margin: 16px 20px 8px 8px;
+}
+#personal_info .p_level span {
+    float: left;
+    margin: 0;
+    height: auto;
+    width: auto;
+}
+#personal_info .p_level span.level {
+    height: 16px;
+    line-height: 16px;
+    width: 58px;
+    color: #fff;
+    border-radius: 3px;
+}
+#personal_info .p_level span.lupIcon {
+    width: 10px;
+    height: 10px;
+    margin: 2px 9px 0 4px;
+}
+#personal_info .p_level span.lupIcon .arrow_up {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #ff7800;
+    width: 0;
+    height: 0;
+}
+#personal_info .p_level span.lupIcon .line {
+    margin-left: 2px;
+    margin-right: 2px;
+    height: 1px;
+    width: 6px;
+}
+.red {
+    background-color: #ff7800;
+}
+.white {
+    background-color: #ffffff;
+}
+#personal_info .p_level span.levelBarSpan {
+    width: 223px;
+    background-color: #e0e0e0;
+    height: 4px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    margin-top: 6px;
+    overflow: hidden;
+}
+#personal_info .p_level span.levelBarSpan #levelBar {
+    height: 100%;
+    float: left;
+    display: block;
+    background-color: #ff7800;
+    border-radius: 4px;
+}
+#personal_info .p_level span.levelup {
+    margin-left: 62px;
+}
+#personal_info .p_level span.levelup a {
+    color: #ff7800;
+}
+#personal_info .p_msg {
+    float: right;
+    margin-right: 20px;
+    color: #ff7800;
+}
+#personal_info .p_option {
+    width: 100%;
+    margin-top: 15px;
+    background-color: #f5f5f5;
+    float: left;
+}
+#personal_info .p_option a {
+    font-size: 14px;
+    line-height: 40px;
+    display: block;
+    float: left;
+    width: 165px;
+    cursor: pointer;
+    color: #666666;
+    height: 40px;
+}
+#personal_info .p_option a:hover {
+    background-color: #e0e0e0;
+}
+#personal_info .p_option a.pCenter {
+}
+#personal_info .p_option .lineheight {
+    width: 2px;
+    height: 40px;
+    float: left;
+    background-color: #e0e0e0;
+}
+.sidebar .sidebar_list.personal:hover #personal_info, #personal_info:hover {
+    display: block;
+}
+#gameList {
+    position: absolute;
+    left: 60px;
+    top: 130px;
+    width: 315px;
+    display: none;
+    background-color: #fff;
+}
+#gameList:before {
+    content:'';
+    position: absolute;
+    top: 15px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #cccccc;
+    left: -8px;
+}
+#gameList:after {
+    content:'';
+    position: absolute;
+    top: 15px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #ffffff;
+    left: -7px;
+}
+#gameList .gameList_detail {
+    float: left;
+    margin: 8px 10px 16px 20px;
+}
+#gameList .gameList_detail .gameone {
+    width: 82px;
+    height: 28px;
+    float: left;
+    display: block;
+    border: 1px solid #cccccc;
+    margin: 12px 10px 0 0;
+    font-size: 12px;
+    line-height: 28px;
+    text-align: center;
+    overflow: hidden;
+    color: #666666;
+    cursor: pointer;
+}
+#gameList .gameList_detail .gameone:hover {
+    background-color: #FF7800;
+    border: 1px solid #ff7800;
+    color: #ffffff;
+}
+#gameList a.moregame {
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+    display: block;
+    float: left;
+    color: #666666;
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+#gameList a.moregame:hover {
+    background-color: #e0e0e0;
+}
+.sidebar .sidebar_list.gameList:hover #gameList, #gameList:hover {
+    display: block;
+}
+#followList {
+    position: absolute;
+    left: 60px;
+    top: 190px;
+    display: none;
+    background-color: #ffffff;
+}
+#followList:before {
+    content:'';
+    position: absolute;
+    top: 27px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #cccccc;
+    left: -8px;
+}
+#followList:after {
+    content:'';
+    position: absolute;
+    top: 27px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #ffffff;
+    left: -7px;
+}
+#followList .followList_detail {
+    display: inline-block;
+}
+#followList .followList_detail .followOne {
+    float: left;
+    margin: 12px 12px 0 12px;
+    border-bottom: 1px solid #cccccc;
+    cursor: pointer;
+    width: 200px;
+}
+#followList .followList_detail .followOne.no-data {
+    border-bottom:0;
+}
+#followList .followList_detail .followOne:hover .f_info p {
+    color: #ff7800;
+}
+#followList .followList_detail .followOne .f_face {
+    width: 34px;
+    height: 34px;
+    float: left;
+    display: block;
+}
+#followList .followList_detail .followOne .f_face img {
+    border-radius: 34px;
+}
+#followList .followList_detail .followOne .f_info {
+    float: left;
+    display: block;
+    overflow: hidden;
+    margin-bottom: 12px;
+    margin-left: 7px;
+    width: 155px;
+}
+#followList .followList_detail .followOne .f_info p {
+    float: left;
+    font-size: 14px;
+    margin: 0;
+    color: #666666;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+#followList .followList_detail .followOne .f_info span {
+    float: left;
+    height: 20px;
+    width: 20px;
+    margin: 1px 6px 0 0;
+    line-height: 20px;
+    text-align: center;
+}
+#followList .followList_detail .followOne .f_info span.playtime {
+    width: 85px;
+    margin-right: 0;
+    margin-left: 0;
+    overflow: hidden;
+    color: #a0a0a0;
+    text-align: left;
+}
+#followList .followList_detail .followOne .f_info .playtime .time {
+    color: #ff7800;
+    margin: 0 5px;
+    font-style: normal;
+}
+#followList .followList_detail .followOne .f_info span.viewercount {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 60px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    color: #999999;
+    line-height:24px;
+}
+.sidebar .sidebar_list.followList:hover #followList, #followList:hover {
+    display: block;
+}
+#historyList {
+    position: absolute;
+    left: 60px;
+    top: 260px;
+    display: none;
+}
+#historyList:before {
+    content:'';
+    position: absolute;
+    top: 15px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #cccccc;
+    left: -8px;
+}
+#historyList:after {
+    content:'';
+    position: absolute;
+    top: 15px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #ffffff;
+    left: -7px;
+}
+#historyList .historyList_detail {
+    margin: 0;
+    display: inline-block;
+    border: 1px solid #e7e7e7;
+    background:#fff;
+}
+#historyList .historyList_detail .historyOne {
+    float: left;
+    margin: 12px 12px 0 12px;
+    border-bottom: 1px solid #cccccc;
+    cursor: pointer;
+    width: 200px;
+}
+#historyList .historyList_detail .historyOne:hover .h_info p {
+    color: #ff7800;
+}
+#historyList .historyList_detail .historyOne .h_face {
+    width: 32px;
+    height: 32px;
+    float: left;
+    display: block;
+}
+#historyList .historyList_detail .historyOne .h_face img {
+    border-radius: 32px;
+}
+#historyList .historyList_detail .historyOne .h_info {
+    float: left;
+    display: block;
+    overflow: hidden;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+#historyList .historyList_detail .historyOne .h_info p {
+    float: left;
+    font-size: 14px;
+    margin: 0;
+    color: #666666;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 115px;
+    text-align: left;
+    height: 20px;
+    line-height: 20px;
+    margin-bottom: 4px;
+}
+#historyList .historyList_detail .historyOne .h_info span {
+    float: left;
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+    margin: 0;
+}
+#historyList .historyList_detail .historyOne .h_info .anchor_icon {
+    margin-right: 5px;
+}
+#historyList .historyList_detail .historyOne .h_info span.play_icon {
+    background-color: #999999;
+    height: 10px;
+    width: 20px;
+    margin-left: 0;
+    margin-right: 5px;
+    color: #969798;
+}
+#historyList .historyList_detail .historyOne .h_info span.play_icon.onplayed {
+    background-color: #f44336;
+}
+#historyList .historyList_detail .historyOne .h_info span.play_icon .arrow_right {
+    width: 0;
+    height: 0;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-left: 4px solid #fff;
+    margin-left: 9px;
+    margin-top: 2px;
+}
+#historyList .historyList_detail .historyOne .h_info span.playtime {
+    width: 85px;
+    margin-right: 0;
+    margin-left: 0;
+    overflow: hidden;
+    color: #a0a0a0;
+    text-align: left;
+}
+#historyList .historyList_detail .historyOne .h_info span.viewercount {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 60px;
+    overflow: hidden;
+    text-align: right;
+    color: #999999;
+}
+.sidebar .sidebar_list.historyList:hover #historyList, #historyList:hover {
+    display: block;
+}
+.sidebar .sidebar_list.user_help {
+    position: absolute;
+    bottom: 70px;
+}
+.sidebar .sidebar_list.apply_anchor {
+    position: absolute;
+    bottom: 1px;
+}
+.sidebar .sidebar_list span {
+    height: 32px;
+    width: 40px;
+    display: block;
+    margin: 5px 10px 1px 10px;
+}
+.sidebar .sidebar_list.personal span.personal_face {
+    height: 44px;
+    width: 44px;
+    margin: 12px 8px;
+}
+.sidebar .sidebar_list.personal span img {
+    --moz-border-radius: 70px;
+    -webkit-border-radius: 70px;
+    border-radius: 70px;
+    overflow: hidden;
+}
+.sidebar_list:hover .anchor_icon.liveIcon {
+    background-position: -100px -249px;
+}
+.sidebar_list:hover .anchor_icon.gameIcon {
+    background-position: -58px -250px;
+}
+.sidebar_list:hover .anchor_icon.followIcon {
+    background-position: -223px -249px;
+}
+.sidebar_list:hover .anchor_icon.historyIcon {
+    background-position: -140px -252px;
+}
+.sidebar_list:hover .anchor_icon.helpIcon {
+    background-position: -16px -252px;
+}
+.sidebar_list:hover .anchor_icon.beAnchorIcon {
+    background-position: -182px -249px;
+}
+/*
+ * 个人中心侧边栏样式
+ */
+.sidebar_center {
+    float: left;
+    background-color: #fafafa;
+    width: 230px;
+    border-right: 2px solid #eeeeee;
+}
+.sidebar_center .title {
+    font-size: 20px;
+    margin: 20px 0 15px 30px;
+    color: #646668;
+    font-weight: bold;
+}
+.sidebar_center ul li {
+    float: left;
+    width: 100%;
+    height: 44px;
+    cursor: pointer;
+    border-left: 2px solid #fafafa;
+}
+.sidebar_center ul li a {
+    color: #333;
+}
+.sidebar_center ul li:hover a {
+    color: #ff7800;
+}
+.sidebar_center ul li.currentpage {
+    border-left-color: #f44336;
+}
+.sidebar_center ul li.currentpage a {
+    background-color: #ffffff;
+    color: #ff7800;
+}
+.sidebar_center ul li a {
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+.sidebar_center ul li span {
+    float: left;
+    height: 20px;
+    width: 20px;
+    display: block;
+    margin-top: 13px;
+}
+.sidebar_center ul li span.personal_icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 36px;
+}
+.sidebar_center ul li span.text {
+    margin-left: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    width: auto;
+}
+.sidebar_center li:hover .anchorIcon, .sidebar_center li.currentpage .anchorIcon {
+    background-position: -9px -24px;
+}
+.sidebar_center li:hover .msgIcon, .sidebar_center li.currentpage .msgIcon {
+    background-position: -39px -24px;
+}
+.sidebar_center li:hover .followIcon, .sidebar_center li.currentpage .followIcon {
+    background-position: -69px -24px;
+}
+.sidebar_center li:hover .inviteIcon, .sidebar_center li.currentpage .inviteIcon {
+    background-position: -129px -23px;
+}
+.sidebar_center li:hover .beAnchorIcon, .sidebar_center li.currentpage .beAnchorIcon {
+    background-position: -99px -24px;
+}
+.sidebar_center li:hover .giftHistoryIcon, .sidebar_center li.currentpage .giftHistoryIcon {
+    background-position: -9px -69px;
+}
+.sidebar_center li:hover .zoneIcon, .sidebar_center li.currentpage .zoneIcon {
+    background-position: -39px -69px;
+}
+.sidebar_center li:hover .myCoinIcon, .sidebar_center li.currentpage .myCoinIcon {
+    background-position: -69px -69px;
+}
+.sidebar_center li:hover .roomManageIcon, .sidebar_center li.currentpage .roomManageIcon {
+    background-position: -99px -70px;
+}
+.sidebar_center li:hover .rechargeIcon, .sidebar_center li.currentpage .rechargeIcon {
+    background-position: -129px -69px;
+}
+.sidebar_center li:hover .homePageIcon, .sidebar_center li.currentpage .homePageIcon {
+    background-position: -185px -69px;
+}
+.sidebar_center .footer {
+    display: block;
+    float: left;
+    border-top: 1px solid #e0e0e0;
+    width: 100%;
+    height: 318px;
+}
+.sidebar_center .footer .title {
+    margin: 25px 0 0 0;
+    font-size: 12px;
+    color: #ababab;
+    font-weight: normal;
+    text-align: center;
+}
+.sidebar_center .footer .beAnchor {
+    display: block;
+    margin-left: 35px;
+    margin-top: 12px;
+    font-size: 16px;
+    background-color: #ff7800;
+    width: 114px;
+    height: 16px;
+    line-height: 16px;
+    border-radius: 4px;
+    padding: 17px 23px 16px 23px;
+    text-align: center;
+    color: #ffffff;
+    cursor: pointer;
+}
+.sidebar_center .footer .beAnchor .beAnchorIcon2 {
+    width: 32px;
+    height: 32px;
+    float: left;
+    margin-top: -10px;
+    margin-left: -5px;
+}
+.sidebar_center .footer .beAnchor .beAnchorIcon-anchor, .sidebar_center .footer .beAnchor .beAnchorIcon-user {
+    width: 32px;
+    height: 32px;
+    float: left;
+    margin-top: -10px;
+    margin-left: -5px;
+}
+.sidebar_center .footer .beAnchor .beAnchorIcon-user {
+    background-position: -187px -252px;
+}
+.sidebar_center .footer .beAnchor .beAnchorIcon-anchor {
+    background-position: -187px -283px;
+}
+/**
+ * 翻页按钮样式
+ */
+.pageCode {
+    padding: 20px 0 30px 0;
+    text-align: center;
+    font-size: 12px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+.pageCode a {
+    display: inline-block;
+    height: 26px;
+    width: 34px;
+    text-align: center;
+    line-height: 26px;
+    color: #7f7f7f;
+    margin: 0 5px;
+    border-radius: 3px;
+}
+.pageCode a:hover {
+    background: #ff7800;
+    color: #fff;
+}
+.pageCode a.prevPage {
+    width: 60px;
+}
+.pageCode a.nextPage {
+    width: 60px;
+}
+.pageCode a.current {
+    background: #ff7800;
+    color: #fff;
+}
+.pageCode a.point {
+    color: #7f7f7f;
+    font-weight: bold;
+    margin: 0 5px;
+}
+.pageCode a.point:hover {
+    color: #7f7f7f;
+    font-weight: bold;
+    margin: 0 5px;
+}
+.pageCode a.disabled {
+    color: #bfbfbf;
+}
+.pageCode a.disabled:hover {
+    color: #bfbfbf;
+}
+/**
+ * tab 选择样式
+ */
+.select_tab {
+    margin: 40px 0 0 0;
+    padding: 0;
+}
+.select_tab li {
+    float: left;
+    margin-right: 10px;
+    text-align: center;
+    font-size: 16px;
+    height: 45px;
+    line-height: 50px;
+    cursor: pointer;
+    width: 100px;
+    color: #303031;
+}
+.select_tab li.selected {
+    border-bottom: 2px solid #ff7800;
+    color: #ff7800;
+}
+/**
+ * table 表格样式
+ */
+.table {
+    border-collapse: collapse;
+    width: 100%
+}
+.table thead {
+    padding: 1px;
+    background-color: #f2f2f2;
+    height: 30px;
+}
+.table tbody tr {
+    height: 65px;
+    border-bottom: 1px solid #f2f2f2;
+}
+.table tbody tr td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    white-space: normal;
+    text-align: center;
+    vertical-align: middle;
+}
+.table tfoot {
+    padding: 1px;
+    background-color: #f2f2f2;
+    height: 50px;
+}
+/*登陆注册样式*/
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: #666;
+}
+input:-moz-placeholder, textarea:-moz-placeholder {
+    color: #666;
+}
+input::-moz-placeholder, textarea::-moz-placeholder {
+    color: #666;
+}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+    color: #666;
+}
+/*#loginModal {*/
+
+/*z-index: 1000;*/
+
+/*position: fixed;*/
+
+/*width: 552px;*/
+
+/*left: 50%;*/
+
+/*top: 100px;*/
+
+/*background-color: #fff;*/
+
+/*}*/
+
+/*#loginModal .text-error {*/
+
+/*margin-top: 2px;*/
+
+/*height: 0;*/
+
+/*margin-left: 10px;*/
+
+/*color: red;*/
+
+/*}*/
+
+/*#loginModal .loginHeader {*/
+
+/*height: 50px;*/
+
+/*border-bottom: 1px solid #e0e0e0;*/
+
+/*}*/
+
+/*#loginModal .loginHeader .login_select_tab {*/
+
+/*}*/
+
+/*#loginModal .loginHeader .login_select_tab li {*/
+
+/*float: left;*/
+
+/*height: 50px;*/
+
+/*font-size: 16px;*/
+
+/*width: 100px;*/
+
+/*line-height: 54px;*/
+
+/*text-align: center;*/
+
+/*color: #333333;*/
+
+/*cursor: pointer;*/
+
+/*}*/
+
+/*#loginModal .loginHeader .login_select_tab li.selected {*/
+
+/*color: #ff7800;*/
+
+/*border-bottom: 1px solid #ff7800;*/
+
+/*}*/
+
+/*#loginModal .loginHeader .loginModal-close {*/
+
+/*float: right;*/
+
+/*display: block;*/
+
+/*width: 20px;*/
+
+/*height: 20px;*/
+
+/*margin-top: 14px;*/
+
+/*cursor: pointer;*/
+
+/*margin-right: 14px;*/
+
+/*background: url('../img/icon/personal_icon.png') -41px -139px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left {*/
+
+/*float: left;*/
+
+/*width: 318px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con {*/
+
+/*margin-top: 15px;*/
+
+/*border-right: 1px solid #e0e0e0;*/
+
+/*padding: 0 40px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .text {*/
+
+/*width: 214px;*/
+
+/*margin-top: 20px;*/
+
+/*height: 40px;*/
+
+/*line-height: 40px;*/
+
+/*font-size: 12px;*/
+
+/*padding: 10px 10px;*/
+
+/*padding: 0 10px;*/
+
+/*border-radius: 3px;*/
+
+/*border: 1px solid #cccccc;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con input[type=text]:focus{*/
+
+/*line-height: 3.3em;*/
+
+/*line-height: 3.3em\9;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con input[type=password]:focus{*/
+
+/*line-height: 3.3em;*/
+
+/*line-height: 3.3em\9;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .text#username {*/
+
+/*margin-top: 15px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .checkboxDiv {*/
+
+/*margin-top: 20px;*/
+
+/*font-size: 12px;*/
+
+/*float: left;*/
+
+/*cursor: pointer;*/
+
+/*line-height: 16px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .checkboxDiv .checkbox-label {*/
+
+/*width: 14px;*/
+
+/*height: 14px;*/
+
+/*border: 1px solid #e0e0e0;*/
+
+/*margin-right: 4px;*/
+
+/*margin-top: 0;*/
+
+/*float: left;*/
+
+/*border-radius: 2px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .checkboxDiv .checkbox-label.checked {*/
+
+/*background-image: url('../img/icon/personal_icon.png');*/
+
+/*background-position: -164px -142px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .checkboxDiv .checkbox {*/
+
+/*width: 12px;*/
+
+/*height: 12px;*/
+
+/*display: none;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .checkboxDiv a {*/
+
+/*color: #ff7800;*/
+
+/*font-style: normal;*/
+
+/*margin-left: 5px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .forget-password {*/
+
+/*color: #999999;*/
+
+/*float: right;*/
+
+/*margin-top: 20px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .loginopt {*/
+
+/*margin-top: 30px;*/
+
+/*height: 45px;*/
+
+/*margin-bottom: 30px;*/
+
+/*float: left;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .loginopt .btn {*/
+
+/*border: 0;*/
+
+/*background-color: #ff7800;*/
+
+/*padding: 9px 44px;*/
+
+/*font-size: 16px;*/
+
+/*-moz-border-radius: 3px; */
+
+/* Gecko browsers */
+
+/*-webkit-border-radius: 3px; */
+
+/* Webkit browsers */
+
+/*border-radius: 3px; */
+
+/* W3C syntax */
+
+/*float: left;*/
+
+/*color: #fff;*/
+
+/*margin-left: 0;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .loginopt .btn#regsubmit {*/
+
+/*background-color: #FF7800;*/
+
+/*padding: 9px 35px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .loginopt span {*/
+
+/*margin-top: 20px;*/
+
+/*display: block;*/
+
+/*width: 120px;*/
+
+/*float: left;*/
+
+/*font-size: 12px;*/
+
+/*margin-left: 8px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .loginopt span .toLogin {*/
+
+/*color: #ff7800;*/
+
+/*cursor: pointer;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .identifyCode {*/
+
+/*height: 68px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .identifyCode input {*/
+
+/*width: 45%;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .identifyCode span {*/
+
+/*margin-left: 10px;*/
+
+/*margin-top: 25px;*/
+
+/*width: 70px;*/
+
+/*height: 30px;*/
+
+/*cursor: pointer;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-left .login_tab_con .identifyCode span.freshen {*/
+
+/*width: 17px;*/
+
+/*height: 16px;*/
+
+/*margin-left: 9;*/
+
+/*margin-top: 32px;*/
+
+/*background-color: red;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-right {*/
+
+/*width: 234px;*/
+
+/*float: right;*/
+
+/*margin-top: 20px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-right span {*/
+
+/*text-align: center;*/
+
+/*float: left;*/
+
+/*margin-left: 40px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-right span.title {*/
+
+/*margin-left: 50px;*/
+
+/*font-size: 16px;*/
+
+/*color: #999999;*/
+
+/*margin-bottom: 7px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-right span.otherLogin {*/
+
+/*padding: 3px 0;*/
+
+/*color: #fff;*/
+
+/*width: 148px;*/
+
+/*margin-top: 9px;*/
+
+/*cursor: pointer;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-right span.otherLogin .otherLogin-img {*/
+
+/*float: left;*/
+
+/*margin-left: 30px;*/
+
+/*width: 25px;*/
+
+/*height: 25px;*/
+
+/*background-image: url('../img/icon/thirdlogin.png');*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-right span.otherLogin .otherLogin-img + span {*/
+
+/*margin-left: 10px;*/
+
+/*line-height: 22px;*/
+
+/*margin-top: 2px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-right span.otherLogin.wb {*/
+
+/*background-color: #e32429;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-right span.otherLogin.qq {*/
+
+/*background-color: #5ba4e6;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-right span.otherLogin.wx {*/
+
+/*background-color: #0ece19;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-right span.otherLogin.wb .otherLogin-img {*/
+
+/*background-position: -3px -2px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-right span.otherLogin.qq .otherLogin-img {*/
+
+/*background-position: -29px -2px;*/
+
+/*}*/
+
+/*#loginModal .loginCon .loginCon-right span.otherLogin.wx .otherLogin-img {*/
+
+/*background-position: -55px -2px;*/
+
+/*}*/
+.line-border {
+    border-top: 1px dotted #e0e0e0;
+    text-align: center;
+}
+.line-border span {
+    position: relative;
+    top: -10px;
+    background: #fff;
+    padding: 0 20px;
+}
+.loginModal {
+    padding: 0 20px;
+    z-index: 1000;
+    position: relative;
+    left: 50%;
+    top: 100px;
+    background-color: #fff;
+    width: 545px;
+    border-radius: 4px;
+}
+.loginModal .loginCon {
+    position: relative;
+}
+.loginModal .loginHeader {
+    height: 51px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.loginModal .loginHeader .login_select_tab li {
+    float: left;
+    height: 50px;
+    font-size: 16px;
+    line-height: 65px;
+    text-align: center;
+    color: #333333;
+    cursor: pointer;
+    width: 80px;
+}
+.loginModal .loginHeader .login_select_tab li.selected {
+    color: #ff7800;
+    border-bottom: 2px solid #ff7800;
+}
+.loginModal .loginHeader .loginModal-close {
+    float: right;
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-top: 18px;
+    cursor: pointer;
+    margin-right: -2px;
+    background: url("../img/icon/personal_icon.png") -41px -139px no-repeat;
+}
+.loginModal .loginCon .login_tab_con {
+    padding: 0 15px;
+    margin-top: 26px;
+}
+.loginModal .loginCon .login-form-item {
+    margin-top: 20px;
+    width: 267px;
+    position: relative;
+    border: 1px solid #ccc;
+}
+.loginModal .loginCon .login-form-item .login-input-icon {
+    width: 38px;
+    height: 38px;
+    float: left;
+    background-color: #eeeeee;
+    border-right: 1px solid #ccc;
+}
+.loginModal .loginCon .login-form-item .login-input-icon i {
+    background: url("../img/icon/icon_set_1.png") no-repeat;
+    cursor: pointer;
+    display: block;
+    width: 27px;
+    height: 28px;
+    margin:5px 0 0 5px;
+}
+.loginModal .loginCon .login-form-item .input-item-text {
+    width: 207px;
+    font-size: 12px;
+    color: #999;
+    border: 0;
+    height: 38px;
+    padding: 0 10px;
+    outline: none;
+}
+.loginModal .loginCon .login-form-item .input-item-text:focus {
+    outline: none;
+}
+.loginModal .loginCon .login-form-item .input-item-error-text {
+    color: #ff5f6e;
+    font-size: 10px;
+    position: absolute;
+    top: 11px;
+    right: 5px;
+}
+.loginModal .loginCon .login-form-item .login-icon-phone i {
+    background-position: -424px -27px;
+}
+.loginModal .loginCon .login-form-item .login-icon-password i {
+    background-position: -502px -27px;
+}
+.loginModal .loginCon .login-form-item .login-icon-text i {
+    background-position: -529px -27px;
+}
+.loginModal .loginCon .login-form-item .login-icon-msg i {
+    background-position: -449px -27px;
+}
+.loginModal .loginCon .login-form-item .login-icon-nick i {
+    background-position: -479px -27px;
+}
+.loginModal .loginCon .login-form-item.identCode-item {
+    border:none;
+}
+.loginModal .loginCon .login-form-item.identCode-item .input-item-text {
+    width: 124px;
+}
+.loginModal .loginCon .login-form-item.identCode-item .login-identCode {
+    position: absolute;
+    top: 1px;
+    right: -82px;
+}
+.loginModal .loginCon .login-form-item.identCode-item .login-identCode img {
+    width: 68px;
+    height: 34px;
+    border: 1px solid #ccc;
+}
+.loginModal .loginCon .login-form-item.mobileCode-item .input-item-error-text {
+    right: 100px;
+}
+.loginModal .loginCon .login-form-item.mobileCode-item #reg-getMobileCode {
+    display: block;
+    width: 90px;
+    height: 34px;
+    line-height: 34px;
+    position: absolute;
+    top: 2px;
+    right: 1px;
+    text-align: center;
+    background-color: #ff7800;
+    border-radius: 4px;
+    color: #fff;
+}
+.loginModal .loginCon .login-form-item.mobileCode-item #reg-getMobileCode.disabled {
+    background-color: #ccc;
+}
+.loginModal .loginCon .login-form-item.button-container {
+    margin-top: 40px;
+    border: 0;
+}
+.loginModal .loginCon .login-form-item.button-container.login-button-container {
+    margin-top: 20px;
+}
+.loginModal .loginCon .login-form-item.button-container .input-item-btn {
+    text-align: center;
+    height: 42px;
+    background-color: #ff7800;
+    line-height: 42px;
+    display: block;
+    color: #fff;
+    font-size: 18px;
+}
+.loginModal .loginCon .login-form-item.control-password {
+    margin-top: 10px;
+    border: 0;
+}
+.loginModal .loginCon .login-form-item.control-password a {
+    color: #999;
+}
+.loginModal .loginCon .login-form-item.control-password a.toRegister {
+    color: #5bbbf7;
+    margin: 0 10px;
+}
+.loginModal .loginCon .login-form-item.control-agreement {
+    border: 0;
+    text-align: center;
+    color: #333;
+}
+.loginModal .loginCon .login-form-item.control-agreement .agreement-rule {
+    color: #5bbbf7;
+}
+.loginModal .loginCon .login-form-item.error {
+    border-color: #ff5f6e;
+}
+.loginModal .loginCon .login-form-item.error .login-input-icon {
+    background-color: #ff5f6e;
+}
+.loginModal .loginCon .login-form-item.error .input-item-text {
+    background-color: #eeeeee;
+}
+.loginModal .loginCon .login-form-item.error .login-icon-phone i {
+    background-position: -424px -51px;
+}
+.loginModal .loginCon .login-form-item.error .login-icon-password i {
+    background-position: -502px -51px;
+}
+.loginModal .loginCon .login-form-item.error .login-icon-text i {
+    background-position: -529px -51px;
+}
+.loginModal .loginCon .login-form-item.error .login-icon-msg i {
+    background-position: -449px -51px;
+}
+.loginModal .loginCon .login-form-item.error .login-icon-nick i {
+    background-position: -479px -51px;
+}
+.loginModal .loginCon .line-border {
+    margin-top: 24px;
+}
+.loginModal .loginCon .loginCon-foot {
+    height: 65px;
+}
+.loginModal .loginCon .loginCon-left {
+    width: 300px;
+    position: relative;
+    float: left;
+}
+.loginModal .loginCon .login-threeParty {
+    width: 224px;
+    margin:20px 0 30px 320px;
+    border-left:1px solid #eee;
+    height: 290px;
+    text-align: center;
+}
+.loginModal .loginCon .login-threeParty p > a {
+    width: 50px;
+    height: 50px;
+    margin:0 auto 20px auto;
+    display: block;
+}
+.loginModal .loginCon.bind-phone .login-form-item {
+    border:none;
+    width: auto;
+}
+.loginModal .loginCon.bind-phone .loginCon-left {
+    width:auto;
+}
+.loginModal .loginCon.bind-phone .login-form-item .label {
+    width: 55px;
+    float: left;
+    line-height: 40px;
+    margin-right:15px;
+    text-align: right;
+}
+.loginModal .loginCon.bind-phone .login-form-item .input-item-text {
+    border:1px solid #ccc;
+    width: 278px;
+}
+.loginModal .loginCon .login-form-item.mobileCode-item #bind-getMobileCode {
+    display: block;
+    width: 90px;
+    height: 34px;
+    line-height: 34px;
+    position: absolute;
+    top: 2px;
+    right: 1px;
+    text-align: center;
+    background-color: #ff7800;
+    border-radius: 4px;
+    color: #fff;
+}
+.loginModal .loginCon.bind-phone .login-form-item.error .input-item-text {
+    border:1px solid #ff5f6e;
+    background: #fff;
+}
+.loginModal .loginCon.bind-phone .login-form-item.button-container.login-button-container {
+    margin:40px 0 0 30px;
+    padding: 0 40px;
+}
+.videoList .liveOne {
+    width: 280px;
+    float: left;
+    margin-bottom: 20px;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid transparent;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+.videoList .liveOne:hover {
+    background-color: #fff;
+    border-bottom-color: #d2d2d2;
+    border-top: 1px solid #e7e7e7;
+    border-left: 1px solid #e7e7e7;
+    border-right: 1px solid #e7e7e7;
+}
+.videoList .liveOne .imagecontainer {
+    width: 260px;
+    height: 140px;
+    background-color: black;
+    overflow: hidden;
+    text-align: center;
+    display: block;
+    border: 1px solid black;
+    margin: 0 auto;
+    margin-top: 10px;
+    position: relative;
+}
+.videoList .liveOne .imagecontainer img {
+}
+.videoList .liveOne .imagecontainer .live_anchor_name {
+    position: absolute;
+    display: block;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 260px;
+    bottom: 0;
+    color: #fff;
+}
+.videoList .liveOne .imagecontainer .live_anchor_name span {
+    float: left;
+    font-size: 12px;
+    line-height: 30px;
+    margin-left: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.videoList .liveOne .imagecontainer .playopt {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    margin-left: -25px;
+    margin-top: -28px;
+    background: url('../img/src/play_btn.png');
+    opacity: 0;
+    transition: all 200ms ease-in-out 50ms;
+    -webkit-transition: all 200ms ease-in-out 50ms;
+    -moz-transition: all 200ms ease-in-out 50ms;
+    z-index: 4;
+    transform: scale(0.8);
+}
+.videoList .liveOne:hover a .playopt {
+    filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    opacity: 1;
+    transform: scale(1);
+}
+.videoList .liveOne .liveInfo {
+    height: 85px;
+    display: block;
+    margin: 0 15px;
+}
+.videoList .liveOne .videoName {
+    width: 100%;
+    display: block;
+    float: left;
+    color: #333;
+    font-size: 14px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 21px;
+}
+.videoList .liveOne .liveDetail {
+    color: #999;
+    line-height: 18px;
+    margin-bottom: 18px;
+}
+.videoList .liveOne .liveDetail span {
+    float: left;
+    margin-right: 5px;
+    font-size: 12px;
+    line-height: 20px;
+    width: 40px;
+    text-align: left;
+}
+.videoList .liveOne .liveDetail span.anchor_icon {
+    width: 20px;
+    height: 20px;
+}
+.videoList .liveOne .liveDetail .anchor_nick {
+    width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 20px;
+}
+.videoList .liveOne .liveDetail .game_name {
+    float: right;
+    margin-right: 5px;
+    margin-left: 10px;
+    color: #FF7800;
+    width: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: right;
+}
+/*分页样式  */
+.pageIndex {
+    height: 30px;
+    float: right;
+    margin: 30px 30px 8px 30px;
+}
+.pageIndex .pageNum {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    text-align: center;
+    line-height: 20px;
+    display: inline-block;
+    border: 1px solid #e7e7e7;
+    margin: 0 3px;
+}
+.pageIndex span.current {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    display: inline-block;
+    color: #fff;
+    background: #ff7800;
+}
+.pageIndex span.point {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    display: inline-block;
+}
+.pageIndex span {
+    margin: 0 3px;
+}
+.pageIndex span.disabled {
+    color: #A0A0A0;
+}
+.error_page {
+    margin: 100px auto;
+    position: relative;
+}
+.error_page .pic {
+    width: 220px;
+    height: 220px;
+    margin: 0 auto;
+}
+.error_page .pic img {
+    border-radius: 111px;
+    border: 0;
+}
+.error_page span {
+    display: block;
+    margin-top: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 68px;
+    color: #494748;
+    text-align: center;
+    padding-left: 0;
+}
+.error_page a.sub {
+    display: inline-block;
+    line-height: 40px;
+    padding: 0 45px;
+    margin-top: 24px;
+    background: #ff7800;
+    border: 0;
+    color: #FFF;
+    font-size: 18px;
+    text-decoration: none;
+    position: absolute;
+    left: 50%;
+    margin-left: -82px;
+}
+#videoPlayBox {
+    margin-left: -334px;
+    margin-top: -220px;
+    display: none;
+}
+#videoPlayBox .videoPlay {
+    border: 2px solid #333333;
+    width: 828px;
+    height: 508px;
+    position: relative;
+    padding: 20px 18px 22px 18px;
+    background-color: #000;
+}
+#videoPlayBox .videoPlay .closeVideo {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: -63px;
+    top: -2px;
+    background-color: #ff7800;
+    cursor: pointer;
+    border-radius: 100%;
+}
+.icon_set_new {
+    background-image: url("../img/icon/icon_set_1.png");
+}
+.err-notice {
+    width: 412px;
+    border: 0;
+    border-radius: 0;
+}
+.err-notice table {
+    width: 100%;
+}
+.err-notice .ui-dialog-header {
+    color: #fff;
+    font-size: 18px;
+    background-color: #f29438;
+    border: 1px solid #f29438;
+    box-shadow: none;
+}
+.err-notice .ui-dialog-header .ui-dialog-title {
+    padding: 8px 0 8px 30px;
+}
+.err-notice .ui-dialog-header .ui-dialog-close {
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    opacity: 1;
+    background-image: url('../img/icon/personal_icon.png');
+    background-position: -196px -17px;
+}
+.err-notice .ui-dialog-body {
+    padding: 20px 0 30px 0;
+}
+.err-notice .ui-dialog-body .ui-dialog-content p {
+    margin: 10px 0 0 0;
+    text-align: center;
+    font-size: 18px;
+}
+.err-notice .ui-dialog-body .ui-dialog-content p.ui-state-error-text {
+    font-size: 12px;
+    color: #ff7800;
+    margin: 10px 0 0 0;
+    line-height: normal;
+}
+.err-notice .ui-dialog-footer {
+    padding: 0 85px 20px 85px;
+}
+.err-notice .ui-dialog-footer button {
+    border: none;
+    color: #999;
+    padding: 6px 0;
+    margin-left: 10px;
+    float: right;
+    background-color: #e0e0e0;
+}
+.err-notice .ui-dialog-footer button:hover {
+    background-color: #e0e0e0;
+}
+.err-notice .ui-dialog-footer button:active {
+    border: none;
+    background-color: #e0e0e0;
+}
+.err-notice .ui-dialog-footer .ui-dialog-autofocus {
+    width: 240px;
+    margin-left: 0;
+    float: left;
+    background-color: #FF7800;
+    color: #fff;
+    outline: none;
+}
+.err-notice .ui-dialog-footer .ui-dialog-autofocus:focus {
+    background-color: #FF7800;
+}
+.err-notice .ui-dialog-footer .ui-dialog-autofocus:hover {
+    background-color: #ff7800;
+}
+.err-notice .ui-dialog-footer .ui-dialog-autofocus:active {
+    background-color: #ff7800;
+}
+.err-notice .ui-dialog-content .loading-gif {
+    min-width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    background-image: url("../img/gif/load.gif");
+    background-repeat: no-repeat;
+    background-position: -1px 2px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.err-notice .ui-dialog-content .loading-text {
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle;
+    line-height: 20px;
+    text-align: center;
+}
+.err-notice.report {
+    width: auto;
+    display: inline-flex;
+}
+.err-notice.report .ui-dialog-body .ui-dialog-content p {
+    text-align: right;
+}
+.err-notice.report .ui-dialog-body .ui-dialog-content p {
+    margin-top:16px;
+    font-size: 12px;
+}
+.err-notice.report .ui-dialog-footer .ui-dialog-autofocus {
+    width: 160px;
+    height: 44px;
+    border-radius: 6px;
+    background: #ff7800;
+    text-align: center;
+    color: #fff;
+    line-height: 32px;
+    cursor: pointer;
+    margin-right: 209px;
+}
+.err-notice.light .ui-dialog-header .ui-dialog-close {
+    background-position: -39px -139px;
+    background-image: url('../img/icon/personal_icon.png')
+}
+.err-notice.light .ui-dialog-header {
+    background-color: #fff;
+    border: 1px solid #fff;
+}
+.err-notice.light .ui-dialog-header .ui-dialog-title {
+    color: #333;
+    background: #fff;
+}
+.alert-tips {
+    min-width: 128px;
+    background-color:#FF7800;
+    border: 0;
+    border-radius: 2px;
+}
+.alert-tips .ui-dialog-grid {
+    width: 100%;
+}
+.alert-tips .ui-dialog-content p {
+    color: #FFFFFF;
+    font-size: 14px;
+}
+.alert-tips .ui-dialog-body {
+    background-color:#FF7800;
+    border-radius: 2px;
+}
+.checkbox-label {
+    width: 14px;
+    height: 14px;
+    border: 1px solid #e0e0e0;
+    margin-right: 4px;
+    margin-top: 0;
+    float: left;
+    border-radius: 2px;
+}
+.checkbox-label.checked {
+    background-image: url('../img/icon/icon_set_1.png');
+    background-position: -114px -57px;
+}
+.checkbox-label input {
+    display: none;
+}
+.no-data-div img {
+    width: 260px;
+    margin: auto;
+}
+.no-data-div {
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+}
+.anchorLvl-icon.lv1 {
+    background:url("../img/level/anchor/1-20.png") 0 -2px no-repeat
+}
+.anchorLvl-icon.lv2 {
+    background:url("../img/level/anchor/1-20.png") 0 -26px no-repeat
+}
+.anchorLvl-icon.lv3 {
+    background:url("../img/level/anchor/1-20.png") 0 -50px no-repeat
+}
+.anchorLvl-icon.lv4 {
+    background:url("../img/level/anchor/1-20.png") 0 -74px no-repeat
+}
+.anchorLvl-icon.lv5 {
+    background:url("../img/level/anchor/1-20.png") 0 -98px no-repeat
+}
+.anchorLvl-icon.lv6 {
+    background:url("../img/level/anchor/1-20.png") 0 -122px no-repeat
+}
+.anchorLvl-icon.lv7 {
+    background:url("../img/level/anchor/1-20.png") 0 -146px no-repeat
+}
+.anchorLvl-icon.lv8 {
+    background:url("../img/level/anchor/1-20.png") 0 -170px no-repeat
+}
+.anchorLvl-icon.lv9 {
+    background:url("../img/level/anchor/1-20.png") 0 -194px no-repeat
+}
+.anchorLvl-icon.lv10 {
+    background:url("../img/level/anchor/1-20.png") -30px 22px no-repeat
+}
+.anchorLvl-icon.lv11 {
+    background:url("../img/level/anchor/1-20.png") -30px -2px no-repeat
+}
+.anchorLvl-icon.lv12 {
+    background:url("../img/level/anchor/1-20.png") -30px -26px no-repeat
+}
+.anchorLvl-icon.lv13 {
+    background:url("../img/level/anchor/1-20.png") -30px -50px no-repeat
+}
+.anchorLvl-icon.lv14 {
+    background:url("../img/level/anchor/1-20.png") -30px -74px no-repeat
+}
+.anchorLvl-icon.lv15 {
+    background:url("../img/level/anchor/1-20.png") -30px -98px no-repeat
+}
+.anchorLvl-icon.lv16 {
+    background:url("../img/level/anchor/1-20.png") -30px -122px no-repeat
+}
+.anchorLvl-icon.lv17 {
+    background:url("../img/level/anchor/1-20.png") -30px -146px no-repeat
+}
+.anchorLvl-icon.lv18 {
+    background:url("../img/level/anchor/1-20.png") -30px -170px no-repeat
+}
+.anchorLvl-icon.lv19 {
+    background:url("../img/level/anchor/1-20.png") -30px -194px no-repeat
+}
+.anchorLvl-icon.lv20 {
+    background:url("../img/level/anchor/1-20.png") -30px -218px no-repeat
+}
+.anchorLvl-icon.lv21 {
+    background:url("../img/level/anchor/1-20.png") -65px -2px no-repeat
+}
+.anchorLvl-icon.lv22 {
+    background:url("../img/level/anchor/1-20.png") -65px -26px no-repeat
+}
+.anchorLvl-icon.lv23 {
+    background:url("../img/level/anchor/1-20.png") -65px -50px no-repeat
+}
+.anchorLvl-icon.lv24 {
+    background:url("../img/level/anchor/1-20.png") -65px -74px no-repeat
+}
+.anchorLvl-icon.lv25 {
+    background:url("../img/level/anchor/1-20.png") -65px -98px no-repeat
+}
+.anchorLvl-icon.lv26 {
+    background:url("../img/level/anchor/1-20.png") -65px -122px no-repeat
+}
+.anchorLvl-icon.lv27 {
+    background:url("../img/level/anchor/1-20.png") -65px -146px no-repeat
+}
+.anchorLvl-icon.lv28 {
+    background:url("../img/level/anchor/1-20.png") -65px -170px no-repeat
+}
+.anchorLvl-icon.lv29 {
+    background:url("../img/level/anchor/1-20.png") -65px -194px no-repeat
+}
+.anchorLvl-icon.lv30 {
+    background:url("../img/level/anchor/30.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv31 {
+    background:url("../img/level/anchor/31.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv32 {
+    background:url("../img/level/anchor/32.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv33 {
+    background:url("../img/level/anchor/33.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv34 {
+    background:url("../img/level/anchor/34.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv35 {
+    background:url("../img/level/anchor/35.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv36 {
+    background:url("../img/level/anchor/36.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv37 {
+    background:url("../img/level/anchor/37.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv38 {
+    background:url("../img/level/anchor/38.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv39 {
+    background:url("../img/level/anchor/39.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv40 {
+    background:url("../img/level/anchor/40.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv41 {
+    background:url("../img/level/anchor/41.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv42 {
+    background:url("../img/level/anchor/42.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv43 {
+    background:url("../img/level/anchor/43.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv44 {
+    background:url("../img/level/anchor/44.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv45 {
+    background:url("../img/level/anchor/45.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv46 {
+    background:url("../img/level/anchor/46.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv47 {
+    background:url("../img/level/anchor/47.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv48 {
+    background:url("../img/level/anchor/48.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv49 {
+    background:url("../img/level/anchor/49.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv50 {
+    background:url("../img/level/anchor/50.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv51 {
+    background:url("../img/level/anchor/51.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv52 {
+    background:url("../img/level/anchor/52.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv53 {
+    background:url("../img/level/anchor/53.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv54 {
+    background:url("../img/level/anchor/54.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv55 {
+    background:url("../img/level/anchor/55.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv56 {
+    background:url("../img/level/anchor/56.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv57 {
+    background:url("../img/level/anchor/57.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv58 {
+    background:url("../img/level/anchor/58.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv59 {
+    background:url("../img/level/anchor/59.gif") 2px -1px no-repeat
+}
+.anchorLvl-icon.lv60 {
+    background:url("../img/level/anchor/60.gif") 2px -1px no-repeat
+}
+.userLvl-icon.level1 {
+    background:url("../img/level/user/1-30.png") 0 2px no-repeat
+}
+.userLvl-icon.level2 {
+    background:url("../img/level/user/1-30.png") 0 -18px no-repeat
+}
+.userLvl-icon.level3 {
+    background:url("../img/level/user/1-30.png") 0 -38px no-repeat
+}
+.userLvl-icon.level4 {
+    background:url("../img/level/user/1-30.png") 0 -58px no-repeat
+}
+.userLvl-icon.level5 {
+    background:url("../img/level/user/1-30.png") 0 -78px no-repeat
+}
+.userLvl-icon.level6 {
+    background:url("../img/level/user/1-30.png") 0 -98px no-repeat
+}
+.userLvl-icon.level7 {
+    background:url("../img/level/user/1-30.png") 0 -118px no-repeat
+}
+.userLvl-icon.level8 {
+    background:url("../img/level/user/1-30.png") 0 -138px no-repeat
+}
+.userLvl-icon.level9 {
+    background:url("../img/level/user/1-30.png") 0 -158px no-repeat
+}
+.userLvl-icon.level10 {
+    background:url("../img/level/user/1-30.png") 0 -178px no-repeat
+}
+.userLvl-icon.level11 {
+    background:url("../img/level/user/1-30.png") -46px 2px no-repeat
+}
+.userLvl-icon.level12 {
+    background:url("../img/level/user/1-30.png") -46px -18px no-repeat
+}
+.userLvl-icon.level13 {
+    background:url("../img/level/user/1-30.png") -46px -38px no-repeat
+}
+.userLvl-icon.level14 {
+    background:url("../img/level/user/1-30.png") -46px -58px no-repeat
+}
+.userLvl-icon.level15 {
+    background:url("../img/level/user/1-30.png") -46px -78px no-repeat
+}
+.userLvl-icon.level16 {
+    background:url("../img/level/user/1-30.png") -46px -98px no-repeat
+}
+.userLvl-icon.level17 {
+    background:url("../img/level/user/1-30.png") -46px -118px no-repeat
+}
+.userLvl-icon.level18 {
+    background:url("../img/level/user/1-30.png") -46px -138px no-repeat
+}
+.userLvl-icon.level19 {
+    background:url("../img/level/user/1-30.png") -46px -158px no-repeat
+}
+.userLvl-icon.level20 {
+    background:url("../img/level/user/1-30.png") -46px -178px no-repeat
+}
+.userLvl-icon.level21 {
+    background:url("../img/level/user/1-30.png") -92px 2px no-repeat
+}
+.userLvl-icon.level22 {
+    background:url("../img/level/user/1-30.png") -92px -18px no-repeat
+}
+.userLvl-icon.level23 {
+    background:url("../img/level/user/1-30.png") -92px -38px no-repeat
+}
+.userLvl-icon.level24 {
+    background:url("../img/level/user/1-30.png") -92px -58px no-repeat
+}
+.userLvl-icon.level25 {
+    background:url("../img/level/user/1-30.png") -92px -78px no-repeat
+}
+.userLvl-icon.level26 {
+    background:url("../img/level/user/1-30.png") -92px -98px no-repeat
+}
+.userLvl-icon.level27 {
+    background:url("../img/level/user/1-30.png") -92px -118px no-repeat
+}
+.userLvl-icon.level28 {
+    background:url("../img/level/user/1-30.png") -92px -138px no-repeat
+}
+.userLvl-icon.level29 {
+    background:url("../img/level/user/1-30.png") -92px -158px no-repeat
+}
+.userLvl-icon.level30 {
+    background:url("../img/level/user/30.gif") 0 1px no-repeat
+}
+.userLvl-icon.level31 {
+    background:url("../img/level/user/31.gif") 0 1px no-repeat
+}
+.userLvl-icon.level32 {
+    background:url("../img/level/user/32.gif") 0 1px no-repeat
+}
+.userLvl-icon.level33 {
+    background:url("../img/level/user/33.gif") 0 1px no-repeat
+}
+.userLvl-icon.level34 {
+    background:url("../img/level/user/34.gif") 0 1px no-repeat
+}
+.userLvl-icon.level35 {
+    background:url("../img/level/user/35.gif") 0 1px no-repeat
+}
+.userLvl-icon.level36 {
+    background:url("../img/level/user/36.gif") 0 1px no-repeat
+}
+.userLvl-icon.level37 {
+    background:url("../img/level/user/37.gif") 0 1px no-repeat
+}
+.userLvl-icon.level38 {
+    background:url("../img/level/user/38.gif") 0 1px no-repeat
+}
+.userLvl-icon.level39 {
+    background:url("../img/level/user/39.gif") 0 1px no-repeat
+}
+.userLvl-icon.level40 {
+    background:url("../img/level/user/40.gif") 0 1px no-repeat
+}
+.userLvl-icon.level41 {
+    background:url("../img/level/user/41.gif") 0 1px no-repeat
+}
+.userLvl-icon.level42 {
+    background:url("../img/level/user/42.gif") 0 1px no-repeat
+}
+.userLvl-icon.level43 {
+    background:url("../img/level/user/43.gif") 0 1px no-repeat
+}
+.userLvl-icon.level44 {
+    background:url("../img/level/user/44.gif") 0 1px no-repeat
+}
+.userLvl-icon.level45 {
+    background:url("../img/level/user/45.gif") 0 1px no-repeat
+}
+.userLvl-icon.level46 {
+    background:url("../img/level/user/46.gif") 0 1px no-repeat
+}
+.userLvl-icon.level47 {
+    background:url("../img/level/user/47.gif") 0 1px no-repeat
+}
+.userLvl-icon.level48 {
+    background:url("../img/level/user/48.gif") 0 1px no-repeat
+}
+.userLvl-icon.level49 {
+    background:url("../img/level/user/49.gif") 0 1px no-repeat
+}
+.userLvl-icon.level50 {
+    background:url("../img/level/user/50.gif") 0 1px no-repeat
+}
+.userLvl-icon.level51 {
+    background:url("../img/level/user/51.gif") 0 1px no-repeat
+}
+.userLvl-icon.level52 {
+    background:url("../img/level/user/52.gif") 0 1px no-repeat
+}
+.userLvl-icon.level53 {
+    background:url("../img/level/user/53.gif") 0 1px no-repeat
+}
+.userLvl-icon.level54 {
+    background:url("../img/level/user/54.gif") 0 1px no-repeat
+}
+.userLvl-icon.level55 {
+    background:url("../img/level/user/55.gif") 0 1px no-repeat
+}
+.userLvl-icon.level56 {
+    background:url("../img/level/user/56.gif") 0 1px no-repeat
+}
+.userLvl-icon.level57 {
+    background:url("../img/level/user/57.gif") 0 1px no-repeat
+}
+.userLvl-icon.level58 {
+    background:url("../img/level/user/58.gif") 0 1px no-repeat
+}
+.userLvl-icon.level59 {
+    background:url("../img/level/user/59.gif") 0 1px no-repeat
+}
+.userLvl-icon.level60 {
+    background:url("../img/level/user/60.gif") 0 1px no-repeat
+}
+input.border:focus {
+    outline: none;
+    border-color: #ff7800;
+}
+#historyload-animate, #followload-animate {
+    margin-left: 38px;
+    width: 127px;
+    height: 34px;
+    text-align: left;
+    padding-left: 23px;
+    margin-top: 13px;
+    margin-bottom:13px;
+}
+.gt_holder.popup .gt_mask {
+    z-index: 1001;
+}

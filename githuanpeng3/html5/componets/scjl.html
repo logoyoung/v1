@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="format-detection" content="telephone=no" />
+    <meta content="email=no" name="format-detection" />
+    <title>欢朋直播-欢朋首充有礼</title>
+    <link rel="stylesheet" type="text/css" href="../css/scjl/scjl.css?v=0.0.5" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            -webkit-touch-callout: none;
+            -webkit-user-select:none;user-select:none;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-overflow-scrolling: touch;
+            -webkit-transform: translate3d(0, 0, 0);
+            -moz-transform: translate3d(0, 0, 0);
+            -ms-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0)
+        }
+    </style>
+    <script>
+        (function () { a(); window.onresize = function () { a() }; function a() { var b = document.documentElement.clientWidth || document.documentElement.body.clientWidth; document.documentElement.style.fontSize = b / 23.4375 + "px" } })();
+    </script>
+    <script src="../../static/js/jquery-1.9.1.min.js"></script>
+    <script src="../../static/js/common.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <div class="top-img"></div>
+        <div class="blank-box">
+            <div class="blank-1">
+                <div class="blank-1-bg"></div>
+                <div class="button"></div>
+            </div>
+            <div class="blank-2">
+                <div class="blank-2-bg"></div>
+                <p>活动时间：</p>
+                <p>2017年10月1日～2017年12月31日</p>
+            </div>
+            <div class="blank-3">
+                <div class="blank-3-bg"></div>
+                <p>奖励礼物：</p>
+                <p>-超值礼包-每日首充1元礼“1个星星+100欢朋豆”；</p>
+                <p>-尊贵礼包-每月单笔充值10元礼“1个浪+200欢朋豆”；</p>
+                <p>打开APP-「我的」-「我的背包」查看你礼物，欢朋豆将直接增加到账。</p>
+            </div>
+            <div class="blank-4">
+                <div class="blank-4-bg"></div>
+                <p>活动规则：</p>
+                <p>1.“每日首充1元”指的每天第一次充值≥1元，活动期间第二天还可参加；</p>
+                <p>2.“每月首充10元”指的每月第一次充值≥10元；</p>
+                <p>3.“每日首充1元礼”和“每月首充10元礼”两个奖励不会同时获得；</p>
+                <p>4.官方认定的违规用户无法参加本次活动；</p>
+                <p>5.以上奖励到账可能会有延迟，请勿担心。</p>
+            </div>
+        </div>
+    </div>
+    <div class="download-tip" style="display: none;">
+        <button class="close-btn">
+            <img src="../img/scjl/icon_close.png" alt="" class="close-img">
+        </button>
+        <div class="logo">
+            <img src="../img/scjl/logo.png" alt="" class="logo-img">
+        </div>
+        <div class="info">
+            <p class="font-big">下载欢朋APP</p>
+            <p class="font-small">手游直播、约玩下单，尽在欢朋！</p>
+        </div>
+    </div>
+    <script>
+        document.querySelector('.close-btn').onclick = function(){
+            document.querySelector('.download-tip').style.display = 'none';
+        };
+        document.querySelector('.download-tip .logo').onclick = function(){
+            location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.mizhi.huanpeng';
+        };
+        document.querySelector('.download-tip .info').onclick = function(){
+            location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.mizhi.huanpeng';
+        };
+        if (window.huanpengShare || window.phonePlus || window.appCloseWebPage || window.appLogin || window.appSendCommand) {
+            document.querySelector('.download-tip').style.display = 'none';
+        }else{
+            document.querySelector('.download-tip').style.display = 'flex';
+        }
+        var checkFirstPay = setInterval(function () {
+            var _isFirstPay = sessionStorage.getItem('_isFirstPay');
+            if (_isFirstPay) {
+                alert("礼物已发送至背包");
+                clearInterval(checkFirstPay);
+                return false;
+            }
+        }, 50);
+        function isIphoneClient() {
+            var ua = navigator.userAgent.toLowerCase();
+            return /(iphone|ipad|ipod)/.test(ua);
+        }
+        var button = document.querySelector(".button");
+        button.addEventListener('click', function () {
+            if (window.phonePlus) {
+                window.phonePlus.turnTo('charge');
+            } else if (isIphoneClient()) {
+                hpturnTo('charge');
+            } else {
+                var oldUrl = encodeURIComponent(location.href);
+                sessionStorage.setItem('ref_url', oldUrl);
+                if(getCookie('_uid')){
+                    window.location.href = "http://" + document.domain + "/mobile/#/inpour";
+                }else{
+                    window.location.href = "http://" + document.domain + "/mobile/";   
+                }
+                
+            }
+        }, false);
+    </script>
+</body>
+
+</html>

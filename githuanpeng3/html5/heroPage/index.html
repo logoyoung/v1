@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢朋直播-最强英雄争霸赛</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script>
+        (function() {
+            a();
+            window.onresize = function() {
+                a()
+            };
+
+            function a() {
+                var b = document.documentElement.clientWidth || document.documentElement.body.clientWidth;
+                document.documentElement.style.fontSize = b / 20 + "px"
+            }
+        })();
+    </script>
+    <script src="../js/statistics.js?v=0.0.2"></script>
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <script src="./js/jquery.form.js"></script>
+    <script src="./js/common.js"></script>
+    <style>
+        button {
+            outline: none;
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        
+        .content,
+        .main {
+            -webkit-backface-visibility: hidden;
+            transform: translate3d(0, 0, 0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="main">
+            <div class="top_img"></div>
+            <div class="box1">
+                <div class="box_nav"></div>
+                <ul class="box_main" id="person-container">
+                    <!--  <li class="hero-tab ">
+                        <div class="hero-tab1">
+                            <div class="hero-top">
+                                <div class="hero-name">
+                                    <p class="name-top">绯红之刃</p>
+                                    <p class="name-bottom">露娜</p>
+                                    <div class="percent">80%</div>
+                                </div>
+                            </div>
+                            <div class="hero-bottom"></div>
+                        </div>
+                    </li>
+                    <li class="hero-tab ">
+                        <div class="hero-tab1">
+                            <div class="hero-top">
+                                <div class="hero-name">
+                                    <p class="name-top">绯红之刃</p>
+                                    <p class="name-bottom">露娜</p>
+                                    <div class="percent">80%</div>
+                                </div>
+                            </div>
+                            <div class="hero-bottom"></div>
+                        </div>
+                    </li>
+                    <li class="hero-tab ">
+                        <div class="hero-tab1">
+                            <div class="hero-top">
+                                <div class="hero-name">
+                                    <p class="name-top">绯红之刃</p>
+                                    <p class="name-bottom">露娜</p>
+                                    <div class="percent">80%</div>
+                                </div>
+                            </div>
+                            <div class="hero-bottom"></div>
+                        </div>
+                    </li> -->
+
+                </ul>
+                <a href="javascript:;" class="vote-btn" id="vote-btn"></a>
+            </div>
+            <div class="box2">
+                <div class="box_nav2"></div>
+                <div class="box_main2">
+                    <a href="javascript:;" class="sign-btn"></a>
+                </div>
+            </div>
+            <div class="box3">
+                <div class="box_nav3"></div>
+                <div class="box_main">
+                    <p>1.活动时间：</p>
+                    <p>2.在活动页面填写资料报名成功后，加入官方QQ群376330498以便统一安排赛程</p>
+                    <p>3.报名范围：欢朋认证主播且《王者荣耀》QQ登录用户最低段位要求为铂金以上。</p>
+                    <p>4.比赛只能使用活动页面得票最高者作为比赛英雄，不可选择另外两个英雄。</p>
+                    <p>5.BO1 1v1，每局采用墨家机关模式，比赛限制15分钟内经济高者为胜利。</p>
+                    <p>6.比赛选手超过5分钟未进入比赛房间视为弃权。</p>
+                </div>
+            </div>
+            <div class="box4">
+                <div class="box_nav4"></div>
+                <div class="box_main" style="height: 7.5rem;">
+                    <p>第一名的主播可获得欢朋app热门置顶推荐，并在首页轮番展示一周。底薪翻倍最高可获万元， 底薪翻倍 底薪翻倍 底薪翻倍，重要的事情</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layer">
+        <table class="table-box" border="" cellspacing="" cellpadding="">
+            <!-- <tr>
+                <td class="td-t">平台昵称</td>
+                <td class="td-m">
+                    <input type="text" id="hp-username" placeholder="请输入平台昵称" maxlength="10" onfocus="this.placeholder=''" onblur="this.placeholder='请输入平台昵称'">
+                </td>
+            </tr> -->
+            <tr>
+                <td class="td-t">比赛昵称</td>
+                <td class="td-m">
+                    <input type="text" id="game-username" placeholder="请输入比赛昵称" maxlength="10" onfocus="this.placeholder=''" onblur="this.placeholder='请输入比赛昵称'">
+                </td>
+            </tr>
+            <tr>
+                <td class="td-t">QQ账号</td>
+                <td class="td-m">
+                    <input type="text" id="qq-username" placeholder="请输入QQ账号" maxlength="10" onfocus="this.placeholder=''" onblur="this.placeholder='请输入QQ账号'">
+                </td>
+            </tr>
+            <tr>
+                <td class="td-t">游戏段位</td>
+                <td class="td-m">
+                    <input type="text" id="game-level" placeholder="请输入游戏段位" maxlength="10" onfocus="this.placeholder=''" onblur="this.placeholder='请输入游戏段位'">
+                </td>
+            </tr>
+            <tr>
+                <td class="td-t">段位截图</td>
+                <td class="td-m"></td>
+            </tr>
+        </table>
+        <a class="screenshot-btn" style="background-image: url('images/screenshot-btn.png');">
+            <form method="post" name="enroll_upload" id="enroll_upload" action="">
+                <input type="file" name="file" id="image_btn" accept="image/*">
+            </form>
+        </a>
+        <button id="enroll-btn" class="apply-btn"></button>
+        <button class="close-btn"></button>
+    </div>
+    <div class="modal-box">
+        <div class="modal-success" style="display: none;">
+            <img src="images/icon_right.png">
+            <p id="success-content"></p>
+        </div>
+        <div class="modal-loading" style="display: none;">
+            <img class="icon_loading" src="images/icon_loading.png">
+        </div>
+        <div class="error-modal" style="display: none;">
+            <img src="images/icon_fail.png">
+            <p id="error-content"></p>
+        </div>
+    </div>
+    <div class="download-tip" style="display: none;">
+        <button class="close-tbn">
+            <img src="images/icon_close.png" alt="" class="close-img">
+        </button>
+        <div class="logo">
+            <img src="images/logo.png" alt="" class="logo-img">
+        </div>
+        <div class="info">
+            <p class="font-big">下载欢朋APP</p>
+            <p class="font-small">手游直播、约玩下单，尽在欢朋！</p>
+        </div>
+    </div>
+</body>
+<script>
+    function getParams(a, b) {
+        //异常处理 wait
+        if (!a || !b) {
+            return false;
+        }
+        var uid = a;
+        var encpass = b;
+        sessionStorage.setItem('_uid', uid);
+        sessionStorage.setItem('_enc', encpass);
+    }
+    if (isIphoneClient()) {
+        if (appLoginUid && appEncpass) {
+            getParams(appLoginUid, appEncpass);
+        } else {
+            var LoginUid = getCookie('_uid');
+            var Encpass = getCookie('_enc');
+            getParams(LoginUid, Encpass);
+        }
+    }
+</script>
+<script type="text/javascript" src="js/index.js?v=0.0.1"></script>
+<script>
+    $('.download-tip .close-btn').click(function() {
+        $('.download-tip').hide();
+    });
+    $('.download-tip .logo, .download-tip .info').click(function() {
+        location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.mizhi.huanpeng';
+    });
+    if (window.huanpengShare || window.phonePlus || window.appCloseWebPage || window.appLogin || window.appSendCommand) {
+        $('.download-tip').hide();
+    } else {
+        $('.download-tip').css('display', 'flex');
+    }
+</script>
+
+</html>

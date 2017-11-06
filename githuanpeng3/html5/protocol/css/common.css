@@ -1,0 +1,63 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: 微软雅黑;
+  background-color: #fff;
+}
+html .container,
+body .container {
+  padding: 3%;
+  margin-bottom: 2.75rem;
+  line-height: 1.125rem;
+}
+
+html .container h1,
+body .container h1 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+html .container h2,
+body .container h2 {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+html .container h3,
+body .container h3 {
+  color: #ff7800;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+html .container p,
+body .container p {
+  font-size: 0.8125rem;
+  margin-bottom: 0.3125rem;
+  word-break: break-all;
+}
+html .container ol,
+body .container ol {
+  margin-left: 0.75rem;
+  list-style: decimal;
+}
+html .container ol li,
+body .container ol li {
+  margin-bottom: 0.3125rem;
+  font-size: 0.8125rem;
+}
+html .container ol li span,
+body .container ol li span {
+  font-weight: 600;
+}
+html .container i{
+  display: inline-block;
+  width: 4%;
+}
+
+.fc_red{
+	color: red;
+}

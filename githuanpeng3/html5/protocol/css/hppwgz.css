@@ -1,0 +1,46 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-overflow-scrolling: touch;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: 微软雅黑;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  text-align: center;
+  color: #696969;
+  line-height: 1.5;
+}
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+.container .table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 0.5625rem;
+  margin: 1.25rem 0 3.125rem 0;
+}
+.container .table tr th,
+.container .table tr td {
+  padding: 0.5rem 5%;
+  border: 1px solid #d3d3d3;
+}
+.container .table tr th {
+  background: radial-gradient(circle, #ff7800, #ffbb66);
+  color: #fff;
+  font-size: 0.75rem;
+}
+.container .table tr > td:first-of-type {
+  width: 15%;
+}
+.container .table tr > td:nth-of-type(3) {
+  width: 30%;
+}

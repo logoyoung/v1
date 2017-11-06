@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢朋直播-邀请好友奖励领不停</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script>
+        (function() {
+            a();
+            window.onresize = function() {
+                a()
+            };
+
+            function a() {
+                var b = document.documentElement.clientWidth || document.documentElement.body.clientWidth;
+                document.documentElement.style.fontSize = b / 20 + "px"
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="stylesheets/reset.css">
+    <link rel="stylesheet" href="stylesheets/index.css?v=0.0.1">
+    <style>
+        button {
+            outline: none;
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        
+        .invite-container,
+        .invite-content {
+            -webkit-backface-visibility: hidden;
+            transform: translate3d(0, 0, 0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invite-container">
+        <div class="invite-content">
+            <div class="top-img"></div>
+            <div class="content-img"></div>
+            <div class="hp-content">
+                <section>
+                    <button id="fast-request"></button>
+                </section>
+            </div>
+            <div class="bottom-img"></div>
+        </div>
+    </div>
+    <div class="modal-box">
+        <div class="error-modal" style="display: none;">
+            <img src="images/icon_fail.png">
+            <p id="error-content"></p>
+        </div>
+    </div>
+    <div class="download-tip" style="display: none;">
+        <button class="close-btn">
+			<img class="close-img" src="images/icon_close.png">
+		</button>
+        <div class="logo">
+            <img class="logo-img" src="images/logo.png">
+        </div>
+        <div class="info">
+            <p class="font-big">下载欢朋APP</p>
+            <p class="font-small">手游直播、约玩下单，尽在欢朋！</p>
+        </div>
+    </div>
+    <script src="javascripts/jquery-1.9.1.min.js"></script>
+    <script src="javascripts/common.js"></script>
+    <script src="javascripts/index.js?v=0.0.1"></script>
+    <script>
+        $('.close-btn').click(function() {
+            $('.download-tip').hide();
+        });
+        $('.download-tip .logo, .download-tip .info').click(function() {
+            location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.mizhi.huanpeng';
+        });
+        if (window.huanpengShare || window.phonePlus || window.appCloseWebPage || window.appLogin || window.appSendCommand) {
+            $('.download-tip').hide();
+        } else {
+            $('.download-tip').css('display', 'flex');
+        }
+
+        var body = document.querySelector('body');
+        body.addEventListener('touchmove', function(e) {
+            e.stopPropagation();
+        }, false);
+    </script>
+</body>
+
+</html>

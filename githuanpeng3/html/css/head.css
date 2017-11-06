@@ -1,0 +1,694 @@
+.navi li .gametypePop,.navi li .gametypePop:after,.navi li .gametypePop:before,.navi ul li.last .search_icon,.navi input,.right span .appdown,.right span .history,.right span .lovelist,.right span .appdown:before,.right span .history:before,.right span .lovelist:before,.personal:before,.right span .appdown:after,.right span .history:after,.right span .lovelist:after,.personal:after,.right span .personal {
+	position:absolute
+}
+#topfixed .navi ul,.navi li,.activelist ul,.activelist li,.playernavi ul,.playernavi li {
+	float:left;
+	list-style-type:none;
+	margin:0;
+	padding:0
+}
+#topfixed .right span .appdown,#topfixed .navi li .gametypePop,#topfixed .right span .history,#topfixed .right span .lovelist,#topfixed .right span .personal {
+	border:1px solid #ddd \9;
+	*border:1px solid #ddd;
+	_border:1px solid #ddd;
+	box-shadow:0px 0px 1px 1px #ddd;
+	-webkit-box-shadow:0px 0px 1px 1px #ddd;
+	-o-box-shadow:0px 0px 1px 1px #ddd
+}
+#topfixed img {
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	border:none
+}
+.icon_set {
+	background:url(../img/icon/icon_set_1.png) no-repeat
+}
+#topfixed {
+	height:48px;
+	position:fixed;
+	background:#3d3d3d;
+	padding:0px;
+	margin:0px;
+	width:100%;
+	z-index:9999;
+	top:0;
+	left:0;
+	-webkit-transform:translateZ(0);
+	border-bottom:1px solid #d2d2d2
+}
+#topfixed a {
+	text-decoration:none;
+	color:inherit
+}
+#topfixed .right span .appdown,#topfixed .navi li .gametypePop {
+	display:none
+}
+#topfixed .right span .history,#topfixed .right span .lovelist {
+	display:none
+}
+#topfixed .right span .personal {
+	display:none
+}
+#topfixed .right span .personal #personal_info {
+	/*box-shadow:0px 0px 0px 0px #ddd;
+	-webkit-box-shadow:0px 0px 0px 0px #ddd;
+	-o-box-shadow:0px 0px 0px 0px #ddd;*/
+	float:left
+}
+.navi {
+	height:100%;
+	height:48px;
+	background:#FFF;
+	padding:0
+}
+.navi .w1180 {
+	width:1180px;
+	margin:auto
+}
+.navi .w980 {
+	width:980px;
+	margin:auto
+}
+.navi ul {
+	padding:0px;
+	margin:0px
+}
+.navi ul li {
+	text-align:center;
+	font-weight:400;
+	font-size:20px;
+	line-height:60px;
+	vertical-align:middle;
+	padding:0px 8px;
+	margin:0px;
+	border-left:1px solid transparent;
+	border-right:1px solid transparent
+}
+.navi li a:link,.navi li a:visited {
+	color:#444
+}
+.navi li.txt {
+	height:30px;
+	padding:1px 10px;
+	line-height:29px;
+	margin-top:8px;
+	margin-left:5px;
+	border-radius:4px
+}
+.navi .w980 li.txt {
+	margin-left:12px
+}
+.navi li.txt:hover {
+	color:#fff;
+	background:#ff7800
+}
+.navi li.txt:hover>a {
+	color:#fff
+}
+.navi ul li.last {
+	margin-right:0px;
+	margin-left:15px
+}
+.navi .w980 ul li.last {
+	margin-left:22px
+}
+.navi ul li.txt a {
+	height:100%;
+	width:100%;
+	display:block
+}
+.navi ul li.txt.cur {
+	color:#fff;
+	background:#ff7800
+}
+.navi ul li.txt.cur>a {
+	color:#fff
+}
+.navi ul li.t:hover {
+	color:#ff7800;
+	box-shadow:inset 0px 0px 4px 0px #DCD8D8;
+	-webkit-box-shadow:inset 0px 0px 4px 0px #DCD8D8;
+	-o-box-shadow:inset 0px 0px 4px 0px #DCD8D8;
+	border-left:1px solid #e7e7e7;
+	border-right:1px solid #e7e7e7;
+	background:#F2EEEE
+}
+.w980 li {
+	margin-right:5px
+}
+.navi .w980 li.last {
+	margin-right:0px
+}
+.navi .w1180 li {
+	margin-right:8px
+}
+.navi ul li:hover {
+	color:#ff7800;
+	cursor:pointer
+}
+.navi .logo {
+	width:120px;
+	height:38px;
+	padding:4px 0px;
+	*margin-top:-8px;
+	_margin-top:-8px
+}
+.navi .w1180 .logo {
+	margin-right:38px
+}
+.navi .w980 .logo {
+	margin-right:20px;
+	padding:4px 10px 5px 0px
+}
+.navi li .gametypePop {
+	padding:0px;
+	width:317px;
+	color:#666;
+	background:#fff;
+	display:block;
+	margin-top:-5px;
+	cursor:default;
+	font-size:12px;
+	margin-left:-18px
+}
+.gametypePop .pop {
+	margin:0;
+	padding:14px 14px 10px 14px;
+	float:left
+}
+.navi li .gametypePop:after {
+	content:"";
+	width:0;
+	height:0;
+	border-bottom:5px solid #FFF;
+	border-left:7px solid transparent;
+	border-right:7px solid transparent;
+	border-top:7px solid transparent;
+	margin-top:-12px;
+	margin-left:31px;
+	display:block
+}
+.navi li .gametypePop:before {
+	content:"";
+	width:0;
+	height:0;
+	border-bottom:5px solid #bfbfbf;
+	border-left:7px solid transparent;
+	border-right:7px solid transparent;
+	border-top:7px solid transparent;
+	margin-top:-13px;
+	margin-left:31px;
+	display:block
+}
+.navi li .gametypePop .game {
+	width:82px;
+	height:30px;
+	float:left;
+	margin:6px;
+	border:1px solid #ccc;
+	text-align:center;
+	line-height:30px;
+	font-size:12px;
+	cursor:pointer;
+	overflow:hidden
+}
+.navi li .gametypePop .game:hover {
+	background:#ff7800;
+	color:#fff;
+	border:1px solid #e7e7e7
+}
+.navi li .gametypePop .more {
+	padding:0;
+	float:left;
+	width:100%;
+	height:43px;
+	background:#f5f5f5;
+	text-align:center;
+	cursor:pointer;
+	line-height:43px;
+	font-size:14px
+}
+.navi li .gametypePop .more:hover {
+	background:#e0e0e0
+}
+.navi ul li.last .search_icon {
+	z-index:1
+}
+.navi .w1180 ul li.last .search_icon {
+	width:30px;
+	height:30px;
+	margin-top:5px;
+	margin-left:122px
+}
+.navi .w980 ul li.last .search_icon {
+	width:36px;
+	height:38px;
+	margin-left:92px;
+	margin-top:4px
+}
+.navi .w1180 ul li.last .search_icon.cur {
+	margin-left:123px
+}
+.search_icon .icon {
+	width:100%;
+	height:100%;
+	background-position:-236px -135px
+}
+.search_icon .icon.cur {
+	background-position:-236px -169px
+}
+.navi input {
+	padding-left:10px;
+	margin-top:9px;
+	height:30px;
+	line-height:30px;
+	font-size:14px;
+	color:#999999;
+	outline:0px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	padding-right:30px
+}
+.navi input[type="text"]:focus {
+	line-height:normal;
+	line-height:2.2em\9
+}
+.navi input.cur {
+	border:1px solid #ee8033
+}
+.w980 .search {
+	width:88px
+}
+.w1180 .search {
+	width:118px
+}
+.navi .right {
+	padding:5px 0px;
+	margin:0px;
+	width:345px;
+	float:right
+}
+.right span {
+	float:left
+}
+.right span .appdown {
+	width:174px;
+	height:84px;
+	background:#fff;
+	top:38px;
+	left:-73px;
+	padding:0px;
+	position:relative
+}
+.right span .appdown img {
+	width:145px;
+	height:145px
+}
+.right span .appdown .slider-download {
+	text-align:center;
+	font-size:14px;
+	margin:0px 12px;
+	line-height:41px
+}
+.right span .appdown .slider-download:hover {
+	color:#ff7800
+}
+.right span .appdown .bottom-line {
+	border-bottom:1px solid #ddd
+}
+.right span .history,.right span .lovelist {
+	background:#fff;
+	margin-top:37px;
+	margin-left:-130px
+}
+.right span .history ul,.right span .lovelist ul {
+	width:226px;
+	min-height:48px
+}
+.right .rightspan ul .line {
+	width:200px;
+	height:1px;
+	float:left;
+	background:#ccc;
+	margin-left:14px
+}
+.right span ul li {
+	font-size:12px;
+	height:40px;
+	padding:7px 10px;
+	line-height:21px;
+	text-align:left;
+	color:#747171
+}
+.right span .history li,.right span .lovelist li {
+	margin:0px;
+	padding:12px 12px 8px 12px;
+	width:200px;
+	color:#666
+}
+.right span .history li:hover .s {
+	color:#ff7800
+}
+.right span .lovelist li:hover .s {
+	color:#ff7800
+}
+.right span .lovelist .livecount {
+	color:#999;
+	margin:12px 0px 4px 12px;
+	font-size:12px;
+	float:left
+}
+.right span .lovelist .livecount .fnum {
+	color:#ff7800;
+	display:inline-block
+}
+.right span .history li .anchor_detail,.right span .lovelist li .anchor_detail {
+	margin:0px;
+	padding-bottom:5px;
+	float:left;
+	border-bottom:1px solid #CCCCCC;
+	width:100%;
+	color:#444
+}
+.right span ul li.more {
+	background:#f5f5f5;
+	height:22px;
+	line-height:22px;
+	text-align:center;
+	font-size:14px
+}
+.right span ul li.more:hover {
+	background:#e0e0e0
+}
+.right span ul li.more.no_login {
+	height:55px;
+	background:#fff;
+	cursor:default
+}
+.right span ul li.more.no_login .img_no_login {
+	width:44px;
+	height:44px;
+	margin:4px 8px 7px 0px;
+	border-radius:50%;
+	overflow:hidden;
+	float:left
+}
+.right span ul li.more.no_login .txt_div {
+	font-size:12px;
+	color:#999;
+	float:left;
+	margin-top:16px;
+	margin-left:0px
+}
+.right span ul li.more.no_login .txt_div s {
+	color:#ff7800;
+	float:right;
+	margin-left:5px;
+	cursor:pointer;
+	text-decoration:none
+}
+.right span ul li.more.no_login .txt_div l {
+	width:1px;
+	height:13px;
+	background:#999;
+	float:right;
+	padding:0px;
+	margin-left:5px;
+	margin-top:5px
+}
+.right span ul li .pic {
+	height:32px;
+	width:32px;
+	border-radius:50%;
+	overflow:hidden;
+	margin-top:4px;
+	float:left;
+	margin-right:7px
+}
+.right span ul li .detail {
+	display:block;
+	float:left;
+	width:95px
+}
+.right span .history ul li .detail {
+	width:144px
+}
+.right span ul li .icon {
+	height:20px;
+	width:20px;
+	float:left
+}
+.right span ul li.cur .detail .liveicon {
+	background-position:-339px -109px
+}
+.right span ul li .detail .liveicon {
+	background-position:-339px -81px;
+	margin-right:5px
+}
+.right span ul li .detail .historyicon {
+	background-position:-111px -82px;
+	margin-right:6px;
+	margin-top:3px
+}
+.right span ul li .detail .s {
+	height:20px;
+	width:100px;
+	font-size:14px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis
+}
+.right span ul li .detail .x {
+	height:20px;
+	width:95px;
+	margin-top:3px;
+	color:#999;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis
+}
+.right span ul li .icon_fansCount {
+	background-position:-552px -85px;
+	background-repeat:no-repeat;
+	width:19px;
+	height:19px;
+	margin-top:21px;
+	float:right;
+	margin-right:5px
+}
+.right span ul li .fansCount {
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	width:27px;
+	float:right;
+	display:block;
+	margin-top:24px;
+	color:#999
+}
+.right span .appdown:before,.right span .history:before,.right span .lovelist:before {
+	content:"";
+	border-bottom:8px solid #000;
+	border-left:8px solid transparent;
+	border-right:8px solid transparent;
+	border-top:8px solid transparent;
+	top:-16px;
+	left:156px;
+	display:block
+}
+.personal:before {
+	content:"";
+	border-bottom:8px solid #000;
+	border-left:8px solid transparent;
+	border-right:8px solid transparent;
+	border-top:8px solid transparent;
+	top:-16px;
+	left:156px;
+	display:block
+}
+.right span .appdown:after,.right span .history:after,.right span .lovelist:after {
+	content:"";
+	border-bottom:8px solid #fff;
+	border-left:8px solid transparent;
+	border-right:8px solid transparent;
+	border-top:8px solid transparent;
+	top:0px;
+	left:0px;
+	display:block
+}
+.personal:after {
+	content:"";
+	border-bottom:8px solid #fff;
+	border-left:8px solid transparent;
+	border-right:8px solid transparent;
+	border-top:8px solid transparent;
+	top:0px;
+	left:0px;
+	display:block
+}
+.right span .history:after,.right span .history:before {
+	top:-16px;
+	left:158px
+}
+.right span .appdown:after {
+	top:-16px;
+	left:102px
+}
+.right span .lovelist:before,.right span .lovelist:after {
+	top:-16px;
+	left:156px
+}
+.right span .appdown:before {
+	top:-16px;
+	left:102px
+}
+.right span.icon {
+	margin-top:4px;
+	width:32px;
+	height:32px;
+	cursor:pointer;
+	text-align:center
+}
+.right span.txt {
+	line-height:38px;
+	padding:0px 3px;
+	color:#999
+}
+.right span.icon1 {
+	background-position:-13px -34px;
+	background-repeat:no-repeat
+}
+.right span.icon_anchor {
+	background-position:-50px -34px;
+	background-repeat:no-repeat
+}
+.right .rightspan:hover span.icon_anchor {
+	background-position:-50px -3px;
+	background-repeat:no-repeat
+}
+.right span.icon_user {
+	background-position:-15px -35px;
+	background-repeat:no-repeat
+}
+.right .rightspan {
+	float:left;
+	height:50px;
+	cursor:pointer
+}
+.right .rightspan:hover span.icon_user {
+	background-position:-15px -4px;
+	background-repeat:no-repeat
+}
+.right .rightspan:hover span.icon1 {
+	background-position:-13px -3px;
+	background-repeat:no-repeat
+}
+.right .rightspan:hover span.txt {
+	color:#ff7800
+}
+.right span.icon2 {
+	background-position:-77px -141px;
+	background-repeat:no-repeat
+}
+.right .rightspan:hover span.icon2 {
+	background-position:-77px -175px;
+	background-repeat:no-repeat
+}
+.right span.icon3 {
+	background-position:-111px -141px;
+	background-repeat:no-repeat
+}
+.right .rightspan:hover span.icon3 {
+	background-position:-111px -175px;
+	background-repeat:no-repeat
+}
+.right span.icon4 {
+	background-position:-44px -141px;
+	background-repeat:no-repeat
+}
+.right .rightspan:hover span.icon4 {
+	background-position:-44px -175px
+}
+.right span.login_reg {
+	font-size:12px;
+	line-height:39px;
+	margin-right:3px;
+	cursor:pointer;
+	float:right;
+	color:#999
+}
+.right span.line {
+	height:12px;
+	width:1px;
+	background:#999;
+	float:right;
+	margin-top:13px
+}
+.right .rightspan.icon5 {
+	background-position:-577px -137px;
+	background-repeat:no-repeat;
+	height:30px;
+	padding-left:20px;
+	float:right
+}
+.right span.login_reg:hover {
+	color:#ff7800
+}
+.right span.r {
+	padding-left:4px;
+	margin-right:0px
+}
+.right span.userpic {
+	width:32px;
+	height:32px;
+	margin-top:2px;
+	float:right;
+	display:block;
+	cursor:pointer;
+	padding-bottom:10px;
+	padding-left:20px;
+}
+.userinfo_block {
+	float:right;
+	margin-left:20px;
+	margin-right:6px
+}
+.rankdiv .p img {
+	background:#ccc
+}
+.right span .personal {
+	background:#fff;
+	margin-top:4px;
+	margin-left:-293px;
+	*margin-top:39px;
+	_margin-top:39px
+}
+.right span .personal:after,.right span .personal:before {
+	left:301px;
+	top:-15px
+}
+.right span.userpic img {
+	border-radius:50%
+}
+.personal #personal_info {
+	display:block;
+	position:relative;
+	left:0px;
+	top:0px;
+	text-align:center;
+	color:#444;
+	display:block
+}
+#personal_info:before,#personal_info:after {
+	display:none
+}
+#personal_info .p_level span.levelup,#personal_info .p_msg {
+	font-size:12px
+} 
+
+.h_pop{
+	background-color: #fff;
+	border: 1px solid #bfbfbf;
+	box-shadow: 0 0 3px #bfbfbf;
+}

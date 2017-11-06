@@ -1,0 +1,69 @@
+
+#新增用户表
+# 网站[0],QQ[1],微信[2],新浪微博[3]
+create table new_user(
+        `id` int(10) unsigned not null AUTO_INCREMENT COMMENT '记录id',
+        `uid` int(10) unsigned not null default '0',
+	`device` varchar(32) not null default '' COMMENT '设备' ,
+	`channel` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '渠道',
+	`ip` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'IP地址',
+	`ctime` timestamp not null default current_timestamp COMMENT '注册时间',
+	 primary key (`id`,`uid`),
+         key `device`(`device`),
+         key `channel`(`channel`),
+         key `ctime`(`ctime`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#登录用户表
+# 网站[0],QQ[1],微信[2],新浪微博[3]
+create table user_login(
+        `id` int(10) unsigned not null AUTO_INCREMENT COMMENT '记录id',
+        `uid` int(10) unsigned not null default '0',
+	`device` varchar(32) not null default '' COMMENT '设备' ,
+	`channel` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '渠道',
+	`ip` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'IP地址',
+	`ctime` date NOT NULL DEFAULT '0000-00-00' COMMENT '登录时间',
+	 primary key (`uid`,`ctime`),
+         key `device`(`device`),
+         key `channel`(`channel`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+#充值记录
+#way:支付宝[1],微信[2],网银[3]
+create table recharge(
+        `id` int(10) unsigned not null AUTO_INCREMENT COMMENT '记录id',
+        `uid` int(10) unsigned not null default '0',
+	`way` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '充值方式',
+	`money` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '金额',
+	`ctime` timestamp not null default current_timestamp COMMENT '充值时间',
+	 primary key (`id`,`uid`),
+         key `money`(`money`),
+         key `ctime`(`ctime`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#送礼记录
+ CREATE TABLE `gift_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '记录id',
+  `luid` int(10) unsigned NOT NULL COMMENT '主播id',
+  `liveid` int(10) unsigned NOT NULL COMMENT '直播id',
+  `uid` int(10) unsigned NOT NULL COMMENT '送礼人id',
+  `giftid` tinyint(3) unsigned NOT NULL COMMENT '礼物id',
+  `giftnum` tinyint(3) unsigned NOT NULL COMMENT '礼物数',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '送礼时间',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`),
+  KEY `liveid` (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+
+ 
+
+
+
+
+

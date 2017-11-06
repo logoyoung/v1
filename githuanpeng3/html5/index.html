@@ -1,0 +1,16 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><title>欢朋直播-精彩手游直播</title><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=black><meta name=format-detection content="telephone=no, email=no"><link rel=stylesheet href=./static/css/reset.css><link rel=stylesheet href=./static/font/font-awesome-4.7.0/css/font-awesome.min.css><link rel=stylesheet href=./static/lib/swiper-3.4.2.min.css><script async defer=defer src=https://hm.baidu.com/hm.js?f97f114982484f9851e7c242cc1dac9b></script><script src=./static/lib/swiper-3.4.2.min.js></script><script src="./static/lib/set_rem.js?v=0.0.2"></script><script src="./static/lib/statistics.js?v=0.0.2"></script><link href=./static/css/app.affd5cd32621c5a8c65754da1d9de31b.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=./static/js/manifest.968d5a3ef04cb1a1ca4a.js></script><script type=text/javascript src=./static/js/vendor.326f4fc9ca9c44f2197f.js></script><script type=text/javascript src=./static/js/app.f5b818cebf8adb1dbb17.js></script></body><script>function QueryLocation() {
+    var b = location.href;
+    var c = new Object();
+    if (b.indexOf('?') > -1) {
+      var str = b.substr(b.indexOf('?') + 1);
+      var strs = str.split("&");
+      for (var i = 0; i < strs.length; i++) {
+        c[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+      }
+    }
+    return c;
+  }
+  QueryLocation();
+  if (QueryLocation().code) {
+    sessionStorage.setItem('_wxCode', QueryLocation().code);
+  }</script></html>

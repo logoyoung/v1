@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>主播认证</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/beAnchor.css?v=1.0.4">
+    <script src="../js/statistics.js?v=0.0.2"></script>
+    <script src="../../static/js/jquery-1.9.1.min.js"></script>
+    <script src="../../static/js/common.js?v=0.0.4"></script>
+    <script src="../../static/js/jquery.form.js"></script>
+    
+    <script>
+        (function(){a();window.onresize=function(){a()};function a(){var b=document.documentElement.clientWidth||document.documentElement.body.clientWidth;document.documentElement.style.fontSize=b/23.4375+"px"}})();
+    </script>
+</head>
+<body>
+    <div class="sesame-content">
+        <div class="sesame-userinfo">
+            <section>
+                <span class="key">姓名</span>
+                <span class="input">
+                        <input id="userName" type="text" placeholder="请填写真实姓名" onfocus="this.placeholder=''" onblur="this.placeholder='请填写真实姓名'">
+                    </span>
+            </section>
+            <section>
+                <span class="key">身份证号</span>
+                <span class="input line">
+                        <input id="userNum" type="text" placeholder="请填写身份证号" onfocus="this.placeholder=''" onblur="this.placeholder='请填写身份证号'" maxlength="18">
+                    </span>
+            </section>
+        </div>
+        <div class="sesame-loc">
+            <button class="sesame-toPhone">开始认证</button>
+        </div>
+        <div class="sesame-desc">
+            <span class="checkbox active"></span>
+            <span>我已阅读并同意<a href="http://www.huanpeng.com/protocol/anchorLiveProtocol.html">《欢朋直播主播协议》</a></span>
+        </div>
+    </div>
+    <div class="modal-box">
+        <div class="modal-success" style="display: none;">
+            <img src="image/icon_right.png">
+            <p></p>
+        </div>
+        <div class="modal-loading" style="display: none;">
+            <div class="icon_loading"></div>
+        </div>
+        <div class="error-modal" style="display: none;">
+            <img src="image/icon_fail.png">
+            <p id="error-content"></p>
+        </div>
+    </div>
+    <script src="js/main.js?v=0.0.6"></script>
+    <script>
+        $(function(){
+            $('.sesame-desc .checkbox').click(function () {
+                $(this).toggleClass('active');
+            });
+            $('.sesame-toPhone').click(function(){
+                var a = $('#userName').val();
+                var b = $('#userNum').val();
+
+                if(!a || !b || a == '' || b == '' || b.length < 15){
+                    mobileTips('请填写完整信息');
+                    return;
+                }
+
+                if(!$('.sesame-desc .checkbox').hasClass('active')){
+                    mobileTips('请同意主播协议哦~');
+                    return;
+                }
+                if(phonePlus.setUserInfo){
+                    phonePlus.setUserInfo(a, b);
+                }
+                
+            })
+        });
+    </script>
+</body>
+</html>

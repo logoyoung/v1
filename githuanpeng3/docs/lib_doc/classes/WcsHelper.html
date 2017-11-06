@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/hp.html">\hp</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">49</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">62</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-834005944"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-834005944" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1241434572"></a>
+                                <a href="../namespaces/hp.html" style="margin-left: 30px; padding-left: 0">hp</a>
+            </div>
+            <div id="namespace-1241434572" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-739004580"></a>
+                                <a href="../namespaces/hp.lib.html" style="margin-left: 30px; padding-left: 0">lib</a>
+            </div>
+            <div id="namespace-739004580" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/hp.lib.Anchor.html">Anchor</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.Game.html">Game</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.Gift.html">Gift</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.LiveRoom.html">LiveRoom</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.MailSend.html">MailSend</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.MsgPackage.html">MsgPackage</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.Register.html">Register</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.SmsSend.html">SmsSend</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.SocketSend.html">SocketSend</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.User.html">User</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/AnchorInterface.html">AnchorInterface</a></li>
+                                                    <li class="interface"><a href="../classes/UserInterface.html">UserInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/CDNHelper.html">CDNHelper</a></li>
+                                                    <li class="class"><a href="../classes/Finance.html">Finance</a></li>
+                                                    <li class="class"><a href="../classes/FinanceError.html">FinanceError</a></li>
+                                                    <li class="class"><a href="../classes/Live.html">Live</a></li>
+                                                    <li class="class"><a href="../classes/WcsHelper.html">WcsHelper</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>WcsHelper</h1>
+                    <p><em>Class WcsHelper
+网宿类
+说明</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/WcsHelper.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method_forbidLive" class="">forbidLive()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method_wcsPublishLiveSecret" class="">wcsPublishLiveSecret()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method_merge" class="">merge()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method_transcode" class="">transcode()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method_poster" class="">poster()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method_getDownUrl" class="">getDownUrl()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method_getSecuritUrl" class="">getSecuritUrl()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method_delete" class="">delete()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/WcsHelper.html#constant_PORTAL_USERNAME" class="">PORTAL_USERNAME</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_PORTAL_PASSWD" class="">PORTAL_PASSWD</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_FORBID_API" class="">FORBID_API</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_WCS_SECRET" class="">WCS_SECRET</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_AK" class="">AK</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_SK" class="">SK</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_WCS_MGR_API" class="">WCS_MGR_API</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_CMD_CURL" class="">CMD_CURL</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_WS_SECURITY_CHAIN" class="">WS_SECURITY_CHAIN</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_CMD_MERGE" class="">CMD_MERGE</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_CMD_TRANSCODE" class="">CMD_TRANSCODE</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_CMD_POSTER" class="">CMD_POSTER</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_POSTER_WIDTH" class="">POSTER_WIDTH</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_POSTER_HEIGHT" class="">POSTER_HEIGHT</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_FORCE" class="">FORCE</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_SAPARET" class="">SAPARET</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_VIDEO_EXT" class="">VIDEO_EXT</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_POSTER_EXT" class="">POSTER_EXT</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_T_MERGE" class="">T_MERGE</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_T_POSTER" class="">T_POSTER</a><br />
+                                                                    <a href="../classes/WcsHelper.html#constant_T_TRANSCODE" class="">T_TRANSCODE</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/WcsHelper.html#method__getForbidPublishParams" class="">_getForbidPublishParams()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__httpGet" class="">_httpGet()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__httpPost" class="">_httpPost()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__wcsForbidError" class="">_wcsForbidError()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__paramsToString" class="">_paramsToString()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__getToken" class="">_getToken()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__process" class="">_process()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__getBase64Keys" class="">_getBase64Keys()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__getFops" class="">_getFops()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__getSaveFileName" class="">_getSaveFileName()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__setVideoInfo" class="">_setVideoInfo()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__getRealKey" class="">_getRealKey()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__getLocationUrl" class="">_getLocationUrl()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__getHttpStatus" class="">_getHttpStatus()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__getDelOps" class="">_getDelOps()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__addContent" class="">_addContent()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__addHead" class="">_addHead()</a><br />
+                                                                    <a href="../classes/WcsHelper.html#method__wcsLog" class="">_wcsLog()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/WcsHelper.html#property__debug" class="">$_debug</a><br />
+                                                                    <a href="../classes/WcsHelper.html#property__logfile" class="">$_logfile</a><br />
+                                                                    <a href="../classes/WcsHelper.html#property__saveDir" class="">$_saveDir</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/WcsHelper.class.html"><div class="path-wrapper">WcsHelper.class.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\WcsHelper</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_PORTAL_USERNAME" name="constant_PORTAL_USERNAME" class="anchor"></a>
+            <article id="constant_PORTAL_USERNAME" class="constant">
+                <h3 class="">PORTAL_USERNAME</h3>
+                <pre class="signature">PORTAL_USERNAME</pre>
+                <p><em>PORTAL_USERNAME        portal平台账号
+PORTAL_PASSWD          portal平台密码</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_PORTAL_PASSWD" name="constant_PORTAL_PASSWD" class="anchor"></a>
+            <article id="constant_PORTAL_PASSWD" class="constant">
+                <h3 class="">PORTAL_PASSWD</h3>
+                <pre class="signature">PORTAL_PASSWD</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_FORBID_API" name="constant_FORBID_API" class="anchor"></a>
+            <article id="constant_FORBID_API" class="constant">
+                <h3 class="">FORBID_API</h3>
+                <pre class="signature">FORBID_API</pre>
+                <p><em>FORBID_API            禁播API</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_WCS_SECRET" name="constant_WCS_SECRET" class="anchor"></a>
+            <article id="constant_WCS_SECRET" class="constant">
+                <h3 class="">WCS_SECRET</h3>
+                <pre class="signature">WCS_SECRET</pre>
+                <p><em>WCS_SECRET            网宿推流鉴权key</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_AK" name="constant_AK" class="anchor"></a>
+            <article id="constant_AK" class="constant">
+                <h3 class="">AK</h3>
+                <pre class="signature">AK</pre>
+                <p><em>AK    SK        录像平台加密串</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SK" name="constant_SK" class="anchor"></a>
+            <article id="constant_SK" class="constant">
+                <h3 class="">SK</h3>
+                <pre class="signature">SK</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_WCS_MGR_API" name="constant_WCS_MGR_API" class="anchor"></a>
+            <article id="constant_WCS_MGR_API" class="constant">
+                <h3 class="">WCS_MGR_API</h3>
+                <pre class="signature">WCS_MGR_API</pre>
+                <p><em>WCS_MGR_API        录像API</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_CMD_CURL" name="constant_CMD_CURL" class="anchor"></a>
+            <article id="constant_CMD_CURL" class="constant">
+                <h3 class="">CMD_CURL</h3>
+                <pre class="signature">CMD_CURL</pre>
+                <p><em>CMD_CURL            http请求命令</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_WS_SECURITY_CHAIN" name="constant_WS_SECURITY_CHAIN" class="anchor"></a>
+            <article id="constant_WS_SECURITY_CHAIN" class="constant">
+                <h3 class="">WS_SECURITY_CHAIN</h3>
+                <pre class="signature">WS_SECURITY_CHAIN</pre>
+                <p><em>WS_SECURITY_CHAIN    网宿key</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_CMD_MERGE" name="constant_CMD_MERGE" class="anchor"></a>
+            <article id="constant_CMD_MERGE" class="constant">
+                <h3 class="">CMD_MERGE</h3>
+                <pre class="signature">CMD_MERGE</pre>
+                <p><em>CMD_MERGE        合并参数</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_CMD_TRANSCODE" name="constant_CMD_TRANSCODE" class="anchor"></a>
+            <article id="constant_CMD_TRANSCODE" class="constant">
+                <h3 class="">CMD_TRANSCODE</h3>
+                <pre class="signature">CMD_TRANSCODE</pre>
+                <p><em>CMD_TRANSCODE    转码参数</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_CMD_POSTER" name="constant_CMD_POSTER" class="anchor"></a>
+            <article id="constant_CMD_POSTER" class="constant">
+                <h3 class="">CMD_POSTER</h3>
+                <pre class="signature">CMD_POSTER</pre>
+                <p><em>CMD_POSTER        截图参数</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_POSTER_WIDTH" name="constant_POSTER_WIDTH" class="anchor"></a>
+            <article id="constant_POSTER_WIDTH" class="constant">
+                <h3 class="">POSTER_WIDTH</h3>
+                <pre class="signature">POSTER_WIDTH</pre>
+                <p><em>截图尺寸</em></p>
+                <p>POSTER_WIDTH
+POSTER_HEIGHT</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_POSTER_HEIGHT" name="constant_POSTER_HEIGHT" class="anchor"></a>
+            <article id="constant_POSTER_HEIGHT" class="constant">
+                <h3 class="">POSTER_HEIGHT</h3>
+                <pre class="signature">POSTER_HEIGHT</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_FORCE" name="constant_FORCE" class="anchor"></a>
+            <article id="constant_FORCE" class="constant">
+                <h3 class="">FORCE</h3>
+                <pre class="signature">FORCE</pre>
+                <p><em>网速参数
+FORCE
+SAPARET</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SAPARET" name="constant_SAPARET" class="anchor"></a>
+            <article id="constant_SAPARET" class="constant">
+                <h3 class="">SAPARET</h3>
+                <pre class="signature">SAPARET</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_VIDEO_EXT" name="constant_VIDEO_EXT" class="anchor"></a>
+            <article id="constant_VIDEO_EXT" class="constant">
+                <h3 class="">VIDEO_EXT</h3>
+                <pre class="signature">VIDEO_EXT</pre>
+                <p><em>VIDEO_EXT    转码格式</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_POSTER_EXT" name="constant_POSTER_EXT" class="anchor"></a>
+            <article id="constant_POSTER_EXT" class="constant">
+                <h3 class="">POSTER_EXT</h3>
+                <pre class="signature">POSTER_EXT</pre>
+                <p><em>POSTER_EXT    图片格式</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_T_MERGE" name="constant_T_MERGE" class="anchor"></a>
+            <article id="constant_T_MERGE" class="constant">
+                <h3 class="">T_MERGE</h3>
+                <pre class="signature">T_MERGE</pre>
+                <p><em>T_MERGE        合并操作</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_T_POSTER" name="constant_T_POSTER" class="anchor"></a>
+            <article id="constant_T_POSTER" class="constant">
+                <h3 class="">T_POSTER</h3>
+                <pre class="signature">T_POSTER</pre>
+                <p><em>T_POSTER        截图操作</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_T_TRANSCODE" name="constant_T_TRANSCODE" class="anchor"></a>
+            <article id="constant_T_TRANSCODE" class="constant">
+                <h3 class="">T_TRANSCODE</h3>
+                <pre class="signature">T_TRANSCODE</pre>
+                <p><em>T_TRANSCODE    转码操作</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__debug" name="property__debug" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_debug</h3>
+                <pre class="signature">$_debug : boolean</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                &mdash; 调试模式                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__logfile" name="property__logfile" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_logfile</h3>
+                <pre class="signature">$_logfile : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; 日志文件                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__saveDir" name="property__saveDir" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_saveDir</h3>
+                <pre class="signature">$_saveDir : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; 保存路径                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct() </pre>
+                <p><em>构造函数</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_forbidLive" name="method_forbidLive" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">forbidLive()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">forbidLive(null  <span class="argument">$publishRtmpUrl = NULL</span>) : string</pre>
+                <p><em>禁播</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>null</td>
+                                <td>$publishRtmpUrl </td>
+                                <td><p>推流地址</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>错误码</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_wcsPublishLiveSecret" name="method_wcsPublishLiveSecret" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">wcsPublishLiveSecret()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">wcsPublishLiveSecret(  <span class="argument">$data</span>, boolean  <span class="argument">$urlEncode = TRUE</span>) : string</pre>
+                <p><em>网宿鉴权加密</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$data </td>
+                                <td><p>加密参数</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$urlEncode </td>
+                                <td><p>是否urlencode加密</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>加密串</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_merge" name="method_merge" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">merge()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">merge(  <span class="argument">$data</span>,   <span class="argument">$notifyUrl</span>) : mixed</pre>
+                <p><em>合并操作</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$data </td>
+                                <td><p>合并数据</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$notifyUrl </td>
+                                <td><p>通知地址</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>错误信息｜合并任务信息</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_transcode" name="method_transcode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">transcode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">transcode(  <span class="argument">$data</span>,   <span class="argument">$notifyUrl</span>) : mixed</pre>
+                <p><em>转码操作</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$data </td>
+                                <td><p>转码数据</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$notifyUrl </td>
+                                <td><p>通知地址</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>错误信息｜转码任务信息</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_poster" name="method_poster" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">poster()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">poster(  <span class="argument">$data</span>,   <span class="argument">$notifyUrl</span>) : mixed</pre>
+                <p><em>截图操作</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$data </td>
+                                <td><p>截图数据</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$notifyUrl </td>
+                                <td><p>通知地址</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>错误信息｜截图任务信息</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getDownUrl" name="method_getDownUrl" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getDownUrl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getDownUrl(null  <span class="argument">$url</span>,   <span class="argument">$http = &#039;&#039;</span>) : null|string</pre>
+                <p><em>获取下载链接</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>null</td>
+                                <td>$url </td>
+                                <td><p>url链接</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$http </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    null|string
+                                            &mdash; <p>下载链接</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSecuritUrl" name="method_getSecuritUrl" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSecuritUrl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSecuritUrl(  <span class="argument">$filename</span>) : string</pre>
+                <p><em>获取防盗链加密参数</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$filename </td>
+                                <td><p>文件名</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>防盗链串</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_delete" name="method_delete" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">delete()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">delete(  <span class="argument">$file</span>) : array</pre>
+                <p><em>删除文件</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$file </td>
+                                <td><p>文件名</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>删除任务信息</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__getForbidPublishParams" name="method__getForbidPublishParams" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_getForbidPublishParams()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_getForbidPublishParams(null  <span class="argument">$publishRtmpUrl = NULL</span>) : string</pre>
+                <p><em>获取禁播参数</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>null</td>
+                                <td>$publishRtmpUrl </td>
+                                <td><p>推流地址</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>禁播参数</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__httpGet" name="method__httpGet" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_httpGet()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_httpGet(null  <span class="argument">$url = NULL</span>) : null|string</pre>
+                <p><em>http get请求</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>null</td>
+                                <td>$url </td>
+                                <td><p>请求url</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    null|string
+                                            &mdash; <p>请求返回</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__httpPost" name="method__httpPost" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_httpPost()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_httpPost(null  <span class="argument">$url = NULL</span>) : boolean|string</pre>
+                <p><em>http post请求</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>null</td>
+                                <td>$url </td>
+                                <td><p>请求url</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean|string
+                                            &mdash; <p>请求返回</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__wcsForbidError" name="method__wcsForbidError" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_wcsForbidError()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_wcsForbidError(null  <span class="argument">$httpBack = NULL</span>) : string</pre>
+                <p><em>禁播返回错误处理</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>null</td>
+                                <td>$httpBack </td>
+                                <td><p>禁播错误信息</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>禁播错误码</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__paramsToString" name="method__paramsToString" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_paramsToString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_paramsToString(  <span class="argument">$mix</span>) : array|string</pre>
+                <p><em>字符串转化</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$mix </td>
+                                <td><p>待转化参数</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|string
+                                            &mdash; <p>字符串化后的字符串或数组</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__getToken" name="method__getToken" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_getToken()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_getToken(  <span class="argument">$url</span>, null  <span class="argument">$body = null</span>) : string</pre>
+                <p><em>获取录像操作令牌</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$url </td>
+                                <td><p>请求url</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>null</td>
+                                <td>$body </td>
+                                <td><p>请求内容</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>返回token</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__process" name="method__process" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_process()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_process(  <span class="argument">$data</span>,   <span class="argument">$notifyUrl</span>,   <span class="argument">$type</span>) : mixed</pre>
+                <p><em>实现命令操作</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$data </td>
+                                <td><p>操作数据</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$notifyUrl </td>
+                                <td><p>通知地址</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$type </td>
+                                <td><p>操作类型</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>错误信息｜任务信息</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__getBase64Keys" name="method__getBase64Keys" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_getBase64Keys()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_getBase64Keys(  <span class="argument">$data</span>) : boolean|string</pre>
+                <p><em>base64加密</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$data </td>
+                                <td><p>加密数据</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean|string
+                                            &mdash; <p>错误信息｜加密后的数据</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__getFops" name="method__getFops" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_getFops()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_getFops(  <span class="argument">$ext</span>) : boolean|string</pre>
+                <p><em>获取命令参数</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$ext </td>
+                                <td><p>文件后缀</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean|string
+                                            &mdash; <p>错误信息｜命令参数</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__getSaveFileName" name="method__getSaveFileName" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_getSaveFileName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_getSaveFileName(  <span class="argument">$ext</span>) : string</pre>
+                <p><em>获取保存路径</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$ext </td>
+                                <td><p>文件后缀</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>保存路径</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__setVideoInfo" name="method__setVideoInfo" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_setVideoInfo()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_setVideoInfo(  <span class="argument">$data</span>) : boolean</pre>
+                <p><em>配置录像文件信息</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$data </td>
+                                <td><p>配置信息</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>是否操作成功</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__getRealKey" name="method__getRealKey" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_getRealKey()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_getRealKey(  <span class="argument">$str</span>) : array</pre>
+                <p><em>获取具体文件的key</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$str </td>
+                                <td><p>文件信息</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>文件的key</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__getLocationUrl" name="method__getLocationUrl" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_getLocationUrl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_getLocationUrl(  <span class="argument">$url</span>) : string</pre>
+                <p><em>获取跳转链接</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$url </td>
+                                <td><p>url</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>跳转链接</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__getHttpStatus" name="method__getHttpStatus" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_getHttpStatus()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_getHttpStatus(  <span class="argument">$url</span>) : mixed</pre>
+                <p><em>获取http状态码</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$url </td>
+                                <td><p>url</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>http状态码</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__getDelOps" name="method__getDelOps" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_getDelOps()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_getDelOps(  <span class="argument">$file</span>) : string</pre>
+                <p><em>获取Fops参数</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$file </td>
+                                <td><p>文件名</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>删除命令参数</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__addContent" name="method__addContent" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_addContent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_addContent(  <span class="argument">$fops</span>) : string</pre>
+                <p><em>添加请求内容</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$fops </td>
+                                <td><p>命令参数</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>添加内容后的参数</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__addHead" name="method__addHead" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_addHead()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_addHead(  <span class="argument">$url</span>,   <span class="argument">$content</span>) : string</pre>
+                <p><em>添加请求头</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$url </td>
+                                <td><p>url</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$content </td>
+                                <td><p>添加的内容</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>添加头后的参数</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__wcsLog" name="method__wcsLog" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_wcsLog()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_wcsLog(  <span class="argument">$error</span>) : true|false</pre>
+                <p><em>日志记录</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$error </td>
+                                <td><p>错误信息</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    true|false
+                                            &mdash; <p>日志是否记录成功</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">WcsHelper.class.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/WcsHelper.class.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/hp.html">\hp</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on 
+Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /usr/lib/php/pear/phpDocumentor/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
+March 31st, 2017 at 09:52.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

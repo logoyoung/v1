@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"/>
+	    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	    <meta name="format-detection" content="telephone=no"/>
+	    <meta content="email=no" name="format-detection" />
+		<title>约玩资质认证</title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" href="font/css/font-awesome.min.css">
+		<!-- <script src="./js/vue.min.js"></script> -->
+        <script src="../js/statistics.js?v=0.0.2"></script>
+		<script src="../js/jquery-1.9.1.min.js"></script>
+		<script src="./js/jquery.form.js"></script>
+		<script src="../../static/js/common.js"></script>
+        
+		<script src="./js/layer.js"></script>
+		<script>
+	        (function(){
+	            size();
+	            window.onresize = function (){
+	                size();
+	            };
+	            function size(){
+	                var winW = document.documentElement.clientWidth || document.documentElement.body.clientWidth;
+	                document.documentElement.style.fontSize = winW / 22.5 +'px';
+	            }
+	        })();
+	    </script>
+	</head>
+	<body>
+		<div class="content">
+			<article class="audit" style="display: none;">
+                <!-- <div id="test"></div> -->
+				<div class="classBox clearfix">
+					<p>游戏分类</p>
+					<div class="arrow">
+						<select class="classSelt" name="" id="gameList">
+							<option>王者荣耀</option>
+						</select>
+                        <i class="fa fa-chevron-right"></i>
+					</div>
+				</div>
+				<div class="screenshotBox" id="upImage">
+					<ul class="clearfix df">
+						<li>
+							<div class="image-box">
+								<img src="">
+							</div>
+							<form method="post">
+								<input type="file" name="file" id="image_01" accept="image/*">
+								<label for="image_01" class="screenBtn"></label>
+							</form>		
+						</li>
+						<li>
+							<div class="image-box">
+								<img src="">
+							</div>
+							<form method="post">
+								<input type="file" name="file" id="image_02" accept="image/*">
+								<label for="image_02" class="screenBtn"></label>
+							</form>
+						</li>
+						<li>
+							<div class="image-box">
+								<img src="">
+							</div>
+							<form method="post">
+								<input type="file" name="file" id="image_03" accept="image/*">
+								<label for="image_03" class="screenBtn"></label>
+							</form>
+						</li>
+					</ul>
+					<p class="info">请上传技能封面照（清晰显示ID和当前段位）、游戏精彩截图、个人形象照片，各一张</p>
+				</div>
+				<div class="instructionsBox">
+					<div class="textBox">
+						<p class="l">详细说明</p>
+					</div>
+					<textarea maxlength="40" placeholder="请详填写详细的技能说明，更容易让用户下单哦～（擅长位置，常用英雄等)" id="subInfo"></textarea>
+					<div class="num">
+						40字
+					</div>
+				</div>
+				<div class="btnBox">
+					<button class="submitBtn" disabled id="sub">提交</button>
+					<!-- 测试按钮 -->
+					<!--<div class="test">
+					    <a href="##" style="font-size:16px;">测试：提交成功</a>
+					    <a href="##" style="font-size:16px;">测试：提交失败</a>
+					</div>-->
+					<!-- end -->
+					<div class="agreementBox">
+						<input type="checkbox" name="" id="rule" class="none"/>
+						<label for="rule"></label>
+                        <span class="rule" style="color: #666;font-size: 0.85714286rem;">已阅读并同意</span>
+						<a href="../protocol/hppwgz.html" style="color: #ff7800;">《欢朋直播陪玩规则》</a>
+					</div>
+				</div>
+			</article>
+			
+			<article class="review none">
+				<div class="promptBox">
+					<div class="promptTop">
+						<div class="image_box">
+							<img src="images/success.png"/>
+						</div>
+					</div>
+					<div class="promptText">
+						<p class="p1">你的陪玩资质认证已提交!</p>
+						<p class="p2">官方将在2个工作日内完成审核，请耐心等待</p>
+					</div>
+					<button class="finshBtn" id="finishBtn">完成</button>
+				</div>
+			</article>
+			<article class="fail none">
+				<div class="promptBox">
+					<div class="promptTop">
+						<div class="image_box">
+							<img src="images/fail.png"/>
+						</div>
+					</div>
+					<div class="promptText">
+						<p class="p1">你的陪玩资质认证未通过审核!</p>
+						<p class="p2" id="failReason"></p>
+					</div>
+					<button class="applyBtn">重新申请</button>
+				</div>
+			</article>
+		</div>
+	</body>
+    
+	<script type="text/javascript">
+		var uid = '';
+        var encpass = '';
+        var certId = '';
+        var option = 'add';
+		var $confApi = $conf.api;
+
+        function getParams(a, b, c, d){
+            uid = a;
+            encpass = b;
+            certId = c || '';
+            option = d;
+            nextTo();
+            if(option == 'add'){
+                $('.audit').show();
+            }
+        }
+
+      function nextTo() {
+    	//页面逻辑
+        var approve = {
+            isSub: true,
+            updateGameId: '',
+            init: function() {
+                if(option == 'update') {
+                    this._getCertData();
+                }
+                this._getGameList();
+                this._upImage(this._testSubmit);
+                this._submit();
+                this._applySub();
+                this._phonePlus();
+            },
+            // 修改认证获取认证资质信息
+            _getCertData: function() {
+                var _this = this;
+                $.ajax({
+                    type: 'POST',
+                    url: $confApi + 'due/getSetCertData.php',
+                    async:false,
+                    data: {
+                        'uid': uid,
+                        'encpass': encpass,
+                        'certId': certId
+                    },
+                    success: function(data) {
+                        // var jsonData = JSON.stringify(data);
+                        // alert(jsonData);
+                        if(data.status === '1') {
+                            switch(data.content.status) {
+                                case '1':
+                                    certSuccess(data.content);
+                                    break;
+                                case '-1':
+                                    certChecking();
+                                    break;
+                                case '2':  
+                                    certSuccess(data.content);
+                                    certFail(data.content);
+                                    break;
+                                default:
+                                    return null;
+                                    break;
+                            }
+                        }else {
+                            layer.msg('获取资质认证信息失败');
+                        }
+                    }
+                });
+               
+                function certSuccess(data) {
+                    var urlHead = data.imgDomain;
+                    var info = data.info;
+                    var picUrls_arr = data.picUrls.split(',');
+                    var imgs = $('#upImage').find('img');
+                    $.each(picUrls_arr,function(i,v) {
+                        var picSrc = urlHead + picUrls_arr[i];
+                        imgs[i].src = picSrc;
+                        $(imgs[i]).attr('data-name',picUrls_arr[i]);
+                    });
+                    $('#subInfo').text(info);
+                    _this.updateGameId = data.gameId;
+                    $('.audit').show();
+                }
+                function certChecking() {
+                    $('.audit').hide();
+                    $('.review').show();
+                }
+                function certFail(data) {
+                    $('.audit').hide();
+                    $('.fail').show();
+                    var failreason = data.reason===''?'原因未填写':data.reason;
+                    $('#failReason').text(failreason);
+                }
+            },
+            // 获取资质认证游戏分类
+            _getGameList: function() {
+                var _this = this;
+                $.ajax({
+                    type: 'POST',
+                    url: $confApi + 'due/gameList.php',
+                    async: false,
+                    data: {},
+                    success: function success(data) {
+                        var gameList = data.content.list;
+                        var options = '';
+                        if (data.status === '1') {
+                            $.each(gameList, function (i, v) {
+                                if (option === 'add') {
+
+                                    if (i === 0) {
+                                        options += '<option selected value="' + v.gameId + '">' + v.gameName + '</option>';
+                                    } else {
+                                        options += '<option value="' + v.gameId + '">' + v.gameName + '</option>';
+                                    }
+                                } else {
+                                    if (v.gameId === _this.updateGameId) {
+                                        options += '<option selected value="' + v.gameId + '">' + v.gameName + '</option>';
+                                    }
+                                }
+                            });
+                            $('#gameList').html(options);
+                        } else {
+                            layer.msg('获取资质认证游戏分类失败');
+                        }
+                    }
+                });
+            },
+            // 上传图片，输入框检测
+            _upImage: function(callback) {
+                $('#upImage').find('input[type="file"]').on('change',function() {
+                    var $_this = $(this);
+                    var form = $_this.parents('form');
+                    var fileSize = ($_this[0].files[0].size/1024).toFixed(2);
+                    if(fileSize > 2048) {
+                        layer.msg('请上传小于2MB的图片');
+                        return null;
+                    }
+
+                    form.ajaxSubmit({
+                        type: 'POST',
+                        url: $confApi + 'due/uploadCertPic.php',
+                        dataType: 'json',
+                        data: {
+                            'uid': uid,
+                            'encpass': encpass
+                        },
+                        success: function(data) {
+                            // 去除val，可以重新触发change
+                            $_this.val('');
+                            if(data.status === '1') {
+                                var imgSrc = data.content.img;
+                                var imgName = data.content.imgName;
+                                $_this.parents('li').find('img')[0].src = imgSrc;
+                                $_this.parents('li').find('img').attr('data-name',imgName);
+                                callback();
+                            }else {
+                                layer.msg(data.content.desc);
+                            }
+                        }
+                    });
+                });
+
+                // $('#subInfo').on('input',function() {
+                //     callback();
+                // });
+                $('#rule').on('change',function() {
+                    callback();
+                })
+            },
+            // 检测是否能提交
+            _testSubmit: function() {
+                
+                var _this = this;
+                var rule = $('#rule').prop('checked');
+                if(rule) {
+                    _this.isSub = true;
+                }else {
+                    _this.isSub = false;
+                }
+                
+                $('#sub').prop('disabled',!_this.isSub);
+            },
+            // 提交资质认证
+            _submit: function() {
+                $('#sub').on('click',function() {
+                    var info = $('#subInfo').val().trim();
+                    var imgs = $('#upImage').find('img');
+                    var gameId = $('#gameList').val();
+                    var picUrls = '';
+                    // 判断是否有图片
+                    var canSubmitImage = false;
+                    imgs.each(function() {
+                        var picUrl = $(this).attr('data-name');
+                        if(picUrl) {
+                            picUrls += (picUrl+ ',');
+                            canSubmitImage = true;
+                        }else {
+                            canSubmitImage = false;
+                            return false;
+                        }
+                    });
+                    if(!canSubmitImage) {
+                        layer.msg('必须上传三张图片');
+                        return null;
+                    }
+                    // 判断是否填说明
+                    if(!info) {
+                        layer.msg('必须填写说明');
+                        return null;
+                    }
+                    picUrls = picUrls.slice(0,picUrls.length-1);
+
+                    var addCertId = '';
+                    if(option === 'update') {
+                        addCertId = certId;
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: $confApi + 'due/addCert.php',
+                        data: {
+                            'uid': uid,
+                            'encpass': encpass,
+                            'option': option,
+                            'picUrls': picUrls,
+                            'info': info,
+                            'gameId': gameId,
+                            'certId': addCertId
+                        },
+                        success: function(data) {
+                            console.log(data);
+                            if(data.status === '1') {
+                                $('.audit').hide();
+                                $('.review').show();
+                            }else {
+                                // $('.audit').hide();
+                                // $('.fail').show();
+                                layer.msg(data.content.desc);
+                            }
+                        }
+                    }); 
+                });
+            },
+            // 重新申请
+            _applySub: function() {
+                $('.applyBtn').on('click',function() {
+                    $('.audit').show();
+                    $('.fail').hide();
+                });
+            },
+            // 添加资质完成跳转
+            _phonePlus: function() {
+                $('#finishBtn').on('click',function() {
+                    if(window.phonePlus.turnTo) {
+                        // 安卓
+                        window.phonePlus.turnTo();
+                    }else {
+                        // ios
+                        window.webkit.messageHandlers.disapper.postMessage({body: 'sssssss'})
+                    }
+                });
+            }
+        };
+        approve.init();
+	  };
+        
+		//输入焦点页面位移
+        function focus() {
+            $('#subInfo').focus(function(){
+            	$('body').css({
+            		"position":"relative"
+            	});
+				$('body').animate({	
+					top:'-4rem'
+				});
+            }).blur(function(){
+            	$('body').animate({
+					top:'0'
+				});
+            });
+        };
+    	focus();
+    	
+    	//textarea失去焦点
+    	function textareafocus(){
+    		//判断是否为苹果
+			var isIPHONE = navigator.userAgent.toUpperCase().indexOf('IPHONE')!= -1;
+			// 元素失去焦点隐藏iphone的软键盘
+			function objBlur(id,time){
+				if(typeof id != 'string') throw new Error('objBlur()参数错误');
+				var obj = document.getElementById(id),time = time || 300,
+				docTouchend = function(event){
+					if(event.target!= obj){
+						setTimeout(function(){
+							obj.blur();
+							document.removeEventListener('touchend', docTouchend,false);
+						},time);
+					}
+				};
+				if(obj){
+					obj.addEventListener('focus', function(){
+						document.addEventListener('touchend', docTouchend,false);
+					},false);
+				}
+			}
+			if(isIPHONE){
+				var input = new objBlur('input','');
+				input=null;
+			}
+    	};
+    	textareafocus();
+        $('.rule').click(function(){$('#rule').click()})
+	</script>
+</html>

@@ -1,0 +1,254 @@
+<?php
+
+/**
+ * 基础信息类
+ * Created by PhpStorm.
+ * User: dong
+ * Date: 17/4/10
+ * Time: 下午5:31
+ */
+class BaseInfo
+{
+	private $_db = '';//数据库对象
+
+
+	public function __construct( $db = '' )
+	{
+		if( $db )
+		{
+			$this->_db = $db;
+		}
+		else
+		{
+			$this->_db = new DBHelperi_huanpeng();
+		}
+		return true;
+	}
+
+
+	/**
+	 * 获取首页咨询列表
+	 *
+	 * @param int    $type   1轮播 2列表
+	 * @param int    $client 1app  2web
+	 * @param object $db
+	 *
+	 * @return array|bool
+	 */
+	private function _getRecommemdInfo( $type, $client, $db )
+	{
+		if( $type == 0 )
+		{//轮播&&列表
+			$id = 'id in (1,2)';
+		}
+		if( $type == 1 )
+		{//轮播
+			$id = 'id in (1)';
+		}
+		if( $type == 2 )
+		{//列表
+			$id = 'id in (2)';
+		}
+		$res = $db->field( 'id,list' )->where( "$id  and  client=$client " )->select( 'recommend_information' );
+		if( $res !== false )
+		{
+			if( empty( $res ) )
+			{
+				return array();
+			}
+			else
+			{
+				foreach ( $res as $v )
+				{
+					$temp[$v['id']] = $v['list'];
+				}
+				return $temp;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/*
+	 * 根据资讯id获取标题图片
+	 *
+	 * @param string $ids  资讯id
+	 * @param $db
+	 *
+	 * @return array|bool
+	 */
+	private function _getInfoListByIds( $ids, $db )
+	{
+		if( empty( $ids ) )
+		{
+			return false;
+		}
+		$res = $db->field( 'id,tid,title,poster,url,is_login' )->where( "id  in ($ids)" )->select( 'admin_information' );
+		if( false !== $res )
+		{
+			if( empty( $res ) )
+			{
+				return array();
+			}
+			else
+			{
+				foreach ( $res as $v )
+				{
+					$temp[$v['id']] = $v;
+				}
+				return $temp;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * 获取资讯类型
+	 *
+	 * @param object $db
+	 *
+	 * @return array|bool
+	 */
+	private function _getInformationType( $db )
+	{
+		$res = $db->field( 'id,name' )->select( 'admin_information_type' );
+		if( false !== $res )
+		{
+			if( $res )
+			{
+				foreach ( $res as $v )
+				{
+					$temp[$v['id']] = $v['name'];
+				}
+				return $temp;
+			}
+			else
+			{
+				return array();
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * 获取首页资讯列表
+	 *
+	 * @param int    $type   1轮播 2列表
+	 * @param int    $client 1app  2web
+	 * @param object $db
+	 *
+	 * @return array|bool
+	 */
+	public function getRecommendInformationList( $type, $client )
+	{
+		if( !in_array( $type, array( 0, 1, 2 ) ) || !in_array( $client, array( 1, 2 ) ) )
+		{
+			return false;
+		}
+		$res = $this->_getRecommemdInfo( $type, $client, $this->_db );
+		if( $res )
+		{
+			$Itype = $this->_getInformationType( $this->_db );
+			if( $type == 0 )
+			{
+				if( isset( $res[1] ) )
+				{
+					$plist = array();
+					$pres = $this->_getInfoListByIds( $res[1], $this->_db );
+					if( $pres )
+					{
+						$parray = explode( ',', $res[1] );
+						for ( $i = 0, $k = count( $parray ); $i < $k; $i++ )
+						{
+							$temp['id'] = $pres[$parray[$i]]['id'];
+							$temp['url'] = $pres[$parray[$i]]['url'];
+							$temp['isLogIn'] = $pres[$parray[$i]]['is_login'];
+							$temp['title'] = $pres[$parray[$i]]['title'] ? $pres[$parray[$i]]['title'] : '';
+							$temp['poster'] = $pres[$parray[$i]]['poster'] ? $pres[$parray[$i]]['poster'] : '';
+							array_push( $plist, $temp );
+						}
+					}
+					else
+					{
+						$plist = array();
+					}
+				}
+				if( isset( $res[2] ) )
+				{
+					$tlist = array();
+					$tres = $this->_getInfoListByIds( $res[2], $this->_db );
+					if( $tres )
+					{
+						$tarray = explode( ',', $res[2] );
+						for ( $i = 0, $k = count( $tarray ); $i < $k; $i++ )
+						{
+							$tmp['id'] = $tres[$tarray[$i]]['id'];
+							$tmp['url'] = $tres[$tarray[$i]]['url'];
+							$tmp['isLogIn'] = $tres[$tarray[$i]]['is_login'];
+							$tmp['type'] = isset( $Itype[$tres[$tarray[$i]]['tid']] ) ? $Itype[$tres[$tarray[$i]]['tid']] : '';
+							$tmp['title'] = $tres[$tarray[$i]]['title'] ? $tres[$tarray[$i]]['title'] : '';
+							$tmp['poster'] = $tres[$tarray[$i]]['poster'] ? DOMAIN_PROTOCOL . $conf['domain-img'] . '/' . $tres[$tarray[$i]]['poster'] : '';
+							array_push( $tlist, $tmp );
+						}
+					}
+					else
+					{
+						$tlist = array();
+					}
+				}
+				else
+				{
+					$tlist = array();
+				}
+				return array( 'plist' => $plist, 'tlist' => $tlist );
+			}
+			else
+			{
+				$list = array();
+				$pres = $this->_getInfoListByIds( $res[$type], $this->_db );
+				if( $pres )
+				{
+					$parray = explode( ',', $res[$type] );
+					for ( $i = 0, $k = count( $parray ); $i < $k; $i++ )
+					{
+						$temp['id'] = $pres[$parray[$i]]['id'];
+						$temp['url'] = $pres[$parray[$i]]['url'];
+						$temp['isLogIn'] = $pres[$parray[$i]]['is_login'];
+						if( $type == 2 )
+						{
+							$temp['type'] = isset( $Itype[$pres[$parray[$i]]['title']] ) ? $Itype[$pres[$parray[$i]]['title']] : '';
+						}
+						$temp['title'] = $pres[$parray[$i]]['title'] ? $pres[$parray[$i]]['title'] : '';
+						$temp['poster'] = $pres[$parray[$i]]['poster'] ? $pres[$parray[$i]]['poster'] : '';
+						array_push( $list, $temp );
+					}
+				}
+				else
+				{
+					$list = array();
+				}
+				if( $type == 1 )
+				{//
+					return array( 'plist' => $list, 'tlist' => array() );
+				}
+				if( $type == 2 )
+				{
+					return array( 'plist' => array(), 'tlist' => $list );
+				}
+			}
+		}
+		else
+		{
+			return array( 'plist' => array(), 'tlist' => array() );
+		}
+	}
+
+}
