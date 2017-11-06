@@ -1,0 +1,129 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>礼物管理</a><a href="javascript:;" ></i>🎁列表</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>🎁列表</h5>
+			<a href="/gift/giftsave"><span class="label label-info">新增礼物</span></a>
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10 ln38">
+                <form class="form-search">
+                  <input type="text" class="w120" name="giftname" value="{{$Think.get.giftname}}" placeholder="礼物名称"/>
+				  <select class="span2" name="all_site_notify">
+					<option value="-1">是否全站通知</option>
+                    <foreach name="siteNotify" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.all_site_notify eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <button type="submit" class="btn">搜索</button>
+                  <!--<button type="submit" class="btn" name="export" value="1">导出</button><br>-->
+                </form>
+            </div>
+			
+        <div class="oyat">    
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <th>#</th>
+				  <th>名称</th>
+                  <th>类型/价格</th>
+                  <th>经验</th>
+                  <th>图标</th>
+                  <th>移动端连击背景图</th>
+				  <th>聊天礼物展示图</th>
+                  <th>移动端连击文字颜色</th>
+                  <th>网站礼物预览图</th>
+				  <th>网站连击背景图</th>
+                  <th>网站连击文字颜色</th>
+                  <th>全站通知状态</th>
+                  <th>连击展示时间</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr>
+                  <td>{{$item.id}}</td>
+                  <td>{{$item.giftname}}</td>
+				  <td>{{$item.type}}/{{$item.money}}</td>
+                  <td>{{$item.exp}}</td>
+                  <td>
+					<notempty name='item.poster'><img style="height:40px; width:40px" src="{{$item.poster}}" /><else/>暂无</notempty><br/>
+					<notempty name='item.poster_3x'><img style="height:60px; width:60px" src="{{$item.poster_3x}}" /><else/>暂无</notempty>
+				  </td>
+				  <td>
+					<notempty name='item.bg'><img style="height:40px; width:40px" src="{{$item.bg}}" /><else/>暂无</notempty><br/>
+					<notempty name='item.bg_3x'><img style="height:60px; width:60px" src="{{$item.bg_3x}}" /><else/>暂无</notempty>
+				  </td>
+				  <td>
+					<notempty name='item.thumb_poster'><img style="height:40px; width:40px" src="{{$item.thumb_poster}}" /><else/>暂无</notempty><br/>
+					<notempty name='item.thumb_poster_3x'><img style="height:60px; width:60px" src="{{$item.thumb_poster_3x}}" /><else/>暂无</notempty>
+				  </td>
+                  <td style="color:{{$item.font_color}};">{{$item.font_color}}</td>
+                  <td><notempty name='item.web_preview'><img style="height:100px; width:100px" src="{{$item.web_preview}}" /><else/>暂无</notempty></td>
+				  <td><notempty name='item.web_bg'><img style="height:100px; width:100px" src="{{$item.web_bg}}" /><else/>暂无</notempty></td>
+                  <td style="color:{{$item.web_font_color}};">{{$item.web_font_color}}</td>
+                  <td>{{$item.all_site_notify}}</td>
+                  <td>{{$item.combo_show_time}}</td>
+                  <td>
+					<a class="badge badge-info" href="/gift/giftsave?id={{$item.id}}">编辑</a>
+					<!--<a class="badge badge-info" href="javascript:;" onclick="del({{$item.id}})">删除</a>-->
+                  </td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        minView: 2,
+        todayBtn: true,
+    });
+    
+    function del( id ) {
+		if(confirm('确定要删除吗？')) {
+			$.ajax({
+				url: '/gift/del',
+				data:{id:id,action:'del'},
+				type:'post',
+				dataType:'json',
+				success:function(data){
+					if(data.status==1){
+						Op_common.alert(data.info,function(){
+							window.location.href = "";
+						});
+					}else{
+						Op_common.alert(data.info,function(){});
+						//window.location.href = "";
+					}
+				}
+			})
+		}
+	}
+    
+</script>
+</block>

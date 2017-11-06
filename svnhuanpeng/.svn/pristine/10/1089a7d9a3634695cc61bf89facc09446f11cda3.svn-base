@@ -1,0 +1,285 @@
+<extend name="Base/matrix" />
+<block name="content">
+  <img border='1px solid'   src="">
+  <div id="content">
+    <div id="content-header">
+      <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>财务通过</a></div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+              <h5>通过列表</h5>
+              &nbsp;<a href="javascript:;"><span class="label badge-warning" onclick="lockall('{{$Think.get.month}}')">全部通过</span></a>
+              &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;"><span class="label badge-success" onclick="unlockall('{{$Think.get.month}}')">全部驳回</span></a>
+            </div>
+            <div class="widget-content">
+              <div class="text-center mb10 ln38">
+                <form class="form-search" id='myform'>
+                  <input name='companyname' id='companyname' type="text" value="{{$Think.get.companyname}}"  placeholder="公司名称"  >
+                  <input name='cid' id='cid' type="hidden"   value="{{$Think.get.cid}}">
+                  <input type="text" name="month" class="form_datetime w100"  value="{{$Think.get.month}}" placeholder="月份">
+                  <button type="submit" class="btn">搜索</button>
+                  <button type="submit" class="btn" name="export" value="1">导出</button><br>
+                </form>
+              </div>
+              <notempty name = "data">
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>笔数</th>
+                  <th>底薪</th>
+                  <th>礼物收益</th>
+                  <th>奖励收益</th>
+                  <th>总收入</th>
+                  <th>代扣个税</th>
+                  <th>应付金额</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>经纪公司：</td>
+                  <td>{{$sum['sum_num']}}</td>
+                  <td>{{$sum['wages_base_edit']}}</td>
+                  <td>{{$sum['wages_gift_edit']}}</td>
+                  <td>{{$sum['wages_bonuses']}}</td>
+                  <td>{{$sum['wages_sum']}}</td>
+                  <td>{{$sum['wages_tax']}}</td>
+                  <td><a href='companyanchorlist?status_op=1&month={{$Think.get.month}}&cid={{$Think.get.cid}}&cid={{$Think.get.cid}}&type_company=1' target="_blank" >{{$sum['wages_base_afttax']}}</a></td>
+                </tr>
+                <tr>
+                  <td>平台签约：</td>
+                  <td>{{$sum_gh['sum_num']}}</td>
+                  <td>{{$sum_gh['wages_base_edit']}}</td>
+                  <td>{{$sum_gh['wages_gift_edit']}}</td>
+                  <td>{{$sum_gh['wages_bonuses']}}</td>
+                  <td>{{$sum_gh['wages_sum']}}</td>
+                  <td>{{$sum_gh['wages_tax']}}</td>
+                  <td><a href='companyanchorlist?status_op=1&month={{$Think.get.month}}&cid={{$Think.get.cid}}&cid={{$Think.get.cid}}&type_company=2' target="_blank" >{{$sum_gh['wages_base_afttax']}}</a></td>
+                </tr>
+                <tr>
+                  <td>合计：</td>
+                  <td>{{$sum_gh['sum_num']+$sum['sum_num']}}</td>
+                  <td>{{$sum_gh['wages_base_edit']+$sum['wages_base_edit']}}</td>
+                  <td>{{$sum_gh['wages_gift_edit']+$sum['wages_gift_edit']}}</td>
+                  <td>{{$sum_gh['wages_bonuses']+$sum['wages_bonuses']}}</td>
+                  <td>{{$sum_gh['wages_sum']+$sum['wages_sum']}}</td>
+                  <td>{{$sum_gh['wages_tax']+$sum['wages_tax']}}</td>
+                  <td><a href='companyanchorlist?status_op=1&month={{$Think.get.month}}&cid={{$Think.get.cid}}&cid={{$Think.get.cid}}' target="_blank">{{$sum['wages_base_afttax']+$sum_gh['wages_base_afttax']}}</a></td>
+                </tr>
+              </tbody>
+            </table>
+              <div class="oyat">
+                <table class="table table-bordered table-striped" id="oCenter" style="">
+                  <thead>
+                  <tr>
+                    <th>月份</th>
+                    <th>公司名称</th>
+                    <th>税率</th>
+                    <th>分成比例</th>
+                    <th>礼物收益</th>
+                    <th>底薪收益</th>
+                    <th>结算金额</th>
+                    <th>通过状态</th>
+                  </tr>
+                  </thead>
+                  <tbody class='data'>
+                  <foreach name="data" item="item">
+                    <tr>
+                      <td>{{$item.month}}</td>
+                      <td>{{$item.company_name}}</td>
+                      <td>{{$item.company_tax}}</td>
+                      <td>{{$item.company_rate}}</td>
+                      <td>{{$item.wages_gift_edit}}</td>
+                      <td>{{$item.wages_base_edit}}</td>
+                      <td>{{$item['wages_base_afttax']}}</td>
+                      <td>
+                        <if condition="$item.type_finance eq 0"> 未通过
+                          <else/>已通过
+                        </if>
+                      </td>
+                    </tr>
+                  </foreach>
+                  </tbody>
+                </table>
+                <div class="pagination alternate text-center">{{$page}}</div>
+              </div>
+             </notempty>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</block>
+<block name="cssadd">
+  <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+  <script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+  <script>
+    $('.form_datetime').datetimepicker({
+      format: 'yyyy-mm',
+      showMeridian: false,
+      autoclose: true,
+      startView:3,
+      minView: 3,
+      todayBtn: true,
+      todayHighlight:false,
+    });
+
+    $(function(){
+      var month = '{{$Think.get.month}}';
+      $('.full').click(function(){
+        if($(this).attr('checked')){
+          $('th input[type=checkbox]').attr('checked',true);
+        }else{
+          $('th input[type=checkbox]').attr('checked',false);
+        }
+      })
+      $('#pass').click(function(){
+        Op_common.confirm(('确认操作?'),function(){
+          var ck = $('th input[type=checkbox]');
+          var ids = '';
+          ck.each(function(){
+            if($(this).is(':checked')){
+              var id = $(this).attr('id');
+              if(typeof(id) != "undefined"){
+                ids += ','+id;
+              }
+            }
+          })
+          ids = ids.slice(1);
+          if(ids){
+            Op_common.ajax('/wages/flock',{company_id:ids,month:month},function(o){
+              if(o.status == 1){
+                Op_common.alert('操作成功!',function(){
+                  window.location.reload();
+                });
+              }else{
+                Op_common.alert('操作失败!');
+              }
+            });
+          }
+        })
+      })
+
+      $('#unpass').click(function(){
+        Op_common.confirm(('确认操作?'),function(){
+          var ck = $('th input[type=checkbox]');
+          var ids = '';
+          ck.each(function(){
+            if($(this).is(':checked')){
+              var id = $(this).attr('id');
+              if(typeof(id) != "undefined"){
+                ids += ','+id;
+              }
+            }
+          })
+          ids = ids.slice(1);
+          if(ids){
+            Op_common.ajax('/wages/unflock',{company_id:ids,month:month},function(o){
+              if(o.status == 1){
+                Op_common.alert('操作成功!',function(){
+                  window.location.reload();
+                });
+              }else{
+                Op_common.alert('操作失败!');
+              }
+            });
+          }
+        })
+      })
+
+      $(".data tr").hover(function(){
+        $(this).find('.imgclass')
+                .stop()
+                .css("width","120px")
+                .css("height","120px")
+                .css("z-index", 9999);
+      },function(){
+        $(this).find('.imgclass')
+                .css("width","40px")
+                .css("height","40px")
+                .css("z-index", 0);
+      });
+
+      $('#companyname').change(function() {
+        $('#cid').val('');
+      });
+      $.get('/public/getlist',{status:'0'},function(datas){
+        $('#companyname').autocomplete({
+          lookup:datas,
+          onSelect:function(data){
+            $('#cid').val(data.id);
+            $('#companyname').val(data.value);
+          }
+        });
+      },'json');
+
+    })
+    function unflock(id,month){
+      Op_common.ajax('/wages/unflock',{company_id:[id],month:month},function(o){
+        if(o.status == 1){
+          Op_common.alert('操作成功!',function(){
+            window.location.reload();
+          });
+        }else{
+          Op_common.alert('操作失败!');
+        }
+      });
+    }
+    function flock(id,month){
+      Op_common.ajax('/wages/flock',{company_id:[id],month:month},function(o){
+        console.log(o);
+        if(o.status == 1){
+          Op_common.alert('操作成功!',function(){
+            window.location.reload();
+          });
+        }else{
+          Op_common.alert('操作失败!');
+        }
+      });
+    }
+
+    function lockall(month){
+      Op_common.ajax('/wages/lockall',{month:month},function(o){
+        console.log(o);
+        if(o.status == 1){
+          Op_common.alert('操作成功!',function(){
+            window.location.reload();
+          });
+        }else{
+          Op_common.alert('操作失败!');
+        }
+      });
+    }
+
+    function unlockall(month){
+      Op_common.ajax('/wages/unlockall',{month:month},function(o){
+        console.log(o);
+        if(o.status == 1){
+          Op_common.alert('操作成功!',function(){
+            window.location.reload();
+          });
+        }else{
+          Op_common.alert('操作失败!');
+        }
+      });
+    }
+
+    Op_common.ajaxForm($('#f1'),function(obj){
+      if(obj.status==1){
+        $("#myModal").css('display','none');
+        Op_common.alert(obj.info,function(){
+          window.location.reload();
+        });
+      }else{
+        Op_common.alert(obj.info||'操作失败');
+      }
+    });
+  </script>
+</block>

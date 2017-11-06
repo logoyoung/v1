@@ -1,0 +1,140 @@
+<extend name="Base/matrix" />
+<block name="content">
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>约玩审核</a><a href="/rbac/user" ></i>资质认证</a><a href="javascript:;" ></i>资质审核</a></div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span10">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                            <h5>认证资料</h5>
+                        </div>
+                        <div class="widget-content ">
+                            <div style="font-size: 14px;">
+                                <span>用户UID:</span>&nbsp;&nbsp;
+                                <span>{{$data.uid}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                <span>用户昵称:</span>&nbsp;&nbsp;
+                                <span>{{$data.nick}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                <span>状态:</span>&nbsp;&nbsp;
+                                <span>{{$status}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <if  condition="($data.reason neq '' )  ">
+                                    <span>拒绝原因:</span>&nbsp;&nbsp;
+                                    <span>{{$data.reason}}</span>&nbsp;&nbsp;&nbsp;
+                                </if>
+                                <span>认证游戏:</span>&nbsp;&nbsp;
+                                <span>{{$data.gamename}}</span>&nbsp;
+                            </div>
+                            <h5>图片</h5>
+                            <ul id="pic" class="thumbnails">
+                                <foreach name="pics" item="pic" key='key'>
+                                <li class="span3">
+                                    <a href="#" class="thumbnail">
+                                        <img src="{{$certdomain}}/{{$pic}}" alt="">
+                                    </a>
+                                </li>
+                                </foreach>
+                            </ul>
+                            <h5>视频</h5>
+                            <if  condition="($data.video_url neq '' )  ">
+                            <video id="video" src="" width="320" height="240" controls >
+                                您的浏览器不支持 video 元素。
+                            </video>
+                                <else/>
+                                <p style="text-indent: 1rem;">暂无视频</p>
+                            </if>
+                            <h5>语音</h5>
+                            <if  condition="($data.audio_url neq '' )  ">
+                            <audio id="audio" src="a.mp3" controls >
+                                您的浏览器不支持 audio 元素。
+                            </audio>
+                                <else/>
+                                <p style="text-indent: 1rem;">暂无语音</p>
+                                </if>
+                            <h5>描述</h5>
+                            <if  condition="($data.info neq '' )  ">
+                            <p id="desc" style="text-indent: 1rem;">{{$data.info}}</p>
+                                <else/>
+                                <p style="text-indent: 1rem;">暂无语音</p>
+                                </if>
+                        </div>
+                        <if condition="($data.status eq '-1')">
+                        <a  role="button" class="btn btn-success" onclick="pass('{{$data.id}}','{{$data.uid}}','{{$data.nick}}')">通过</a>
+                        <a href="#myModal" role="button" class="btn btn-danger" data-toggle="modal">拒绝</a>
+                            <else/>
+                            <a  role="button" class="btn btn-success disabled">通过</a>
+                            <a  role="button" class="btn btn-danger disabled" data-toggle="modal">拒绝</a>
+                            </if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">拒绝原因</h3>
+        </div>
+        <div class="modal-body">
+            <textarea style="width: 100%" minlength="5" maxlength="50" id="reason" placeholder="请输入拒绝原因（5～50字）"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            <button class="btn btn-primary" onclick="unpass('{{$data.id}}','{{$data.uid}}','{{$data.nick}}')">提交</button>
+        </div>
+    </div>
+    <block name="cssadd">
+        <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+        <style>.group{display: none;}</style>
+    </block>
+</block>
+<block name="jsadd">
+    <script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__RES__plupload/plupload.full.min.js"></script>
+    <script>
+        function unpass(id,uid,nick) {
+            var reason = $('#reason').val();
+            if(!reason){
+                alert('请填写拒绝原因');
+                return;
+            }
+            $.ajax({
+                url: '/ywcheck/ywchecksaveunpass',
+                data:{id:id,uid:uid,nick:nick,reason:reason},
+                type:'post',
+                dataType:'json',
+                success:function(data){
+                    if(data.status==1){
+                        alert('操作成功')
+                        window.location.href = "";
+                    }else{
+                        alert('操作失败')
+                        window.location.href = "";
+                    }
+                }
+            })
+        }
+        function pass(id,uid,nick) {
+            $.ajax({
+                url: '/ywcheck/ywchecksavepass',
+                data:{id:id,uid:uid,nick:nick},
+                type:'post',
+                dataType:'json',
+                success:function(data){
+                    if(data.status==1){
+                        alert('操作成功')
+                       window.location.href = "";
+                    }else{
+                        alert('操作失败')
+                        window.location.href = "";
+                    }
+                }
+            })
+        }
+    </script>
+</block>

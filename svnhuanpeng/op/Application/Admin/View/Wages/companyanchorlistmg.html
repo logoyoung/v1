@@ -1,0 +1,306 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>收益审核</a><a href="javascript:;" ></i>主播列表</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>主播列表</h5>
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10 ln38">
+                <form class="form-search" id='myform'>
+                  <input name='companyname' id='companyname' type="text" value="{{$Think.get.companyname}}"  placeholder="公司名称"  >
+                  <input name='cid' id='cid' type="hidden"   value="{{$Think.get.cid}}">
+                  <input name='uid' id='uid' type="text"   value="{{$Think.get.uid}}"  placeholder="UID" >
+                  <input type="text" name="month" class="form_datetime w100"  value="{{$Think.get.month}}" placeholder="月份">  
+                  <select class="span2" name="status_op">
+                  <option value="-1" >请选择初审状态</option>
+                    <foreach name="statusop" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.status_op eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <select class="span2" name="status_opmanager">
+                  <option value="-1" >请选择复审状态</option>
+                    <foreach name="statusopmanager" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.status_opmanager eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <select class="span2" name="status_finance_check">
+                  <option value="-1" >请选择财务审核状态</option>
+                    <foreach name="statusfinancecheck" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.status_finance_check eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <select class="span2" name="status_finance">
+                  <option value="-1" >请选择汇款状态</option>
+                    <foreach name="statusfinance" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.status_finance eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  
+                  <select class="span2" name="type_company">
+                  <option value="-1" >签约类型</option>
+                    <foreach name="typecompany" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.type_company eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <button type="submit" class="btn">搜索</button>
+                  <button type="submit" class="btn" name="export" value="1">导出</button><br>
+                </form>
+            </div>
+            
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>笔数</th>
+                  <th>底薪</th>
+                  <th>礼物收益</th>
+                  <th>奖励收益</th>
+                  <th>总收入</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>总计：</td>
+                  <td>{{$sum['sum_num']}}</td>
+                  <td>{{$sum['wages_base_edit']}}</td>
+                  <td>{{$sum['wages_gift_edit']}}</td>
+                  <td>{{$sum['wages_bonuses']}}</td>
+                  <td>{{$sum['wages_base_afttax']}}</td>
+                </tr>
+              </tbody>
+            </table>
+            
+        <div class="oyat">    
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <td><input type="checkbox" class="full">全选</td>
+                  <th>月份</th>
+                  <th>公司名称</th>
+                  <th>UID</th>
+                  <th>昵称</th>
+                  <th>首次签约日期</th>
+                  <th>是否禁播</th>
+                  <th>有效时长</th>
+                  <th>有效天数</th>
+                  <th>礼物收益</th>
+                  <th>底薪</th>
+                  <th>奖励</th>
+                  <th>总收入</th>
+                  <th>初审状态</th>
+                  <th>复审状态</th>
+                  <th>财务审核状态</th>
+                  <th>汇款状态</th>
+                  <th>审核</th>
+                  <th>审核日志</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr>
+                <th style="text-align: center">
+                <if condition="$item.is_lock eq 1 ">
+                <input type="checkbox" id="{{$item.id}}" >
+                </if>
+                </th>
+                  <td>{{$item.month}}</td>
+                  <td>{{$item.company_name}}</td>
+                  <td>{{$item.uid}}</td>
+                  <td>{{$item.nick}}</td>
+                  <td>{{$item.live_start}}</td>
+                  <td>{{$item.is_black}}</td>
+                  <td>{{$item.live_length}}</td>
+                  <td>{{$item.live_day}}</td>
+                  <td>{{$item.wages_gift_edit}}</td>
+                  <td>{{$item.wages_base_edit}}</td>
+                  <td>{{$item.wages_bonuses}}</td>
+                  <td>{{$item['wages_sum']}}</td>
+				  <td><p  <if condition="$item.status_op eq 2">  class = 'text-info' <elseif condition="$item.status_op eq 0"/> class = 'text-error'</if>   >{{$item.status_op_str}}</p></td>
+                  <td><p  <if condition="$item.status_opmanager eq 2">  class = 'text-error' </if>   >{{$item.status_opmanager_str}}</p></td>
+                  <td><p  <if condition="$item.status_finance eq 2">  class = 'text-error' </if>   >{{$item.status_finance_check_str}}</p></td>
+                  <td>{{$item.status_finance_str}}</td>
+                  <td class='detail' wagesid={{$item.id}} >
+                  <if condition="$item.is_lock eq 1 ">
+                  <a class="badge badge-info" href="/wages/companyanchorcheck?id={{$item.id}}">审核</a>
+                  </if>
+                  </td>
+                  <td>
+                  <a class="badge badge-info" href="/wages/log?wages_id={{$item.id}}">日志</a>
+                  </td>
+                </tr>
+              </foreach>
+              <if condition="$is_lock eq 0">
+              <tr >
+              <td colspan="8"><input type="checkbox" class="full">
+                                      全选&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;"><span class="label badge-important" id="unpass">拒绝</span></a>
+              </tr>
+              </if>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="modal" id="myModal" tabindex="-1" style="display: none;"  >
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="modal-header">
+            <h5 class="modal-title">原因描述(必填)</h5>
+          </div>
+          <div>
+              <div class="control-group">
+                <div>
+                  <textarea id="note" name="note"  style="height:150px;width:505px" placeholder="" >--</textarea>
+                </div>
+              </div>
+              <div class="form-actions text-center">
+                <button type="button" onclick="unpass()" class="btn btn-danger" >確定</button>
+                <button type="button" onclick="hide()" class="btn btn-success" data-dismiss="modal">关闭</button>
+              </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm',
+        showMeridian: false,
+        autoclose: true,
+        startView:3,
+        minView: 3,
+        todayBtn: true,
+        todayHighlight:false,
+    });
+    $('.form_datetime2').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        startView:2,
+        minView: 2,
+        todayBtn: true,
+        todayHighlight:false,
+    });
+    
+    function hide(){
+        $("#myModal").css('display','none');
+      }
+		
+    $(document).ready(function(){
+     	// Autocomplete on User Supplied data
+   		$('#companyname').change(function() {
+   			$('#cid').val('');
+   		});
+     	$.get('/public/getlist',{status:'0'},function(datas){
+			$('#companyname').autocomplete({
+				lookup:datas,
+				onSelect:function(data){
+					$('#cid').val(data.id);
+					$('#companyname').val(data.value);
+				}
+			});
+     	},'json');
+    });
+    
+    $(function(){
+        $('.full').click(function(){
+            if($(this).attr('checked')){
+                $('th input[type=checkbox]').attr('checked',true);
+            }else{
+                $('th input[type=checkbox]').attr('checked',false);
+            }
+        })
+        $('#pass').click(function(){
+            Op_common.confirm(('确认操作?'),function(){
+                var ck = $('th input[type=checkbox]');
+                var ids = '',pics='';
+                var statusx = '{{$Think.post.statusx}}';
+                ck.each(function(){
+                    if($(this).is(':checked')){
+                        var id = $(this).attr('id');
+                        ids += ','+id;
+                    }
+                })
+                ids = ids.slice(1);
+                pics = pics.slice(1);
+                if(ids){
+                    Op_common.ajax('/wages/companyanchorpass',{ids:ids,status:1,statusx:statusx},function(o){
+                        if(o.status == 0){
+                            Op_common.alert('操作成功!',function(){
+                                location.href='';
+                            });
+                        }else{
+                            Op_common.alert('操作失败!');
+                        }
+                    });
+                }
+            })
+        })
+        
+        $('#unpass').click(function(){
+        	$("#myModal").css('display','block');})
+        
+		$(".data tr").hover(function(){
+			$(this).find('.imgclass')
+			.stop()
+			.css("width","120px")
+			.css("height","120px")
+			.css("z-index", 9999);
+		},function(){
+			$(this).find('.imgclass')
+			.css("width","40px")
+			.css("height","40px")
+			.css("z-index", 0);
+		});	
+        
+    })
+    
+    
+       function unpass(){
+        	$("#myModal").css('display','none');
+            var ck = $('th input[type=checkbox]');
+            var ids = '',pics='',note=$('#note').val();
+            var statusx = '{{$Think.post.statusx}}';
+            ck.each(function(){
+                if($(this).is(':checked')){
+                    var id = $(this).attr('id');
+                    ids += ','+id;
+                }
+            })
+            ids = ids.slice(1);
+            pics = pics.slice(1);
+            if(ids){
+                Op_common.ajax('/wages/companyanchorpass',{ids:ids,status:2,note:note,statusx:statusx},function(o){
+                    if(o.status == 0){
+                        Op_common.alert('操作成功!',function(){
+                            location.href='';
+                        });
+                    }else{
+                        Op_common.alert('操作失败!');
+                    }
+                });
+            }
+        }
+</script>
+</block>

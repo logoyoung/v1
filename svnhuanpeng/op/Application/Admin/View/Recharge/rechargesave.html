@@ -1,0 +1,103 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>充值管理</a><a href="javascript:;" ></i>充值｜奖励下发</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>新增</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form name="f1" method="post" class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">账户 ID(不超过100个)<span style="color:red">*</span></label>
+              <div class="controls">
+                  <textarea <empty name="id">name="uids"<else/>disabled</empty> value="{{$uid}}" type="textarea" class="span6" rows="6" placeholder="多个ID请分行，一行一个ID，最多不超过100个" /></textarea>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">类型 <span style="color:red">*</span></label>
+              <div class="controls">
+                 <select class="select"  <empty name="id">name="type"<else/>disabled</empty> >
+                  <option name="type" value="">请选择类型</option>
+                    <foreach name="type" item="item" key="key" >
+                    <option value="{{$key}}" <eq name="key" value="$type"> selected</eq>>{{$item}}</option>
+                    </foreach>
+                <select/>
+              </div>
+            </div>
+            
+            <div class="control-group">
+              <label class="control-label">所属活动 <span style="color:red">*</span></label>
+              <div class="controls">
+                 <select class="select"  <empty name="id">name="activeid"<else/>disabled</empty> >
+                  <option name="active" value="">请选择活动</option>
+                    <foreach name="active" item="item" key="key" >
+                    <option value="{{$key}}" <eq name="key" value="$type"> selected</eq>>{{$item}}</option>
+                    </foreach>
+                <select/>
+              </div>
+            </div>
+            
+			<div class="control-group">
+              <label class="control-label">欢朋币 <span style="color:red">*</span></label>
+              <div class="controls">
+                  <input <empty name="id">name="hpcoin"<else/>disabled</empty> value="{{$hpcoin}}" type="text" class="span2" placeholder="" />
+              </div>
+            </div>
+			<div class="control-group">
+              <label class="control-label">欢朋豆 <span style="color:red">*</span></label>
+              <div class="controls">
+                  <input <empty name="id">name="hpbean"<else/>disabled</empty> value="{{$hpbean}}" type="text" class="span2" placeholder="" />
+              </div>
+            </div>
+            
+            <div class="control-group">
+              <label class="control-label">描述 <span style="color:red">*</span></label>
+              <div class="controls">
+                  <textarea  maxlength="800" <empty name="id">name="desc"<else/>disabled</empty> value="{{$desc}}" type="textarea" class="span6" rows="6" placeholder="" /> </textarea>
+              </div>
+            </div>
+            
+            <div class="form-actions text-center">
+              <button type="submit" class="btn btn-success"  style="margin-right:100px;">确定</button>
+              <button type="submit" class="btn" onclick="history.back(-1);">返回</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+    <style>.group{display: none;}</style>
+</block>
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+
+    var f=document.forms.f1;
+    Op_common.ajaxForm($(f),function(obj){
+        if(obj.status==1){
+            Op_common.alert(obj.info,function(){
+                window.location = '/recharge/recharge';
+            });
+        }else{
+            Op_common.alert(obj.info||'操作失败');
+        }
+    },{'rule':{
+        'uids':{'require':1,'msg':'uid必填!'},
+        'type':{'require':1,'msg':'类型必填!'},
+        'activeid':{'require':1,'msg':'活动必填!'},
+        'desc':{'require':1,'msg':'描述必填!'},
+    }
+ });
+</script>
+</block>

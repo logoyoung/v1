@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>主播认证</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/beAnchor.css?v=1.0.4">
+    <script src="../js/statistics.js?v=0.0.2"></script>
+    <script src="../../static/js/jquery-1.9.1.min.js"></script>
+    <script src="../../static/js/common.js?v=0.0.4"></script>
+    <script src="../../static/js/jquery.form.js"></script>
+    
+    <script>
+        (function(){a();window.onresize=function(){a()};function a(){var b=document.documentElement.clientWidth||document.documentElement.body.clientWidth;document.documentElement.style.fontSize=b/20+"px"}})();
+    </script>
+</head>
+<body>
+    <div class="page-content">
+        <div class="page-head">
+            <div class="cert-step">
+                <div class="step active"><span><span>1</span></span>
+                    <p>验证手机</p>
+                </div>
+                <div class="horizontal-line"></div>
+                <div class="step"><span><span>2</span></span>
+                    <p>身份认证</p>
+                </div>
+                <div class="horizontal-line"></div>
+                <div class="step"><span><span>3</span></span>
+                    <p>审核</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-box">
+        <div class="modal-success" style="display: none;">
+            <img src="image/icon_right.png">
+            <p></p>
+        </div>
+        <div class="modal-loading" style="display: none;">
+            <div class="icon_loading"></div>
+        </div>
+        <div class="error-modal" style="display: none;">
+            <img src="image/icon_fail.png">
+            <p id="error-content"></p>
+        </div>
+    </div>
+     <script src="js/main.js?v=0.0.6"></script>
+</body>
+</html>

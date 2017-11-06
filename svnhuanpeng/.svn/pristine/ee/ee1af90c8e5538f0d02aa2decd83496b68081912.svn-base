@@ -1,0 +1,62 @@
+﻿#提现锁字段
+set
+	withdraw:$luid 1
+
+#每场直播的送礼记录次数
+ZADD liveGiftTimer:$liveid id:$uid:$giftid 1
+
+#认证邮箱发送邮件记录
+SET certEmailSendCount:$uid  #发送次数
+SET certEmailSendTime:$luid  #发送时间
+set email_cert_time:$uid     #邮箱认证到期时间
+
+
+#纪录是否第一次给主播送礼
+set firstSendBean:$uid       no=>1 : yes=>0
+
+#是否为App端第一次登录
+IsFirstLoginfromApp: $uid 
+
+#登录错误次数
+LogInNumber: $mobile
+
+/**
+**Author  Dylan
+**2016-12-08  17:19
+**/
+ 1、api/app/gameInfoForApp.php       "HuanPengApp_LiveGameBy$gameId";   #游戏id对应的开播中的游戏
+ 2、api/app/getAuchorLiveListByGid   'GETLIVELIST_BY_GAMEID';           #游戏id对应的直播
+                                     'GETVIDEOLIST_BY_GAMEID';          #游戏id对应的录像
+ 3、api/app/version.php              'apk:version' ;                    #版本
+                                     'apk:versionName';                 #版本名称
+                                     'apk:versionDesc';                 #版本描述
+                                     'apk:fileName';                    #文件地址
+ 4、api/check/checkMoblieIsUsed.php   "LogInNumber:$mobile";            ＃用户登录次数
+ 5、api/client/getVersions,php        "clientversions:setversions";     ＃客户端版本
+ 6、api/client/setVersions.php        'clientversions:setversions';     ＃客户端版本
+ 7、api/game/gameInfoList.php          暂无
+ 8、api/game/gameList.php              暂无
+ 9、api/live/gameListForLaunch.php     暂无
+ 10、api/other/addressMap.php                    "ADDR_MAP"                       #省市对照关系
+ 11、api/other/getAuchorLiveList.php             "GETNEWLIVELISTS_YD"             ＃最新直播列表
+                                       "GETHOTLIVELISTS_YD";            #最热直播列表
+ 12、api/other/getNewOrHotVideoList.php          暂无
+ 13、api/other/homePageGameList.php              暂无
+ 14、api/other/homeRanking.php                   HuanPeng_HomeSalaryRankingBy$userType$timeType   #收入排行
+                                      "HuanPeng_HomeYesterdayRankingBy$userType$timeType" ＃昨天收入排行
+ 15、api/other/homeSearch.php                    暂无
+ 16、api/other/indexApiForApp.php                暂无
+ 17、api/room/followUser.php                    "FOLLOWUSER_OVER_$uid"          ＃纪录关注主播数
+ 18、api/room/LiveRoomRanking.php               "HuanPeng_LiveRoomTodayRankingBy$luid$timeType"  #日榜
+                                       "HuanPeng_LiveRoomLastWeekRankingBy$luid$timeType"  ＃周榜
+                                       "HuanPeng_LiveRoomTotalRankingBy$luid$timeType";    ＃总榜
+ 19、api/room/open_treasure.php                 暂无
+ 20、api/room/setsilenced.php                   "silenced:$luid:$targetUid"      #禁言
+ 21、api/upload/uploadUserPic.php                 "IsFirstUploadPic:" . $uid"      #第一次上传头像
+ 22、api/user/LogIn.php                "LogInNumber:$userName";         ＃登录次数
+                                       "IsFirstLoginfromApp:" . $row[0]['uid'];  #s第一次登录手机App纪录
+ 23、api/user/attested/sendMail_ajax.php  "certEmailSendCount:$uid";  #发送次数
+                                          "certEmailSendTime:$uid";  ＃发送时间
+                                          "email_cert_time:$uid";    ＃认证到期时间
+ 24、api/video/getVideoPageList.php       暂无
+ 25、api／video/myVideo.php               "HuanPeng_MyVideoPageListBy$uid$gameid$gametid$type$page$size$order"  #..录像分页

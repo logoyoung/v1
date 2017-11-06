@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>欢朋直播-精彩手游直播</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!--<meta name="apple-mobile-web-app-capable" content="yes" />-->
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta name="format-detection" content="telephone=no" />
+    <script src="../js/statistics.js?v=0.0.2"></script>
+    <link rel="stylesheet" href="stylesheets/reset.css">
+    <link rel="stylesheet" href="stylesheets/level.css">
+    <link rel="stylesheet" href="stylesheets/swiper.min.css">
+    <link rel="stylesheet" href="stylesheets/index.css?v=0.0.1">
+    <style>
+        .gt_mask,.gt_holder{
+            z-index: 99999;
+        }
+    </style>
+    <script type="text/javascript" src="javascripts/gt.js"></script>
+    <script type="text/javascript" src="dist/javascripts/common.js"></script>
+    <script type="text/javascript" src="dist/javascripts/tool.min.js"></script>
+    <script type="text/javascript" src="javascripts/swiper.min.js"></script>
+    
+</head>
+<body class="body">
+    <div class="liveroom-container">
+        <header>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <div class="back normal" id="backToView"></div>
+        </header>
+        <section class="liveroom-content">
+            <video class="video IIV" preload="auto" webkit-playsinline playsinline style="object-fit:fill" src="" type="application/x-mpegURL" ></video>
+            <section class="video-bar">
+                <span class="video-pause normal"></span>
+                <span class="video-refresh"></span>
+                <span class="video-full normal"></span>
+            </section>
+            <!--<div class="my-canvas">-->
+                <!--<canvas id="my-canvas"></canvas>-->
+            <!--</div>-->
+            <img class="poster filter" src="images/fill_default_drawing.png">
+            <button class="play-btn normal"></button>
+            <button class="nolive"></button>
+        </section>
+        <section class="liveroom-chat">
+            <section class="sec-box">
+                <ul>
+                    <li><span id="chatView-btn" class="sel">聊天</span></li>
+                    <li><span id="commendView-btn">推荐</span></li>
+                </ul>
+            </section>
+            <!--聊天View-->
+            <div class="chat-selbox">
+                <!--anchor-info 添加none-->
+                <section class="anchor-info ">
+                    <figure class="room-info">
+                        <img class="room-head" src="images/test/userface.png">
+                        <figcaption>
+                            <p class="anchor-desc">
+                                <span class="ms-lv lv1"></span><span class="room-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </p>
+                            <p class="anchor-game">
+                            <span class="room-userNum">
+                                <i id="viewCount">&nbsp;&nbsp;&nbsp;&nbsp;</i>
+                                人在看
+                            </span>
+                                <span class="room-game">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </p>
+                        </figcaption>
+                    </figure>
+                    <button class="follow-btn">关注</button>
+                    <div class="anchor-display show"></div>
+                </section>
+                <!--chat-container 添加none-->
+                <section class="chat-container ">
+                    <ul class="chat-div" id="chat-div">
+                        <!--聊天message-->
+                    </ul>
+                </section>
+            </div>
+
+            <!--推荐列表View-->
+            <div class="commend-selbox">
+                <section class="commend-title">
+                    <span class="hot-icon"></span>
+                    <span class="hot-title">热门推荐</span>
+                </section>
+                <ul class="live-list"></ul>
+            </div>
+
+        </section>
+        <footer class="chat-box">
+            <section class="user-tools">
+                <div class="emoji-btn normal"></div>
+                <div class="send-btn normal" id="sendMessage-btn">发送</div>
+                <div class="chat-btn fl">
+                    <input type="text" size="20" autocorrect="off" autocapitalize="on" autocomplete="off"  placeholder="请输入聊天内容..." class="input normal" id="message-content" maxlength="20">
+
+                </div>
+                <div class="gift-btn fr normal"></div>
+                <div class="bean-btn fr normal"></div>
+            </section>
+            <section id="emoji-content" class="swiper-container emoji-content ">
+                <div class="swiper-wrapper">
+                    <div class="emoji-slide swiper-slide">
+                        <label class="emoji">
+                            <img src="images/emoji/1.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/2.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/3.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/4.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/5.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/6.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/7.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/8.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/9.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/10.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/11.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/12.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/13.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/14.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/15.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/16.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/17.png">
+                        </label>
+                        <label>
+                            <div class="delete-btn normal"></div>
+                        </label>
+                    </div>
+                    <div class="emoji-slide swiper-slide">
+                        <label class="emoji">
+                            <img src="images/emoji/18.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/19.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/20.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/21.png">
+                        </label>
+                        <label class="emoji">
+                            <img src="images/emoji/22.png">
+                        </label>
+                        <label>
+                            <div class="delete-btn normal"></div>
+                        </label>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </section>
+            <section class="gift-content">
+                <ul class="gift-box"></ul>
+                <section class="userMoney">
+                    <div>
+                        <span class="coin"></span>
+                        <span class="coinMoney">&nbsp;&nbsp;</span>
+                    </div>
+                    <div>
+                        <span class="bean"></span>
+                        <span class="beanMoney">&nbsp;&nbsp;</span>
+                    </div>
+                    <div>
+                        <button class="recharge"><a href="../index.html#/inpour?roomlink=room">充值</a></button>
+                    </div>
+                </section>
+            </section>
+        </footer>
+        <div class="mask"></div>
+        <div class="modal"></div>
+        <div class="mobile-tip" style="display: none;">
+            <div class="mobile-loading" style="display: none;">
+                <img src="images/icon_16@2x.png">
+                <p class="loading"></p>
+            </div>
+            <div class="mobile-success" style="display: none;">
+                <img src="images/icon_right.png">
+                <p class="success"></p>
+            </div>
+            <div class="mobile-fail" style="display: none;">
+                <img src="images/icon_fail.png">
+                <p class="fail"></p>
+            </div>
+        </div>
+        <div id="geetest"></div>
+    </div>
+    <script type="text/javascript" src="dist/javascripts/liveroom.js?v=0.0.2"></script>
+</body>
+</html>

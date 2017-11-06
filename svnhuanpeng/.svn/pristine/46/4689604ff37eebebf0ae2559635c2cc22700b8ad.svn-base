@@ -1,0 +1,332 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>审核管理</a><a href="javascript:;" ></i>实名认证审核列表</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>实名认证审核列表</h5>
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10 ln38">
+                <form class="form-search" id='myform'>
+                  <input name='nick' id='nick' type="text" value="{{$Think.get.nick}}"  placeholder="用户昵称"  >
+                  <input name='name' id='name' type="text" value="{{$Think.get.name}}"  placeholder="真实姓名"  >
+                  <input name='phone' id='phone' type="text" value="{{$Think.get.phone}}"  placeholder="手机号"  >
+                  <input name='uid' id='uid' type="text" value="{{$Think.get.uid}}"  placeholder="用户id"  >
+                  <br/>
+                  <input type="text" id="timestart" name="timestart" class="form_datetime w100"  value="{{$Think.get.timestart}}" placeholder="开始时间">  <input type="text" id = "timeend" name="timeend" class="form_datetime w100"  value="{{$Think.get.timeend}}" placeholder="结束时间">
+                  <select class="span2" name="status">
+                  <option value='-1' selected> 选择审核状态 </option>
+                    <foreach name="checkstatus" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.status eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <button type="submit" class="btn">搜索</button>
+                  <button type="submit" class="btn" name="export" value="1">导出</button><br>
+                </form>
+            </div>
+        <div class="oyat">    
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <th>Uid</th>
+                  <th>昵称</th>
+                  <th>姓名</th>
+                  <th>手机号</th>
+                  <th>身份证号</th>
+                  <th>有效期</th>
+                  <th>正面</th>
+                  <th>背面</th>
+                  <th>手持</th>
+                  <th>提交时间</th>
+                  <th>审核状态</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody class='data'>
+              <foreach name="data" item="item">
+                <tr id="pic_{{$item.id}}"  nick ="{{$item.nick}}"  uid ="{{$item.uid}}" name ="{{$item.name}}" papersid ="{{$item.realpapersid}}" papersetime ="{{$item.papersetime}}"   >
+                  <th>{{$item.uid}}</th>
+                  <th title="{{$item.nick}}" >{{$item.nick|default='--'|mb_substr=###,0,8}}</th>
+                  <th>{{$item.name|default='--'}}</th>
+                  <th>{{$item.phone|default='--'}}</th>
+                  <th>{{$item.papersid|default='--'}}</th>
+                  <th>{{$item.papersetime|default='--'}}</th>
+
+                  <th style="width: 40px; height: 40px;" imgno=1 class='imgclass'  data-toggle="modal"  href="#imgModal">
+                  	<empty name='item.face'>--<else /> 
+						<img  src="http://{{$conf.domain-img}}{{$item.face}}"   /> 
+                   	</empty>
+                   </th>
+					<th style="width: 40px; height: 40px;  " imgno=2 class='imgclass' data-toggle="modal" href="#imgModal">
+					<empty name='item.back'>--<else /> 
+						<img  src="http://{{$conf.domain-img}}{{$item.back}}"   >
+                   </empty>
+                   </th>
+                  <th style="width: 40px; height: 40px;  " imgno=3 class='imgclass' data-toggle="modal" href="#imgModal">
+                  <empty name='item.handheldphoto'>--<else /> 
+						<img  src="http://{{$conf.domain-img}}{{$item.handheldphoto}}"  >
+                   </empty>
+                   </th>
+                   
+                  <th>{{$item.ctime|default='--'}}</th>
+                  <th>{{$checkstatus[$item[status]]|default='--'}}  </th>
+                  <th>
+                  <if  condition="($item.status eq RN_WAIT)  " >
+                  	  <a class="badge badge-info" onclick="pass('{{$item.id}}','{{$item.uid}}');">审核通过</a>
+					  <a class="badge badge-info" onclick="unpass('{{$item.id}}','{{$item.uid}}');">审核拒绝</a>
+                  <elseif  condition="($item.status eq RN_PASS)  "/>
+                  	 <!--<a class="badge badge-info"   disabled="true">&#45;&#45;</a>-->
+				  <elseif  condition="($item.status eq RN_UNPASS)  "/>
+                  	 <a class="badge badge-info" onclick="pass('{{$item.id}}','{{$item.uid}}');">审核通过</a>
+				  <else/>
+                  	 --
+                  </if>
+				</th>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+    <!-- Modal -->
+    <div id="imgModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">图片浏览</h3>
+        <div>昵称：<span style=font-size:15px id='nickval' ></span>姓名：<span style=font-size:15px id='realname'></span>身份证：<span style=font-size:15px id='papersid'></span>有效期：<span style=font-size:15px id='papersetime'></span></div>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+      	<div class="btn-group mr10" style="float:left">
+            <button class="btn btn-primary" id="clockwise">顺时针旋转</button>
+            <button class="btn btn-primary" id="counterclockwise">逆时针旋转</button>
+        </div>
+        <div class="btn-group mr10">
+            <button class="btn btn-primary" id="imgModal-prev">上一张</button>
+            <button class="btn btn-primary" id="imgModal-next">下一张</button>
+        </div>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+      </div>
+    </div>
+  <div class="modal" id="myModal" tabindex="-1" style="display: none;"  >
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="modal-header">
+            <h5 class="modal-title">驳回原因描述(必填)</h5>
+          </div>
+          <div>
+            <form id='f1' action='/check/realnameunpass'  method="post" class="form-horizontal">
+              <input type="hidden"  id="ids" name ="ids" value=""/>
+              <input type="hidden"  id="uids" name ="uids" value=""/>
+              <div class="control-group">
+                <div>
+                  <textarea  maxlength="800" id="textareaValidate" <empty name="id">name="reason"<else/>disabled</empty>  style="height:150px;width:505px" placeholder="" >{{$reason}}</textarea>
+                </div>
+                <table class="table table-bordered table-striped with-check">
+                  <tbody>
+                  <tr id="tr1">
+                    <td>
+                      <input id="buttonValidate1" class="btn btn-mini btn-primary" type="button" value="您的认证因身份证有效日期填写错误被驳回"/> &nbsp;
+                      <input id="buttonValidate2" class="btn btn-mini btn-info" type="button" value="清晰拍摄真人上半身及手持证件正面合影、无ps "/> &nbsp;
+                    </td>
+                  </tr>
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="form-actions text-center">
+                <button type="submit" class="btn btn-danger" >確定</button>
+                <button type="button" onclick="hide()" class="btn btn-success" data-dismiss="modal">关闭</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        minView: 2,
+        todayBtn: true,
+    });
+    $(document).ready(function(){
+      $("input[id^='buttonValidate']").click(function(){  //当点击所有的id中包含'buttonValidate'的input标签时，执行函数
+        var btnVal=$.trim($(this).val());//trim函数，去掉空格
+        var str = $('#textareaValidate').val() + btnVal;//
+        $('#textareaValidate').val(str);//
+      });
+    });
+    $(function(){
+        $('.full').click(function(){
+            if($(this).attr('checked')){
+                $('th input[type=checkbox]').attr('checked',true);
+            }else{
+                $('th input[type=checkbox]').attr('checked',false);
+            }
+        })
+        $('#pass').click(function(){
+            Op_common.confirm(('确认操作?'),function(){
+                var ck = $('th input[type=checkbox]');
+                var ids = '',pics='';
+                ck.each(function(){
+                    if($(this).is(':checked')){
+                        var id = $(this).attr('id');
+                        ids += ','+id;
+                        var pic = $(this).attr('v');
+                        pics += ','+pic;
+                    }
+                })
+                ids = ids.slice(1);
+                pics = pics.slice(1);
+                if(ids){
+                    Op_common.ajax('/check/realnamepass',{ids:ids,uids:pics},function(o){
+                        if(o.status == 1){
+                            Op_common.alert('操作成功!',function(){
+                                location.href='';
+                            });
+                        }else{
+                            Op_common.alert('操作失败!');
+                        }
+                    });
+                }
+            })
+        })
+        
+        $('#unpass').click(function(){
+            Op_common.confirm(('确认操作?'),function(){
+                var ck = $('th input[type=checkbox]');
+                var ids = '',pics='';
+                ck.each(function(){
+                    if($(this).is(':checked')){
+                        var id = $(this).attr('id');
+                        ids += ','+id;
+                        var pic = $(this).attr('v');
+                        pics += ','+pic;
+                    }
+                })
+                ids = ids.slice(1);
+                pics = pics.slice(1);
+                console.log(ids,pics);
+                if(ids){
+                    Op_common.ajax('/check/realnameunpass',{ids:ids,uids:pics},function(o){
+                        if(o.status == 1){
+                            Op_common.alert('操作成功!',function(){
+                                location.href='';
+                            });
+                        }else{
+                            Op_common.alert('操作失败!');
+                        }
+                    });
+                }
+            })
+        })
+        
+        ///////// ImgModal
+        $('.data tr').on('click',function(){
+        	var num = num1 = 0;
+        	var th = $('#'+$(this).attr('id') +' th[imgno=1]');
+        	var src = th.find('img').attr('src');
+            $('#imgModal .modal-body').html('<img src="'+src+'".>');
+            $('#imgModal').data('id',$(this).attr('id'));
+            $('#imgModal').data('imgno',1);
+            console.log($(this).attr('name'));
+            $('#nickval').html($(this).attr('nick'));
+            $('#realname').html($(this).attr('name'));
+            $('#papersid').html($(this).attr('papersid'));
+            $('#papersetime').html($(this).attr('papersetime'));
+        });
+        $('#imgModal-prev,#imgModal-next').click(function(){
+        	var num = num1 = 0;
+            var curr=$('#'+$('#imgModal').data('id') +' th[imgno='+$('#imgModal').data('imgno')+'] '),dst=this.id=='imgModal-next'?curr.next():curr.prev();
+            if(dst.attr('imgno')){
+                $('#imgModal .modal-body').html('<img src="'+$(dst).find('img').attr('src')+'".>');
+                $('#imgModal').data('id',$('#imgModal').data('id'));
+                $('#imgModal').data('imgno',dst.attr('imgno'));
+            }else{
+                $('#imgModal .modal-body').html('<h3 class="text-center">已经翻到头了~</h3>');
+            }
+            
+        });
+        
+    })
+    function unpass(id,uid){
+      $("#myModal").css('display','block');
+      $("#ids").val(id);
+      $("#uids").val(uid);
+//    	Op_common.ajax('/check/realnameunpass',{ids:[id]},function(o){
+//            if(o.status == 1){
+//                Op_common.alert('操作成功!',function(){
+//                    location.href='';
+//                });
+//            }else{
+//                Op_common.alert('操作失败!');
+//            }
+//        });
+    }
+    function pass(id,pic){
+    	Op_common.ajax('/check/realnamepass',{ids:[id],uids:[pic]},function(o){
+    		console.log(o);
+            if(o.status == 1){
+                Op_common.alert('操作成功!',function(){
+                    location.href='';
+                });
+            }else{
+                Op_common.alert('操作失败!');
+            }
+        });
+    }
+
+
+    function hide(){
+      $("#myModal").css('display','none');
+    }
+
+    Op_common.ajaxForm($('#f1'),function(obj){
+      if(obj.status==1){
+        $("#myModal").css('display','none');
+        Op_common.alert(obj.info,function(){
+          window.location.reload();
+        });
+      }else{
+        Op_common.alert(obj.info||'操作失败');
+      }
+    },);
+    
+    var num = num1 = 0;
+    $("#clockwise").click(function(){
+    	num ++;
+    	$(".modal-body").find("img").rotate(90*(num-num1));
+    }); 
+
+    $("#counterclockwise").click(function(){
+    	num1 ++;
+    	$(".modal-body").find("img").rotate(-90*(num1-num));
+    }); 
+    
+</script>
+</block>

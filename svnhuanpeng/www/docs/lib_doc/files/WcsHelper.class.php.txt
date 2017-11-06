@@ -1,0 +1,869 @@
+<?php
+
+namespace hp\lib;
+
+
+/**
+ * Created by PhpStorm.
+ * User: logoyoung
+ * Date: 17/3/31
+ * Time: 15:10
+ */
+
+
+/**
+ * Class WcsHelper
+ * 网宿类
+ * 说明
+ *
+ *
+ */
+class WcsHelper
+{
+
+	/**
+	 * @var bool $_debug 调试模式
+	 */
+	private $_debug = true;
+
+	/**
+	 * @var string $_logfile 日志文件
+	 */
+	private $_logfile = LOG_DIR . 'WcsHelper.error.log';
+
+	/***********直播相关**************/
+
+	/**
+	 * PORTAL_USERNAME        portal平台账号
+	 */
+	const PORTAL_USERNAME = '6_huanpeng';
+
+	/**
+	 * PORTAL_PASSWD          portal平台密码
+	 */
+	const PORTAL_PASSWD = '6Huanpeng';
+
+	/**
+	 * FORBID_API            禁播API
+	 */
+	const FORBID_API = 'http://cm.chinanetcenter.com/CM/cm-command.do';
+
+	/**
+	 * WCS_SECRET            网宿推流鉴权key
+	 */
+	const WCS_SECRET = 'J$wd6lMtsE*PZuhP3E5!29SRly*!0MD2';
+
+
+	/************录像相关****************/
+
+	/**
+	 * AK           录像平台access
+	 */
+	const AK = '65a6d979f6d2f2a3ffaae8b62c91ac0aa8d5823a';
+
+	/**
+	 * SK           录像平台secret
+	 */
+	const SK = 'ca437c484e8a6340088be4f58a7302d20bc9b910';
+
+	/**
+	 * WCS_BUCKET_VIDEO  网宿录像空间
+	 */
+	const WCS_BUCKET_VIDEO = 'huanpeng-test001';
+
+	/**
+	 * WCS_BUCKET_LIVE   网宿直播空间
+	 */
+	const WCS_BUCKET_LIVE = 'huanpeng-jietu';
+
+	/**
+	 * WCS_MGR_API        录像API
+	 */
+	const WCS_MGR_API = 'http://6huanpeng.mgr11.v1.wcsapi.com';
+
+	/**
+	 * CMD_CURL            http请求命令
+	 */
+	const CMD_CURL = '/usr/bin/curl -Ss -I';
+
+	/**
+	 * WS_SECURITY_CHAIN    网宿key
+	 */
+	const WS_SECURITY_CHAIN = '1234!@#$abcdef';
+
+	/**
+	 * CMD_MERGE        合并参数
+	 */
+	const CMD_MERGE = 'avconcat/mp4/mode/1/moovToFront/1/';
+
+	/**
+	 * CMD_TRANSCODE    转码参数
+	 */
+	const CMD_TRANSCODE = 'avthumb/mp4/moovToFront/1';
+
+	/**
+	 * CMD_POSTER        截图参数
+	 */
+	const CMD_POSTER = 'vframe/jpg/offset/';
+
+	/**
+	 * 截图宽
+	 * POSTER_WIDTH
+	 */
+	const POSTER_WIDTH = 1900;
+
+	/**
+	 * 截图高
+	 * POSTER_HEIGHT
+	 */
+	const POSTER_HEIGHT = 1069;
+
+	/**
+	 * 网速强制操作参数
+	 * FORCE
+	 */
+	const FORCE = 0;
+
+	/**
+	 * 通知模式 0分开通知 1合并通知
+	 * SAPARET
+	 */
+	const SAPARET = 0;
+
+	/**
+	 * VIDEO_EXT    转码格式
+	 */
+	const VIDEO_EXT = 'mp4';
+
+	/**
+	 * POSTER_EXT    图片格式
+	 */
+	const POSTER_EXT = 'jpg';
+
+	/**
+	 * T_MERGE        合并操作
+	 */
+	const T_MERGE = 'MERGE';
+
+	/**
+	 * T_POSTER        截图操作
+	 */
+	const T_POSTER = 'POSTER';
+
+	/**
+	 * T_TRANSCODE    转码操作
+	 */
+	const T_TRANSCODE = 'TRANSCODE';
+
+	/**
+	 * @var array $saveDir 保存路径
+	 */
+	private $_saveDir = array(
+		'DEV' => array( 'v' => 'dev/v/', 'i' => 'dev/i/' ),
+		'PRO' => array( 'v' => 'pro/v/', 'i' => 'pro/i/' )
+	);
+
+	/**
+	 * @var $_token   网宿token
+	 */
+	private $_token;
+
+	/**
+	 * @var $_primaryKey  主文件key
+	 */
+	private $_primaryKey;
+
+	/**
+	 * @var    $_mergeKeys   拼接文件
+	 */
+	private $_mergeKeys;
+
+	/**
+	 * @var $_saveFile    保存文件
+	 */
+	private $_saveFile;
+
+	/**
+	 * @var    $_duration    录像时长
+	 */
+	private $_duration;
+
+	/**
+	 * 构造函数
+	 */
+	public function __construct()
+	{
+
+		//todo
+	}
+
+
+	/****************直播方法********************/
+
+	/**
+	 * 禁播
+	 *
+	 * @param null $publishRtmpUrl 推流地址
+	 *
+	 * @return string                错误码
+	 */
+	public function forbidLive( $publishRtmpUrl = NULL )
+	{
+		$params = $this->_getForbidPublishParams( $publishRtmpUrl );mylog(self::FORBID_API . "?{$params}",LOG_DIR.'Live.error.log');
+		$httBack = $this->_httpGet( self::FORBID_API . "?{$params}" );
+		return $httBack;
+	}
+
+
+	/**
+	 * 网宿鉴权加密
+	 *
+	 * @param      $data            加密参数
+	 * @param bool $urlEncode       是否urlencode加密
+	 *
+	 * @return string                加密串
+	 */
+	public static function getWcsPublishLiveSecret( $data, $urlEncode = true )
+	{
+		$data = self::_paramsToString( $data );
+		foreach ( $data as $key => $val )
+		{
+			$data[$key] = $urlEncode ? urlencode( $val ) : $val;
+		}
+		ksort( $data );
+		$data = json_encode( $data, JSON_UNESCAPED_UNICODE );
+		$sign = md5( sha1( $data . self::WCS_SECRET ) );
+		return $sign;
+	}
+
+
+	/**
+	 * 获取禁播参数
+	 *
+	 * @param null $publishRtmpUrl 推流地址
+	 *
+	 * @return string                禁播参数
+	 */
+	private function _getForbidPublishParams( $publishRtmpUrl = NULL )
+	{
+		$passWd = md5( self::PORTAL_USERNAME . self::PORTAL_PASSWD . $publishRtmpUrl );
+		$data = array(
+			'username' => self::PORTAL_USERNAME,
+			'password' => $passWd,
+			'cmd' => 'channel_manager',
+			'action' => 'forbid',
+			'type' => 'publish',
+			'channel' => $publishRtmpUrl
+		);
+		return http_build_query( $data );
+	}
+
+
+	/**
+	 * http get请求
+	 *
+	 * @param null $url 请求url
+	 *
+	 * @return null|string            请求返回
+	 */
+	private function _httpGet( $url = NULL )
+	{
+		if( !$url )
+		{
+			return false;
+		}
+		var_dump( $url );
+		return @file_get_contents( $url );
+	}
+
+	/**
+	 * http post请求
+	 *
+	 * @param null $url 请求url
+	 *
+	 * @return bool|string            请求返回
+	 */
+	private function _httpPost( $url, $fields = null, $headers = null, $opt = null )
+	{
+		$ch = curl_init();
+		$options = array(
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_SSL_VERIFYPEER => false,
+			CURLOPT_SSL_VERIFYHOST => false,
+			CURLOPT_HEADER => true,
+			CURLOPT_NOBODY => false,
+			CURLOPT_CUSTOMREQUEST => 'POST',
+			CURLOPT_URL => $url,
+			CURLOPT_TIMEOUT => 0,
+		);
+		if( $opt )
+		{
+			foreach ( $opt as $key => $value )
+			{
+				$options[$key] = $value;
+			}
+		}
+		if( !$headers )
+		{
+			$options[CURLOPT_HTTPHEADER] = $headers;
+		}
+		if( !$fields )
+		{
+			$options[CURLOPT_POSTFIELDS] = $fields;
+		}
+		curl_setopt_array( $ch, $options );
+		$result = curl_exec( $ch );
+		$ret = array(
+			'code' => '',
+			'message' => '',
+			'respHeader' => '',
+			'respBody' => ''
+		);
+		$errno = curl_errno( $ch );
+		//错误状态码
+		if( $errno !== 0 )
+		{
+			$ret['code'] = $errno;
+			$ret['message'] = curl_error( $ch );
+			curl_close( $ch );
+			return $ret;
+		}
+		$code = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+		curl_close( $ch );
+		//分割响应头部和内容
+		$responseArray = explode( "\r\n\r\n", $result );
+		$responseArraySize = sizeof( $responseArray );
+		$respHeader = $responseArray[$responseArraySize - 2];
+		$respBody = $responseArray[$responseArraySize - 1];
+		$ret['code'] = $code;
+		$ret['respHeader'] = $respHeader;
+		$ret['respBody'] = $respBody;
+		//超时判断
+		if( $ret['code'] == 28 )
+		{
+			$ret['respBody'] = "请求超时！";
+		}
+		return $ret;
+	}
+
+	/**
+	 * 禁播返回错误处理
+	 *
+	 * @param null $httpBack 禁播错误信息
+	 *
+	 * @return string                禁播错误码
+	 */
+	private function _getWcsForbidError( $httpBack = NULL )
+	{
+		//todo
+	}
+
+
+	/**
+	 * 字符串转化
+	 *
+	 * @param $mix                    待转化参数
+	 *
+	 * @return array|string            字符串化后的字符串或数组
+	 */
+	private function _paramsToString( $mix )
+	{
+		if( is_string( $mix ) )
+		{
+			return $mix;
+		}
+		if( is_int( $mix ) || is_bool( $mix ) || is_float( $mix ) || is_double( $mix ) )
+		{
+			return "$mix";
+		}
+		if( is_array( $mix ) )
+		{
+			foreach ( $mix as $key => $v )
+			{
+				$mix[$key] = toString( $v );
+			}
+			return $mix;
+		}
+		return "";
+	}
+
+
+
+	/*********************录像方法****************************/
+
+	/**
+	 * 获取录像操作令牌
+	 *
+	 * @param      $url                请求url
+	 * @param null $body               请求内容
+	 *
+	 * @return string                返回token
+	 */
+	private function _getToken( $url, $body = null )
+	{
+		$path = parse_url( $url, PHP_URL_PATH );
+		$query = parse_url( $url, PHP_URL_QUERY );
+		if( $query )
+		{
+			if( $body )
+			{
+				$arr = array( $path, '?', $query, "\n", $body );
+			}
+			else
+			{
+				$arr = array( $path, '?', $query, "\n" );
+			}
+		}
+		else
+		{
+			if( $body )
+			{
+				$arr = array( $path, "\n", $body );
+			}
+			else
+			{
+				$arr = array( $path, "\n" );
+			}
+		}
+		$sign = join( "", $arr );
+		$encodesign = hash_hmac( 'sha1', $sign, self::SK, false );
+		return self::AK . ':' . url_safe_base64_encode( $encodesign );
+	}
+
+	/**
+	 * 持久化操作
+	 *
+	 * @param      $fops           命令参数
+	 * @param      $key            文件key
+	 * @param null $notifyURL      通知地址
+	 * @param int  $force          强制操作
+	 * @param int  $separate       分开通知
+	 *
+	 * @return mixed
+	 */
+	public function exec( $fops, $key, $notifyURL = null, $force = 0, $separate = 0 )
+	{
+		$url = self::WCS_MGR_API . '/fops';
+		$encodebucket = $this->_urlSafeBase64Encode( self::WCS_BUCKET_VIDEO );
+		$body = 'bucket=' . $encodebucket;
+		//
+		$body .= '&key=' . $key;
+		$body .= '&fops=' . $this->_urlSafeBase64Encode( $fops );
+		if( !empty( $notifyURL ) )
+		{
+			$body .= '&notifyURL=' . $this->_urlSafeBase64Encode( $notifyURL );
+		}
+		$body .= '&force=' . $force;
+		$body .= '&separate=' . $separate;
+		//print_r($body."\n");
+		$headers = $this->_addHeader( $url, $body );
+
+		$resp = $this->_httpPost( $url, $body, $headers );
+		return $resp;
+	}
+
+
+	/**
+	 * 合并操作
+	 *
+	 * @param $data                    合并数据
+	 * @param $notifyUrl               通知地址
+	 *
+	 * @return mixed                错误信息｜合并任务信息
+	 */
+	public function mergeFile( $data, $notifyUrl )
+	{
+		return $this->_process( $data, $notifyUrl, self::T_MERGE );
+	}
+
+
+	/**
+	 * 转码操作
+	 *
+	 * @param $data                    转码数据
+	 * @param $notifyUrl               通知地址
+	 *
+	 * @return mixed                错误信息｜转码任务信息
+	 */
+	public function transcodeFile( $data, $notifyUrl )
+	{
+		return $this->_process( $data, $notifyUrl, self::T_TRANSCODE );
+	}
+
+
+	/**
+	 * 截图操作
+	 *
+	 * @param $data                    截图数据
+	 * @param $notifyUrl               通知地址
+	 *
+	 * @return mixed                错误信息｜截图任务信息
+	 */
+	public function getFilePoster( $data, $notifyUrl )
+	{
+		return $this->_process( $data, $notifyUrl, self::T_POSTER );
+	}
+
+
+	/**
+	 * 实现命令操作
+	 *
+	 * @param $data                    操作数据
+	 * @param $notifyUrl               通知地址
+	 * @param $type                    操作类型
+	 *
+	 * @return mixed                错误信息｜任务信息
+	 */
+	private function _process( $data, $notifyUrl, $type )
+	{
+		$this->_setInfo( $data );
+		$fops = $this->_getFops( $type );
+		//todo
+		$ret = $this->exec( $fops, $this->_primaryKey, $notifyUrl );
+		return $ret;
+	}
+
+
+	/**
+	 * 配置录像文件信息
+	 *
+	 * @param $data
+	 *
+	 * @return bool
+	 */
+	private function _setInfo( $data )
+	{
+		if( !$data || !is_array( $data ) || !$data['keys'] )
+		{
+			return false;
+		}
+		$this->_saveFile = $data['saveFile'];
+		$data['duration'] = ( isset( $data['duration'] ) && $data['duration'] ) ? (int)$data['duration'] : 0;
+		$this->_duration = $data['duration'];
+		if( count( $data['keys'] ) == 1 )
+		{
+			$realKey = $this->_getRealKey( $data['keys'][0] );
+			$this->_primaryKey = $this->_urlSafeBase64Encode( $realKey );//base64
+			return true;
+		}
+		$realKey = $this->getRealKey( array_shift( $data['keys'] ) );
+		$this->_primaryKey = $this->_urlSafeBase64Encode( $realKey );//base64
+		$this->_mergeKeys = $this->_getBase64Keys( $data['keys'] );
+		return true;
+	}
+
+	/**
+	 * base64加密
+	 *
+	 * @param $data                     加密数据
+	 *
+	 * @return bool|string        错误信息｜加密后的数据
+	 */
+	private function _getBase64Keys( $data )
+	{
+		if( !$data )
+		{
+			return false;
+		}
+		if( is_string( $data ) )
+		{
+			$v = $this->getRealKey( $data );
+			return $this->_urlSafeBase64Encode( $v );
+		}
+		$keysBase64 = array();
+		foreach ( $data as $k => $v )
+		{
+			//$v = explode(':',$v);
+			$v = $this->getRealKey( $v );
+			$keysBase64[$k] = $this->_urlSafeBase64Encode( $v );
+		}
+		$keysBase64 = implode( '/', $keysBase64 );
+		return $keysBase64;
+	}
+
+
+	/**
+	 * 获取命令参数
+	 *
+	 * @param $ext                    文件后缀
+	 *
+	 * @return bool|string            错误信息｜命令参数
+	 */
+	private function _getFops( $ext )
+	{
+		if( $ext == self::T_MERGE )
+		{
+			return self::CMD_MERGE . $this->_mergeKeys . $this->_getSaveFileName( self::VIDEO_EXT );
+		}
+		else if( $ext == self::T_POSTER )
+		{
+			$t = (int)( $this->_duration / 2 ) . '/w/' . self::POSTER_WIDTH . '/h/' . self::POSTER_HEIGHT;
+			return self::CMD_POSTER . $t . $this->_getSaveFileName( self::POSTER_EXT );
+		}
+		else if( $ext == self::T_TRANSCODE )
+		{
+			return self::CMD_TRANSCODE . $this->_getSaveFileName( self::VIDEO_EXT );
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+	/**
+	 *获取保存路径
+	 *
+	 * @param $ext                    文件后缀
+	 *
+	 * @return string                保存路径
+	 */
+	private function _getSaveFileName( $ext )
+	{
+		$i = ( $ext == self::VIDEO_EXT ) ? 'v' : 'i';
+		$file = self::WCS_BUCKET_VIDEO . ":" . $this->_saveDir[$GLOBALS['env']][$i] . $this->_saveFile . "." . $ext;
+		return "|saveas/" . $this->_urlSafeBase64Encode( $file );
+	}
+
+
+	/**
+	 * 配置录像文件信息
+	 *
+	 * @param $data                    配置信息
+	 *
+	 * @return bool                    是否操作成功
+	 */
+	private function _setVideoInfo( $data )
+	{
+		//todo
+	}
+
+
+	/**
+	 * 获取具体文件的key
+	 *
+	 * @param $str                    文件信息
+	 *
+	 * @return array                文件的key
+	 */
+	private function _getRealKey( $str )
+	{
+		$key = explode( ':', $str );
+		$key = isset( $key[1] ) ? $key[1] : $key[0];
+		return $key;
+	}
+
+
+	/**
+	 * 获取下载链接
+	 *
+	 * @param null $url url链接
+	 *
+	 * @return null|string            下载链接
+	 */
+	public static function getDownUrl( $url, $http = '' )
+	{
+		if( !$url )
+		{
+			return '';
+		}
+		$url = trim( $url );
+		$httpStatus = self::getHttpStatus( $url );
+		if( $httpStatus == '200' )
+		{
+			return $url;
+		}
+		if( $httpStatus == '302' )
+		{
+			$url = self::getLocationUrl( $url );
+			//$this->getDownUrl($url)
+			return self::getDownUrl( $url );
+		}
+		if( $httpStatus == '403' && $httpStatus != $http )
+		{
+			$url = explode( '?', $url );
+			$url = $url[0];
+			$secret = self::getSecuritUrl( $url );
+			//return $url."?{$secret}";
+			return self::getDownUrl( $url . "?{$secret}", $httpStatus );
+		}
+		return '';
+	}
+
+
+	/**
+	 * 获取跳转链接
+	 *
+	 * @param $url                    url
+	 *
+	 * @return string                跳转链接
+	 */
+	public static function getLocationUrl( $url )
+	{
+		$cmd = self::CMD_CURL . " \"{$url}\"";
+		$res = `$cmd`;
+		$pat = '/HTTP\/1.+(302)[\s\S]*Location:(.*)\r\n/';
+		$r = preg_match( $pat, $res, $mat );
+		if( !$mat[2] )
+		{
+			return '';
+		}
+		return $mat[2];
+	}
+
+
+	/**
+	 * 获取http状态码
+	 *
+	 * @param $url                    url
+	 *
+	 * @return mixed                http状态码
+	 */
+	public static function getHttpStatus( $url )
+	{
+		$cmd = self::CMD_CURL . " \"{$url}\"";
+		$res = `$cmd`;
+		$pat = '/HTTP\/1.+([0-9]{3})[\S\s]/';
+		$r = preg_match( $pat, $res, $mat );
+		if( isset( $mat[1] ) )
+		{
+			return $mat[1];
+		}
+		return '';
+	}
+
+
+	/**
+	 * 获取防盗链加密参数
+	 *
+	 * @param $filename                文件名
+	 *
+	 * @return string                防盗链串
+	 *
+	 */
+	public static function getSecurityUrl( $filename )
+	{
+		$filename = basename( $filename );
+		$now = time();
+		$eTime = dechex( $now );
+		$cTime = dechex( $now );
+		$wsSecret = md5( self::WS_SECURITY_CHAIN . '/' . $filename . $cTime );
+		$data = array(
+			'wsSecret' => $wsSecret,
+			'eTime' => $eTime
+		);
+		return http_build_query( $data );
+	}
+
+	/**
+	 * 删除文件
+	 *
+	 * @param $file                    文件名
+	 *
+	 * @return array                删除任务信息
+	 */
+	public function deleteFile( $file )
+	{
+		$fops = $this->_getDelOps( $file );
+		$url = self::WCS_MGR_API . "/fmgr/delete";
+		$content = $this->_addContent( $fops );
+		$headers = $this->_addHeader( $url, $content );
+		$resp = $this->_httpPost( $url, $content, $headers );
+		return $resp;
+	}
+
+
+	/**
+	 * 获取Fops参数
+	 *
+	 * @param $file                    文件名
+	 *
+	 * @return string                删除命令参数
+	 */
+	private function _getDelOps( $file )
+	{
+		$bucket = $this->_urlSafeBase64Encode( self::WCS_BUCKET_VIDEO );
+		if( is_string( $file ) )
+		{
+			$key = $this->_urlSafeBase64Encode( $file );
+			$fops = "fops=bucket/$bucket/key/$key";
+		}
+		if( is_array( $file ) )
+		{
+			$fops = "fops=";
+			foreach ( $file as $k => $v )
+			{
+				if( $fops != 'fops=' )
+				{
+					$fops .= ";";
+				}
+				$key = $this->_urlSafeBase64Encode( $v );
+				$fops .= "bucket/$bucket/key/$key";
+			}
+		}
+		return $fops;
+	}
+
+	/**
+	 * 添加请求内容
+	 *
+	 * @param $fops                    命令参数
+	 *
+	 * @return string            添加内容后的参数
+	 */
+	private function _addContent( $fops, $notifyURL = null )
+	{
+		//$this->fops = $fops;
+		$content = $fops;
+		if( $notifyURL )
+		{
+			$content .= "&notifyURL=" . $this->_urlSafeBase64Encode( $notifyURL );
+		}
+		return $content;
+	}
+
+	/**
+	 * 添加请求头
+	 *
+	 * @param $url                url
+	 * @param $content            添加的内容
+	 *
+	 * @return string            添加头后的参数
+	 */
+	private function _addHeader( $url, $content )
+	{
+		$token = $this->_getToken( $url, $content );
+		$headers = array( "Authorization:$token" );
+		return $headers;
+	}
+
+
+	/**
+	 * 日志记录
+	 *
+	 * @param $error            错误信息
+	 *
+	 * @return true|false        日志是否记录成功
+	 */
+	private function _wcsLog( $error )
+	{
+		//todo
+	}
+
+	/**
+	 * url base64
+	 *
+	 * @param $str           url
+	 *
+	 * @return mixed         返回base64后的url
+	 */
+	private function _urlSafeBase64Encode( $str )
+	{
+		$find = array( '+', '/' );
+		$replace = array( '-', '_' );
+		return str_replace( $find, $replace, base64_encode( $str ) );
+	}
+}
+
+?>
+

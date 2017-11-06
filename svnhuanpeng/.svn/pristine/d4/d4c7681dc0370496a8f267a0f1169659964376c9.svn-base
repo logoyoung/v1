@@ -1,0 +1,15 @@
+<?php
+return array(
+    //'INTRA_IP'=>1,#强制内网模式;本地开发开启
+    //'ACL_SUPER'=>1,#权限验证超级用户;本地开发开启
+    'DATA_CACHE_PREFIX'=>'',
+    'SESSION_EXPIRE'=>8640000,
+    'SESSION_OPTIONS'=>array(
+        'name'=>'OP_SSO',
+        'type'=>'memcached',
+        'expire'=>8640000,
+        'domain'=>'.'.HP_DOMAIN,
+    ),
+    'TMPL_ACTION_ERROR'=>APP_PATH.'Admin/View/Base/jump.html',
+    'TMPL_ACTION_SUCCESS'=>APP_PATH.'Admin/View/Base/jump.html',
+);

@@ -1,0 +1,108 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>用户管理</a><a href="javascript:;" ></i>用户管理</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>用户列表</h5>
+            <a href="/rbac{{$copy}}/usersave"><span class="label label-info">添加</span></a> </div>
+          <div class="widget-content">
+            <div class="text-center mb10">
+                <form class="form-search">
+                  <input type="text" name="q" value="{{$q}}" placeholder="输入帐户或名称搜索">
+                  <select class="span2" name="r">
+                    <option value="">选择角色搜索</option>
+                    <foreach name="roleHash" item="vo" key='key'>
+                        <option value="{{$key}}"<if condition="$r eq $key">selected</if>>{{$vo}}</option>
+                    </foreach>
+                  </select>
+                  <!--
+                  <select class="span2" name="g">
+                    <option value="">选择用户分组搜索</option>
+                    <foreach name="groupHash" item="vo" key='key'>
+                        <option value="{{$key}}"<if condition="$g eq $key">selected</if>>{{$vo}}</option>
+                    </foreach>
+                  </select>
+                  <select class="span2" name="o">
+                    <option value="">选择是否离职搜索</option>
+                    <option value="1" <if condition="$o eq 1">selected</if>>已离职</option>
+                    <option value="2" <if condition="$o eq 2">selected</if>>未离职</option>
+                  </select>
+                  -->
+                  <select class="span2" name="s">
+                    <option value="3">所有</option>
+                    <foreach name="statusHash" item="vo" key='key'>
+                        <option value="{{$key}}"<if condition="$s eq $key">selected</if>>{{$vo}}</option>
+                    </foreach>  
+                  </select>
+                  <input type="hidden" name="p" value="1"/>
+                    <button type="submit" class="btn" name="gn">查询</button>
+                    <button type="submit" class="btn" href=""  name="export" value="1">导出csv文件</button>
+                </form>
+            </div>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>用户名</th>
+                  <th>状态</th>
+                  <th>姓名</th>
+                  <th>邮箱</th>
+                  <th>电话</th>
+                  <th>角色</th>
+                  <th>最后登录</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr>
+                  <td>{{$item.uid}}</td>
+                  <td>{{$item.username}}</td>
+                  <td><if condition="$item.status eq '0'"><a class="badge">删除</a><else/><a class="badge badge-info">正常</a></if></td>
+                  <td>{{$item.realname}}</td>
+                  <td>{{$item.email}}</td>
+                  <td>{{$item.mobile}}</td>
+                  <td>{{$item.role|join=';'}}</td>
+                  <td>{{$item.last}}</td>
+                  <td>
+                      <a class="badge badge-info" href="/rbac{{$copy}}/usersave?uid={{$item.uid}}">编辑</a>
+                      <if condition="$item.status eq '0'">
+                      <a class="badge" href="javascript:;" onclick="del({{$item.uid}},this,1)">恢复</a>
+                      <else/>
+                      <a class="badge badge-important" href="javascript:;" onclick="del({{$item.uid}},this)">删除</a>
+                      </if>
+                  </td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="jsadd">
+<script>
+    function del(uid,t,s){
+        Op_common.confirm((s?'确认恢复?':'确认删除?'),function(){
+            $.post('?act=del',{uid:uid,status:s},function(obj){
+                if(obj.status=='1'){
+                    window.location.reload();
+                }else{
+                    Op_common.alert(obj.msg||'操作失败!');
+                }
+            },'json');
+        });
+    }
+</script>
+</block>

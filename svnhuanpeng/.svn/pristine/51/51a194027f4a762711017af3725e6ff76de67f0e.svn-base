@@ -1,0 +1,222 @@
+@charset "UTF-8";
+
+html,body{
+  width: 100%;
+  height: 100%;
+  font-family: 微软雅黑;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: #fff;
+}
+
+.l {
+  float: left;
+  display: inline;
+}
+.r {
+  float: right;
+  display: inline;
+}
+
+@rem:32rem;
+.anchor-container{
+  height: 100%;
+  padding: 36/@rem 40/@rem 0 40/@rem;
+  box-sizing: border-box;
+  .anchor-header{
+//  height:160/@rem;
+    overflow: hidden;
+    figure{display: flex;height: 100%;}
+    .anchor-poster{
+      float: left;
+      width: 144/@rem;
+      height: 144/@rem;
+      border-radius: 50%;
+      margin: 0 40/@rem 0 20/@rem;
+      position: relative;
+      .anchor-img{
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+      .anchor-checked{
+        position: absolute;
+        z-index: 55;
+        width: 32/@rem;
+        height: 32/@rem;
+        left:50%;
+        bottom:50%;
+        margin-left: 38/@rem;
+        margin-bottom: -70/@rem;
+        background: url("../image/auth_check.png") center center no-repeat;
+        background-size: cover;
+      }
+    }
+    figcaption{
+      float: left;
+      margin-top: 0.3rem;
+      width: 350/@rem;
+      height: 160/@rem;
+      overflow: hidden;
+      h2,p{
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .anchor-name{
+        font-size: 32/@rem;
+        color: #333;
+        margin-top: 2/@rem;
+        font-weight: 400;
+      }
+      .anchor-roomID{
+        font-size: 28/@rem;
+        color: #666;
+        margin-top: 6/@rem;
+      }
+      .anchor-desc{
+        font-size: 24/@rem;
+        color: #999;
+        margin-top: 12/@rem;
+        .anchorLvl_icon{
+          width: 48/@rem;
+          height: 28/@rem;
+          display: inline-block;
+          float: left;
+//        margin-top: 2/@rem;
+        }
+      }
+
+    }
+    
+    .economics-btn{
+        width: 100%;
+        height: 40/@rem;
+        margin-top: 16/@rem;
+        line-height: 40/@rem;
+        font-size:16/@rem;
+        color: #8b7e75;
+        padding-bottom: 15/@rem;
+        border-bottom: 1px solid #ebebeb;
+        .signing-status{
+            padding-left: 10/@rem;
+            color: #333;
+            span{
+                font-size: 0.8rem;
+                color: #333;
+            }
+            i{
+                color: #ccc;
+                margin-top: 12/@rem;
+                margin-right: 10/@rem;
+                padding-left: 10/@rem;
+            }
+        }
+    }
+  }
+  .anchor-content{
+//  margin-top: 50/@rem;
+    .content-header{
+      height: 44/@rem;
+      padding-top: 15/@rem;
+      span{
+        float: left;
+        color: #333;
+        width: 130/@rem;
+        height: 40/@rem;
+        font-size: 0.8rem;
+        font-weight: 400;
+      }
+      .btn{
+        float: right;
+        width: 94/@rem;
+        height: 44/@rem;
+        line-height: 44/@rem;
+        font-size: 22/@rem;
+        background-color: #eee;
+        color: #999;
+        font-weight: normal;
+        border-radius: 25/@rem;
+        outline: none;
+        margin-top: 2/@rem;
+      }
+      button:last-of-type{
+        margin-right: 16/@rem;
+      }
+      .sel{
+        background-color: #ffa04c;
+        color: #fff;
+      }
+
+    }
+    .content-data{
+      height: 420/@rem;
+      margin: 68/@rem auto 36/@rem;
+      position: relative;
+      .data-from{
+        height: 100%;
+        position: absolute;
+        left: 0;
+        right:0;
+        top:0;
+        z-index: 1;
+        overflow: hidden;
+      }
+      .data-desc{
+        position: absolute;
+        left: 50%;
+        top:50%;
+        z-index: 55;
+        width: 48%;
+        height: 100/@rem;
+        margin-left: -24%;
+        margin-top: -50/@rem;
+        text-align: center;
+        .desc{
+          color: #666;
+          font-size: 28/@rem;
+        }
+        .data{
+          color: #ff7800;
+          font-size: 24/@rem;
+        }
+        .bold{
+          font-size: 32/@rem;
+        }
+      }
+
+    }
+    .content-footer{
+      //margin-top: -40/@rem;
+      .footer-content{
+        display: flex;
+        margin-top: 50/@rem;
+        height:68/@rem;
+
+        &>div{
+          width: 100/3%;
+          height: 68/@rem;
+          font-size: 24/@rem;
+          text-align: center;
+          color: #999;
+        }
+        &>div:nth-of-type(2){
+          border-left: 2px solid #eee;
+          border-right: 2px solid #eee;
+        }
+        .hpcolor{
+          color: #ff7800;
+          padding-bottom: 0.2rem;}
+        .bold{font-size: 28/@rem;}
+      }
+      .footer-desc{
+        font-size: 20/@rem;
+        margin: 32/@rem 0 0 20/@rem;
+        color: #666;
+      }
+    }
+  }
+}
+
+

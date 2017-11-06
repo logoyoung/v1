@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank-translucent"/>
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <script>(function(){a();window.onresize=function(){a()};function a(){var b=document.documentElement.clientWidth||document.documentElement.body.clientWidth;document.documentElement.style.fontSize=b/20+"px"}})();</script>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css?v=0.0.1">
+	<title>欢朋直播千万约玩券,等你来玩!</title>
+    <script type="text/javascript" src="../js/statistics.js?v=0.0.2"></script>
+</head>
+<body>
+    <div class="video-center loadVideo"></div>
+    <div class="video-touch" id="videoBtn">
+        <div class="touch-third"></div>
+        <div class="touch-two"></div>
+        <div class="touch-first"></div>
+    </div>
+    <div class="mask-container"></div>
+    <div class="share-container">
+        <video class="video-content" webkit-playsinline playsinline  x5-video-player-type="h5" x5-video-player-fullscreen="true" loop="loop" preload="auto" style="width:100%;height: 100%;object-fit:fill;" poster="img/video-poster.png" src="assets/hp.mp4?v=0.0.1" type="video/mp4">
+        </video>
+        <div class="video-swipeTop" style="display: none;" >
+            <p>向上滑动</p>
+            <p>领取约玩券</p>
+        </div>
+    </div>
+	<div style="display: none;" class="coupon-container">
+        <div class="video-open"></div>
+	    <header class="background-top"></header>
+        <div class="coupon-content">
+            <div class="coupon-first ">
+                <section>
+                    <input type="tel" id="tel_phoneNum" class="input" placeholder="请输入手机号" maxlength="11" onfocus="this.placeholder=''" onblur="this.placeholder='请输入手机号'">
+                </section>
+                <section>
+                    <input id="receive_btn" type="button" class="button" value="立即领取">
+                </section>
+            </div>
+            <div class="coupon-second none">
+                <section class="info" id="coupon_result"></section>
+            </div>
+        </div>
+        <footer class="coupon-desc">
+            <p>优惠券最高可领取&nbsp;80&nbsp;欢朋币哦~</p>
+            <p>下载欢朋直播APP登陆后，打开APP</p>
+            <p>"我的-优惠券"查看。</p>
+            <p>注：该奖励最多可领取&nbsp;4&nbsp;次，赶快抢券吧！~</p>
+        </footer>
+    </div>
+    <div style="display: none;" class="hp_download">
+        <img src="img/closeBtn.png" class="close">
+        <figure>
+            <img src="img/hpLogo.jpg">
+            <figcaption>
+                <p>欢朋直播</p>
+                <span>下载APP，领取免费约玩券！</span>
+            </figcaption>
+        </figure>
+        <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.mizhi.huanpeng" class="openApp">下载</a>
+    </div>
+    <div style="display: none;" class="modal-box">
+        <div class="error-modal" style="display: none;">
+            <img src="img/icon_fail.png">
+            <p id="error-content"></p>
+        </div>
+    </div>
+    <script src="js/zepto.min.js"></script>
+    <script src="js/common.js?v=0.0.1"></script>
+    <script src="js/coupon.js?v=0.0.3"></script>
+</body>
+</html>

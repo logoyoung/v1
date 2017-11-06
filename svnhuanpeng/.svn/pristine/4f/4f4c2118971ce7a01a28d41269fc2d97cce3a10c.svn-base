@@ -1,0 +1,88 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>渠道统计</a><a href="javascript:;" ></i>推广码列表</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>渠道列表</h5>
+            <a href="/channel/promocodesave"><span class="label label-info">添加</span></a> 
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10 ln38">
+                <form class="form-search" id='myform'>
+                  <input name='promocode' id='promocode' type="text" value="{{$Think.get.promocode}}"  placeholder="推广码" />
+                  <select class="span2" name="status">
+                    <option value="-1">选择状态</option>
+                    <foreach name="status" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.status eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <select class="span2" name="vip">
+                    <option value="-1">选择合作类型</option>
+                    <foreach name="vips" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.vip eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <button type="submit" class="btn">搜索</button>
+                  <button type="submit" class="btn" name="export" value="1">导出</button>
+                </form>
+            </div>
+        <div class="oyat">    
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <th>推广码</th>
+				  <th>名称</th>
+                  <th>状态</th>
+                  <th>重点合作</th>
+                  <th>创建时间</th>
+                  <th>描述</th>
+                  <th>编辑</th>
+                  <th>其他</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr>
+                  <td>{{$item.promocode}}</td>
+				  <td>{{$item.name}}</td>
+                  <td>{{$item.status|default='--'}}</td>
+                  <td>{{$item.vip|default='--'}}</td>
+                  <td>{{$item.ctime|default='--'}}</td>
+                  <td>{{$item.desc|default='--'}}</td>
+                  <td><a class="badge badge-info" href="/channel/promocodesave?promocode={{$item.promocode}}">编辑</a></td>
+                  <td><a class="badge badge-info" target="_blank" href="{{$companyUrl}}/promotion/index?promocode={{$item.promocode}}">去往推广后台</a></td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        minView: 2,
+        todayBtn: true,
+    });
+</script>
+</block>

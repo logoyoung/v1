@@ -1,0 +1,169 @@
+<extend name="Base/matrix" />
+<block name="content">
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>提现统计</a><a href="javascript:;" ></i>提现列表</a></div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>提现列表</h5>
+                        </div>
+                        <div class="widget-content">
+                            <div class="text-center mb10 ln38">
+                                <form class="form-search">
+                                    <input name='tid'  type="text" value="{{$Think.get.tid}}"  placeholder="账单ID"  >
+                                    <input name='uid'  type="text" value="{{$Think.get.uid}}"  placeholder="用户UID"  >
+                                    <input name='name'  type="text" value="{{$Think.get.name}}"  placeholder="提现人"  >
+                  					<input type="text" name="month" class="form_datetime w100"  value="{{$Think.get.month}}" placeholder="月份">
+                                    <select class="span2" name="status">
+                                        <option value='-1' <eq name="Think.get.status" value="-1" >selected</eq>>选择审核状态</option>
+                                        <foreach name="checkstatus" item="v" key='key'>
+                                            <option value="{{$key}}" <if condition="$Think.get.status eq $key">selected</if> >{{$v}}</option>
+                                        </foreach>
+                                    </select>
+                                    <button type="submit" class="btn">搜索</button>
+                                    <button type="submit" class="btn" name="export" value="1">导出</button><br>
+                                </form>
+                            </div>
+
+
+
+                            <div class="oyat">
+                                <table class="table table-bordered table-striped" id="oCenter" style="">
+                                    <thead>
+                                    <tr>
+                                        <th>申请提现时间</th>
+                                        <th>账单ID</th>
+                                        <th>用户UID</th>
+                                        <th>提现金额（¥）</th>
+                                        <th>提现人</th>
+                                        <th>手机号</th>
+                                        <th>银行卡号</th>
+                                        <th>开户银行</th>
+                                        <th>居住地址</th>
+                                        <th>审核状态</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <volist name="datas" id="item">
+                                        <tr>
+                                            <td>{{$item.ctime|default='--'}}</td>
+                                            <td>{{$item.tid}}</td>
+                                            <td>{{$item.uid}}</td>
+                                            <td>{{$item.number}}</td>
+                                            <td>{{$item.name|default='--'}}</td>
+                                            <td>{{$item.phone|default='--'}}</td>
+                                            <td>{{$item.cardid|default='--'}}</td>
+                                            <td>{{$item.cname|default='--'}}</td>
+                                            <td>{{$item.address|default='--'}}</td>
+                                            <th>{{$checkstatus[$item[mystatus]]|default='--'}}</th>
+                                        </tr>
+                                    </volist>
+                                    </tbody>
+                                </table>
+                                <div class="pagination alternate text-center">{{$page}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</block>
+<div class="modal" id="myModal" tabindex="-1" style="display: none;"  >
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                        <h5>审核拒绝原因</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <form id='f1' action='/check/videounpass'  method="post" class="form-horizontal">
+                            <input type='hidden' name='videoid' id='videoid' value=''>
+                            <div class="control-group">
+                                <label class="control-label">原因类型</label>
+                                <div class="controls">
+                                    <select class="span11" name="reasontype">
+                                        <foreach name="reason" item="v" key='key'>
+                                            <option value="{{$key}}">{{$v}}</option>
+                                        </foreach>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">描述</label>
+                                <div class="controls">
+                                    <input name = 'reason' type="textarea" class="span11" style="height:150px;" placeholder="" />
+                                </div>
+                            </div>
+                            <div class="form-actions text-center">
+                                <button type="submit" class="btn btn-danger" >確定</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal">关闭</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+    <script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+    <script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm',
+        showMeridian: false,
+        autoclose: true,
+        startView:3,
+        minView: 3,
+        todayBtn: true,
+        todayHighlight:false,
+    });
+
+
+
+		function pass(id,date) {
+		    $.ajax({
+		        url: '/withdraw/pass',
+		        data:{id:id,date:date},
+		        type:'post',
+		        dataType:'json',
+		        success:function(data){
+		            if(data.status==1){
+		                alert('操作成功')
+		                window.location.href = "";
+		            }else{
+		                alert('操作失败')
+		                window.location.href = "";
+		            }
+		        }
+		    })
+		}
+		function unpass(id,date) {
+		    $.ajax({
+		        url: '/withdraw/unpass',
+		        data:{id:id,date:date},
+		        type:'post',
+		        dataType:'json',
+		        success:function(data){
+		            if(data.status==1){
+		                alert('操作成功')
+		                window.location.href = "";
+		            }else{
+		                alert('操作失败')
+		                window.location.href = "";
+		            }
+		        }
+		    })
+		}
+
+    </script>
+</block>

@@ -1,0 +1,477 @@
+<extend name="Base/matrix"/>
+
+<block name="content">
+    <div id="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="widget-title span10"><span class="icon"> <i class="icon-align-justify"></i> </span>
+                    <h5>App游戏楼层推荐</h5>
+                    <a href="javascript:"><span class="label label-info" onclick="floorsubmit();">保存</span></a>
+                </div>
+
+                <form id="floorform" name="floorform" method="post">
+                    <div class="container span10">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>推荐数量</th>
+                                <th>游戏</th>
+                                <th>楼层数</th>
+                            </tr>
+                            </thead>
+                            <tbody id="floor_tbody">
+                            <input type="hidden" name="num">
+                            <input type="hidden" name="floornum">
+                            <input type="hidden" name="gameid">
+                            <input type="hidden" name="type">
+                            <notempty name="formatRecommendGame[4][gameids]">
+                            <volist name="formatRecommendGame[4][gameids]" id="gameid" key="i">
+                                <tr class="text-center">
+                                    <eq name="i" value="1">
+                                        <td rowspan="{{$formatRecommendGame[4][recommendNumber]}}" id="floor_rowspan">
+                                            <select id="floor_select" class="floornum">
+                                                <foreach name="floor_recommend_num" item="item">
+                                                    <option value={{$item}}
+                                                    <eq name="item" value="$formatRecommendGame[4][recommendNumber]">
+                                                        selected
+                                                    </eq>
+                                                    >{{$item}}</option>
+                                                </foreach>
+                                            </select>
+                                        </td>
+                                    </eq>
+                                    <td>
+                                        <select class="gameid">
+                                            <foreach name="games" item="item">
+                                                <option value="{{$item.gameid}}"
+                                                <eq name="item.gameid" value="$gameid"> selected</eq>
+                                                >{{$item.name}} </option>
+                                            </foreach>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="num">
+                                            <foreach name="floor_num" item="item">
+                                                <option value={{$item}}
+                                                <eq name="item" value="$formatRecommendGame[4][gameidNumber][$gameid]">
+                                                    selected
+                                                </eq>
+                                                > {{$item}} </option>
+                                            </foreach>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </volist>
+                            <else/>
+                            	<tr class="text-center">
+                                        <td rowspan='1' id="floor_rowspan">
+                                            <select id="floor_select" class="floornum">
+                                                <foreach name="floor_recommend_num" item="item">
+                                                    <option value={{$item}}
+                                                    <eq name="item" value="1">
+                                                        selected
+                                                    </eq>
+                                                    >{{$item}}</option>
+                                                </foreach>
+                                            </select>
+                                        </td>
+                                    <td>
+                                        <select class="gameid">
+                                            <option value="0" selected = "selected" >请选择</option>
+                                            <foreach name="games" item="item">
+                                                <option value="{{$item.gameid}}"
+                                                <eq name="item.gameid" value="$gameid"> selected</eq>
+                                                >{{$item.name}} </option>
+                                            </foreach>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="num">
+                                            <foreach name="floor_num" item="item">
+                                                <option value={{$item}}
+                                                <eq name="item" value="$formatRecommendGame[4][gameidNumber][$gameid]">
+                                                    selected
+                                                </eq>
+                                                > {{$item}} </option>
+                                            </foreach>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </notempty>
+                            </tbody>
+                            <tr style="display:none" id="floor">
+                                <td>
+                                    <select class="gameid">
+                                        <option value="0" selected = "selected" >请选择</option>
+                                        <foreach name="games" item="item">
+                                            <option value="{{$item.gameid}}">{{$item.name}}</option>
+                                        </foreach>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select  class="num">
+                                        <foreach name="floor_num" item="item">
+                                            <option value={{$item}}> {{$item}}</option>
+                                        </foreach>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row">
+                <div class="widget-title span10"><span class="icon"> <i class="icon-align-justify"></i> </span>
+                    <h5>App热门直播楼层数</h5>
+                    <a href="javascript:"><span class="label label-info" onclick="hotsubmit();">保存</span></a>
+                </div>
+
+                <form id="floorhot" name="floorhot" method="post">
+                    <div class="container span10">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>楼层数</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody id="floor_hot_tbody">
+                            <input type="hidden" name="type" value="5">
+                            <input type="hidden" name="num">
+                                <tr class="text-center">
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <select id="hotnum">
+                                            <foreach name="floor_num" item="item">
+                                                <option value={{$item}}
+                                                <eq name="item" value="$formatRecommendGame[5]['number']">
+                                                    selected
+                                                </eq>
+                                                > {{$item}} </option>
+                                            </foreach>
+                                        </select>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row">
+                <div class="widget-title span10"><span class="icon"> <i class="icon-align-justify"></i> </span>
+                    <h5>App双屏直播楼层数</h5>
+                    <a href="javascript:"><span class="label label-info" onclick="doublesubmit()">保存</span></a>
+                </div>
+
+                <form id="doublefloor" name="doublefloor" method="post">
+                    <div class="container span10">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>楼层数</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody id="double_floor_tbody">
+                            <input type="hidden" name="type" value="7">
+                            <input type="hidden" name="num">
+                            <tr class="text-center">
+                                <td>
+                                </td>
+                                <td>
+                                    <select id="doublenum">
+                                        <foreach name="double_num" item="item">
+                                            <option value={{$item}}
+                                            <eq name="item" value="$formatRecommendGame[7]['number']">
+                                                selected
+                                            </eq>
+                                            > {{$item}} </option>
+                                        </foreach>
+                                    </select>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+
+
+            <div class="row">
+                <div class="widget-title span10"><span class="icon"> <i class="icon-align-justify"></i> </span>
+                    <h5>App端发直播推荐游戏设置</h5>
+                    <a href="javascript:"><span class="label label-info" onclick="navisubmit();">保存</span></a>
+                </div>
+                <div class="container span10">
+                    <form id="naviform" name="naviform" method="post">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>推荐数量</th>
+                                <th colspan="3">游戏推荐</th>
+                            </tr>
+                            </thead>
+                            <tbody id="navi_tbody">
+                            <input type="hidden" name="num">
+                            <input type="hidden" name="navinum">
+                            <input type="hidden" name="gameid">
+                            <input type="hidden" name="type">
+                            <tr class="text-center">
+                                <notempty name="formatRecommendGame[6][gameids]">
+                                <volist name="formatRecommendGame[6][gameids]" id="gameid" key="i" mod="3">
+                                    <eq name="i" value="1">
+                                        <td rowspan={{$formatRecommendGame[6][recommendNumber]/3}} id="navi_rowspan">
+                                            <select id="navi_select" class="navinum">
+                                                <foreach name="navi_recommend_num" item="item">
+                                                    <option value={{$item}}
+                                                    <eq name="item" value="$formatRecommendGame[6][recommendNumber]">
+                                                        selected
+                                                    </eq>
+                                                    >{{$item}}</option>
+                                                </foreach>
+                                            </select>
+                                        </td>
+                                    </eq>
+                                    <td>
+                                        <select class="gameid">
+                                            <foreach name="games" item="item">
+                                                <option value="{{$item.gameid}}"
+                                                <eq name="item.gameid" value="$gameid"> selected</eq>
+                                                >{{$item.name}}</option>
+                                            </foreach>
+                                        </select>
+                                    </td>
+                                    <!--<if condition="($mod eq 2) and ($i lt 12 )" >-->
+                            </tr>
+                            <!--<tr>-->
+                            <!--</if>-->
+                            </volist>
+                            <!--</tr>-->
+                            <else/>
+                            <tr class="text-center">
+                                <td rowspan=1 id="navi_rowspan">
+                                    <select id="navi_select" class="navinum">
+                                        <foreach name="navi_recommend_num" item="item">
+                                            <option value={{$item}}
+                                            <eq name="item" value="3">
+                                                selected
+                                            </eq>
+                                            >{{$item}}</option>
+                                        </foreach>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <select class="gameid">
+                                        <option value="0" selected = "selected" >请选择</option>
+                                        <foreach name="games" item="item">
+                                            <option value="{{$item.gameid}}">{{$item.name}}</option>
+                                        </foreach>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="gameid">
+                                        <option value="0" selected = "selected" >请选择</option>
+                                        <foreach name="games" item="item">
+                                            <option value="{{$item.gameid}}">{{$item.name}}</option>
+                                        </foreach>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="gameid">
+                                        <option value="0" selected = "selected" >请选择</option>
+                                        <foreach name="games" item="item">
+                                            <option value="{{$item.gameid}}">{{$item.name}}</option>
+                                        </foreach>
+                                    </select>
+                                </td>
+                            </tr>
+                            </notempty>
+                            </tbody>
+
+                            <tr style="display:none" id="navi">
+                                <td>
+                                    <select class="gameid">
+                                        <option value="0" selected = "selected" >请选择</option>
+                                        <foreach name="games" item="item">
+                                            <option value="{{$item.gameid}}">{{$item.name}}</option>
+                                        </foreach>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="gameid">
+                                        <option value="0" selected = "selected" >请选择</option>
+                                        <foreach name="games" item="item">
+                                            <option value="{{$item.gameid}}">{{$item.name}}</option>
+                                        </foreach>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="gameid">
+                                        <option value="0" selected = "selected" >请选择</option>
+                                        <foreach name="games" item="item">
+                                            <option value="{{$item.gameid}}">{{$item.name}}</option>
+                                        </foreach>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+</block>
+<block name="cssadd">
+</block>
+<block name="jsadd">
+    <script>
+        $(function () {
+            $("#floor_select").change(function () {
+                var floor = $(this).val();//楼层数
+                var rowspan = $("#floor_rowspan").attr("rowspan");
+                var n = floor - rowspan;
+                console.log(n);
+                if (floor < rowspan) {
+                    for (var i = 0; i > n; i--) {
+                        $("#floor_tbody tr:last").remove();
+                        $("#floor_rowspan").attr("rowspan", floor);
+                    }
+                } else {
+                    for (var i = 0; i < n; i++) {
+                        $("#floor_tbody").append($("#floor").clone().css("display", "").removeAttr("id"));
+                        $("#floor_rowspan").attr("rowspan", floor);
+                    }
+                }
+            });
+
+            $("#navi_select").change(function(){
+                var navi = $(this).val()/3;//楼层数
+                var rowspan = $("#navi_rowspan").attr("rowspan");
+                var n = navi - rowspan;
+                console.log(n);
+                if(navi < rowspan){
+                    for(var i=0;i>n;i--){
+                        $("#navi_tbody tr:last").remove();
+                        $("#navi_rowspan").attr("rowspan",navi);
+                    }
+                }else{
+                    for(var i=0;i<n;i++){
+                        $("#navi_tbody").append($("#navi").clone().css("display","").removeAttr("id"));
+                        $("#navi_rowspan").attr("rowspan",navi);
+                    }
+                }
+            });
+
+            $("#gametypeform select").change(function () {
+                var gameid = $(this).val();//楼层数
+                var gametypei = $(this).attr("gametypei");
+                var url = $(this).find("option:selected").attr("poster");
+                $("#" + gametypei).attr("src", url);
+            });
+
+
+            Op_common.ajaxForm($("#floorform"), function (obj) {
+                if (obj.status == 1) {
+                    Op_common.alert(obj.info, function () {
+                        window.location = '';
+                    });
+                } else {
+                    Op_common.alert(obj.info || '操作失败');
+                }
+            });
+
+            Op_common.ajaxForm($("#floorhot"), function (obj) {
+                if (obj.status == 1) {
+                    Op_common.alert(obj.info, function () {
+                        window.location = '';
+                    });
+                } else {
+                    Op_common.alert(obj.info || '操作失败');
+                }
+            });
+
+            Op_common.ajaxForm($("#doublefloor"), function (obj) {
+                if (obj.status == 1) {
+                    Op_common.alert(obj.info, function () {
+                        window.location = '';
+                    });
+                } else {
+                    Op_common.alert(obj.info || '操作失败');
+                }
+            });
+
+            Op_common.ajaxForm($("#naviform"), function (obj) {
+                if (obj.status == 1) {
+                    Op_common.alert(obj.info, function () {
+                        window.location = '';
+                    });
+                } else {
+                    Op_common.alert(obj.info || '操作失败');
+                }
+            });
+        })
+
+
+        function floorsubmit() {
+            var num = [], gameid = [], floornum = 0;
+
+            $("#floorform #floor_tbody .gameid").each(function () {
+                gameid.push($(this).val());
+            });
+            $("#floorform #floor_tbody  .num").each(function () {
+                num.push($(this).val());
+            });
+
+
+            $("#floorform :input[name='floornum']").val($("#floor_select").val());
+            $("#floorform :input[name='gameid']").val(gameid.join(","));
+            $("#floorform :input[name='num']").val(num.join(","));
+            $("#floorform :input[name='type']").val(4);
+            $("#floorform").submit();
+        }
+
+        function navisubmit(){
+            var num = [] ,gameid =[] ,navinum = 0;
+
+            $("#naviform #navi_tbody .gameid").each(function(){
+                gameid.push($(this).val());
+            });
+//	$("#naviform #navi_tbody .num").each(function(){
+//		num.push($(this).val());
+//	});
+
+            $("#naviform :input[name='navinum']").val($("#navi_select").val());
+            $("#naviform :input[name='gameid']").val(gameid.join(","));
+            $("#naviform :input[name='num']").val(0);
+            $("#naviform :input[name='type']").val(6);
+            $("#naviform").submit();
+        }
+
+        function hotsubmit(){
+            $("#floorhot :input[name='num']").val($("#hotnum").val());
+//            $("#floorhot :input[name='type']").val(5);
+            $("#floorhot").submit();
+        }
+        function doublesubmit(){
+            $("#doublefloor :input[name='num']").val($("#doublenum").val());
+//            $("#floorhot :input[name='type']").val(5);
+            $("#doublefloor").submit();
+        }
+    </script>
+</block>

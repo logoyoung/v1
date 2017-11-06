@@ -1,0 +1,2 @@
+/usr/bin/rsync -avr --delete /usr/local/huanpeng-pub/htdocs/api/app/ 172.20.28.118::huanpeng/htdocs/api/app
+/usr/bin/rsync -avr --delete /usr/local/huanpeng-pub/htdocs/api/app/ 172.20.28.119::huanpeng/htdocs/api/app

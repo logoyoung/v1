@@ -1,0 +1,125 @@
+<?php
+
+namespace hp\lib;
+use hp\lib\WcsHelper;
+
+
+/**
+ * Created by PhpStorm.
+ * User: logoyoung
+ * Date: 17/3/31
+ * Time: 15:10
+ */
+
+/**
+ * CDN类
+ *
+ *
+ */
+class CDNHelper
+{
+
+	/**
+	 * @var $_helper  CND具体操作对象
+	 */
+	private $_helper;
+
+	//构造函数
+	public function __construct( $WcsHelper = null )
+	{
+		if( !$WcsHelper )
+		{
+			$WcsHelper = new WcsHelper();
+		}
+		$this->_helper = $WcsHelper;
+	}
+
+	/**
+	 * 主动切断网宿直播流
+	 *
+	 * @param $publishRtmpUrl    推流地址
+	 *
+	 * @return string             错误码
+	 */
+	public function stopCDNStream( $publishRtmpUrl )
+	{
+		return $this->_helper->forbidLive( $publishRtmpUrl );
+	}
+
+	/**
+	 * 网宿鉴权加密
+	 *
+	 * @param      $data            加密参数
+	 * @param bool $urlEncode       是否urlencode加密
+	 *
+	 * @return string                加密串
+	 */
+	public static function getPublishLiveSecret( $data, $urlEncode = true )
+	{
+		return WcsHelper::getWcsPublishLiveSecret($data, $urlEncode);
+	}
+
+	/**
+	 * 删除文件
+	 *
+	 * @param $file                文件名
+	 *
+	 * @return array|false        删除任务返回信息｜操作失败
+	 */
+	public function deleteFile( $file )
+	{
+		return $this->_helper->delete( $file );
+	}
+
+	/**
+	 * 拼接文件
+	 *
+	 * @param $files            文件列表
+	 *
+	 * @return array|false        拼接任务返回信息｜操作失败
+	 */
+	public function mergeFile( $files )
+	{
+		return $this->_helper->merge( $files );
+	}
+
+
+	/**
+	 * 视频文件转码
+	 *
+	 * @param $file                文件名
+	 *
+	 * @return array|false        转码任务返回信息｜操作失败
+	 */
+	public function transcodeFile( $file )
+	{
+		return $this->_helper->transcode( $file );
+	}
+
+
+	/**
+	 * 视频截图
+	 *
+	 * @param $file                文件名
+	 *
+	 * @return array|false        截图任务返回信息｜操作失败
+	 */
+	public function posterFile( $file )
+	{
+		$this->_helper->poster( $file );
+	}
+
+
+	/**
+	 * 文件下载
+	 *
+	 * @param $file                文件名
+	 *
+	 * @return string|false        下载链接｜操作失败
+	 */
+	public function downloadFile( $file )
+	{
+		return WcsHelper::getDownUrl( $file );
+	}
+
+}

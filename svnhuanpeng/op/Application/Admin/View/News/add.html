@@ -1,0 +1,374 @@
+<extend name="Base/matrix" />
+<block name="content">
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"><a href="index" ><i class="icon-home"></i>资讯管理</a><a href="javascript:;" ></i>新增资讯</a></div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                            <h5>新建</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <form name="f1" method="post"  action="/news/savenew" class="form-horizontal">
+
+                                <div class="control-group">
+                                    <label for="checkboxes" class="control-label">资讯类型</label>
+                                    <div class="controls">
+                                        <div data-toggle="buttons-radio" class="btn-group">
+                                            <button name="type" value="13" class="btn btn-primary" type="button">公告</button>
+                                            <button name="type" value="5"  class="btn btn-primary" type="button">新闻</button>
+                                            <button name="type" value="8"  class="btn btn-primary" type="button">活动</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">标题</label>
+                                        <div class="controls">
+                                            <input name="title" value="{{$title}}" type="text" class="span6" placeholder="" />
+                                        </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">活动所属平台:</label>
+                                    <div class="controls">
+                                        <label><input type="radio" name="client" value="1"/>App端  &nbsp;&nbsp;&nbsp;<input type="radio" name="client" value="2"/>Web端 &nbsp;&nbsp;<input type="radio" name="client" value="3"/>H5</label>
+                                    </div>
+                                </div>
+                                <!--<div class="control-group">-->
+                                    <!--<label class="control-label">活动类型:</label>-->
+                                    <!--<div class="controls">-->
+                                        <!--<label><input type="radio" name="activetype" value="1"/>首页活动 &nbsp;&nbsp;&nbsp;<input type="radio" name="activetype" value="2"/>直播间活动&nbsp;&nbsp;&nbsp;<input type="radio" name="activetype" value="3"/>首页&直播间 &nbsp;&nbsp;&nbsp;<input type="radio" name="activetype" value="4"/>指定直播间</label>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="control-group">
+                                    <label class="control-label">是否登录可见:</label>
+                                    <div class="controls">
+                                        <label><input type="radio" name="islogin" value="1"/>不登录可见 &nbsp;&nbsp;&nbsp;<input type="radio" name="islogin" value="2"/>登录可见</label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">展现形式:</label>
+                                    <div class="controls">
+                                        <label><input type="radio" name="showtype" value="1"/>公告形式展示 &nbsp;&nbsp;&nbsp;<input type="radio" name="showtype" value="2"/>新页面&nbsp;&nbsp;<input type="radio" name="showtype" value="3"/>跳转到App直播间&nbsp;&nbsp;<input type="radio" name="showtype" value="4"/>跳转到约玩详情</label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">指定主播ID</label>
+                                    <div class="controls">
+                                        <input name="luids" value="{{$controller}}" type="text" class="span6" placeholder="如果活动类型选指定直播间,或者展现形式为跳转App直播间、跳转到约玩详情的时候才需要填写该项" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">资质ID</label>
+                                    <div class="controls">
+                                        <input name="certid" value="{{$controller}}" type="text" class="span4" placeholder="只有展现形式为跳转到约玩详情的时候才需要填写该项" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">技能ID</label>
+                                    <div class="controls">
+                                        <input name="skillid" value="{{$controller}}" type="text" class="span4" placeholder="只有展现形式为跳转到约玩详情的时候才需要填写该项" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">链接地址</label>
+                                    <div class="controls">
+                                        <input name="url" value="{{$controller}}" type="text" class="span6" placeholder="如果选展现形式为新页面,链接地址必须填写;" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                <label class="control-label">开始时间</label>
+                                <div class="controls">
+                                <div class="input-append date form_datetime1">
+                                    <input type="text" id="timestart" name="timestart" class="form_datetime w200"  value="{{$Think.get.timestart}}" placeholder="开始时间">
+                                    <span class="add-on"><i class="icon-th"></i></span>
+                                </div>
+                                </div>
+                                </div>
+                                <div class="control-group">
+                                <label class="control-label">结束时间</label>
+                                <div class="controls">
+                                <div class="input-append date form_datetime1">
+                                    <input type="text" id = "timeend" name="timeend" class="form_datetime w200"  value="{{$Think.get.timeend}}" placeholder="结束时间">
+                                <span class="add-on"><i class="icon-th"></i></span>
+                                </div>
+                                </div>
+                                </div>
+                                <script id="editor" name="content" type="text/plain" style="width:99%;margin:0 1%;height:500px;">{{$content}}</script>
+                                <!--<div class="control-group">-->
+                                    <!--<label class="control-label">封面图片</label>-->
+                                    <!--<div class="controls">-->
+                                        <!--<input name="img"  type="hidden"  value="{{$imgurl}}" type="text" class="span11" placeholder="" />-->
+                                        <!--<iframe  src="/file/up" id="upimg1" style="border:none;margin:20px auto;overflow:hidden;width:20%;" scrolling="no" seamless></iframe>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="control-group">
+                                    <label class="control-label">海报</label>
+                                    <div class="controls">
+                                        <input name="poster" id="poster"  value="{{$poster}}" type="hidden"/>
+                                        <div class="con1">
+                                            <ul class="poster" v="{{$poster}}">
+                                                <!--<td><empty name='poster'><else /> <img alt="" src="http://{{$conf.domain-img}}{{$poster}}"> </empty></td>-->
+                                            </ul>
+                                        </div>
+                                        <button con = 'con1' id="id1" class='upload' hidd = "poster" >选择文件</button>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">缩略图</label>
+                                    <div class="controls">
+                                        <input name="thumbnail" id="bgpic"  value="{{$thumbnail}}" type="hidden"  />
+                                        <div class="con3">
+                                            <ul class="bgpic" v="{{$thumbnail}}">
+                                                <td><empty name='thumbnail'><else /> <img alt="" src="http://{{$conf.domain-img}}{{$thumbnail}}"> </empty></td>
+                                            </ul>
+                                        </div>
+                                        <button con = 'con3' id="id3" class='upload' hidd="bgpic" >选择文件</button>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions text-center">
+                                    <button type="submit" class="btn btn-success">保存</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</block>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+    <script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__RES__plupload/plupload.full.min.js"></script>
+    <script src="/ueditor/ueditor.news.js"></script>
+    <script src="/ueditor/ueditor.all.min.js"></script>
+    <script src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script>
+        $('.form_datetime').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii:00',
+            showMeridian: false,
+            autoclose: true,
+            minView: 0,
+            todayBtn: true,
+        });
+
+        $("#timestart").on('changeDate',function(e){
+//            $('#timeend').datetimepicker('setEndDate',endTime);
+            var selectdate = e.date.toLocaleString();
+            var date = new Date(Date.parse(selectdate.replace(/-/g, "/")));
+            var month = date.getMonth()+1;
+            var year = date.getFullYear();
+            var day = new Date(year,month,0).getDate();
+            var endTime = year+"-"+month+"-"+day;
+            var startTime = year+"-"+month+"-01";
+            console.log(startTime);
+            console.log(endTime);
+            $('#timeend').datetimepicker('setStartDate',$('#timestart').val());
+//            $('#timeend').datetimepicker('setStartDate',startTime);
+            $("#timeend").val("");
+        });
+
+        var f=document.forms.f1,
+                g=function(name){
+                    return $('*[name='+name+']',f);
+                },
+                showdiv=function(name){
+                    return g(name).closest('.control-group').show();
+                },
+                hidediv=function(name){
+                    return g(name).closest('.control-group').hide();
+                },
+                changeType=function(type){
+                    type = isNaN(type)?this.value:type;
+                    switch(type){
+                        case '5':
+                            showdiv('title');
+                            hidediv('client');
+                            hidediv('activetype');
+                            hidediv('islogin');
+                            hidediv('showtype');
+                            hidediv('url');
+                            hidediv('luids');
+                            hidediv('certid');
+                            hidediv('skillid');
+                            break;
+                        case '8':
+                            showdiv('title');
+                            showdiv('client');
+                            showdiv('activetype');
+                            showdiv('islogin');
+                            showdiv('showtype');
+                            showdiv('url');
+                            showdiv('luids');
+                            showdiv('certid');
+                            showdiv('skillid');
+                            break;
+                        case '13':
+                            showdiv('title');
+                            hidediv('client');
+                            hidediv('activetype');
+                            hidediv('islogin');
+                            hidediv('showtype');
+                            hidediv('url');
+                            hidediv('luids');
+                            hidediv('certid');
+                            hidediv('skillid');
+                            break;
+                    }
+                };
+        Op_common.ajaxForm($(f),function(obj){
+                    if(obj.status==1){
+                        Op_common.alert(obj.info,function(){
+                            init_input();
+                            window.location = '/news/index';
+                        });
+                    }else{
+                        Op_common.alert(obj.info||'操作失败');
+                    }
+                },
+                {
+                    'rule':{
+                        'title':{'require':1,'msg':'标题不允许为空!'},
+//                        'content':{'require':1,'msg':'内容不允许为空!'},
+                    }
+                });
+        function  init_input(){
+            $('#title').val('');
+            $('#client').val('');
+            $('#activetype').val('');
+            $('#islogin').val('');
+            $('#showtype').val('');
+            $('#url').val('');
+            $('#luids').val('');
+            $('#poster').val('');
+            $('#thumbnail').val('');
+            $('#certid').val('');
+            $('#skillid').val('');
+        }
+        g('type').on('click',changeType)<empty name="type">.first().click();<else/>;$('button[value={{$type}}]',f).click();</empty>
+        $(f).on('submit',function(){
+//            $(this).find('.control-group:hidden').remove();
+            $(this).find('*[name]').each(function(){
+                this.name=this.name.replace(/\d$/,'');
+            });
+            g('type').each(function(){
+                if($(this).hasClass('active')){
+//                    $(this).replaceWith('<input type="hidden" name="'+this.name+'" value="'+this.value+'">');
+                }
+            });
+        });
+
+        function showimg(imginp,img){
+            imginp.popover({
+                trigger:'hover',
+                placement:'top',
+                title:'',
+                html:true,
+                content:'<img src="'+img+'">',
+            });
+        }
+        var ue = UE.getEditor('editor'),imginp=$('input[name=img]'),imginp2=$('input[name=img2]');
+        window.FileUploaded = function(obj,sign){
+            $('#'+sign).parent().find('input').val(obj.url);
+            alert(obj.url);
+            showimg(obj.url);
+        }
+
+        ue.addListener( 'afterinsertimage',function(obj,param){
+            var img=param[0];
+            if(img && img.src && imginp.val()==''){
+                imginp.val(img.src);
+                showimg(img.src);
+            }
+        });
+
+        if(imginp.val()){
+            showimg(imginp,imginp.val());
+        }
+        if(imginp2.val()){
+            showimg(imginp2,imginp2.val());
+        }
+
+
+//        Op_common.ajaxForm($(document.forms.f1),function(obj){
+//            Op_common.alert(obj.msg,obj.url?function(){
+//                window.location=obj.url;
+//            }:null);
+//        });
+        $('div[data-toggle=buttons-radio]').each(function(){
+            if($(this).find('.active').length==0){
+                $(this).find('button:first').click();
+            }
+        });
+
+        $(function(){
+            $('.upload').each(function(){
+                self = $(this);
+                var button_id = self.attr('id'),
+                        pics = self.attr('pics'),
+                        hidd = self.attr('hidd'),
+                        con = self.attr('con');
+
+                var uploader = new plupload.Uploader({ //实例化一个plupload上传对象
+                    browse_button : button_id,
+                    url : '/file/up?type=',
+                    flash_swf_url : '__RES__plupload/Moxie.swf',
+                    silverlight_xap_url : '__RES__plupload/Moxie.xap',
+                    multi_selection : true,
+                });
+                uploader.init(); //初始化
+
+                //绑定文件添加进队列事件
+                uploader.bind('FilesAdded',function(uploader,files){
+                    //构造html来更新UI
+                    var html = '<li id="file-' + files[0].id +'"><p class="file-name">' + files[0].name + '</p><div class="progress progress-striped"><div class="bar" ></div></div></li>';
+                    $(html).appendTo('.'+con);
+                    uploader.start();
+                });
+
+                //绑定文件上传进度事件
+                uploader.bind('UploadProgress',function(uploader,file){
+                    $('#file-'+file.id+' .bar').css('width',file.percent + '%');//控制进度条
+                });
+
+                //绑定文件上传进度事件
+                uploader.bind('FileUploaded',function(uploader,file,responseObject){
+                    var json=$.parseJSON(responseObject.response);
+                    if(pics==1){//上传多张
+                        var html =' <ul class= '+hidd+' v='+json.picpath+' ><img src= '+json.url+' /> <a onclick="del(this)" href="javascript:;" class="badge badge-important" style="display: inline-block;">删除</a></ul>';
+                        $('.'+con+' ').append(html);
+                    }else{//单张
+                        $('.'+con+' ul').replaceWith('<ul class= '+hidd+' v='+json.picpath+'><img src= '+json.url+' /></ul>');
+                    }
+                    $('.'+con+' li').remove();//删除进度条
+                    createform(hidd);
+                });
+
+                function createform(hidd){
+                    $('#'+hidd).val('');
+                    console.log(hidd);
+                    $("ul."+hidd).each(function(){
+                        v = $(this).attr('v');
+                        if($('#'+hidd).val()){
+                            $('#'+hidd).val($('#'+hidd).val()+','+v);
+                        }else{
+                            $('#'+hidd).val(v);
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+</block>
+

@@ -1,0 +1,123 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>提现审核</a><a href="javascript:;" ></i>财务审核</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span6">
+        <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>财务审核</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form name="f1" method="post" class="form-horizontal">
+          <input type="hidden" name = "id" value="{{$Think.get.id}}">
+          <input type="hidden" name = "statusx" value="status_finance_check">
+            <div class="control-group">
+              <label class="control-label">UID</label>
+              <div class="controls"><input disabled value="{{$uid}}" type="text" class="span11" /></div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">昵称</label>
+              <div class="controls"><input disabled value="{{$nick}}" type="text" class="span11" /></div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">姓名</label>
+              <div class="controls"><input disabled value="{{$realname}}" type="text" class="span11" /></div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">身份证号</label>
+              <div class="controls"><input disabled value="{{$card}}" type="text" class="span11" /></div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">有效时长</label>
+              <div class="controls"><input disabled value="{{$live_length}}" type="text" class="span11" /></div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">有效天数</label>
+              <div class="controls"><input disabled value="{{$live_day}}" type="text" class="span11" /></div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">底薪</label>
+              <div class="controls"><input disabled name="wages_base_edit" value="{{$wages_base_edit}}" type="text" class="span6" />修改前：{{$wages_base}}</div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">礼物收益</label>
+              <div class="controls"><input disabled name="wages_gift_edit"  value="{{$wages_gift_edit}}" type="text" class="span6" />修改前：{{$wages_gift}}</div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">奖励</label>
+              <div class="controls"><input disabled name="wages_bonuses" value="{{$wages_bonuses}}" type="text" class="span11" /></div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">总收入</label>
+              <div class="controls"><input disabled value="{{$wages_sum}}" type="text" class="span11" /></div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">代扣个税</label>
+              <div class="controls"><input disabled value="{{$wages_tax}}" type="text" class="span11" /></div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">应支付金额</label>
+              <div class="controls"><input disabled value="{{$wages_base_afttax}}" type="text" class="span11" /></div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">银行开户账号</label>
+              <div class="controls"><input disabled value="{{$bank_card}}" type="text" class="span11" /></div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">开户银行省市</label>
+              <div class="controls"><input disabled value="{{$bankaddress}}" type="text" class="span11" /></div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">开户银行</label>
+              <div class="controls"><input disabled value="{{$accountbank}}" type="text" class="span11" /></div>
+            </div>
+            
+            <div class="control-group">
+              <label class="control-label">财务审核</label>
+              <div class="controls">
+                 <select class="select" name="status_finance_check" >
+                    <foreach name="statusfinancecheck" item="item" key="key" >
+                    <option value="{{$key}}" <eq name="key" value="$status_finance_check"> selected</eq>>{{$item}}</option>
+                    </foreach>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">备注</label>
+              <div class="controls"><textarea name="note"   style="height:150px;"   class="span11" >{{$note}}</textarea></div>
+            </div>
+            <div class="form-actions text-center">
+              <button type="submit" class="btn btn-success">保存</button>
+              <button class="btn" onclick="history.go(-1);">取消</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+    <style>.group{display: none;}</style>
+</block>
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    var f=document.forms.f1;
+    Op_common.ajaxForm($(f),function(obj){
+        if(obj.status==0){
+            Op_common.alert(obj.msg,function(){
+                window.location = '';
+            });
+        }else{
+            Op_common.alert(obj.msg||'操作失败');
+        }
+    });
+</script>
+</block>

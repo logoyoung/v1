@@ -1,0 +1,943 @@
+<?php
+
+
+namespace hp\lib;
+
+use hp\lib\Anchor;
+use hp\lib\CDNHelper;
+use hp\lib\LiveRoom;
+
+/**
+ * Created by PhpStorm.
+ * User: logoyoung
+ * Date: 17/3/31
+ * Time: 15:10
+ */
+
+define( 'STREAM_CREATE', 0 );
+define( 'STREAM_START', 100 );
+define( 'STREAM_CREATE_REF', 0 );
+define( 'STREAM_START_REF', 100 );
+define('STREAM_DISCONNECT_USER',240);
+define('STREAN_DISCONNECT_CDN',200);
+/**
+ * 直播类
+ *
+ *
+ *
+ */
+class Live
+{
+
+	/**
+	 * @var bool $_debug 调试模式
+	 */
+	private $_debug = true;
+
+	/**
+	 * @var        $_uid        主播id
+	 */
+	private $_uid;
+
+	/**
+	 * @var            $_liveID    直播id
+	 */
+	private $_liveID;
+
+	/**
+	 * @var            $_lastLiveID    最后一场直播id
+	 */
+	private $_lastLiveID;
+
+	/**
+	 * @var            $_streamID        直播流id
+	 */
+	private $_streamID;
+
+	/**
+	 * @var            $_streamName    直播流名称
+	 */
+	private $_streamName;
+
+	/**
+	 * @var            $_roomID        房间id
+	 */
+	private $_roomID;
+
+	/**
+	 * @var           $_room            房间对象
+	 */
+	private $_room;
+
+	/**
+	 * @var            $_videoID        视频id
+	 */
+	private $_videoID;
+
+	/**
+	 * @var            $_liveInfo        直播信息
+	 */
+	private $_liveInfo;
+
+	/**
+	 * @var            $_db            数据库对象
+	 */
+	private $_db;
+
+	/**
+	 * @var            $_ip            用户ip
+	 */
+	private $_ip;
+
+	/**
+	 * @var            $_port            用户端口
+	 */
+	private $_port;
+
+	/**
+	 * @var bool $_newLive 是否新直播
+	 */
+	private $_newLive = true;
+
+	/**
+	 * @var            $_publishRtmpUrl    推流地址
+	 */
+	private $_publishRtmpUrl;
+
+	/**
+	 * @var            $_playRtmpUrl    拉流地址
+	 */
+	private $_playRtmpUrl;
+
+	/**
+	 *        LIVE_TABLE        直播表
+	 */
+	const LIVE_TABLE = 'live';
+
+	/**
+	 *        STREAM_TABLE    直播流表
+	 */
+	const STREAM_TABLE = 'liveStreamRecord';
+
+	/**
+	 *        STREAM_LOG_TABLE    直播流操作日志
+	 */
+	const STREAM_LOG_TABLE = 'liveStreamLog';
+
+	/**
+	 *        GAME_TABLE        游戏表
+	 */
+	const GAME_TABLE = 'game';
+
+	/**
+	 *        LOG_FILE    日志文件
+	 */
+	const LOG_FILE = LOG_DIR . 'Live.error.log';
+
+
+	/**
+	 * Live constructor.
+	 *
+	 * @param int    $uid 用户id
+	 * @param object $db  数据库对象
+	 */
+	public function __construct( $uid = NULL, $db = NULL )
+	{
+		if( !(int)$uid )
+		{
+			return false;
+		}
+		$this->_uid = (int)$uid;
+		if( $db )
+		{
+			$this->_db = $db;
+		}
+		else
+		{
+			$this->_db = new DBHelperi_huanpeng();
+		}
+		$this->_ip = fetch_real_ip( $this->_port );
+		$this->_ip = ip2long( $this->_ip );
+		$this->_publishRtmpUrl = $GLOBALS['env-def'][$GLOBALS['env']]['stream-pub'];
+		$this->_playRtmpUrl = $GLOBALS['env-def'][$GLOBALS['env']]['stream-watch'];
+		return true;
+	}
+
+
+	/**
+	 * 直播预创建
+	 *
+	 * @param null $liveParams 直播信息
+	 *
+	 * @return array|bool|void  过滤后的直播信息
+	 */
+	private function _preCreateLive( $liveParams = NULL )
+	{
+		//主播检测
+		$pass = false;
+		if( RN_MODEL )
+		{
+			$pass = Anchor::isRealAnchor( $this->_uid, $this->_db );
+		}
+		else
+		{
+			$pass = Anchor::isAnchor( $this->_uid, $this->_db );
+		}
+		if( !$pass )
+		{
+			return false;
+		}
+		//黑名单检测
+
+		if( Anchor::isBlack( $this->_uid, $this->_db ) )
+		{
+			return false;
+		}
+		//当前是否有直播检测
+		$lastLive = self::getLastLive( $this->_uid, $this->_db );
+
+		//无直播
+		if( !count( $lastLive ) || $lastLive['status'] != LIVE )
+		{
+			return true;
+		}
+		//有直播
+		//是否异地登录
+		if( $liveParams['deviceid'] != $lastLive['deviceid'] )
+		{
+			return false;
+		}
+		//审核模式检测，直播标题关键字、长度过滤
+		//todo
+		return $lastLive;
+	}
+
+
+	/**
+	 * 创建直播
+	 *
+	 * @param null $liveParams 直播信息
+	 *
+	 * @return array|int      流地址数组｜错误代码
+	 *                       ［rtmp：//xxxx.com,stream］|70001
+	 */
+	public function createLive( $liveParams = NULL )
+	{
+		if( !$liveParams )
+		{
+			return $this->liveErrorLog( array( 70001, '创建直播数据有误' ) );
+		}
+		//直播预创建
+		$lastLive = $this->_preCreateLive( $liveParams );
+		//无直播权限
+		if( !$lastLive )
+		{
+			return $this->liveErrorLog( array( 70002, '预创建直播失败' ) );
+		}
+		//已有直播，继续直播
+		if( is_array( $lastLive ) && count( $lastLive ) )
+		{
+			$this->_liveID = $lastLive['liveid'];
+			$this->_newLive = false;
+		}
+		//无直播创建直播
+		else
+		{
+			$liveParams = $this->_liveDataFilter( $liveParams );
+			if( !$liveParams )
+			{
+				return self::liveErrorLog( array( 70003, '直播数据不全或有误' ) );
+			}
+			$this->_liveID = $this->_db->insert( self::LIVE_TABLE, $liveParams );
+			if( !$this->_liveID )
+			{
+				return $this->liveErrorLog( array( 70004, '创建直播失败' ) );
+			}
+		}
+		//创建流
+		$this->_streamID = $this->_createStream( $this->_liveID );
+		mylog( $this->_streamID, LOG_DIR . 'Live.error.log' );
+		//
+		if( !$this->_streamID )
+		{
+			return $this->liveErrorLog( array( 70005, '创建直播流失败' ) );
+		}
+		$this->_streamName = $this->_getStreamName( $this->_streamID );
+		mylog( $this->_streamName, LOG_DIR . 'Live.error.log' );
+		//更新直播流信息
+		$this->_setLiveStream();
+		mylog( $this->_streamName, LOG_DIR . 'Live.error.log' );
+		//返回推流地址
+		$rtmpArr = $this->_getLivePublishRtmpUrl();
+		return array(
+			'liveID' => $this->_liveID,
+			'stream' => $rtmpArr['stream'],
+			'rtmpServer' => $rtmpArr['rtmpServer']
+		);
+	}
+
+
+	/**
+	 *直播开始
+	 *
+	 * @return bool
+	 */
+	public function startLive()
+	{
+		//获取当前直播
+		$live = self::getLastLive( $this->_uid, $this->_db );
+		if( $live['status'] > LIVE )
+		{
+			return self::liveErrorLog( array( 70011, '开始直播，直播不存在' ) );
+		}
+		$this->_liveID = $live['liveid'];
+		$this->_streamName = $live['stream'];
+
+		//同步流状态
+		//同步直播状态
+		$rl = $this->_setLiveStart();
+		if( !$rl )
+		{
+			return self::liveErrorLog( array( 70009, '更新直播状态失败' ) );
+		}
+		$rs = $this->_setStreamStatus( STREAM_START );
+		if( !$rs )
+		{
+			return self::liveErrorLog( array( 70008, '更新直播流状态失败' ) );
+		}
+		//房间通知
+		$this->_sendLiveStartMsg();
+		return 0;
+	}
+
+
+	/**
+	 *直播截图
+	 *
+	 * @param string $posterUrl 直播海报地址
+	 * @param int    $liveID    直播ID
+	 * @param object $db        数据库对象
+	 *
+	 * @return bool           操作是否成功
+	 */
+	public static function livePosterCallBack( $posterUrl, $liveID, $db )
+	{
+		if( !$db || !$liveID || !$db )
+		{
+			return false;
+		}
+		$r = $db->update( self::LIVE_TABLE, array( 'poster' => $posterUrl ) )->where( "liveID={$liveID}" );
+		if( !$r )
+		{
+			return self::liveErrorLog();
+		}
+		return true;
+	}
+
+
+	/**
+	 * 直播超时
+	 *
+	 * @param $type     超时类型
+	 *
+	 * @return bool     是否处理成功
+	 */
+	public function liveTimeOut( $type )
+	{
+
+	}
+
+
+	/**
+	 * 直播中断
+	 *
+	 * @return bool     操作是否成功
+	 */
+	public function liveDisconnect()
+	{
+		$lastLive = self::getLastLive( $this->_uid, $this->_db );
+		if( $lastLive['status'] != LIVE )
+		{
+			return 0;
+		}
+		$streamStatus = $this->_getStreamStatus( $lastLive['stream'] );
+		if( $streamStatus >= STREAN_DISCONNECT_CDN )
+		{
+			return 0;
+		}
+		$r = $this->_setStreamStatus( STREAN_DISCONNECT_CDN );
+		if( !$r )
+		{
+			return self::liveErrorLog( array( 70013, '更新流状态失败' ) );
+		}
+		return 0;
+	}
+
+	/**
+	 * 主播结束直播
+	 *
+	 * @return int    错误码
+	 */
+	public function anchorStopLive()
+	{
+		$lastLive = self::getLastLive( $this->_uid, $this->_db );
+		if( (int)$lastLive['status'] > LIVE )
+		{
+			return 0;
+		}
+		$this->_liveID = $lastLive['liveid'];
+		$this->_streamName = $lastLive['stream'];
+		//断直播
+		$r = $this->_setLiveStop();
+		if( !$r )
+		{
+			return self::liveErrorLog( array( 70013, '主播播停止直播同步直播状态失败' ) );
+		}
+		//断流
+		$r = $this->_setStreamStatus( STREAM_DISCONNECT_USER );
+		if( !$r )
+		{
+			return self::liveErrorLog( array( 70014, '主播播停止直播同步直播流状态失败' ) );
+		}
+
+		//发房间结束消息
+		$this->_sendLiveStopMsg();
+		//todo
+		//切断网宿流
+		$rtmpUrl = "rtmp://{$this->_publishRtmpUrl}/$this->_streamName";return 0;
+		$forbidStreamErrStr = $this->_stopStream($rtmpUrl);
+		//错误过滤
+		//todo
+		return 0;
+	}
+
+	/**
+	 * 管理结束直播
+	 *
+	 * @return bool    错误码
+	 */
+	public function adminStopLive()
+	{
+	}
+
+	/**
+	 * 直播生成flv
+	 *
+	 * @return bool    操作是否成功
+	 */
+	public function liveToFlvCallBack()
+	{
+	}
+
+
+	/**
+	 * 直播生成录像
+	 *
+	 * @return bool    操作是否成功
+	 */
+	public function flvToVideoCallBack()
+	{
+	}
+
+
+	/**
+	 * 录像截图
+	 *
+	 * @return bool    操作是否成功
+	 */
+	public function videoPosterCallBack()
+	{
+	}
+
+
+	/**
+	 * 录像回调超时
+	 *
+	 * @return bool        操作是否成功
+	 */
+	public function videoTimeOut()
+	{
+	}
+
+
+	/**
+	 * 直播活动完成
+	 *
+	 * @return bool        操作是否成功
+	 */
+	public function completeLive()
+	{
+	}
+
+
+	/**
+	 * 获取流名称
+	 *
+	 * @param $streamID  直播流id
+	 *
+	 * @return string    直播流名称
+	 */
+	private function _getStreamName( $streamID )
+	{
+		$r = $this->_db->field( 'stream' )->where( "id={$streamID}" )->select( self::STREAM_TABLE );
+		return $r[0]['stream'];
+	}
+
+
+	/**
+	 * 获取最后一场直播
+	 *
+	 * @param      $uid     用户id
+	 * @param null $db      数据库对象
+	 *
+	 * @return array        最一场直播信息
+	 */
+	public static function getLastLive( $uid, $db )
+	{
+		$r = $db->where( "uid={$uid} order by ctime desc limit 1" )->select( self::LIVE_TABLE );
+		if( !isset( $r[0] ) || !is_array( $r[0] ) || !count( $r[0] ) )
+		{
+			return array();
+		}
+		return $r[0];
+	}
+
+
+	public static function isLiving( $uid, $db )
+	{
+		$live = self::getLastLive( $uid, $db );
+		if( isset( $live['status'] ) && $live['status'] == LIVE )
+		{
+			return $live['liveid'];
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+	/**
+	 * 获取流状态
+	 *
+	 * @param $stream         直播流名称
+	 *
+	 * @return string          直播流状态
+	 */
+	private function _getStreamStatus( $stream )
+	{
+		$r = $this->_db->field( 'status' )->where( "stream={$stream}" )->select( self::STREAM_TABLE );
+		if( !isset( $r[0]['status'] ) )
+		{
+			return self::liveErrorLog();
+		}
+		return $r[0]['status'];
+	}
+
+
+	/**
+	 * 获取直播状态
+	 *
+	 * @param $liveID        直播id
+	 *
+	 * @return string        直播状态
+	 */
+	private function _getLiveStatus( $liveID )
+	{
+		$r = $this->_db->field( 'status' )->where( "liveid={$liveID}" )->select( self::LIVE_TABLE );
+		if( isset( $r[0]['status'] ) )
+		{
+			return self::liveErrorLog();
+		}
+		return $r[0]['status'];
+	}
+
+
+	/**
+	 * 获取鉴权加密串
+	 *
+	 * @return string        鉴权加密串
+	 */
+	private function _getPublishRtmpWscSecret()
+	{
+		$data = array(
+			'liveid' => $this->_liveID,
+			'uid' => $this->_uid,
+			'tm' => time()
+		);
+		$data['sign'] = CDNHelper::getPublishLiveSecret( $data );
+		return http_build_query( $data );
+	}
+
+	/**
+	 * 获取拉流加密串
+	 *
+	 * @return string        拉流加密串
+	 */
+	private function _getPlayRtmpWscSecret()
+	{
+	}
+
+	/**
+	 * 获取推流地址
+	 *
+	 * @return array        推留地址
+	 *                        ［rtmp://xxx.com,stream］
+	 */
+	private function _getLivePublishRtmpUrl()
+	{
+		$wcsSecret = $this->_getPublishRtmpWscSecret();
+		return array(
+			'rtmpServer' => $this->_publishRtmpUrl,
+			'stream' => $this->_streamName . "?$wcsSecret"
+		);
+	}
+
+	/**
+	 * 获取拉流地址
+	 *
+	 * @return array        拉留地址
+	 *                        ［rtmp://xxx.com,stream］
+	 */
+	private function _getLivePlayRtmpUrl()
+	{
+	}
+
+	/**
+	 * 创建直播流
+	 *
+	 * @return bool        操作是否成功
+	 */
+	private function _createStream()
+	{
+		$utime = date( 'Y-m-d H:i:s', time() );
+		$stream = "Y-" . $this->_liveID . "-" . rand( 1000000, 9999999 );
+		$this->_streamID = $this->_db->insert( self::STREAM_TABLE, array( 'liveid' => $this->_liveID
+		, 'server' => $this->_publishRtmpUrl, 'stream' => $stream, 'utime' => $utime, 'status' => STREAM_CREATE ) );
+		if( !$this->_streamID )
+		{
+			self::liveErrorLog( array( 70007, '创建流失败' ) );
+			return false;
+		}
+		$this->_streamChangeLog( array(
+			'liveid' => $this->_liveID,
+			'stream' => $stream,
+			'lstatus' => LIVE_CREATE,
+			'sstatus' => STREAM_CREATE,
+			'server' => $this->_publishRtmpUrl,
+			'ref' => STREAM_CREATE_REF
+		) );
+		return $this->_streamID;
+	}
+
+	/**
+	 * 直播流日志记录
+	 *
+	 * @param $status        直播流状态
+	 *
+	 * @return bool            操作是否成功
+	 */
+	private function _streamChangeLog( $data )
+	{
+		return $this->_db->insert( self::STREAM_LOG_TABLE, $data );
+	}
+
+
+	/**
+	 * 设置流状态
+	 *
+	 * @param      $status    直播流状态
+	 * @param null $type      设置类型
+	 *
+	 * @return bool            操作是否成功
+	 */
+	private function _setStreamStatus( $status, $type = null )
+	{
+		$status = (int)$status;mylog('--1-'.$this->_streamName,LOG_DIR.'Live.error.log');
+		if( !$status )
+		{
+			return false;
+		}mylog('--2-'.$this->_streamName,LOG_DIR.'Live.error.log');
+		$curStatus = $this->_db->field( 'status' )->where( "stream='{$this->_streamName}'" )->select( self::STREAM_TABLE );
+		if( (int)$curStatus >= $status )
+		{
+			return true;
+		}
+		$now = date( 'Y-m-d H:i:s',time() );
+		$data = array( 'status' => $status, 'utime' => $now, 'stime' => $now );mylog('--'.$this->_streamName,LOG_DIR.'Live.error.log');
+		$r = $this->_db->where( "stream='{$this->_streamName}'" )->update( self::STREAM_TABLE, $data );mylog('++'.$this->_streamName,LOG_DIR.'Live.error.log');
+		if( !$r )
+		{
+			return false;
+		}
+		self::_streamChangeLog( array(
+			'liveid' => $this->_liveID,
+			'stream' => $this->_streamName,
+			'lstatus' => LIVE_CREATE,
+			'sstatus' => STREAM_CREATE,
+			'server' => $this->_publishRtmpUrl,
+			'ref' => STREAM_START_REF
+		) );
+		return true;
+	}
+
+
+	/**
+	 * 设置直播状态
+	 *
+	 * @param $status        直播状态
+	 *
+	 * @return bool            操作是否成功
+	 */
+	private function _setLiveStatus( $data )
+	{
+		$status = (int)$data['status'];
+		$curStatus = $this->_getLiveStatus( $this->_liveID );
+		if( (int)$curStatus >= $status )
+		{
+			return true;
+		}
+		$r = $this->_db->where( "liveid={$this->_liveID}" )->update( self::LIVE_TABLE, $data );
+		if( !$r )
+		{
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function _setLiveStart()
+	{
+		$data = array( 'status' => LIVE, 'stime' => date( 'Y-m-d H:i:s', time() ) );
+		$r = $this->_db->where( "liveid={$this->_liveID}" )->update( self::LIVE_TABLE, $data );
+		if( !$r )
+		{
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function _setLiveStop()
+	{
+		$data = array( 'status' => LIVE_STOP, 'etime' => date( 'Y-m-d H:i:s', time() ) );
+		$r = $this->_db->where( "liveid={$this->_liveID}" )->update( self::LIVE_TABLE, $data );mylog(json_encode($data),LOG_DIR.'Live.error.log');
+		if( !$r )
+		{
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 设置直播流名称
+	 *
+	 * @return bool            操作是否成功
+	 */
+	private function _setLiveStream()
+	{
+		$r = $this->_db->where( "liveid={$this->_liveID}" )->update( self::LIVE_TABLE,
+			array( 'server' => $this->_publishRtmpUrl, 'stream' => $this->_streamName ) );
+		if( !$r )
+		{
+			return self::liveErrorLog( array( 70006, '同步直播流到直播表' ) );
+		}
+		return true;
+	}
+
+
+	/**
+	 * 向房间发开播消息
+	 *
+	 * @return bool            操作是否成功
+	 */
+	private function _sendLiveStartMsg()
+	{
+		if( !$this->_room )
+		{
+			$this->_room = new LiveRoom( $this->_uid );
+		}
+		return $this->_room->start( $this->_liveID );
+	}
+
+
+	/**
+	 * 向房间发开播消息
+	 *
+	 * @return bool            操作是否成功
+	 */
+	private function _sendLiveStopMsg()
+	{
+		if( !$this->_room )
+		{
+			$this->_room = new LiveRoom( $this->_uid );
+		}
+		return $this->_room->stop( $this->_liveID );
+	}
+
+	/**
+	 * 录像生成通知
+	 *
+	 * @param $msg                        消息
+	 *
+	 * @return bool                    是否成功
+	 */
+	private function _sendVideoComplete()
+	{
+	}
+
+	/**
+	 * 切断直播流
+	 *
+	 * @param null $url 推流地址
+	 *
+	 * @return  string        错误码返回
+	 */
+	private function _stopStream( $url, $CDNHelper = null )
+	{
+		if( !$url )
+		{
+			return $this->liveErrorLog();
+		}
+		if( !$CDNHelper )
+		{
+			$CDNHelper = new CDNHelper();
+		}
+		return $CDNHelper->stopCDNStream( $url );
+	}
+
+
+	/**
+	 * 直播错误日志
+	 *
+	 * @param $erroCode        错误码
+	 *
+	 * @return  bool        操作是否成功
+	 */
+	public static function liveErrorLog( $error )
+	{
+		$errorStr = '[' . getmypid() . '] [' . date( "Y-m-d H:i:s", time() ) . '] ' . "errorcode[{$error[0]}]--{$error[1]}" . "\n";
+		file_put_contents( self::LOG_FILE, $errorStr, FILE_APPEND );
+		return $error[0];
+	}
+
+
+	/**
+	 * 直播信息过滤
+	 *
+	 * @param null $data 直播信息
+	 *
+	 * @return bool                操作是否成功
+	 */
+	private function _liveDataFilter( $data = NULL )
+	{
+		if( !is_array( $data ) )
+		{
+			return false;
+		}
+		$filter = array( 'uid', 'server', 'gametid', 'gameid', 'gamename'
+		, 'title', 'ip', 'port', 'quality', 'orientation'
+		, 'deviceid', 'livetype', 'longitude', 'latitude' );
+		//$diff = array_diff_key($filter,array_keys($data));
+		$data = $this->_liveDataComplete( $data );
+		sort( $filter );
+		$dataKeys = array_keys( $data );
+		sort( $dataKeys );
+		if( $filter != $dataKeys )
+		{
+			return false;
+		}
+		$data['server'] = $this->_realEscapeString( $data['server'] );
+		$data['title'] = $this->_realEscapeString( $data['title'] );
+		$data['gamename'] = $this->_realEscapeString( $data['gamename'] );
+		return $data;
+	}
+
+
+	/**
+	 * 字符串转义
+	 *
+	 * @param      $str            待插入数据库的字符串
+	 * @param null $db             数据库对象
+	 *
+	 * @return bool                操作是否成功
+	 */
+	private function _realEscapeString( $str, $db = NULL )
+	{
+		if( $this->_db )
+		{
+			return $this->_db->realEscapeString( $str );
+		}
+		if( $db )
+		{
+			return $db->realEscapeString( $str );
+		}
+		return false;
+	}
+
+
+	/**
+	 * 直播信息补全
+	 *
+	 * @param $data                直播信息
+	 *
+	 * @return bool                操作是否成功
+	 */
+	private function _liveDataComplete( $data )
+	{
+		$data['uid'] = $this->_uid;
+		$data['server'] = isset($data['server']) ? $data['server'] : $this->_publishRtmpUrl;
+		$game = $this->_getGameInfo( $data['gamename'] );
+		$data['gametid'] = $game['gametid'];
+		$data['gameid'] = $game['gameid'];
+		$data['ip'] = $this->_ip;
+		$data['port'] = $this->_port;
+		return $data;
+	}
+
+
+	/**
+	 * 获取游戏信息
+	 *
+	 * @param $gameName          游戏名称
+	 *
+	 * @return $array            游戏信息
+	 */
+	private function _getGameInfo( $gameName )
+	{
+		$r = $this->_db->field( 'gameid,gametid' )->where( "name='{$gameName}'" )->select( self::GAME_TABLE );
+		if( !isset( $r[0]['gameid'] ) || !isset( $r[0]['gametid'] ) )
+		{
+			//return self::liveErrorLog(array(70016,'未获取到相关游戏'));
+			return array('gameid'=>401,'gametid'=>'');
+		}
+		return $r[0];
+	}
+
+	/**
+	 * 获取直播时长
+	 *
+	 * @return string  直播时长
+	 */
+	private function _getLiveLength()
+	{
+	}
+
+	/**
+	 * @param $liveID
+	 * @param $db
+	 *
+	 * @return bool
+	 */
+	public static function getUidByLiveStream( $stream, $db )
+	{
+		mylog( $stream, LOG_DIR . 'Live.error.log' );
+		$r = $db->field( 'uid' )->where( "stream='$stream'" )->order( 'ctime desc' )->limit( 1 )->select( 'live' );
+		return isset( $r[0]['uid'] ) ? $r[0]['uid'] : false;
+	}
+
+}

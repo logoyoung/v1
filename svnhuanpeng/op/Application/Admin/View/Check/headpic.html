@@ -1,0 +1,230 @@
+<extend name="Base/matrix" />
+<block name="content">
+<img border='1px solid'   src="">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>审核管理</a><a href="javascript:;" ></i>头像审核列表</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>头像审核列表</h5>
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10 ln38">
+                <form class="form-search" id='myform'>
+                  <input name='name' id='name' type="text" value="{{$Think.get.name}}"  placeholder="用户昵称"  >
+                  <input name='uid' id='uid' type="text" value="{{$Think.get.uid}}"  placeholder="用户id"  >
+                  <input type="text" id="timestart" name="timestart" class="form_datetime w100"  value="{{$Think.get.timestart}}" placeholder="开始时间">  <input type="text" id = "timeend" name="timeend" class="form_datetime w100"  value="{{$Think.get.timeend}}" placeholder="结束时间">
+                  <select class="span2" name="status">
+                  <option value='-1' <eq name="Think.get.status" value="-1" >selected</eq>>选择审核状态</option>
+                  <!--<option value='-2' <eq name="Think.get.status" value="-2" >selected</eq>>未上传</option>-->
+                    <foreach name="checkstatus" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.status eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <button type="submit" class="btn">搜索</button>
+                  <button type="submit" class="btn" name="export" value="1">导出</button><br>
+                </form>
+            </div>
+        <div class="oyat">
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <td><input type="checkbox" class="full">全选</td>
+                  <th>提交时间</th>
+                  <th>Uid</th>
+                  <th>昵称</th>
+                  <th>头像</th>
+                  <th>审核时间</th>
+                  <th>审核状态</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody class='data'>
+              <foreach name="data" item="item">
+                <tr>
+                  <th style="text-align: center"><input type="checkbox" id="{{$item.uid}}" v = "{{$item.pic}}"></th>
+                  <th>{{$item.ctime|default='--'}}</th>
+                  <th>{{$item.uid}}</th>
+                  <th>{{$item.nick|default='--'}}</th>
+                  <th style="width: 40px; height: 40px; position: relative ;">
+                  	<empty name='item.pic'>--<else />
+                  	<div class='imgclass' style= "position:absolute; ">
+						<img  src="http://{{$conf.domain-img}}{{$item.pic}}" >
+					</div>
+                  	</empty>
+                  </th>
+                  <th>{{$item.utime|default='--'}}</th>
+                  <th>{{$checkstatus[$item[status]]|default='--'}}</th>
+                  <th>
+				  <if  condition="($item.status eq USER_PIC_WAIT )  " >
+                  	  <a class="badge badge-info" onclick="pass('{{$item.uid}}','{{$item.pic}}');">通过</a>
+					  <a class="badge badge-info" onclick="unpass({{$item.uid}});">拒绝</a>
+                  <elseif  condition="($item.status eq USER_PIC_PASS )  "/>
+                  	 <a class="badge badge-info" onclick="passtounpass({{$item.uid}});">拒绝</a>
+				  <elseif  condition="($item.status eq USER_PIC_UNPASS )  "/>
+                  	 <a class="badge badge-info" onclick="pass('{{$item.uid}}','{{$item.pic}}');">通过</a>
+                    <elseif  condition="($item.status eq USER_PIC_AUTO_PASS )  "/>
+                    <a class="badge badge-info" onclick="pass('{{$item.uid}}','{{$item.pic}}');">通过</a>
+                    <a class="badge badge-info" onclick="unpass({{$item.uid}});">拒绝</a>
+                    <elseif  condition="($item.status eq USER_PIC_AUTO_UNPASS )  "/>
+                    <a class="badge badge-info" onclick="pass('{{$item.uid}}','{{$item.pic}}');">通过</a>
+                    <a class="badge badge-info" onclick="unpass({{$item.uid}});">拒绝</a>
+				  <else/>
+                  	 --
+                  </if>
+                  </th>
+                </tr>
+              </foreach>
+              <tr >
+              <td colspan="8"><input type="checkbox" class="full">
+                                      全选&nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="javascript:;"><span class="label badge-important" id="pass">通过</span> 
+              &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;"><span class="label badge-important" id="unpass">拒绝</span></a></td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        minView: 2,
+        todayBtn: true,
+    });
+    
+    $(function(){
+        $('.full').click(function(){
+            if($(this).attr('checked')){
+                $('th input[type=checkbox]').attr('checked',true);
+            }else{
+                $('th input[type=checkbox]').attr('checked',false);
+            }
+        })
+        $('#pass').click(function(){
+            Op_common.confirm(('确认操作?'),function(){
+                var ck = $('th input[type=checkbox]');
+                var ids = '',pics='';
+                ck.each(function(){
+                    if($(this).is(':checked')){
+                        var id = $(this).attr('id');
+                        ids += ','+id;
+                        var pic = $(this).attr('v');
+                        pics += ','+pic;
+                    }
+                })
+                ids = ids.slice(1);
+                pics = pics.slice(1);
+                console.log(ids,pics);
+                if(ids){
+                    Op_common.ajax('/check/headpicpass',{ids:ids,pics:pics},function(o){
+                        if(o.status == 1){
+                            Op_common.alert('操作成功!',function(){
+                                location.href='';
+                            });
+                        }else{
+                            Op_common.alert('操作失败!');
+                        }
+                    });
+                }
+            })
+        })
+        
+        $('#unpass').click(function(){
+            Op_common.confirm(('确认操作?'),function(){
+                var ck = $('th input[type=checkbox]');
+                var ids = '',pics='';
+                ck.each(function(){
+                    if($(this).is(':checked')){
+                        var id = $(this).attr('id');
+                        ids += ','+id;
+                        var pic = $(this).attr('v');
+                        pics += ','+pic;
+                    }
+                })
+                ids = ids.slice(1);
+                pics = pics.slice(1);
+                console.log(ids,pics);
+                if(ids){
+                    Op_common.ajax('/check/headpicunpass',{ids:ids,pics:pics},function(o){
+                        if(o.status == 1){
+                            Op_common.alert('操作成功!',function(){
+                                location.href='';
+                            });
+                        }else{
+                            Op_common.alert('操作失败!');
+                        }
+                    });
+                }
+            })
+        })
+        
+		$(".data tr").hover(function(){
+			$(this).find('.imgclass')
+			.stop()
+			.css("width","120px")
+			.css("height","120px")
+			.css("z-index", 9999);
+		},function(){
+			$(this).find('.imgclass')
+			.css("width","40px")
+			.css("height","40px")
+			.css("z-index", 0);
+		});	
+        
+    })
+    function unpass(id){
+    	Op_common.ajax('/check/headpicptou',{ids:[id]},function(o){
+            if(o.status == 1){
+                Op_common.alert('操作成功!',function(){
+                    location.href='';
+                });
+            }else{
+                Op_common.alert('操作失败!');
+            }
+        });
+    }
+    function pass(id,pic){
+    	Op_common.ajax('/check/headpicpass',{ids:[id],pics:[pic]},function(o){
+    		console.log(o);
+            if(o.status == 1){
+                Op_common.alert('操作成功!',function(){
+                    location.href='';
+                });
+            }else{
+                Op_common.alert('操作失败!');
+            }
+        });
+    }
+    function passtounpass(id){
+    	Op_common.ajax('/check/headpicptou',{ids:[id]},function(o){
+            if(o.status == 1){
+                Op_common.alert('操作成功!',function(){
+                    location.href='';
+                });
+            }else{
+                Op_common.alert('操作失败!');
+            }
+        });
+    }
+    
+</script>
+</block>

@@ -1,0 +1,72 @@
+<extend name="Base/matrix" />
+<block name="cssadd">
+    <style>
+    .role-group span{font-size:18px}
+    .role-group p{margin:10px 0}
+    .role-group p label{display:inline-block;margin-left:4px}
+    .role-group p label:hover{background:#cccccc}
+    </style>
+</block>
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>用户管理</a><a href="/rbac/role" ></i>用户组管理</a><a href="javascript:;" ></i>用户组设置</a></div>
+
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span6">
+            <foreach name="treeAll" key="key" item="item">
+            <div class="widget-box">
+                <div class="widget-title bg_ly" data-toggle="collapse" href="#collapse{{$key}}"><span class="icon"><i class="icon-chevron-down"></i></span>
+                  <h5>{{$item.name}}</h5>
+                </div>
+                <div class="widget-content nopadding in collapse" id="collapse{{$key}}" style="height: auto;">
+                  <ul class="recent-posts">
+                    <foreach name="item.child" key="key1" item="item1">
+                    <li>
+                      <div class="role-group">
+                          <span><input class="input2" onclick="selectall(this)" type="checkbox">{{$item1.name}}</span>
+                          <p>
+                            <foreach name="item1.child" key="key2" item="item2">
+                                <label><input type="checkbox" value="{{$key2}}" <in name="key2" value="$accessId"> checked</in>>{{$item2.name}}</label>
+                            </foreach>
+                          </p>
+                      </div>
+                    </li>
+                    </foreach>
+                  </ul>
+                </div>
+              </div>
+            </foreach>
+            <div class="form-actions text-center">
+              <button id="save" class="btn btn-success">保存</button>
+              <button class="btn" onclick="history.go(-1);">取消</button>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="jsadd">
+<script>
+    function selectall(t){
+        $(t).closest('.role-group').find('p input').each(function(){
+            this.checked=t.checked;
+        });
+    }
+    $('#save').on('click',function(){
+        var ids=[];
+        $('.role-group p :checkbox:checked').each(function(){
+            ids.push(this.value);
+        });
+        Op_common.ajax('',{ids:ids},function(obj){
+            if(obj.status=='0'){
+                Op_common.alert('操作成功!')
+            }else{
+                Op_common.alert('操作失败!')
+            }
+        });
+    });
+</script>
+</block>

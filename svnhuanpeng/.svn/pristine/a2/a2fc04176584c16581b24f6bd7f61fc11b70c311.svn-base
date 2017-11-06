@@ -1,0 +1,181 @@
+<extend name="Base/matrix" />
+<block name="cssadd">
+    <style>
+        #coolLog-next{float:right;margin:9px;cursor:pointer}
+        
+        <empty name="email">
+            #content,#breadcrumb{background:#000;color:#000;border:none}
+            #breadcrumb a{visibility:hidden}
+            #content .container-fluid .widget-box{display:none}
+            #content .container-fluid #info{display:block}
+            #content #info-email{color:red;font-size:16px;font-weight:bold;text-align:center;position:relative;top:20px;left:47px;}
+        </empty>
+    </style>
+</block>
+<block name="content">
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"> <a href="javascript:;" ><i class="icon-home"></i> 个人首页</a> </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <span class="icon"><i class="icon-chevron-down"></i></span>
+                            <h5>系统公告</h5>
+                        </div>
+                        <div class="widget-content">
+                            欢迎使用新版后台,使用中遇到问题或建议,欢迎及时反馈.<br/>
+                            留意右侧的登录日志,如有发现异常登录请及时联系__NAME__技术部.<br/>
+                            <a href="mailto:jishubu@huanpeng.com">jishubu@huanpeng.com</a>
+                        </div>
+                    </div>
+
+
+                    <div class="widget-box" id="info">
+                        <div class="widget-title">
+                            <span class="icon"><i class="icon-chevron-down"></i></span>
+                            <h5>信息修改</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <form action="?act=info" method="post" class="form-horizontal form-ajax">
+                                <input type="hidden" name="act" value="info">
+                                <div class="control-group">
+                                    <label class="control-label">姓名</label>
+                                    <div class="controls">
+                                        <input disabled value="{{$realname}}" type="text" class="span11" placeholder="">
+                                    </div>
+                                </div>
+                                <notempty name="jobcode">
+                                    <div class="control-group">
+                                        <label class="control-label">工号</label>
+                                        <div class="controls">
+                                            <input disabled value="{{$jobcode}}" type="text" class="span11" placeholder="">
+                                        </div>
+                                    </div>
+                                </notempty>
+                                <div class="control-group">
+                                    <empty name="email"><p id="info-email">为了您的帐户安全,请先设置您的邮箱,邮箱一旦设置不可修改!</p></empty>
+                                    <label class="control-label">邮箱</label>
+                                    <div class="controls">
+                                        <empty name="email">
+                                            <input name="email" type="text" class="span11" placeholder="">
+                                            <else/>
+                                            <input disabled value="{{$email}}" type="text" class="span11" placeholder="">
+                                        </empty>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">电话</label>
+                                    <div class="controls">
+                                        <input name="mobile" value="{{$mobile}}" type="text" class="span11" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-actions text-center">
+                                    <button type="submit" class="btn btn-success">保存</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <span class="icon"><i class="icon-chevron-down"></i></span>
+                            <h5>密码修改</h5>
+                        </div>
+                        <div class="widget-content nopadding">
+                            <form action="?act=info" method="post" class="form-horizontal form-ajax">
+                                <div class="control-group">
+                                    <label class="control-label">输入旧密码</label>
+                                    <div class="controls">
+                                        <input name="oldpassword" type="password" class="span11" placeholder="">
+                                    </div>
+                                    <label class="control-label">输入密码</label>
+                                    <div class="controls">
+                                        <input name="password" type="password" class="span11" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">确认密码</label>
+                                    <div class="controls">
+                                        <input name="repassword" type="password" class="span11" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-actions text-center">
+                                    <button type="submit" class="btn btn-success">保存</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="widget-box">
+                        <div class="widget-title bg_lo" data-toggle="collapse" href="#collLog"> <span class="icon"> <i class="icon-chevron-down"></i> </span>
+                            <h5>操作日志</h5>
+                            <span id="coolLog-next" class="badge badge-info">>>></span>
+                        </div>
+                        <div class="widget-content nopadding updates in collapse" id="collLog" style="height: auto;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="jsadd">
+<script>
+    function showlog(page){
+        $.getJSON('/public/showlog?p='+(page||1),function(data){
+            if(data.length<1){
+                $('#coolLog-next').removeClass('badge-info');
+                Op_common.alert('没有更多了~');
+                return;
+            }
+            var html='',template='<div class="new-update clearfix"><i class="{ico}"></i> <span class="update-alert"><strong>{name}</strong> {time} IP{ip}<span><img src=__RES__{osimage}>{osname}<span></span><img src=__RES__{browserimage}>{browsername}</span></span> <span class="update-date"><span class="update-day">{day}</span>{month}月</span> </div>';
+            for(i in data){
+                html+=Op_common.template(template,data[i]);
+            }
+            $('#collLog').html(html);
+        });
+    }
+    $(function(){
+        showlog();
+        Op_common.ajaxForm($('.form-ajax').eq(0),function(obj){
+            Op_common.alert(obj.msg<empty name="email">,function(){window.location.reload()}</empty>);
+            showlog();
+        });
+        
+        var f=$('.form-ajax').eq(1);
+        Op_common.ajaxForm($(f),function(obj){
+            Op_common.alert(obj.msg);
+            showlog();
+        },{
+            rule:{
+                oldpassword:{'require':'1','msg':'请输入原密码'},
+            },
+            before:function(data){
+                var pv=$(f).find('input[name=password]').val();
+                if(pv.length<6){
+                    Op_common.alert('新密码必须大于五倍非纯数字');
+                    return ;
+                }
+                if(pv!=$(f).find('input[name=repassword]').val()){
+                    Op_common.alert('确认密码输入不一致');
+                    return ;
+                }
+                return data;
+            }
+        });
+        $('#coolLog-next').on('click',function(e){
+            e.stopPropagation();
+            if(!$(this).hasClass('badge-info')){
+                Op_common.alert('没有更多了~');
+                return;
+            }
+            window.buffer_showlog=window.buffer_showlog||1;
+            showlog(window.buffer_showlog++)
+        })
+    });
+</script>
+</block>

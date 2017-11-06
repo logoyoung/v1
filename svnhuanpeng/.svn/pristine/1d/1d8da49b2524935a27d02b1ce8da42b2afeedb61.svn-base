@@ -1,0 +1,256 @@
+.fixed_login{
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background:rgba(0,0,0,0.3);
+	z-index: 999;
+}
+.p-login{
+	margin-left: 60px;
+}
+.p-login a{
+	color: #333;
+	margin-right: 10px;
+}
+.p-login a.reg{
+	color: #FE710F;
+}
+
+.login{
+	float: right;
+	width: 405px;
+	height: 380px;
+	background: white;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -190px;
+	margin-left: -202.5px;
+}
+#closebtn{
+	height: 24px;
+	width: 24px;
+	background: url(../images/lobtn_pic.png) no-repeat;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+.login h1{
+	padding-top: 30px;
+	padding-left: 60px;
+	font-size: 20px;
+}
+.login p{
+	margin-top: 30px;
+	padding-left: 60px;
+	position: relative;
+	z-index: 100;
+}
+.login p.name{
+	padding-left: 0;
+	margin-left: 60px;
+	width: 290px;
+	height: 40px;
+	border: 1px solid #FFCC99;
+}
+.login p.name input{
+	width:170px;
+	display: inline-block;
+	height: 26px;
+	border: none;
+	padding-left: 10px;
+}
+.i-text{
+	position: relative;
+	top: 8px;
+	height: 25px;
+	width: 20px;
+	margin-left: 5px;
+	display: inline-block;
+	background: url(../images/ico.png);
+	background-position:-352px -120px;
+}
+.i-pwd{
+	position: relative;
+	top: 8px;
+	height: 25px;
+	width: 19px;
+	margin-left: 5px;
+	display: inline-block;
+	background: url(../images/ico.png);
+	background-position:-327px -120px;
+}
+.span{	
+	position: absolute;
+	bottom:-20px;
+	color: #ff0000;
+	display: none;
+}
+.p-pwd a{
+	float: right;
+	color: #FE710F;
+	margin-right: 50px;
+	padding-top:5px;
+}
+#login-r{
+	position: relative;
+	top: 2px;
+}
+.p2-login input{
+	border-radius:3px ;
+	width: 290px;
+	height: 40px;
+	background: #FF6600;
+	color: white;
+	font-size: 20px;
+	border: none;
+}
+.login h2{
+	line-height: 30px;
+	padding-left: 67px;
+	font-size: 12px;
+}
+.login h2 a{
+	color: #FE710F;
+}
+#resetpwd{margin-left: 70px;}
+.error .span{display: block;}
+/*弹框*/
+.fixed_alert{
+	top: 0;
+	left: 0;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	background: rgba(225,225,225,0.2);
+	z-index: 9999;
+}
+.firmbox {
+	top: 36%;
+	left: 50%;
+	margin-left: -190px;
+	height: 220px;
+	width: 380px;
+	position: absolute;
+	margin-top: 19px;
+	background: white;
+	box-shadow: 0px 0px 20px #ccc;
+}
+.errorbtn {
+	cursor: pointer;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	height: 10px;
+	width: 10px;
+	background: url(../images/reicon_300.png) no-repeat;
+}
+.errorbtn:hover {
+	background: url(../images/reicon_303.png) no-repeat;
+}
+.fixed_alert p {
+	text-align: center;
+	font-size: 18px;
+	color: #63b44c;
+	padding-top: 72px;
+	font-weight: bold;
+}
+.fixed_alert p i{
+	position: relative;
+	top: 3px;
+	margin-right: 3px;
+	display: inline-block;
+	height: 23px;
+	width: 23px;
+}
+p.success i {	
+	background: url(../images/reicon_302.png) no-repeat;
+}
+p.fail{
+	color: #ea6058;
+}
+p.fail i {	
+	background: url(../images/reicon_305.png) no-repeat;
+}
+p.pconfirm i{
+	background: url(../images/reicon_304.png) no-repeat;
+}
+.bottombox {
+	width: 380px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 60px;
+	background: #f2f5f7;
+}
+.bottombox a {
+	font-size: 14px;
+	display:block;
+	height: 34px;
+	width: 72px;
+	text-align: center;
+	line-height: 34px;
+	margin-top: 14px;
+}
+.confirmBtn {
+	background: #fd8739;
+	color: white;
+	margin-left: 158px;
+}
+.confirmBtn:hover{
+	background: #f07b2c;
+}
+.delbottom a{
+	float: left;
+}
+.delbottom .confirmBtn{
+	margin-left: 112px;
+	margin-right: 15px;	
+}
+.deleteBtn{
+	background: #e5eaee;
+	color: #666;
+}
+.deleteBtn:hover{
+	background: #e6e6e6;
+}
+.fixed_alert p.pconfirm{
+	color: #ff8100;
+}
+p.pconfirm i{
+	background: url(../images/reicon_304.png) no-repeat;
+}
+.fixed_alert p.pmsg{
+	font-weight: normal;
+	padding-top: 0;
+	line-height:198px;
+	color: #ff8100;
+}
+#firmmsg{
+	height: 198px;
+	width: 298px;
+	margin-left: -149px;
+	background: url(../images/reicon_307.png) no-repeat;
+	box-shadow:inherit;
+}
+#common_fixed{
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background: rgba(225,225,225,0.2);
+	z-index: 101;
+}
+#common_fixed div{
+	display: block;
+	height: 220px;
+	width: 380px;
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	margin-left: -190px;
+	background: url(../images/209955.gif);
+}

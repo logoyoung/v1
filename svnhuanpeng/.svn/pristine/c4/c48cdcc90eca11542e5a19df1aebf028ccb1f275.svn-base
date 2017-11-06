@@ -1,0 +1,84 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>用户管理</a><a href="javascript:;" ></i>角色管理</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span6">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>角色列表</h5>
+            <a href="javascript:;" onclick="add()"><span class="label label-info">添加</span></a> </div>
+          <div class="widget-content nopadding">
+            <table id="main" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th width="60%">名称</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr>
+                  <td>{{$item.id}}</td>
+                  <td>{{$item.name}}</td>
+                  <td>
+                      <lt name="item.id" value="100">
+                        <span class="label">系统用户组</span>
+                        <a class="badge badge-info" href="/rbac{{$copy}}/rolesave?id={{$item.id}}">授权</a>
+                        <else/>
+                        <a class="badge badge-info" href="javascript:;" onclick="edit({{$item.id}},this)">编辑</a>
+                        <a class="badge badge-info" href="/rbac{{$copy}}/rolesave?id={{$item.id}}">授权</a>
+                        <a class="badge badge-important" href="javascript:;" onclick="del({{$item.id}},this)">删除</a>
+                      </lt>
+                  </td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+          </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="jsadd">
+<script>
+    var t=$('#main');
+    function add(){
+        t.find('tbody').append('<tr><td>#</td><td><input type="text"></td><td><a class="badge badge-info" href="javascript:;" onclick="save(this)">Save</a></td></tr>');
+    }
+    function edit(id,t){
+        var td=$(t).closest('td').prev();
+        if(td.find('input').length>0)return save(t);
+        td.html('<input type="text" data-id="'+id+'" value="'+td.text()+'">');
+        $(t).html('Save');
+    }
+    function save(t){
+        var inp=$(t).closest('td').prev().find('input');
+        $.post('?act=save',{id:inp.data('id'),name:inp.val()},function(obj){
+            if(obj.status=='1'){
+                window.location.reload();
+            }else{
+                Op_common.alert(obj.msg||'操作失败!');
+            }
+        },'json')
+    }
+    function del(id,t){
+        Op_common.confirm('确认删除?',function(){
+            $.post('?act=del',{id:id},function(obj){
+                if(obj.status=='1'){
+                    $(t).closest('tr').remove();
+                }else{
+                    Op_common.alert(obj.msg||'操作失败!');
+                }
+            },'json');
+        });
+    }
+</script>
+</block>

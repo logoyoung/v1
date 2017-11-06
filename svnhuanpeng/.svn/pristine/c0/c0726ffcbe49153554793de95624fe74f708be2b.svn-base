@@ -1,0 +1,150 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="typelist" ></i>安装包类型管理</a><a href="javascript:;" ></i>安装包查看</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span6">
+        <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>设置安装包类型</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form name="f1" method="post" class="form-horizontal">
+          
+            <div class="control-group">
+              <label class="control-label">版本号</label>
+              <div class="controls">
+                  {{$version}}
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">版本名称</label>
+              <div class="controls">
+                  {{$name}}
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">所属渠道</label>
+              <div class="controls">
+					{{$channel_name}}
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">说明</label>
+              <div class="controls">
+				<textarea name="note"  type="textarea" class="span11" style="height:150px;" placeholder="" readonly='true'>{{$note}}</textarea>
+              </div>
+            </div>
+            
+            <div class="control-group">
+              <label class="control-label">安装包</label>
+              <div class="controls">
+				<div class="container" id="con">
+			       <ul class="unstyled"> 
+			       <td><empty name='app_name'><else /> <a alt="" href="http://{{$conf.domain-img}}{{$app_url}}">{{$app_name}}</a> </empty></td>
+			       </ul>
+			    </div>
+              </div>
+            </div>
+
+            <div class="form-actions text-center">
+              <a  class="btn btn-success" onclick="history.go(-1);">返回</a>
+            </div>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+    <style>.group{display: none;}</style>
+</block>
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__RES__plupload/plupload.full.min.js"></script>
+<script>
+
+$(document).ready(function(){
+ 	// Autocomplete on User Supplied data
+		$('#channel_name').change(function() {
+			$('#channel').val('');
+		});
+ 	$.get('/public/getchannellist',{status:'0'},function(datas){
+		$('#channel_name').autocomplete({
+			lookup:datas,
+			onSelect:function(data){
+				$('#channel_id').val(data.id);
+				$('#channel_name').val(data.value);
+			}
+		});
+ 	},'json');
+});
+
+$(function(){
+    var beif=$(window.frameElement);
+    
+    function autoHeight(){
+        beif.css('height',$('body').height());
+        beif.css('width','100%');
+    }
+    
+    var uploader = new plupload.Uploader({ //实例化一个plupload上传对象
+            browse_button : 'se',
+            url : '/file/upfile?type=',
+            flash_swf_url : '__RES__plupload/Moxie.swf',
+            silverlight_xap_url : '__RES__plupload/Moxie.xap',
+            multi_selection : false,
+    });
+    uploader.init(); //初始化
+    //绑定文件添加进队列事件
+    uploader.bind('FilesAdded',function(uploader,files){
+            //构造html来更新UI
+            var html = '<li id="file-' + files[0].id +'"><p class="file-name">' + files[0].name + '</p><div class="progress progress-striped"><div class="bar" ></div></div></li>';
+            $(html).appendTo('#con ul');
+            uploader.start();
+    });
+
+    //绑定文件上传进度事件
+    uploader.bind('UploadProgress',function(uploader,file){
+            $('#file-'+file.id+' .bar').css('width',file.percent + '%');//控制进度条
+            autoHeight();
+    });
+
+    //绑定文件上传进度事件
+    uploader.bind('FileUploaded',function(uploader,file,responseObject){
+        var json=$.parseJSON(responseObject.response)
+        $('#con ul').replaceWith('<ul><a href= '+json.url+' download>'+json.name+'('+json.size+') </a></ul>');
+    	$('#app_url').val(json.picpath);
+    	$('#app_name').val(json.name);
+    });
+    
+    //绑定文件上传进度事件
+    uploader.bind('Error',function(uploader,errObject){
+	        console.log(errObject);
+    });
+
+    //上传按钮
+    $('#do').click(function(){
+            uploader.start(); //开始上传
+    });
+    autoHeight();
+    
+});
+    var f=document.forms.f1;
+    Op_common.ajaxForm($(f),function(obj){
+        if(obj.status==1){
+            Op_common.alert(obj.info,function(){
+                window.location = '';
+            });
+        }else{
+            Op_common.alert(obj.info||'操作失败');
+        }
+    });
+</script>
+</block>

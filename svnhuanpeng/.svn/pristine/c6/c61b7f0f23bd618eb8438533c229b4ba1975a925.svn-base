@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>test</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div>test</div>
+        <form id="dd" action="" method="post">
+            <input type="submit" value="sub"/>
+        </form>
+    </body>
+    <script src="https://res.dangpoo.com/js/jquery.1.7.2.min.js"></script>
+    <script>
+        $(function(){
+            $('#dd').submit(function(){
+                alert(this.action)
+            })
+        })
+    </script>
+</html>

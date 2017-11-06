@@ -1,0 +1,314 @@
+/*reset*/
+body{margin:0;padding:0;color:#444;font-size:12px;line-height:1.5em;font-family:"microsoft yahei"}
+ul,li{margin:0;padding:0;list-style:none;}
+h1,h2,h3,h4,h5,h6,p{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+a{text-decoration:none;outline:none;}
+a:hover{text-decoration:none;}
+img{border:none;}
+
+/*common*/
+.l{float: left;display: inline;}
+.r{float: right;display: inline;}
+.of{overflow: hidden;*zoom:1;}
+
+.bor-no{border: none !important;}
+
+
+.promptbg{
+	background: #000 none repeat scroll 0 0;
+	display: block;
+	height: 100%;
+	left: 0;
+	opacity: 0.3;
+	position: fixed;
+	top: 0;
+	visibility: visible;
+	width: 100%;
+	z-index: 999;
+}
+
+.loginModal{
+	background-color: #fff;
+	border-radius: 4px;
+	left: 50%;
+	padding: 0 20px;
+	top: 100px;
+	width: 545px;
+	z-index: 1000;
+	border: 1px solid #ccc;
+	position: fixed;
+}
+
+.loginMain{
+	color: #444;
+	font-size: 12px;
+	line-height: 1.5;
+}
+.loginHead{
+/*	overflow: hidden;*zoom:1;*/
+	border-bottom: 1px solid #e0e0e0;
+	height: 51px;
+}
+.tabBtnbox{
+	width: 160px;
+	float: left;
+}
+
+.tabBtnbox a{
+	color: #333333;
+	float: left;
+	font-size: 16px;
+	height: 50px;
+	line-height: 65px;
+	text-align: center;
+	width: 80px;
+}
+.tabBtnbox a:hover{
+	text-decoration: none;
+}
+
+.tabBtnbox a.select{
+	border-bottom: 2px solid #ff7800;
+	color: #ff7800;
+}
+
+.close-btn{
+	background: url(../img/icon/personal_icon.png) no-repeat -41px -139px;
+	display: block;
+	float: right;
+	height: 20px;
+	margin-right: -2px;
+	margin-top: 18px;
+	width: 20px;
+}
+
+.loginCenter{
+	overflow: hidden;*zoom:1;
+}
+
+.loginCenterL{
+	width: 320px;
+	padding: 30px 0;
+	float: left;
+}
+
+/*登录*/
+.loginBox{
+	margin-top: 26px;
+	padding: 0 15px;
+}
+
+.loginLi{
+	border: 1px solid #ccc;
+	margin-top: 20px;
+	width: 267px;
+	overflow: hidden;*zoom:1;
+	position: relative;
+}
+.loginIcon{
+	background-color: #eeeeee;
+	border-right: 1px solid #ccc;
+	float: left;
+	height: 38px;
+	width: 38px;
+}
+.icon-phone{
+	background: url(../img/icon/icon_set_1.png) no-repeat -424px -27px;
+	display: block;
+	height: 28px;
+	margin: 5px 0 0 5px;
+	width: 27px;
+}
+.modal-text{
+	border: 0 none;
+	color: #999;
+	font-size: 12px;
+	height: 38px;
+	outline: medium none;
+	padding: 0 10px;
+	width: 207px;
+}
+
+.icon-pasword{
+	background: url(../img/icon/icon_set_1.png) no-repeat -502px -27px;
+	display: block;
+	height: 28px;
+	margin: 5px 0 0 5px;
+	width: 27px;
+}
+
+.icon-err{
+	background-color: #ff5f6e;
+	border-right: 1px solid #ccc;
+	float: left;
+	height: 38px;
+	width: 38px;
+}
+.icon-err .icon-phone{
+	background: url(../img/icon/icon_set_1.png) no-repeat -424px -51px;
+
+}
+
+.icon-err .icon-pasword{
+	background: url(../img/icon/icon_set_1.png) no-repeat -502px -51px;
+
+}
+
+.errorTip{
+	color: #ff5f6e;
+	font-size: 10px;
+	position: absolute;
+	right: 5px;
+	top: 11px;
+	display: none;
+}
+
+.error .errorTip2{
+	color: #ff5f6e;
+	font-size: 10px;
+	position: absolute;
+	right: 5px;
+	top: 11px;
+	display: block;
+}
+
+
+.error .loginIcon{
+	background: #ff5f6e;
+}
+
+.error .icon-phone{
+	background: url(../img/icon/icon_set_1.png) no-repeat -424px -51px;
+}
+
+.error .icon-code{
+	background: url(../img/icon/icon_set_1.png) no-repeat -449px -51px;
+}
+
+.error .icon-nick{
+	background: url(../img/icon/icon_set_1.png) no-repeat -479px -51px;
+}
+
+
+.login-btn{
+	background-color: #ff7800;
+	color: #fff !important;
+	display: block;
+	font-size: 18px;
+	height: 42px;
+	line-height: 42px;
+	text-align: center;
+}
+.login-btn:hover{
+	text-decoration: none;
+}
+.forgotBox{
+	border: 0 none;
+	margin-top: 10px;
+	padding: 0 15px;
+}
+.registered-btn{
+	color: #5bbbf7 !important;
+	margin: 0 10px;
+}
+.forgot-btn{
+	color: #999 !important;
+	margin: 0 10px;
+}
+
+.third-partyBox{
+	border-left: 1px solid #eee;
+	height: 290px;
+	margin: 20px 0 30px 0;
+	text-align: center;
+	width: 224px;
+	float: left;
+}
+
+.partyBox-head{
+	margin-bottom: 30px;
+}
+
+.weibo-login,.QQ-login,.weixin-login{
+	width: 50px;
+	height: 50px;
+	margin: 0 auto 20px;
+	display: block;
+}
+
+.registereLi{
+	border: 1px solid #ccc;
+	margin-top: 20px;
+	width: 267px;
+	overflow: hidden;*zoom:1;
+	position: relative;
+}
+
+.icon-code{
+	background: url(../img/icon/icon_set_1.png) no-repeat -449px -27px;
+	display: block;
+	height: 28px;
+	margin: 5px 0 0 5px;
+	width: 27px;
+}
+
+.border-error{
+	border: 1px solid #ff5f6e;
+}
+
+/*注册*/
+.veri-code{
+	width: 90px;
+	background-color: #ff7800;
+	border-radius: 4px;
+	color: #fff !important;
+	display: block;
+	height: 34px;
+	line-height: 34px;
+	position: absolute;
+	right: 1px;
+	text-align: center;
+	top: 2px;
+}
+.veri-code:hover{
+	text-decoration: none;
+}
+.icon-nick{
+	background: url(../img/icon/icon_set_1.png) no-repeat -479px -27px;
+	display: block;
+	height: 28px;
+	margin: 5px 0 0 5px;
+	width: 27px;
+}
+.icon-err .icon-nick{
+	background: url(../img/icon/icon_set_1.png) no-repeat -479px -51px;
+}
+.registere-btn{
+	background-color: #ff7800;
+	color: #fff !important;
+	display: block;
+	font-size: 18px;
+	height: 42px;
+	line-height: 42px;
+	text-align: center;
+}
+.registere-btn:hover{
+	text-decoration: none;
+}
+.instructions-btn{
+	color: #5bbbf7 !important;
+	display: inline;
+	
+}
+.instructions-btn:hover{
+	text-decoration: none;
+}
+
+
+
+.btn1{
+	color: #ff7800;
+	position: absolute;
+	z-index: 1000;
+}

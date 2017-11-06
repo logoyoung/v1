@@ -1,0 +1,12 @@
+<?php
+namespace hp\lib;
+/**
+ * Created by PhpStorm.
+ * User: hantong
+ * Date: 17/3/29
+ * Time: 下午7:55
+ */
+class MailSend
+{
+
+}

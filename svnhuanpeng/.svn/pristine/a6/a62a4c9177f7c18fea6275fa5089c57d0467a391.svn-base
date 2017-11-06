@@ -1,0 +1,830 @@
+#用户静态表
+create table userstatic (
+    `uid` int(10) unsigned not null auto_increment,
+    `username` char(30) not null default '',
+    `nick` varchar(30) not null default '',
+    `password` varchar(32) not null default '',
+    `pic` varchar(100) NOT NULL DEFAULT '',
+    `rip` int(10) unsigned NOT NULL DEFAULT '0',
+    `rport` int(10) unsigned NOT NULL DEFAULT '0',
+    `rtime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `encpass` varchar(100) NOT NULL DEFAULT '',
+    `phone` char(11) not null default '',
+    `mail` varchar(30) not null default '',
+    `sex` tinyint(3) unsigned not null ,
+    `mailstatus` tinyint(3) unsigned not null default '0', #0:未填写，1:未验证，2:验证成功
+    primary key (`uid`),
+    UNIQUE KEY `username` (`username`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#用户活动表
+create table useractive(
+    `uid` int(10) unsigned not null auto_increment,
+    `lip` int(10) unsigned NOT NULL DEFAULT '0',
+    `lport` int(10) unsigned NOT NULL DEFAULT '0',
+    `ltime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `level` int(10) unsigned not null default '1',
+    `integral` int(10) unsigned not null default '0',
+    `readsign` int(10) unsigned not null default '0',
+    `hpbean` int(10) unsigned not null default '0',
+    `hpcoin` int(10) unsigned not null default '0',
+    `isnotice` tinyint(3) unsigned not null default '1';
+    primary key (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#主播表
+create table anchor(
+    `uid` int(10) unsigned not null ,
+    `level` int(10) unsigned not null default '1',
+    `integral` int(10) unsigned not null default '0',
+    `income` int(10) unsigned not null default '0',
+    `videolimit` int(10) unsigned not null default '5',
+    primary key(`uid`)
+)   ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#用户等级对照表
+create table userlevel(
+    `level` int(10) unsigned not null,
+    `integral` int(10) unsigned not null default '0',
+
+    primary key(`level`)
+
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#主播等级对照表
+create table anchorlevel(
+    `level` int(10) unsigned not null,
+    `integral` int(10) unsigned not null default '0',
+    primary key(`level`)
+
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#实名认证表
+create table userrealname(
+    `id` int(10) unsigned not null auto_increment,
+    `name` varchar(30) not null default '',
+    `papersid` varchar(30) not null default '',
+    `papersetime` date not null default '0000-00-00',
+    `face` varchar(100) not null default '',
+    `back` varchar(100) not null default '',
+    `handheldPhoto` varchar(100) not null default '',
+    `uid` int(10) unsigned not null default '0',
+    `ctime` timestamp not null default '0000-00-00 00:00:00',
+    `status` tinyint(3) not null default '0',
+    `paperstype` tinyint(3) not null default '0' ,#证件类型
+    `passtime` timestamp not null default '0000-00-00 00:00:00',
+    primary key(`id`),
+    unique key `uid`(`uid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#银行卡认证表
+create table userbankcard(
+	`id` int(10) unsigned not null auto_increment,
+	`bank` varchar(30) not null default '',
+	`cardid` varchar(30) not null default '',
+	`bankface` varchar(30) not null default '',
+	`bankback` varchar(30) not null default '',
+	`uid` int(10) unsigned not null default 0,
+	`status` tinyint(3) not null default 0,
+	`ctime` timestamp not null default '0000-00-00 00:00:00',
+	`passtime` timestamp not null default '0000-00-00 00:00:00',
+	primary key (id),
+	unique key `uid`(`uid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#主播标签表
+create table anchortag(
+    `anchorid` int(10) unsigned not null default '0',
+    `tag` varchar(30) not null default '',
+    primary key(`anchorid`, `tag`),
+    key `tag`(`tag`)
+)  ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#礼物列表
+create table gift(
+    `id` int(10) unsigned not null auto_increment,
+    `money` int(10) unsigned not null default '0',
+    `income` int(10) unsigned not null default '0',
+    `giftname` varchar(30) not null default '',
+    primary key (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#主播贡献表
+create table incomeforanchor(
+    `luid` int(10) unsigned not null default '0',
+    `uid` int(10) unsigned not null default '0',
+    `ctime` timestamp not null default '0000-00-00 00:00:00',
+    `giftnum` int(10) not null default '0',
+    `giftid` int(10) not null default '0',
+    `liveid` int(10) not null default '0',
+    primary key (`luid`, `uid`, `ctime`),
+    key `uid`(`uid`),
+    key `ctime`(`ctiem`),
+    key `liveid`(`liveid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#浏览记录表
+create table history(
+    `uid` int(10) unsigned not null default '0',
+    `luid` int(10) unsigned not null default '0',
+    `stime` timestamp not null default '0000-00-00 00:00:00',
+    primary key (`uid`, `luid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#我的房间管理员
+create table roommanager(
+    `luid` int(10) unsigned not null default '0',
+    `uid` int(10) unsigned not null default '0',
+    `ctime` timestamp not null default '0000-00-00 00:00:00',
+    `level` int(10) not null default '0',
+    primary key(`luid`,`uid`),
+    key `uid`(`uid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 直播表
+# status直播状态，0进行中，10已结束
+# stream 直播流名称，发起直播时生成
+# upcount 收到的点赞数
+CREATE TABLE `live` (
+  `liveid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `stream` varchar(100) NOT NULL,
+  `server` varchar(100) NOT NULL,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gametid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gameid` int(10) unsigned DEFAULT '0',
+  `gamename` varchar(100) DEFAULT '',
+  `title` varchar(100) DEFAULT '',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `poster` varchar(100) NOT NULL DEFAULT '',
+  `upcount` int(10) unsigned NOT NULL DEFAULT '0',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `deviceid` varchar(100) NOT NULL DEFAULT '',
+  `orientation` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#直播公告表
+#bulletin 直播公告
+create table livebulletin(
+`luid` int(10) unsigned not null default 0,
+`bulletin` varchar(900) not null default '',
+`ctime` timestamp not null default current_timestamp,
+primary key (`luid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 录相表
+# viewcount 播放数
+CREATE TABLE `video` (
+  `videoid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gametid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gameid` int(10) unsigned DEFAULT '0',
+  `gamename` varchar(100) DEFAULT '',
+  `title` varchar(100) DEFAULT '',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `length` int(10) unsigned NOT NULL,
+  `poster` varchar(100) NOT NULL DEFAULT '',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `viewcount` int(10) unsigned NOT NULL,
+  `vfile` varchar(100) NOT NULL DEFAULT '',
+  `orientation` tinyint(3) unsigned NOT NULL,
+  `publish` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `upcount` int(10) unsigned not null default 0, #视频点赞数量
+  PRIMARY KEY (`videoid`),
+  KEY `uid` (`uid`),
+  KEY `gameid` (`gameid`),
+  KEY `gametid` (`gametid`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 游戏分类
+CREATE TABLE `gametype` (
+  `gametid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL DEFAULT '',
+  `icon` varchar(100) NOT NULL DEFAULT '',
+  `ord` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`gametid`),
+  KEY `ord` (`ord`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 游戏
+CREATE TABLE `game` (
+  `gameid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `gametid` int(10) unsigned NOT NULL DEFAULT '0',
+  `name` varchar(100) NOT NULL DEFAULT '',
+  `icon` varchar(100) NOT NULL DEFAULT '',
+  `poster` varchar(100) NOT NULL DEFAULT '',
+  `ord` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`gameid`),
+  KEY `gametid` (`gametid`,`ord`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+# 游戏副表
+ CREATE TABLE `game_zone` (
+  `gameid` int(10) unsigned NOT NULL,
+  `poster` varchar(100) NOT NULL DEFAULT '',
+  `gamepic` varchar(100) NOT NULL DEFAULT '',
+  `bgpic` varchar(100) NOT NULL DEFAULT '',
+  `description` blob NOT NULL,
+  `status` tinyint(3) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`gameid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
+
+
+# 用户关注
+# uid1 关注 uid2
+CREATE TABLE `userfollow` (
+  `uid1` int(10) unsigned NOT NULL DEFAULT '0',
+  `uid2` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid1`,`uid2`),
+  KEY `uid2` (`uid2`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 游戏关注
+CREATE TABLE `gamefollow` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gameid` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid`,`gameid`),
+  KEY `gameid` (`gameid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 视频收藏
+CREATE TABLE `videofollow` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `videoid` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid`,`videoid`),
+  KEY `videoid` (`videoid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 视频评论
+CREATE TABLE `videocomment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `videoid` int(10) unsigned NOT NULL DEFAULT '0',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `rate` tinyint(3) unsigned NOT NULL,
+  `comment` blob NOT NULL,
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid`(`uid`),
+  KEY `videoid`(`videoid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 直播用户列表
+CREATE TABLE `liveuser` (
+  `liveid` int(10) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL,
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`liveid`,`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 直播室在线用户列表
+CREATE TABLE `liveroom` (
+  `luid` int(10) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL,
+  `userip` int(10) unsigned NOT NULL DEFAULT '0',
+  `userport` int(10) unsigned NOT NULL DEFAULT '0',
+  `serverip` int(10) unsigned NOT NULL DEFAULT '0',
+  `serverport` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`luid`,`uid`),
+  KEY `tm` (`tm`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 直播聊天记录
+ CREATE TABLE `livemsg` (
+  `msgid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `luid` int(10) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL,
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `msg` blob NOT NULL,
+  PRIMARY KEY (`msgid`),
+  KEY `luid` (`luid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 意见反馈
+CREATE TABLE `feedback` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `feedback` blob NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# 送礼记录表
+# author yandong@6rooms.com
+# date 2016-1-26 12:29
+ CREATE TABLE `giftrecord` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '记录id',
+  `luid` int(10) unsigned NOT NULL COMMENT '主播id',
+  `liveid` int(10) unsigned NOT NULL COMMENT '直播id',
+  `uid` int(10) unsigned NOT NULL COMMENT '送礼人id',
+  `giftid` tinyint(3) unsigned NOT NULL COMMENT '礼物id',
+  `giftnum` tinyint(3) unsigned NOT NULL COMMENT '礼物数',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '送礼时间',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`),
+  KEY `liveid` (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#送礼纪录表
+#date 2016-1-27 17:48
+create table giftrecordcoin (
+  `id` varchar(20) NOT NULL DEFAULT'' COMMENT '记录id',
+  `luid` int(10) unsigned NOT NULL COMMENT '主播id',
+  `liveid` int(10) unsigned NOT NULL COMMENT '直播id',
+  `uid` int(10) unsigned NOT NULL COMMENT '送礼人id',
+  `giftid` tinyint(3) unsigned NOT NULL COMMENT '礼物id',
+  `giftnum` tinyint(3) unsigned NOT NULL COMMENT '礼物数',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '送礼时间',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`),
+  KEY `liveid` (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#账单明细表
+#date 2016-1-27 18:07
+create table billdetail(
+    `id` int(10) unsigned not null auto_increment comment'纪录ID',
+    `customerid` int(10) not null default 0 comment'消费用户ID',
+    `purchase` int(10) not null default 0 comment'消费金额',
+    `beneficiaryid` int(10) not null default 0 comment'收益人id',
+    `income` int(10) not null default 0 comment'收益金额',
+    `type` int(10) not null default 0 comment'类型',
+    `info` varchar(32) not null default '' comment'消费内容（充值记录ID，或者送礼纪录ID）',
+    `ctime` timestamp not null default CURRENT_TIMESTAMP comment'消费时间',
+    PRIMARY key (`id`),
+    key `type`(`type`),
+    key `info`(`info`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+//用户消息表
+create table usermessage(
+    `uid` int(10) unsigned not null default 0,
+    `msgid` varchar(300) not null default '',
+    primary key (`uid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+//系统消息表
+create table sysmessage(
+    `id` int(10) unsigned not null AUTO_INCREMENT,
+    `stime` timestamp not null default current_timestamp,
+    `msg` varchar(900) not null default '',
+    `title` varchar(100) not null default '',
+    `addresserid` int(10) unsigned not null default 0,
+    primary key (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#用户消息表
+create table usermessage(
+    `id` int(10) unsigned not null AUTO_INCREMENT ,
+    `uid` int(10) unsigned not null default 0 ,
+    `msgid` int(10) unsigned not null default 0,
+    `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+    primary key (`id`),
+    key `uid`(`uid`),
+    key `msgid`(`msgid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+#站内信表
+create table sysmessage(
+    `id` int(10) unsigned not null AUTO_INCREMENT COMMENT '记录id',
+    `title` varchar(100) not null default '' COMMENT '站内信标题',
+    `msg` varchar(900) not null default '' COMMENT '站内信内容',
+    `type` tinyint(3) unsigned NOT NULL DEFAULT '2' COMMENT '站内信类型',
+    `group` varchar(100) not null default '' COMMENT '分组',
+    `stime` timestamp not null default current_timestamp COMMENT '发送时间',
+    `sendid` int(10) unsigned not null default 0 COMMENT '发件人id',
+    primary key (`id`),
+    key `stime` (`stime`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+#首页游戏推荐展示表
+
+#client web(0),Android(1),ios(2)
+#gameorderlist 分类游推荐
+CREATE TABLE `recommentgame` (
+  `client` tinyint(3) unsigned NOT NULL COMMENT '平台' ,
+  `gameorderlist` varchar(100) not null default '' COMMENT '游戏展示顺序',
+  `ctime` timestamp not null default current_timestamp COMMENT '创建时间',
+  `utime` timestamp not null default '0000-00-00 00:00:00' COMMENT '修改时间',
+  PRIMARY KEY (`client`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#首页推荐展示游戏
+CREATE TABLE `index_recommend_game` (
+  `gameid` int(10) unsigned not null  COMMENT '游戏id',
+  `ctime` timestamp not null default current_timestamp COMMENT '创建时间',
+  PRIMARY KEY (`gameid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#首页推荐直播
+CREATE TABLE `index_recommend_Live` (
+  `liveid` int(10) unsigned NOT NULL ,
+  `stream` varchar(100) NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gametid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gameid` int(10) unsigned DEFAULT '0',
+  `gamename` varchar(100) DEFAULT '',
+  `title` varchar(100) DEFAULT '',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `poster` varchar(100) NOT NULL DEFAULT '',
+  `orientation` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`liveid`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+create table pickupHpbean(
+	`date` DATE not null default '0000-00-00',
+	`uid` int(10) unsigned not null default '0',
+	`pickid` int(10) unsigned not null default '0',
+	`luid` int(10) unsigned not null default '0',
+	`status` int(10) unsigned not null default '0',
+	`getNum` int(10) unsigned not null default '0',
+	`time` int(10) unsigned not null default '0' comment '在线时长',
+	`ctime` timestamp not null default current_timestamp,
+	`utime` timestamp not null default '0000-00-00 00:00:00',
+	primary key(`date`,`uid`,`pickid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create table pickupRule(
+	`id` int(10) unsigned not null auto_increment comment '领取ID',
+	`time` int(10) unsigned not null default '0' comment '领取时间限制',
+	`range` varchar(10) not null default '',
+	primary key(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create table rank_day(
+    `date` date not null default '0000-00-00',
+    `uid` int(10) unsigned not null default 0,
+    `luid` int(10) unsigned not null default 0,
+    `cost` int(10) unsigned not null default 0,
+    primary key (`date`,`uid`,`luid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create table rank_month(
+    `date` date default '0000-00-00',
+    `uid` int(10) unsigned not null default 0,
+    `luid` int(10) unsigned not null default 0,
+    `cost` int(10) unsigned not null default 0,
+    primary key (`date`,`uid`,`luid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create table rank_all(
+    `uid` int(10) unsigned not null default 0,
+    `luid` int(10) unsigned not null default 0,
+    `cost` int(10) unsigned not null default 0,
+    primary key (`uid`, `luid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#是否点赞
+CREATE TABLE `isupvideo` (
+  `videoid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '录像id',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '关注时间',
+   KEY `videoid` (`videoid`),
+   KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+//宝箱表
+create table treasurebox(
+	`id` int(10) unsigned not null default '0' comment '宝箱ID',
+	`uid` int(10) unsigned not null default '0' comment '赠送用户ID',
+	`luid` int(10) unsigned not null default '0' comment '主播ID',
+	`ctime` timestamp not null default current_timestamp,
+	`status` int(10) unsigned not null default '0' comment '宝箱状态 0:未领取,1:已经关闭',
+	primary key(`id`),
+	key `luid` (`luid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create table pickTreasure(
+	`uid` int(10) unsigned not null default '0' comment '领取用户ID',
+	`treasureid` int(10) unsigned not null default '0' comment '宝箱ID',
+	`getNum` int(10) unsigned not null default '0' comment '获取欢豆数量',
+	primary key (`uid`, `treasureid`),
+	key `treasureid`(`treasureid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#弹幕举报表
+create table reportLiveMsg(
+    `id` int(10) unsigned not null auto_increment,
+    `uid` int(10) unsigned not null default '0',
+    `msgid` int(10) unsigned not null default '0',
+    `ctime` timestamp not null default current_timestamp,
+    `status` int(10) not null default '0', #0:未处理 1:not agree, 2: agree
+    `handletime` timestamp not null default '0000-00-00 00:00:00',
+    primary key (`id`),
+    unique key (`uid`,`msgid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#禁言列表
+create table silencedlist(
+    `luid` int(10) unsigned not null default '0',
+    `uid` int(10) unsigned not null default '0',
+    `ctime` timestamp not null default current_timestamp,
+    primary key (`luid`, `uid`),
+    key (`uid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+#举报主播
+CREATE TABLE `report` (
+  `id` int(10) unsigned not null auto_increment,
+  `liveid` int(10) unsigned NOT NULL  comment'直播id',
+  `uid` int(10) unsigned NOT NULL comment '用户id',
+  `luid` int(10) unsigned NOT NULL comment '主播id',
+  `pic` varchar(100) NOT NULL DEFAULT '' comment '举报截图',
+  `reason` varchar(900) not null comment '举报原因',
+  `contact` varchar(100) NOT NULL DEFAULT '' comment '联系方式',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP comment '举报时间',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' comment '举报类型',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' comment '处理状态',#0:未处理,1:处理中,2:已处理
+   PRIMARY KEY (`id`),
+   KEY `liveid` (`liveid`),
+   KEY `luid` (`luid`),
+   KEY `type` (`type`),
+   KEY `ctime` (`ctime`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+提现纪录表
+create table withdrawRecord(
+    id int(10) unsigned not null default 0,
+    luid int(10) unsigned not null default 0,
+    bean int(10) unsigned not null default 0,
+    coin int(10) unsigned not null default 0,
+    beanMoney float(14,2) unsigned not null default 0.00,
+    coinMoney float(14,2) unsigned not null default 0.00,
+    money float(14,2) unsigned not null default 0.00,
+    status int(10) unsigned not null default 0,
+    ctime timestamp not null default current_timestamp,
+    primary key (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+#任务完成度记录表
+CREATE TABLE `task` (
+  `id` int(10) unsigned not null auto_increment,
+  `uid` int(10) unsigned NOT NULL comment '用户id',
+  `taskid` int(10) unsigned NOT NULL comment '任务id',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP comment '完成时间',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' comment '任务类型',
+  `status` tinyint(3) unsigned not null default '0' comment '进行状态',
+  `getbean` int(10) unsigned not null default '0'
+   PRIMARY KEY (`id`),
+   KEY `uid` (`uid`),
+   KEY `taskid` (`taskid`),
+   KEY `ctime` (`ctime`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#任务详情表
+CREATE TABLE `taskinfo` (
+  `id` int(10) unsigned not null auto_increment,
+  `exp` int(10) unsigned NOT NULL comment '经验',
+  `bean` int(10) unsigned NOT NULL comment '欢朋豆',
+  `coin` int(10) unsigned NOT NULL comment '欢朋币',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' comment '状态',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
+  `stime` timestamp not null default '0000-00-00 00:00:00' comment '开始时间',
+  `etime` timestamp not null default '0000-00-00 00:00:00' comment '结束时间',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' comment '任务类型',
+  `title` varchar(300) not null default '' comment '任务标题'
+   PRIMARY KEY (`id`),
+   KEY `type` (`type`),
+   KEY `status` (`status`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#直播流地址纪录表
+create table liveStreamRecord(
+    `id` int(10) unsigned not null auto_increment,
+    `liveid` int(10) unsigned not null default '0',
+    `stream` varchar(100) not null default '',
+    `server` varchar(100) not null default '',
+    `ctime` timestamp not null default current_timestamp,
+    primary key (`id`),
+    key `liveid` (`liveid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#录像转换操作纪录表
+create table videoconverted(
+    `liveid` int(10) unsigned not null default '0',
+    `status` int(10) unsigned not null default '0',
+    `ctime` timestamp not null default current_timestamp,
+    primary key (`liveid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#生成录像队列
+CREATE TABLE `videosave_queue`(
+	`id`     int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`liveid` int(10) unsigned NOT NULL,
+	`status` tinyint(3) unsigned NOT NULL DEFAULT '0',#直播状态
+	`stype`  tinyint(3) unsigned NOT NULL DEFAULT '0',#停止方式 0:常规保存 1:超时保存
+	`ctime`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`),
+	KEY `status`(`status`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#直播提醒
+create table live_notice(
+    `uid` int(10) unsigned not null default '0' comment '用户id',
+    `luid` int(10) unsigned not null default '0' comment '主播id',
+    `ctime` timestamp not null default current_timestamp comment '创建时间',
+    primary key (`luid`, `uid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create table admin_user(
+    `uid` int(10) unsigned NOT NULL AUTO_INCREMENT comment '用户id',
+    `password` varchar(32) not null default '',
+    `encpass` varchar(100) NOT NULL DEFAULT '',
+    `username` char(30) not null default '',
+    `email` varchar(30) not null default '',
+    PRIMARY KEY (`uid`),
+    key `email` (`email`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ create table admin_user_right(
+   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+   `uid` int(10) unsigned not null default '0' comment '用户id',
+   `type` tinyint(3) unsigned NOT NULL DEFAULT '0' comment '1:审核人员，2:会计财务 3:运营团队',
+   `right` SMALLINT unsigned not null default '0',
+    primary key (`id`),
+    key `uid`(`uid`)
+  )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create table admin_certRealName(
+     certifyid int(10) unsigned not null default '0',
+     uid int(10) unsigned not null default '0' comment '用户id',
+    `status` tinyint(3) unsigned NOT NULL DEFAULT '0' comment'0空闲，1处理中，2已完成',
+     key `certifyid`(`certifyid`)
+  )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+create table admin_ip(
+    `ip` int(10) unsigned NOT NULL DEFAULT '0',
+    `positionid` int(10) unsigned NOT NULL DEFAULT '0'
+ )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create table admin_user_position(
+    `uid` int(10) unsigned NOT NULL DEFAULT '0',
+    `positionid` int(10) unsigned not null default '0',
+     primary key (`uid`,`positionid`)
+ )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create table admin_position(
+    `id` int(10) unsigned not null auto_increment,
+    `country_id` varchar(32) not null default '0',
+    `country` varchar(32) not null default '',
+    `area_id` int(10) unsigned not null default '0',
+    `area` varchar(32) not null default '',
+    `region_id` int(10) unsigned not null default '0',
+    `region` varchar(32) not null default '',
+    `city_id` int(10) unsigned not null default '0',
+    `city` varchar(32) not null default '',
+    primary key (`id`),
+key `area_id`(`area_id`),
+key `region_id`(`region_id`),
+key `city_id`(city_id)
+ )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#待审核录像表
+create table admin_wait_pass_video(
+     `id` int(10) unsigned not null auto_increment,
+     `videoid` int(10) unsigned not null default '0' comment '录像id',
+     `adminid` int(10) unsigned not null default '0' comment '审核者id',
+     `ctime` timestamp not null default current_timestamp comment '创建时间',
+     `utime`  timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' comment '审核开始时间',
+     `etime`  timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' comment '审核完成时间',
+     `status` tinyint(3) unsigned NOT NULL DEFAULT '0' comment'0空闲，1处理中，2已完成',
+    primary key (`id`),
+    key `videoid`(`videoid`),
+key `adminid`(`adminid`),
+key `ctime`(`ctime`),
+key `status`(`status`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#审核未通过录像表
+#type 1:色情,2:暴力,3:诽谤诋毁,4:语言粗俗,5:穿着暴露,6:封建迷信,7:非法言论,8:版权问题,9:其他
+create table admin_unpass_video(
+     `id` int(10) unsigned not null auto_increment,
+     `videoid` int(10) unsigned not null default '0' comment '录像id',
+     `adminid` int(10) unsigned not null default '0' comment '审核者id',
+     `type` tinyint(3) unsigned NOT NULL DEFAULT '0' comment '类型',
+     `describe` varchar(700) not null default '' COMMENT '具体描述',
+     `ctime` timestamp not null default current_timestamp comment '创建时间',
+    primary key (`id`),
+key `adminid`(`adminid`),
+key `type`(`type`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+create table admin_app_break_report(
+    `id` int(10) unsigned not null auto_increment,
+    `title` varchar(100) not null default '' COMMENT '标题',
+    `ctime` timestamp not null default current_timestamp comment '创建时间',
+    `reason` BLOB not null  default '',
+    primary key (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#用户头像审核表
+create table admin_user_pic(
+    `uid` int(10) unsigned not null  comment '用户id',
+    `pic` varchar(100) NOT NULL DEFAULT '' comment '头像',
+    `ctime` timestamp not null default current_timestamp comment '创建时间',
+    `utime`  timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' comment '审核开始时间',
+    `status` tinyint(3) unsigned NOT NULL DEFAULT '0' comment'0:待审核, 1:人工审核通过, 2:人工审核未通过 ,3:机器审核通过,4:机器审核未通过',
+    primary key(`uid`)
+)   ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#锁定中的头像
+create table admin_wait_user_pic(
+    `id` int(10) unsigned not null auto_increment,
+    `uid` int(10) unsigned not null  comment '用户id',
+    `adminid` int(10) unsigned not null  comment '审核者id',
+    `ctime` timestamp not null default current_timestamp comment '创建时间',
+    `status` tinyint(3) unsigned NOT NULL DEFAULT '0' ,
+     primary key(`id`),
+    key `uid`(`uid`)
+)   ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+//头像,昵称,直播标题,评论 先发后审or先审后发设置
+// 0:先审后发,1 先发后审 默认0
+create table admin_check_mode(
+    `id` int(10) unsigned not null comment 'id',
+    `name` varchar(32) NOT NULL DEFAULT ''  comment '名称',
+    `ctime` timestamp not null default current_timestamp comment '创建时间',
+    `utime`  timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' comment '修改时间',
+    `status` tinyint(3) unsigned NOT NULL DEFAULT '0' comment '0:先审后发,1:先发后审',
+     primary key(`id`)
+)   ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+//昵称审核
+create table admin_user_nick(
+    `uid` int(10) unsigned not null  comment '用户id',
+    `nick` varchar(30) NOT NULL DEFAULT '' comment '昵称',
+    `oldnick` varchar(30) NOT NULL DEFAULT '' comment '旧昵称',
+    `ctime` timestamp not null default current_timestamp comment '创建时间',
+    `utime`  timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' comment '审核开始时间',
+    `status` tinyint(3) unsigned NOT NULL DEFAULT '0' comment'0:待审核, 1:人工审核通过, 2:人工审核未通过 ,3:机器审核通过,4:机器审核未通过',
+     primary key(`uid`)
+)   ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+#锁定中的昵称
+create table admin_wait_user_nick(
+    `id` int(10) unsigned not null auto_increment comment 'id',
+    `uid` int(10) unsigned not null  comment '用户id',
+    `adminid` int(10) unsigned not null  comment '审核者id',
+    `ctime` timestamp not null default current_timestamp comment '创建时间',
+    `status` tinyint(3) unsigned NOT NULL DEFAULT '0' ,
+     primary key(`id`),
+     key `uid`(`uid`)
+)   ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+//直播标题审核
+create table admin_live_title(
+    `liveid` int(10) unsigned not null  comment '直播id',
+    `title` varchar(100) NOT NULL DEFAULT '' comment '直播标题',
+    `ctime` timestamp not null default current_timestamp comment '创建时间',
+    `utime`  timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' comment '审核通过时间',
+    `status` tinyint(3) unsigned NOT NULL DEFAULT '0' comment'0:待审核, 1:人工审核通过, 2:人工审核未通过 ,3:机器审核通过,4:机器审核未通过',
+    primary key(`liveid`)
+)   ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create table admin_wait_live_title(
+    `liveid` int(10) unsigned not null  comment '直播id',
+    `adminid` int(10) unsigned not null  comment '审核者id',
+    `ctime` timestamp not null default current_timestamp comment '创建时间',
+    `status` tinyint(3) unsigned NOT NULL DEFAULT '0' ,
+     primary key(`liveid`)
+)   ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+//审核中的视频评论
+create table admin_wait_video_comment(
+    `commentid` int(10) unsigned not null  comment '评论id',
+    `adminid` int(10) unsigned not null  comment '审核者id',
+    `ctime` timestamp not null default current_timestamp comment '创建时间',
+    `status` tinyint(3) unsigned NOT NULL DEFAULT '0' ,
+     primary key(`commentid`)
+)   ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+//首屏直播推荐
+ CREATE TABLE `admin_live_recommend` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `uid` int(10) unsigned NOT NULL COMMENT '主播id',
+  `nick` varchar(30) NOT NULL DEFAULT '',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `stime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '开始时间',
+  `etime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '开始时间',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0 关闭 1开始',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

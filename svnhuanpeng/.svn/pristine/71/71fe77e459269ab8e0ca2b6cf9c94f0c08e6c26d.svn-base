@@ -1,0 +1,64 @@
+<extend name="Base/matrix" />
+<block name="content">
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"><a href="javascript:;" >用户统计</a><a href="javascript:;" ></i>流失查询</a></div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>流失查询</h5>
+                        </div>
+                        <div class="widget-content">
+                            <div class="text-center mb10 ln38">
+                                <form class="form-search" id='myform'>
+                                    <input type="text" class="w120" name="uid" value="{{$Think.get.uid}}" placeholder="主播id">
+                                    <input type="text" class="w120" name="days"<empty name="Think.get.days">value="30"<else/>value="{{$Think.get.days}}"</empty>value="{{$Think.get.gid}}" placeholder="天数">
+                                    <button type="submit"  class="btn">搜索</button>
+                                    <button type="submit" class="btn" name="export" value="1">导出</button><br>
+                                </form>
+                            </div>
+
+                            <div class="oyat">
+                                <table class="table table-bordered table-striped" id="oCenter" style="">
+                                    <thead>
+                                    <tr>
+                                        <th>UID</th>
+                                        <th>昵称</th>
+                                        <th>是否是主播</th>
+                                        <th>所属经纪公司</th>
+                                        <th>上次登录时间</th>
+                                        <th>距离现在天数</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <foreach name="data" item="item">
+                                        <tr>
+                                            <td>{{$item.uid|default='--'}}</td>
+                                            <td>{{$item.nick|default='--'}}</td>
+                                            <td>{{$item.isanchor|default='--'}}</td>
+                                            <td>{{$item.company|default='--'}}</td>
+                                            <td>{{$item.ltime}}</td>
+                                            <td>{{$item.days|default='--'}}</td>
+                                        </tr>
+                                    </foreach>
+                                    </tbody>
+                                </table>
+                                <div class="pagination alternate text-center">{{$page}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</block>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+    <script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+</block>

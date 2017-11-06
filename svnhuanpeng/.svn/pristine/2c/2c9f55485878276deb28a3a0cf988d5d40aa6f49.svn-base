@@ -1,0 +1,21 @@
+.live-table .mix {
+  display: block;
+  opacity: 1; }
+  .live-table .mix .mix-inner > .mix-details {
+    padding: 0px; }
+  .live-table .mix .live-viewer {
+    width: 100%;
+    background-color: #000; }
+  .live-table .mix a.option {
+    margin-right: 5px;
+    margin-top: 0px;
+    padding: 11px 20px;
+    color: #fff;
+    display: block;
+    float: left;
+    background-color: #ffa04c; }
+    .live-table .mix a.option:hover {
+      background-color: #ff7800;
+      text-decoration: none; }
+
+/*# sourceMappingURL=liveVerify.css.map */

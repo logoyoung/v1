@@ -1,0 +1,111 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>渠道统计</a><a href="javascript:;" ></i>渠道管理</a><a href="javascript:;" ></i>渠道设置</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span6">
+        <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>设置渠道</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form name="f1" method="post" class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">渠道编号</label>
+              <div class="controls">
+                  <input  name="channel"  value="{{$channel}}" type="text" class="span11" placeholder="" />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">渠道名称</label>
+              <div class="controls">
+                  <input  name="channelName"  value="{{$channelname}}" type="text" class="span11" placeholder="" />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">重点合作</label>
+              <div class="controls">
+                 <select class="select" name="vip" >
+                    <foreach name="hashvips" item="item" key="key" >
+                    <option value="{{$key}}" <eq name="key" value="$vip"> selected</eq>>{{$item}}</option>
+                    </foreach>
+                <select/>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">状态</label>
+              <div class="controls">
+                 <select class="select" name="status" >
+                    <foreach name="hashstatus" item="item" key="key" >
+                    <option value="{{$key}}" <eq name="key" value="$status"> selected</eq>>{{$item}}</option>
+                    </foreach>
+                <select/>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">渠道类型</label>
+              <div class="controls">
+                 <select class="select"  name="client" >
+                    <foreach name="hashclient" item="item" key="key" >
+                    <option value="{{$key}}" <eq name="key" value="$client"> selected</eq>>{{$item}}</option>
+                    </foreach>
+                <select/>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">版本号</label>
+              <div class="controls">
+                  <input name="version" value="{{$version}}" type="text"  />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">构建号</label>
+              <div class="controls">
+                  <input  name="build"  value="{{$build}}" type="text"  />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">描述</label>
+              <div class="controls">
+                  <textarea name="desc"  value="" type="textarea" class="span11" style="height:150px;" placeholder="" >{{$desc}}</textarea>
+              </div>
+            </div>
+            <div class="form-actions text-center">
+              <button type="submit" class="btn btn-success">保存</button>
+              <a class="btn" onclick="history.go(-1);">取消</a>
+            </div>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+    <style>.group{display: none;}</style>
+</block>
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+
+    var f=document.forms.f1;
+    Op_common.ajaxForm($(f),function(obj){
+        if(obj.status==1){
+            Op_common.alert(obj.info,function(){
+                window.location = obj.code;
+            });
+        }else{
+            Op_common.alert(obj.info||'操作失败');
+        }
+    },
+    {
+    	'rule':{'channel':{'require':1,'msg':'编号为必填!'},},
+
+    });
+</script>
+</block>

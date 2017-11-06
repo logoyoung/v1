@@ -1,0 +1,113 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>主播管理</a><a href="/rbac/user" ></i>签约管理</a><a href="javascript:;" ></i>签约设置</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span6">
+        <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>设置公司</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form name="f1" method="post" class="form-horizontal">
+          <input id='uid' name='uid' value="{{$uid}}" type="hidden"  />
+          <input id='fcid' name='fcid' value="{{$contract.cid}}" type="hidden"  />
+            <div class="control-group">
+              <div class="controls">
+              <label class="class="span11"">UID：  {{$userstatic.uid}},昵称：  {{$userstatic.nick}}</label>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">公司名称</label>
+              <div class="controls">
+                  <input id='companyname' name="companyname" value="{{$contract.companyname}}" type="text" class="span11" placeholder="选取签约公司"  />
+                  <input id='cid' name="cid" value="{{$contract.cid}}" type="hidden"  />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">签约时间</label>
+              <div class="controls">
+                 <input id="utime" name="utime" value="{{$contract.utime}}" type="text" class="form_datetime span11" placeholder="签约时间"  />
+              </div>
+            </div>
+            
+            <notempty name="contract.cid" >
+            <div class="control-group">
+              <label class="control-label">状态</label>
+              <div class="controls">
+                 <select class="select"  name="status" >
+                    <!--<foreach name="statusHash" item="item" key="key" >-->
+                    <!--<option value="{{$key}}" <eq name="key" value="$contract.status"> selected</eq>>{{$item}}</option>-->
+                    <!--</foreach>-->
+                   <foreach name="nowstatic" item="v" key='key'>
+                     <option value="{{$key}}" <if condition="$contract.status eq $key">selected</if> >{{$v}}</option>
+                   </foreach>
+                 <select/>
+
+              </div>
+            </div>
+			</notempty>
+            
+            <div class="form-actions text-center">
+              <button type="submit" class="btn btn-success">保存</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+    <style>.group{display: none;}</style>
+</block>
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+
+    var f=document.forms.f1;
+    Op_common.ajaxForm($(f),function(obj){
+        if(obj.status==1){
+            Op_common.alert(obj.info,function(){
+                window.location = obj.code;
+            });
+        }else{
+            Op_common.alert(obj.info||'操作失败');
+        }
+    });
+    
+    
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii:ss',
+        showMeridian: false,
+        autoclose: true,
+        minView: 0,
+        todayBtn: true,
+    });
+    
+    
+		
+    $(document).ready(function(){
+     	// Autocomplete on User Supplied data
+   		$('#companyname').change(function() {
+   			$('#cid').val('');
+   		});
+     	$.get('/public/getlist',{status:'0'},function(datas){
+			$('#companyname').autocomplete({
+				lookup:datas,
+				onSelect:function(data){
+					$('#cid').val(data.id);
+					$('#companyname').val(data.value);
+				}
+			});
+     	},'json');
+    });
+    
+    
+</script>
+</block>

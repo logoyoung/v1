@@ -1,0 +1,729 @@
+<?php
+namespace hp\lib;
+/**
+ * Created by PhpStorm.
+ * User: SEELE
+ * Date: 2017/3/29
+ * Time: 9:59
+ */
+
+/**
+ * 消息封包类操作
+ *
+ * Class MsgPackage
+ */
+class MsgPackage
+{
+	/**
+	 * @var 整站的房间ID
+	 */
+	const SOCKET_SITE_LUID = 0;
+
+	/**
+	 * @var 所有在线人数的房间ID
+	 */
+	const SOCKET_ROOM_LUID = 1;
+
+	/**
+	 * 获取直播开始socket消息package
+	 *
+	 * @param int $luid   主播ID
+	 * @param int $liveid 直播ID
+	 *
+	 * @return mixed
+	 */
+	public static function getLiveStartMsgSocketPackage( int $luid, int $liveid )
+	{
+
+		$content = array(
+			't' => 601,
+			'lid' => $liveid
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_ROOM, $content, $luid );
+	}
+
+	/**
+	 * 获取直播结束socket消息package
+	 *
+	 * @param int $luid   主播ID
+	 * @param int $liveid 直播ID
+	 *
+	 * @return mixed
+	 */
+	public static function getLiveEndMsgSocketPackage( int $luid, int $liveid )
+	{
+		$content = array(
+			't' => 602,
+			'lid' => $liveid
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_ROOM, $content, $luid );
+	}
+
+	/**
+	 * 获取用户进入房间通知的socket消息package
+	 *
+	 * @param int    $luid      主播ID
+	 * @param int    $uid       用户ID
+	 * @param string $nick      用户昵称
+	 * @param int    $group     用户所在分组
+	 * @param int    $level     用户等级
+	 * @param string $pic       用户头像
+	 * @param int    $viewCount 观众人数<虚拟人数>
+	 * @param int    $showHead  是否展示头像
+	 * @param int    $showWel   是否发送欢迎信息
+	 * @param int    $isGust    是否为游客
+	 *
+	 * @return mixed
+	 */
+	public static function getUserEnterMsgSocketPackage( int $luid, int $uid, string $nick, int $group, int $level, string $pic, int $viewCount, int $showHead, int $showWel, int $isGust )
+	{
+		$content = array(
+			't' => 501,
+			'tm' => time(),
+			'nn' => $nick,
+			'uid' => $uid,
+			'level' => $level,
+			'pic' => $pic,
+			'group' => $group,
+			'viewCount' => $viewCount,
+			'showHead' => $showHead,
+			'showWel' => $showWel,
+			'isGust' => $isGust
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_ROOM, $content, $luid );
+	}
+
+	/**
+	 * 用户成功进入房间回调信息
+	 *
+	 * @param int $luid 主播ID
+	 * @param int $uid  用户ID
+	 * @param int $mid  消息ID
+	 * @param int $e    错误代码
+	 *
+	 * @return mixed
+	 */
+	public static function getUserSuccEnterMsgCallBackSocketpackage( int $luid, int $uid, int $mid, int $e )
+	{
+
+		$content = array(
+			't' => 1104,
+			'mid' => $mid,
+			'e' => $e
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_USER, $content, $luid, $uid );
+	}
+
+	/**
+	 * 获取用户退出房间的socket消息package
+	 *
+	 * @param int $luid      主播ID
+	 * @param int $uid       用户ID
+	 * @param int $viewCount 观看人数<虚拟人数>
+	 * @param int $showHead  是否展示头像
+	 * @param int $showWel   是否欢迎
+	 * @param int $isGust    是否为用户
+	 *
+	 * @return mixed
+	 */
+	public static function getUSerExitMsgSocketPackage( int $luid, int $uid, int $viewCount, int $showHead, int $showWel, int $isGust )
+	{
+		$content = array(
+			't' => 506,
+			'tm' => time(),
+			'uid' => $uid,
+			'viewCount' => $viewCount,
+			'showHead' => $showHead,
+			'showWel' => $showWel,
+			'isGust' => $isGust
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_ROOM, $content, $luid );
+	}
+
+	/**
+	 * 获取用户发言socket消息package
+	 *
+	 * @param int    $luid    主播ID
+	 * @param int    $uid     用户ID
+	 * @param string $nick    主播昵称
+	 * @param string $msg     发送消息
+	 * @param int    $group   用户所在分组
+	 * @param int    $level   用户等级
+	 * @param int    $isPhone 是否为手机用户
+	 * @param int    $msgid   消息ID
+	 *
+	 * @return mixed
+	 */
+	public static function getUserMsgSocketPackage( int $luid, int $uid, string $nick, string $msg, int $group, int $level, int $isPhone, int $msgid )
+	{
+		$content = array(
+			't' => 502,
+			'tm' => time(),
+			'cuid' => $uid,
+			'cunn' => $nick,
+			'msg' => $msg,
+			'msgid' => $msgid,
+			'level' => $level,
+			'group' => $group,
+			'phone' => $isPhone
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_ROOM, $content, $luid );
+	}
+
+	/**
+	 * 用户发言回调socket消息package
+	 *
+	 * @param int $luid 主播ID
+	 * @param int $uid  用户ID
+	 * @param int $mid  消息ID
+	 * @param int $e    错误代码
+	 *
+	 * @return mixed
+	 */
+	public static function getUserMsgCallBackSocketPackage( int $luid, int $uid, int $mid, int $e )
+	{
+		$content = array(
+			't' => 1100,
+			'mid' => $mid,
+			'e' => $e
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_USER, $content, $luid, $uid );
+	}
+
+	/**
+	 * 获取用户赠送欢朋豆的socket消息package
+	 *
+	 * @param int    $luid        主播ID
+	 * @param int    $uid         用户ID
+	 * @param string $senderNick  送礼人昵称
+	 * @param int    $gid         礼物ID
+	 * @param string $giftName    礼物名称
+	 * @param int    $sendNum     送礼数量
+	 * @param int    $senderLevel 送礼人等级
+	 * @param int    $isPhone     是否为手机发送
+	 * @param int    $senderGroup 送礼人所在房间组ID
+	 *
+	 * @return mixed
+	 */
+	public static function getSendBeanMsgSocketPackage( int $luid, int $uid, string $senderNick, int $gid, string $giftName, int $sendNum, int $senderLevel, int $isPhone, int $senderGroup )
+	{
+		$content = array(
+			't' => 504,
+			'tm' => time(),
+			'ouid' => $uid,
+			'ounn' => $senderNick,
+			'gid' => $gid,
+			'gnum' => $sendNum,
+			'gname' => $giftName,
+			'level' => $senderLevel,
+			'phone' => $isPhone,
+			'group' => $senderGroup
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_ROOM, $content, $luid );
+	}
+
+	/**
+	 *
+	 * @param $luid
+	 * @param $uid
+	 * @param $e
+	 * @param $mid
+	 * @param $coin
+	 * @param $bean
+	 * @param $cost
+	 *
+	 * @return mixed
+	 */
+	/**
+	 * 用户赠送欢朋豆的回调通知
+	 *
+	 * @param int $luid 主播ID
+	 * @param int $uid  用户ID
+	 * @param int $e    错误代码
+	 * @param int $mid  消息ID
+	 * @param int $coin 用户欢朋币余额
+	 * @param int $bean 用户欢朋豆余额
+	 * @param int $cost 送礼消耗欢朋豆数量
+	 *
+	 * @return mixed
+	 */
+	public static function getSendBeanMsgCallBackSocketPackage( int $luid, int $uid, int $e, int $mid, int $coin, int $bean, int $cost )
+	{
+		$content = array(
+			't' => 1102,
+			'mid' => $mid,
+			'e' => $e,
+			'cost' => (int)$cost,
+			'coin' => $coin,
+			'bean' => $bean,
+//			'costNUm' => $num,
+//			'constamount' => $amount
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_USER, $content, $luid, $uid );
+	}
+
+	/**
+	 *
+	 * @param $luid
+	 * @param $uid
+	 * @param $senderNick
+	 * @param $gid
+	 * @param $giftName
+	 * @param $sendNum
+	 * @param $senderLevel
+	 * @param $isPhone
+	 * @param $senderGroup
+	 * @param $sendTimer
+	 *
+	 * @return mixed
+	 */
+	/**
+	 * 获取用户送礼socket 消息的package
+	 *
+	 * @param int    $luid        主播ID
+	 * @param int    $uid         用户ID
+	 * @param string $senderNick  送礼人昵称
+	 * @param int    $gid         礼物ID
+	 * @param string $giftName    礼物名称
+	 * @param int    $sendNum     赠送数量
+	 * @param int    $senderLevel 送礼人等级
+	 * @param int    $isPhone     是否为手机用户
+	 * @param int    $senderGroup 送礼人所在分组
+	 * @param int    $sendTimer   赠送次数
+	 *
+	 * @return mixed
+	 */
+	public static function getSendGiftMsgSocketPackage( int $luid, int $uid, string $senderNick, int $gid, string $giftName, int $sendNum, int $senderLevel, int $isPhone, int $senderGroup, int $sendTimer )
+	{
+
+		$content = array(
+			't' => 504,
+			'tm' => time(),
+			'ouid' => $uid,
+			'ounn' => $senderNick,
+			'gid' => $gid,
+			'gnum' => $sendNum,
+			'gname' => $giftName,
+			'level' => $senderLevel,
+			'phone' => $isPhone,
+			'group' => $senderGroup,
+			'timmer' => $sendTimer
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_USER, $content, $luid, $uid );
+	}
+
+	/**
+	 * 送礼回调通知
+	 *
+	 * @param int $luid 主播ID
+	 * @param int $uid  用户ID
+	 * @param int $e    错误代码
+	 * @param int $mid  消息ID
+	 * @param int $coin 用户欢朋币余额
+	 * @param int $bean 用户欢朋豆余额
+	 * @param int $cost 送礼消耗欢朋币数量
+	 *
+	 * @return mixed
+	 */
+	public static function getSendGiftMsgCallBackSocketPackage( int $luid, int $uid, int $e, int $mid, int $coin, int $bean, int $cost )
+	{
+
+		$content = array(
+			't' => 1103,
+			'mid' => $mid,
+			'e' => $e,
+			'cost' => (int)$cost,
+			'coin' => $coin,
+			'bean' => $bean,
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_USER, $content, $luid, $uid );
+	}
+
+	/**
+	 * 获取用户赠送飞碟的socket消息package
+	 *
+	 * @param int    $luid       主播ID
+	 * @param int    $uid        用户ID
+	 * @param int    $gid        礼物ID
+	 * @param int    $giftName   礼物名称
+	 * @param string $senderNick 送礼人昵称
+	 * @param string $anchorNick 收礼人昵称
+	 * @param int    $treasureID 宝箱ID
+	 * @param int    $timeout    宝箱开启时间
+	 *
+	 * @return mixed
+	 */
+	public static function getSendFlyingGiftMsgSocketPackage( int $luid, int $uid, int $gid, int $giftName, string $senderNick, string $anchorNick, int $treasureID, int $timeout )
+	{
+		$content = array(
+			't' => 535,
+			'tm' => time(),
+			'uid' => $uid,
+			'nick' => $senderNick,
+			'luid' => $luid,
+			'lunick' => $anchorNick,
+			'gname' => $giftName,
+			'gid' => $gid,
+			'treasureID' => $treasureID,
+			'timeOut' => $timeout
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_ALL, $content, self::ALL_SITE_LUID );
+	}
+
+	/**
+	 * 获取房间禁言socket消息package
+	 *
+	 * @param int    $luid         主播ID
+	 * @param int    $targetUid    目标用户ID
+	 * @param string $targetNick   目标用户nic
+	 * @param int    $adminUid     管理员用户ID
+	 * @param string $adminNick    管理员昵称
+	 * @param int    $adminGroup   管理员所属分组
+	 * @param int    $outTimeStamp 过期时间
+	 *
+	 * @return mixed
+	 */
+	public static function getRoomSilenceUserMsgSocketPackage( int $luid, int $targetUid, string $targetNick, int $adminUid, string $adminNick, int $adminGroup, int $outTimeStamp )
+	{
+		$content = array(
+			't' => 505,
+			'admin' => $adminUid,
+			'adminNick' => $adminNick,
+			'targetUid' => $targetUid,
+			'targetNick' => $targetNick,
+			'group' => $adminGroup,
+			'outTimestamp' => $outTimeStamp
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_ROOM, $content, $luid );
+	}
+
+	/**
+	 * 获取房间开启宝箱的socket消息package
+	 *
+	 * @param int    $luid  主播ID
+	 * @param int    $uid   用户ID
+	 * @param string $unick 用户昵称
+	 * @param int    $num   获取欢朋豆数量
+	 *
+	 * @return mixed
+	 */
+	public static function getOpenTreasureBoxMsgSocketPackage( int $luid, int $uid, string $unick, int $num )
+	{
+		$content = array(
+			't' => '511',
+			'tm' => time(),
+			'num' => $num,
+			'uid' => $uid,
+			'unick' => $unick
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_ROOM, $content, $luid );
+	}
+
+
+	/**
+	 * 获取后台发布警告消息socket消息package
+	 *
+	 * @param int    $luid   主播ID
+	 * @param string $reason 操作原因描述
+	 *
+	 * @return mixed
+	 */
+	public static function getBackManageWaringMsgSocketPackage( int $luid, string $reason )
+	{
+
+		$content = array(
+			't' => 540,
+			'tm' => time(),
+			'reason' => $reason
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_USER, $content, $luid, $luid );
+	}
+
+	/**
+	 * 获取后台发布停止直播socket消息package
+	 *
+	 * @param int    $luid   主播ID
+	 * @param string $reason 操作原因描述
+	 *
+	 * @return mixed
+	 */
+	public static function getBackManageStopLiveMsgSocketPackage( int $luid, string $reason )
+	{
+		$content = array(
+			't' => 541,
+			'tm' => time(),
+			'reason' => $reason
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_USER, $content, $luid, $luid );
+	}
+
+	/**
+	 * 获取后台发布封号消息socket消息package
+	 *
+	 * @param int    $luid   主播ID
+	 * @param string $reason 操作原因描述
+	 *
+	 * @return mixed
+	 */
+	public static function getBackManageClosureMsgSocketPackage( int $luid, string $reason )
+	{
+		$content = array(
+			't' => 542,
+			'tm' => time(),
+			'reason' => $reason
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_USER, $content, $luid, $luid );
+	}
+
+	/**
+	 * 获取房间排行榜变化通知的socket 消息 package
+	 *
+	 * @param int $luid 主播ID
+	 * @param int $type 更新类型，1：日榜，2：周榜，3：总榜
+	 *
+	 * @return mixed
+	 */
+	public static function getRoomRankChangeMsgSocketPackage( int $luid, int $type )
+	{
+		$content = array(
+			't' => 701,
+			'tm' => time(),
+			'type' => $type
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_ROOM, $content, $luid );
+	}
+
+	/**
+	 * 开播提醒通知
+	 *        注意，在应用层上，开播提醒是对应单个用于进行发送，这里返回的socketMsgPackage 是针对单个用户的包
+	 *
+	 * @param int    $luid       主播ID
+	 * @param int    $uid        用户ID
+	 * @param string $msg        消息
+	 * @param string $anchorNick 主播昵称
+	 * @param string $anchorPic  主播头像
+	 *
+	 * @return mixed
+	 */
+	public static function getLiveStartNoticeMsgSocketPackage( int $luid, int $uid, string $msg, string $anchorNick, string $anchorPic )
+	{
+		$content = array(
+			't' => 2001,
+			'tm' => time(),
+			'msg' => $msg,
+			'luid' => $luid,
+			'nick' => $anchorNick,
+			'pic' => $anchorPic
+		);
+		return static::_buildSocketData( SocketSend::SEND_TO_USER, $content, self::SOCKET_ROOM_LUID, $uid );
+	}
+
+	/**
+	 * socket消息编码
+	 *
+	 * @param string $msg
+	 *
+	 * @return mixed|string
+	 */
+	public static function socketMsgEncode( string $msg )
+	{
+		$msgGz = gzdeflate( $msg, 6 );
+		$msgGz = static::_myBase64Encode( $msgGz );
+		return $msgGz;
+	}
+
+	/**
+	 * socket消息解码
+	 *
+	 * @param string $msgGz
+	 *
+	 * @return mixed|string
+	 */
+	public static function socketMsgDecode( string $msgGz )
+	{
+		$msg = static::_myBase64Decode( $msgGz );
+		$msg = gzinflate( $msg );
+		return $msg;
+	}
+
+	/**
+	 * @param string $str
+	 *
+	 * @return mixed|string
+	 */
+	/**
+	 * 私有Base64编码
+	 *
+	 * 将+ / = 字符 转换为 ( ) @ 字符
+	 *
+	 * @param string $str
+	 *
+	 * @return mixed|string
+	 */
+	private static function _myBase64Encode( string $str )
+	{
+		$base64Str = base64_encode( $str );
+		$base64Str = str_replace( array( '+', '/', '=' ), array( '(', ')', '@' ), $base64Str );
+		return $base64Str;
+	}
+
+	/**
+	 * 私有base64解码
+	 *
+	 * 将 ( ) @ 字符转换为 + / =字符
+	 *
+	 * @param string $str
+	 *
+	 * @return mixed|string
+	 */
+	private static function _myBase64Decode( string $str )
+	{
+		$base64Str = str_replace( array( '(', ')', '@' ), array( '+', '/', '=' ), $str );
+		$base64Str = base64_decode( $base64Str );
+		return $base64Str;
+	}
+
+	/**
+	 * 构建socket包数据
+	 *
+	 * @param int   $type    消息类型 标记全局发送，房间发送，还是对个人发送
+	 * @param array $content 消息实体
+	 * @param int   $luid    主播ID
+	 * @param int   $uid     用户ID
+	 *
+	 * @return mixed
+	 */
+	private static function _buildSocketData( int $type, array $content, $luid = 0, $uid = 0 )
+	{
+		$data['type'] = $type;
+		$data['content'] = static::socketMsgEncode( json_encode( $content ) );
+		$data['uid'] = $uid;
+		$data['luid'] = $luid;
+		return $data;
+	}
+
+	/**
+	 * 获取socket消息ID
+	 *
+	 * @return int
+	 */
+	private static function _getSocketMsgID()
+	{
+		return time() + rand( 1000, 9999 );
+	}
+
+
+	/**
+	 * 获取注册短息验证码消息
+	 *
+	 * @param int    $code 短信验证码
+	 * @param string $url  短信附带的URL
+	 *
+	 * @return string
+	 */
+	public static function getRegisterUserCodeMsgSmsPackage( int $code, string $url )
+	{
+		$msg = '【欢朋直播】验证码是' . $code . '，用于注册手机验证，15分钟内有效。切勿泄露他人。欢朋直播App下载：' . $url . "download.php";
+		return $msg;
+	}
+
+	/**
+	 * 获取认证主播短息验证码信息
+	 *
+	 * @param $code
+	 *
+	 * @return string
+	 */
+	public static function getApplyAnchorCodeMsgSmsPackge( int $code )
+	{
+		$msg = '【欢朋直播】验证码是' . $code . '，用于注册手机验证，15分钟内有效。切勿泄露他人。欢朋直播App下载：' . WEB_ROOT_URL . "download.php";
+		return $msg;
+	}
+
+	/**
+	 * 获取找回密码短息验证码信息
+	 *
+	 * @param int $code 短信验证码
+	 *
+	 * @return string
+	 */
+	public static function getFindPasswdCodeMsgSmsPackage( int $code )
+	{
+		$msg = '【欢朋直播】验证码是' . $code . '，用于找回密码手机验证，15分钟内有效。切勿泄露他人。';
+		return $msg;
+	}
+
+	/**
+	 * 获取主播认证失败原因信息
+	 *
+	 * @param string $reason 失败原因
+	 *
+	 * @return string
+	 */
+	public static function getFailedApplyAnchorReasonMsgSmsPackage( string $reason )
+	{
+		$msg = '【欢朋直播】很遗憾，你的主播认证申请未通过审核。原因：' . $reason . '。你可以通过手机客户端或者网站重新提交认证';
+		return $msg;
+	}
+
+	/**
+	 * 获认证主播成功通知信息
+	 *
+	 * @param string $url 下载客户端URL
+	 *
+	 * @return string
+	 */
+	public static function getSuccApplyAnchorMsgSmsPackage( string $url )
+	{
+		$msg = "【欢朋直播】恭喜你！你的主播认证申请通过审核。请前往欢朋直播开启你的直播生涯吧！欢朋直播App下载：$url download.php";
+		return $msg;
+	}
+
+	/**
+	 * 获取绑定手机验证码消息
+	 *
+	 * @param int $code 短信验证码
+	 *
+	 * @return string
+	 */
+	public static function getBindMobileCodeMsgSmsPackage( int $code )
+	{
+		$msg = "【欢朋直播】验证码是$code，用于绑定手机验证，15分钟内有效。切勿泄露他人";
+		return $msg;
+	}
+
+	/**
+	 * 获取认证邮箱消息package
+	 *
+	 * @param int    $uid              用户ID
+	 * @param string $nick             用户昵称
+	 * @param string $emailCallBackUrl 邮箱认证地址
+	 * @param string $emailAddress     邮箱地址
+	 * @param string $key              邮箱发送的认证APPkey
+	 * @param int    $outTime          过期时间
+	 *
+	 * @return string
+	 */
+	public static function getCertifyEmailMsgEmailPackage( int $uid, string $nick, string $emailCallBackUrl, string $emailAddress, string $key = CERT_EMAIL_KEY, int $outTime = EMAIL_CERT_OUTTIME )
+	{
+		//build email certify appkey
+		$certTime = time() + $outTime;
+		$appkey = md5( $uid . $key . $emailAddress . $certTime ) . "-" . $certTime;
+		$data = array(
+			'appkey' => $appkey,
+			'email' => $emailAddress,
+			'uid' => $uid,
+		);
+		$url = WEB_PERSONAL_URL . $emailCallBackUrl . http_build_query( $data );
+		$content = array(
+			'username' => $nick,
+			'url' => $url,
+			'expire' => 24,
+		);
+		ksort( $content );
+		return json_encode( $content );
+	}
+
+}
+
+

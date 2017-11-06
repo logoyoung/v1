@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta content="email=no" name="format-detection" />
+    <title>穿越火线主播招募令</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../css/cfzm/cfzm.css?v=0.0.5"/>
+    <script>
+        (function(){
+            size();
+            window.onresize = function (){
+                size();
+            };
+            function size(){
+                var winW = document.documentElement.clientWidth || document.documentElement.body.clientWidth;
+                document.documentElement.style.fontSize = winW / 23.4375 +'px';
+            }
+        })();
+    </script>
+</head>
+<body>
+<header id="header">
+    <div class="logo">
+        <a href="../index.html">
+            <img src="../img/index/logo_H5.png">
+        </a>
+    </div>
+</header>
+<div class="content">
+    <div class="top-img"></div>
+    <div class="blank-box">
+
+        <div class="blank-1">
+            <div class="blank-1-bg"></div>
+            <p>活动时间 : 5月15日 - 5月31日</p>
+        </div>
+
+        <div class="blank-2">
+            <div class="blank-2-bg"></div>
+            <h2>一．报名方式：</h2>
+            <p>1.加入QQ报名群：<i>630120835</i></p>
+            <p>2.群主进行活动报名，报名内容包括：联系QQ、联系电话、所在区服、角色昵称截图。</p>
+            <p>3.游戏昵称必须以“欢朋直播”为前缀（如：欢朋直播XX），否则无法获得奖励。</p>
+            <p>4.报名成功即视为参与活动</p>
+
+            <h2>二．注意事项</h2>
+            <p>1. 活动直播内容仅《穿越火线：枪战王者》，<i>其它直播内容不计入时长</i>。因分类错误被<i>超管处理3次</i>后将自动取消获奖资格，欢迎各位主播互相监督举报！</p>
+            <p>2. 直播期间，主播<i>恶意黑屏、播放游戏录像挂时长将加倍扣除时长，多次违规取消活动资格。</i></p>
+            <p>3. 务必填写正确的报名信息，因填写错误影响奖励发放，官方概不负责。</p>
+            <p>4.该活动仅限<i>欢朋</i>主播，发现多平台直播的主播将取消活动资格。</p>
+            <p>5.<i>非报名主播无法获得奖励。</i></p>
+
+            <h2>三．奖品发放</h2>
+            <p>1. 活动结束后，我们现金奖励将与工资同时发放，具体通知请关注群公告。欢朋币于7个工作日内发放。</p>
+            <p>2.活动期间，直播表现优异的主播，官方将视情况提供更多推荐资源与培养支持。</p>
+        </div>
+
+        <div class="blank-3">
+            <div class="blank-3-bg"></div>
+            <p>活动期间有效直播时长达到60小时以上：</p>
+            <p>奖励：500欢朋币</p>
+            <p>活动期间直播时长最长（70小时以上）的5位主播可额外获得</p>
+            <p>第一名：100元</p>
+            <p>第二、三名：60元</p>
+            <p><i>非签约主播满足以上要求，需完成签约《穿越火线》主播可获得对应奖励并且有额外签约奖励。</i></p>
+            <div style="height: 4rem;"></div>
+        </div>
+    </div>
+</div>
+<div class="hp_download">
+    <img src="../img/index/closeBtn.png" class="close">
+    <figure>
+        <img src="../img/index/hpLogo.jpg">
+        <figcaption>
+            <p>下载App领取欢朋豆</p>
+            <span>精彩手游直播,尽在欢朋!</span>
+        </figcaption>
+    </figure>
+    <a href="../../download.php" class="openApp">下载</a>
+</div>
+</body>
+<script>
+    var closeBtn = document.querySelector('.close');
+    var hp_download = document.querySelector('.hp_download');
+    closeBtn.onclick = function () {
+        hp_download.style.display = 'none';
+    }
+</script>
+</html>

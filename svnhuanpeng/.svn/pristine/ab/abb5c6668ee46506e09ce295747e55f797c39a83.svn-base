@@ -1,0 +1,600 @@
+<?php
+namespace hp\lib;
+use hp;
+use \DBHelperi_huanpeng;
+use hp\lib\User;
+use hp\lib\Anchor;
+use hp\lib\Gift;
+
+/**
+ * 房间操作类文件
+ */
+
+/**
+ * 房间类
+ *
+ * Class LiveRoom
+ * @package hp\lib
+ */
+class LiveRoom
+{
+	/**
+	 * @var int 主播ID
+	 */
+	private $_luid;
+
+	/**
+	 * @var DBHelperi_huanpeng 数据库实例
+	 */
+	private $_db;
+
+	/**
+	 * @var RedisHelp redis 实例
+	 */
+	private $_redis;
+
+	/**
+	 * @var bool debug 模式
+	 */
+	private $_debug = false;
+
+	/**
+	 * @var bool 是否为test模式
+	 */
+	private $_isTest = false;
+
+	/**
+	 * @var array 白名单列表，用于测试
+	 */
+	private $_whiteList = array();
+
+	/**
+	 * LiveRoom constructor.
+	 *
+	 * @param                         $luid    主播ID
+	 * @param DBHelperi_huanpeng|null $db      数据库实例化
+	 * @param RedisHelp|null          $redis   redis实例化
+	 * @param bool                    $debug   调试模式
+	 */
+	public function __construct( $luid, DBHelperi_huanpeng $db = null, RedisHelp $redis = null, $debug = false )
+	{
+		$this->_luid = (int)$luid;
+		if( !$this->_luid )
+		{
+			return false;
+		}
+		if( $db )
+		{
+			$this->_db = $db;
+		}
+		else
+		{
+			$this->_db = new DBHelperi_huanpeng();
+		}
+
+		if( $redis )
+		{
+			$this->_redis = $redis;
+		}
+		else
+		{
+			$this->_redis = new RedisHelp();
+		}
+
+		$this->_debug = $debug;
+		$this->_debug = true;
+		$this->_whiteList = explode( ',', WHITE_LIST );
+	}
+
+	/**
+	 * 用户进入房间
+	 *
+	 * @param int   $uid        用户ID
+	 * @param array $useraddr   用户ip port 122.70.112.11:1231
+	 * @param array $serveraddr 服务器 IP port 122.70.112.11:1231
+	 *
+	 * @return bool
+	 */
+	public function userEnter( int $uid, array $useraddr, array $serveraddr )
+	{
+		list( $userip, $userport ) = explode( ':', $useraddr );
+		list( $serverip, $serverport ) = explode( ':', $serveraddr );
+		$serverip = ip2long( $serverip );
+		$userip = ip2long( $userip );
+
+		// 取用户昵称
+		$isAnchor = $uid == $this->luid ? 1 : 0;
+		$user = $this->_getUser( $uid, $isAnchor );
+
+		if( !$user )
+		{
+			return false;
+		}
+
+		$data = array(
+			'luid' => $this->_luid,
+			'uid' => $uid,
+			'userip' => $userip,
+			'userport' => $userport,
+			'serverip' => $serverip,
+			'serverport' => $serverport
+		);
+
+		$update = array(
+			'serverip' => $serverip,
+			'serverport' => $serverport
+		);
+
+		// 写在线表
+		$sql = $this->_db->insertDuplicate( 'liveroom', $data, $update, true );
+		$res = $this->_db->query( $sql );
+		if( !$res )
+		{
+			$t = "QueryError @ LiveRoom::userEnter($uid, $serveraddr)[{$this->db->errno()}][{$this->db->errstr()}][$sql]";
+			mylog( $t );
+			return false;
+		}
+
+		$this->liveUserCountAdd();
+		$this->setLiveCountPeakValue();
+
+		// 用户是游客，进入不通知
+		if( $uid >= LIVEROOM_ANONYMOUS )
+		{
+			return true;
+		}
+
+		// 写浏览历史表
+		if( $this->luid != PUSH_ROOM_ID )
+		{
+			$stime = date( "Y-m-d H:i:s" );
+
+			$data = array(
+				'uid' => $uid,
+				'luid' => $this->_luid,
+				'stime' => $stime
+			);
+
+			$update = array( 'stime' => $stime );
+
+			$sql = $this->_db->insertDuplicate( 'history', $data, $update, true );
+
+			$res = $this->db->query( $sql );
+			if( !$res )
+			{
+				$t = "QueryError @ LiveRoom::userEnter($uid, $serveraddr)[{$this->_db->errno()}][{$this->_db->errstr()}][$sql]";
+				mylog( $t );
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 *用户成功进入房间
+	 *
+	 * 用于防止用户进入房间收取不到socket消息
+	 *
+	 * @param int   $uid 用户ID
+	 * @param array $arr 附带数据
+	 *
+	 * @return bool
+	 */
+	public function successEnter( int $uid, array $arr )
+	{
+		$viewCount = $this->getLiveUserCountFictitious();
+		$e = 0;
+
+		if( $uid >= LIVEROOM_ANONYMOUS )
+		{
+			$nick = '';
+			$showHead = 0;
+			$showWel = 0;
+			$isGust = 0;
+			$level = 1;
+			$pic = "";
+			$group = 1;
+		}
+		else
+		{
+//			$isAnchor = $uid == $this->_luid;
+			//todo 这里应该使用用户类返回
+			$userInfo = User::getUserInfo( $uid, $this->_db, User::USER_INFO_DETAIL );
+			$userInfo = $userInfo[$uid];
+//			$user = $this->_getUser( $uid, $isAnchor );
+			if( !$userInfo )
+			{
+				return fasle;
+			}
+			$nick = $userInfo['nick'];
+			$level = (int)$userInfo['level'];
+			$pic = $userInfo['pic'];
+			$group = $this->getUsergroup( $uid );
+			$isGust = 0;
+			$showHead = 1;
+			$showWel = $this->isShowWel( $level );
+		}
+
+		$UserEnterMsgPackage = MsgPackage::getUserEnterMsgSocketPackage( $this->_luid, $uid, $nick, $group, $level, $pic, $viewCount, $showHead, $showWel, $isGust );
+		SocketSend::sendMsg( $UserEnterMsgPackage, $this->_db );
+
+		$enterCallBackMsgPackage = MsgPackage::getUserSuccEnterMsgCallBackSocketpackage( $this->_luid, $uid, $arr['mid'], $e );
+		SocketSend::sendMsg( $enterCallBackMsgPackage, $this->_db );
+
+		return true;
+	}
+
+	/**
+	 * 用户断开连接，或者退出房间
+	 *
+	 * @param int   $uid  用户ID
+	 * @param array $addr 用户IP:port
+	 *
+	 * @return bool
+	 */
+	public function userExit( int $uid, array $addr )
+	{
+		list( $ip, $port ) = explode( ':', $addr );
+		$ip = ip2long( $ip );
+
+		$sql = "DELETE FROM lvieroom WHERE luid = {$this->_luid} AND uid=$uid and userport=$port and userip=$ip";
+		$res = $this->_db->query( $sql );
+
+		if( !$res )
+		{
+			$t = "QueryError @ LiveRoom::userExit($uid)[{$this->db->errno()}][{$this->db->errstr()}][$sql]";
+			mylog( $t );
+			return false;
+		}
+
+		$this->liveUserCountSub();
+		$viewCount = $this->getLiveUserCountFictitious();
+
+		if( $uid >= LIVEROOM_ANONYMOUS )
+		{
+			$showHead = 0;
+			$showWel = 0;
+			$isGust = 1;
+		}
+		else
+		{
+			$showHead = 1;
+			$showWel = 1;
+			$isGust = 0;
+
+			$pick = new PickBean( $uid, $this->db );
+			$pick->exitRoom( $this->_luid );
+		}
+
+		$userExitMsgPackage = MsgPackage::getUSerExitMsgSocketPackage( $this->_luid, $uid, $viewCount, $showHead, $showWel, $isGust );
+		SocketSend::sendMsg( $userExitMsgPackage, $this->_db );
+	}
+
+	/**
+	 * 更新用户在线状态(心跳)
+	 *
+	 * @param int $uid 用户ID
+	 *
+	 * @return bool
+	 */
+	public function userHB( int $uid )
+	{
+		$sql = "UPDATE liveroom SET tm=now() WHERE luid={$this->luid} AND uid=$uid";
+		$res = $this->_db->query( $sql );
+		if( !$res )
+		{
+			$t = "QueryError @ LiveRoom::userHB($uid)[{$this->db->errno()}][{$this->db->errstr()}][$sql]";
+			mylog( $t );
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 用户发言
+	 *
+	 * @param int    $uid        用户ID
+	 * @param array  $params     附带参数包含发言信息
+	 * @param string $useraddr   用户地址ip:port
+	 * @param string $serveraddr 服务器地址ip:port
+	 *
+	 * @return bool
+	 */
+	public function userMsg( int $uid, array $params, string $useraddr, string $serveraddr )
+	{
+		// TODO: userMsg methods
+		if( $uid > LIVEROOM_ANONYMOUS )
+		{
+			roomerror( -3008 );
+		}
+		$errno = 0;
+		//TODO 直播间禁言处理流程
+
+		return true;
+	}
+
+	/**
+	 * 用户送礼
+	 *
+	 * @param int   $uid    用户ID
+	 * @param array $params 附带数据
+	 *
+	 * @return bool
+	 */
+	public function sendGift( int $uid, array $params )
+	{
+		if( $uid >= LIVEROOM_ANONYMOUS )
+		{
+			roomerror( -3008 );
+		}
+
+		$userObject = new User( $uid, $this->_db );
+		$anchorObject = new Anchor( $this->luid, $this->_db );
+
+		$errno = 0;
+		$giftID = (int)$params['gid'];
+		$encpass = $params['enc'];
+		$sendNum = $params['num'];
+		$isSendBean = in_array( $giftID, Gift::SEND_TYPE_BEAN_GIDS );
+		$sendLiveID = $params['liveid'];
+
+		//注意 送礼的时候，需要带上送礼数量
+		if( !$encpass || !$giftID || ( $isSendBean && !$sendNum ) )
+		{
+			$errno = -3520;
+		}
+		else
+		{
+			$liveID = $anchorObject->getLastLiveId();
+			$giftInfo = Gift::getInfo( $giftID );
+			$giftName = $giftInfo['name'];
+			if( $liveID != $sendLiveID || !$giftInfo )
+			{
+				$errno = -3511;
+			}
+			else
+			{
+				if( $code = $userObject->checkStateError( $encpass ) )
+				{
+					$errno = $code;
+				}
+			}
+
+			if( !$errno )
+			{
+				$userInfo = $userObject->getUsers();
+				$anchorInfo = $anchorObject->getUsers();
+				if( !$userInfo )
+				{
+					$errno = 3504;
+				}
+				if( !$anchorInfo )
+				{
+					$errno = -3507;
+				}
+			}
+		}
+
+		if( !$errno )
+		{
+			//TODO: 执行送礼流程
+			if( !$isSendBean )
+			{
+				$costHpCoin = $giftInfo['money'];
+				$desc = json_encode( array() );
+				$finance = new Finance( $this->_db, $this->_redis );
+				$result = $finance->sendGift( $uid, $this->_luid, $costHpCoin, $desc );
+				if( Finance::checkBizResult( $result ) )
+				{
+					$anchorBalance = $finance->getBalance( $this->_luid );
+					//录入主播以及用户余额，为后续更新做准备
+					$anchorInfo['gb'] = $anchorBalance['gb'];
+					$anchorInfo['hb'] = $anchorBalance['hb'];
+					$userInfo['gb'] = $result['gb'];
+					$userInfo['hb'] = $result['hb'];
+				}
+			}
+			else
+			{
+				$result = $userObject->sendBean();
+			}
+		}
+
+		if( !$errno )
+		{
+			$this->setSendGiftTimer( $liveID, $uid, $giftID );
+			$exp = Gift::getSendExp( $giftInfo['type'], $sendNum, $giftInfo['money'], $giftInfo['exp'] );
+			$anchorObject->addAnchorExp( $exp );
+			$userObject->addUserExp( $exp );
+
+			$isPhone = $params['way'];
+			$senderGroup = $this->getUsergroup( $uid );
+			$senderNick = $userInfo['nick'];
+			$senderLevel = $userInfo['level'];
+			$sendTimer = $this->getSendGiftTimer( $liveID, $uid, $giftID );
+			//发送socket信息
+			$sendGiftMsgPackage = MsgPackage::getSendGiftMsgSocketPackage( $this->_luid, $uid, $senderNick, $giftID, $giftName, $sendNum, $senderLevel, $isPhone, $senderGroup, $sendTimer );
+			SocketSend::sendMsg( $sendGiftMsgPackage, $this->_db );
+
+			if( $isSendBean )
+			{
+				$this->_sendBeanSuccessHandle();
+			}
+			else
+			{
+				//add some error recorder
+				$this->_sendGiftSuccessHanlde();
+			}
+		}
+
+		$property = $userObject->getUserProperty();
+		$coin = $property['hpcoin'];
+		$bean = $property['hpbean'];
+		$mid = $params['mid'];
+		if( $isSendBean )
+		{
+			$sendCallBackMsgPackage = MsgPackage::getSendBeanMsgCallBackSocketPackage( $this->_luid, $uid, $errno, $mid, $coin, $bean, $sendNum );
+		}
+		else
+		{
+			$sendCallBackMsgPackage = MsgPackage::getSendGiftMsgCallBackSocketPackage( $this->_luid, $uid, $errno, $mid, $coin, $bean, $costHpCoin );
+		}
+		Gift::addGiftRecord($uid, $this->_luid, $liveID, $giftID, $giftName, $giftInfo['type'], $db);
+		return SocketSend::sendMsg( $sendCallBackMsgPackage, $this->_db );
+	}
+
+	/**
+	 * 用户送礼成功后续处理流程
+	 *
+	 * @todo  test模式送礼处理
+	 *
+	 * @param \hp\lib\Anchor $anchorObj
+	 * @param \hp\lib\User   $userObj
+	 * @param array          $anchorInfo
+	 * @param array          $userInfo
+	 * @param array          $giftInfo
+	 * @param int            $cost
+	 * @param array          $result
+	 *
+	 * @return bool
+	 */
+	private function _sendGiftSuccessHanlde( Anchor $anchorObj, User $userObj, array $anchorInfo, array $userInfo, array $giftInfo, int $cost, array $result, Finance $financeObj )
+	{
+		$uid = $userObj->uid;
+		$giftID = $giftInfo['gid'];
+		$giftName = $giftID['giftName'];
+
+		$anchorObj->updateAnchorCoin( $anchorInfo['gb'] );
+		$userObj->updateUserHpCoin( $userInfo['hb'] );
+
+		$roomRankObj = new RankUpdate( $this->_luid, $this->_redis, $this->_db );
+		$roomRankObj->intoRankList( $uid, $cost );
+
+		if( in_array( $giftID, Gift::SEND_TYPE_GLOBAL_NOTIFY_GIDS ) )
+		{
+			$treasureID = $this->createTreasure( $uid );
+			$flyingGiftMsgPackage = MsgPackage::getSendFlyingGiftMsgSocketPackage( $this->_luid, $uid, $giftID, $giftName, $userInfo['nick'], $anchorInfo['nick'], $treasureID );
+			SocketSend::sendMsg( $flyingGiftMsgPackage, $this->_db );
+		}
+		return true;
+	}
+
+	/**
+	 * 用户送欢朋豆后续处理流程
+	 *
+	 * @param \hp\lib\Anchor $anchorObj
+	 * @param \hp\lib\User   $userObj
+	 * @param array          $anchorInfo
+	 * @param array          $userInfo
+	 * @param array          $giftInfo
+	 * @param int            $cost
+	 * @param array          $result
+	 *
+	 * @return bool
+	 */
+	private function _sendBeanSuccessHandle( Anchor $anchorObj, User $userObj, array $anchorInfo, array $userInfo, array $giftInfo, int $cost, array $result )
+	{
+		return true;
+	}
+
+	/**
+	 * 直播开始
+	 *
+	 * @param int $liveid 直播ID
+	 *
+	 * @return bool
+	 */
+	public function start( $liveid )
+	{
+		//TODO:start
+		$msgPackage = MsgPackage::getLiveStartMsgSocketPackage($this->_luid, $liveid);
+		$this->_sendSocketMsg($msgPackage);
+		return true;
+	}
+
+	/**
+	 * 直播结束
+	 *
+	 * @param int $liveid
+	 *
+	 * @return bool
+	 */
+	public function stop( int $liveid )
+	{
+		//TODO: stop
+		$msgPackage = MsgPackage::getLiveEndMsgSocketPackage($this->_luid, $liveid);
+		$this->_sendSocketMsg($msgPackage);
+		return true;
+	}
+
+	/**
+	 * 创建房间宝箱
+	 *
+	 * @param int $uid 送礼人ID
+	 *
+	 * @return int 成功返回宝箱ID
+	 */
+	public function createRoomTreasure( int $uid )
+	{
+		//TODO createRoomTreasure
+		return 0;
+	}
+
+	/**
+	 * 获取用户在直播间内分组
+	 *
+	 * @param $uid
+	 *
+	 * @return int 用户分组数值 1:普通用户，4:房间管理员，5：主播
+	 */
+	public function getUserGroup( $uid )
+	{
+		//TODO: getUserGroup
+		return 1;
+	}
+
+	/**
+	 * 获取房间在线用户UIDlist
+	 *
+	 * @return array array(123,123,123);
+	 */
+	public function getRoomUser(){
+		//TODO: getRoomUser
+		return array();
+	}
+
+	/**
+	 * 获取主播列表中各自用户ID
+	 *
+	 * @param array              $luidList
+	 * @param DBHelperi_huanpeng $db
+	 *
+	 * @return array array(123 =>array(123,123,123));
+	 */
+	public static function getRoomUserByLuid(array $luidList, DBHelperi_huanpeng $db)
+	{
+		//TODO:getRoomUserByLuid
+		return array();
+	}
+
+
+	/**
+	 * 为测试账号预留的发送房间消息
+	 *
+	 * @param array $content
+	 *
+	 * @return bool
+	 */
+	public function sendTestRoomMsg(array $content)
+	{
+		//TODO:sendTestRoomMsg
+		return true;
+	}
+
+	private function _sendSocketMsg($msgPackage)
+	{
+		SocketSend::sendMsg($msgPackage);
+	}
+}
+

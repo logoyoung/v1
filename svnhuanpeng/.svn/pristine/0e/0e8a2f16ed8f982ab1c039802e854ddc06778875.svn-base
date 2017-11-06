@@ -1,0 +1,63 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>收益审核</a><a href="javascript:;" ></i>欢朋币豆统计</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>欢朋币豆统计</h5>
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10 ln38">
+                <form class="form-search" id='myform'> 选择月份：
+                  <input type="text" name="month" class="form_datetime w100"  value="{{$Think.get.month}}" placeholder="月份">  
+                  <button type="submit" class="btn">搜索</button>
+                  <!--<button type="submit" class="btn" name="export" value="1">导出</button><br>-->
+                </form>
+            </div>
+        <div class="oyat">    
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <tbody>
+				<tr><td><b>截止{{$date}}总余额：</b></td></tr>
+                <tr><td>欢朋豆余额：{{$data.hd}}</td></tr>
+				<tr><td>欢朋币余额：{{$data.hb}}</td></tr>
+				<tr><td>金豆余额：{{$data.gd}}</td></tr>
+				<tr><td>金币余额：{{$data.gb}}</td></tr>
+				<tr><td><b>{{$sdate}}--{{$date}}欢朋币增加数量及来源：</b></td></tr>
+				<tr><td>用户充值：{{$data.hbd}}</td></tr>
+				<tr><td>运营发放：{{$data.ophbd}}</td></tr>
+				<tr><td><b>{{$sdate}}--{{$date}}欢朋豆增加数量及来源：</b></td></tr>
+				<tr><td>活动奖励：{{$data.hdd}}</td></tr>
+				<tr><td>运营发放：{{$data.ophdd}}</td></tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm',
+        showMeridian: false,
+        autoclose: true,
+        startView:3,
+        minView: 3,
+        todayBtn: true,
+        todayHighlight:false,
+    });  
+</script>
+</block>

@@ -1,0 +1,497 @@
+<extend name="Base/matrix" />
+<block name="content">
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>活动管理</a><a href="javascript:;" ></i>添加活动</a></div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>添加活动</h5>
+                        </div>
+                        <div class="widget-content">
+                            <div class="form-horizontal" method="post" action="">
+
+                                <div class="control-group">
+                                    <label class="control-label">活动名称</label>
+                                    <div class="controls">
+                                        <input id="mname" name="mname" value="{{$data.name}}" type="text" placeholder="活动名称" class="span11 tip" data-original-title="">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">活动类型</label>
+                                    <div class="controls">
+                                        <select id="type" class="span2" name="type">
+                                            <option value='-1'  selected>选择活动类型</option>
+                                            <!--<option value='-2' <eq name="Think.get.status" value="-2" >selected</eq>>未上传</option>-->
+                                            <foreach name="types" item="v" key='key'>
+                                                <option value="{{$key}}" >{{$v}}</option>
+                                            </foreach>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">活动封面</label>
+
+                                    <div class="controls">
+                                        <!--<ul class="quick-actions">
+                                            <form id="fileup" method="post" style="display: none" enctype="multipart/form-data" >
+                                            <input id="bgfile" type="file" />
+                                                </form>
+                                            <li class="bg_ly"> <a href="javascript:void(0)"> <i class="icon-external-link"></i> 提交封面图 </a> </li>
+                                        </ul>-->
+
+                                            <input <empty name="id">name="icon" id="picpath" <else/>disabled</empty> value="{{$icon}}" type="hidden" class="span11" placeholder="" />
+                                           <button id="se">选择文件</button>
+                                            <div class="container" id="con" style="margin: 0;width: 150px;" >
+                                                <ul class="unstyled">
+                                                    <td><empty name='icon'><else /> <img id="poster" data-poster="{{$icon}}" alt="" src="http://{{$conf.domain-img}}{{$icon}}"> </empty></td>
+                                                </ul>
+                                            </div>
+                                            <!--<div class="container" id="tools">
+                                                <div class="btn-group">
+                                                    <button id="se">选择文件</button>
+                                                </div>
+                                            </div>-->
+
+
+
+                                    </div>
+                                </div>
+
+                                <div id="out">
+                                <div class="control-group">
+                                    <label class="control-label">优惠券</label>
+                                    <div class="controls">
+                                        <a id="add" class="btn btn-success" onclick="addcoupon()" >添加</a>
+                                    </div>
+                                </div>
+
+                                <div id="coupondiv" style="background: #faf3f3">
+                                    <div class="control-group">
+                                        <label class="control-label">优惠卷</label>
+                                        <div class="controls type0">
+                                            面值：<input class="span1" type="text" placeholder="面值"/>欢朋币&nbsp;&nbsp;&nbsp;&nbsp;
+                                            数量：<input class="span1" type="text" placeholder="数量"/>张&nbsp;&nbsp;&nbsp;&nbsp;
+                                            使用条件：<input class="span2" type="text" placeholder="单笔交易满多少欢朋币可用"/>欢朋币&nbsp;&nbsp;&nbsp;&nbsp;
+                                            有效时间：<input class="span1" type="text"  placeholder="有效期"  />天&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                                主播可使用<input type="checkbox" checked>
+                                                用户可使用<input type="checkbox" checked>
+                                            <input type="text" value="0" style="display:none">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">活动规则</label>
+                                    <div class="controls ">
+
+                                        <div class="control-group">
+                                            <label class="control-label">活动时间</label>
+                                            <div class="controls ">
+                                                <input type="text" id="timestart" name="timestart" class="form_datetime w100"  value="{{$Think.get.timestart}}" placeholder="开始时间">  <input type="text" id = "timeend" name="timeend" class="form_datetime w100"  value="{{$Think.get.timeend}}" placeholder="结束时间">
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">活动链接有效期</label>
+                                            <div class="controls ">
+                                                <input class="" id="expire" type="text" placeholder="有效天数"/>天
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">一个链接可领取优惠券数量</label>
+                                            <div class="controls ">
+                                                <input class="" id="limit" type="text" value="5" placeholder="领取限制"/>个 (推荐默认值为5，分享领取生效，数量不得超过优惠券总数)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">一个链接一个用户领取限制</label>
+                                            <div class="controls ">
+                                                <input class="" id="samelimit" type="text" value="1" placeholder="领取限制"/>个 (推荐默认值为1，分享领取生效)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">没人每天可领取的数量</label>
+                                            <div class="controls ">
+                                                <input class="" id="sameactivitylimit" value="1" type="text" placeholder="领取限制"/>个 (推荐默认值为1，分享领取生效)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">领取方式</label>
+                                            <div class="controls ">
+                                              <select id="getway">
+                                                  <option value="1">直接领取</option>
+                                                  <option value="2">分享领取</option>
+                                              </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                    <div class="form-actions">
+                                        <button id="submit" class="btn btn-success" onclick="submit1()">保存</button>
+
+                                    </div>
+                                    </div>
+                            <div id="in" style="display: none">
+                                <div class="control-group">
+                                    <label class="control-label">添加优惠券</label>
+                                    <div class="controls">
+                                    </div>
+                                </div>
+
+                                <div id="coupondiv2" style="background: #faf3f3">
+                                    <!--<table class="table table-bordered table-striped" style="width: 100%">
+                                        <thead>
+                                        <tr>
+                                            <th>名称</th>
+                                            <th>面值（欢朋币）</th>
+                                            <th>数量</th>
+                                            <th>使用条件（满减）</th>
+                                            <th>有效期（天）</th>
+                                            <th>主播可使用</th>
+                                            <th>用户可使用</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr class="odd gradeX">
+                                            <td>优惠券</td>
+                                            <td><input type="text" placeholder="面值" /></td>
+                                            <td><input type="text" placeholder="面值" /></td>
+                                            <td><input type="text" placeholder="面值" /></td>
+                                            <td><input type="text" placeholder="面值" /></td>
+                                            <td><input type="checkbox" checked /></td>
+                                            <td><input type="checkbox" checked /></td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>-->
+                                    <div class="control-group">
+                                        <!--<label class="control-label">优惠卷</label>-->
+
+                                        <div class="controls type0">
+
+
+                                            面&nbsp;值：<input class="span1" type="text" placeholder="面值"/>欢朋币&nbsp;&nbsp;&nbsp;&nbsp;
+                                            数&nbsp;量：<input class="span1" type="text" placeholder="数量"/>张&nbsp;&nbsp;&nbsp;&nbsp;
+                                            使用条件：<input class="span2" type="text" placeholder="单笔交易满多少欢朋币可用"/>欢朋币&nbsp;&nbsp;&nbsp;&nbsp;
+                                            有效期：<input class="span1" type="text"  placeholder="有效期"  />天&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <label style="display: none">
+                                                主播可使用<input  type="checkbox" checked />
+                                                用户可使用<input  type="checkbox" checked /></label>
+                                            <input type="text" value="0" style="display:none">
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">活动时间</label>
+                                            <div class="controls ">
+                                                <input type="text" id="timestart2" name="timestart2" class="form_datetime w100"  value="{{$Think.get.timestart}}" placeholder="开始时间">  <input type="text" id = "timeend2" name="timeend2" class="form_datetime w100"  value="{{$Think.get.timeend}}" placeholder="结束时间">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">用户ID</label>
+                                    <div class="controls">
+                                        <textarea id="uids" name="user_id" class="span11" style="height:150px;"></textarea>
+                                        <div class="alert">
+                                            一行放一个用户ID,如有重复系统会只发送一次
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button id="submit2" class="btn btn-success" onclick="submit2()">保存</button>
+
+                                </div>
+                            </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</block>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+    <script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+    <script src="__RES__plupload/plupload.full.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            if($('#type').val()=='4'){
+                //sysactivity();
+                $('#out').css('display','none');
+                $('#in').css('display','block');
+            }
+            else{
+                $('#in').css('display','none');
+                $('#out').css('display','block');
+            }
+
+            $('.bg_ly').click(function () {
+                $('#bgfile').trigger('click');
+            })
+            // Autocomplete on User Supplied data
+           /* $.get('/public/getlist',{status:'0'},function(datas){
+                $('#companyname').change(function() {
+                    $('#cid').val('');
+                });
+                $('#companyname').autocomplete({
+                    lookup:datas,
+                    onSelect:function(data){
+                        $('#cid').val(data.id);
+                        $('#companyname').val(data.value);
+                    }
+                });
+            },'json');*/
+
+
+            /*$("input[name='radio']").change(function(){
+                var type = $("input[name='radio']:checked").val();
+                if(type=='0'){
+                    $('.type0').css('display','block');
+                    $('.type1').css('display','none');
+                }
+                else{
+                    $('.type0').css('display','none');
+                    $('.type1').css('display','block');
+                }
+            });*/
+
+            $('#type').change(function(){
+                if($(this).val()=='4'){
+                    //sysactivity();
+                    $('#out').css('display','none');
+                    $('#in').css('display','block');
+                }
+                else{
+                    $('#in').css('display','none');
+                    $('#out').css('display','block');
+                }
+            })
+        });
+
+        //上传处理
+        $(function(){
+            var beif=$(window.frameElement);
+
+            function autoHeight(){
+                beif.css('height',$('body').height());
+                beif.css('width','100%');
+            }
+
+            var uploader = new plupload.Uploader({ //实例化一个plupload上传对象
+                browse_button : 'se',
+                url : '/file/up?type=',
+                flash_swf_url : '__RES__plupload/Moxie.swf',
+                silverlight_xap_url : '__RES__plupload/Moxie.xap',
+                multi_selection : false,
+            });
+            uploader.init(); //初始化
+
+            //绑定文件添加进队列事件
+            uploader.bind('FilesAdded',function(uploader,files){
+                //构造html来更新UI
+                var html = '<li id="file-' + files[0].id +'"><p class="file-name">' + files[0].name + '</p><div class="progress progress-striped"><div class="bar" ></div></div></li>';
+                $(html).appendTo('#con ul');
+                uploader.start();
+            });
+
+            //绑定文件上传进度事件
+            uploader.bind('UploadProgress',function(uploader,file){
+                $('#file-'+file.id+' .bar').css('width',file.percent + '%');//控制进度条
+                autoHeight();
+            });
+
+            //绑定文件上传进度事件
+            uploader.bind('FileUploaded',function(uploader,file,responseObject){
+                var json=$.parseJSON(responseObject.response)
+                $('#con ul').replaceWith('<ul><img src= '+json.url+' /></ul>');
+                $('img').load(function(){
+                    autoHeight();
+                    $('#picpath').val(json.picpath);
+                });
+            });
+
+            //上传按钮
+            $('#do').click(function(){
+                uploader.start(); //开始上传
+            });
+            autoHeight();
+
+        });
+
+
+
+        $('.form_datetime').datetimepicker({
+            format: 'yyyy-mm-dd',
+            showMeridian: false,
+            autoclose: true,
+            minView: 2,
+            todayBtn: true,
+        });
+        function submit1() {
+            //活动名称
+            var name = $('#mname').val();
+            //活动类型
+            var type = $('#type').val();
+            //封面
+            var poster = $('#picpath').val();
+            //优惠卷
+            var couponoption = $('#coupondiv .type0');
+            var coupons = [];
+            var coupon = {};
+            for (var i=0;i<couponoption.length;i++){
+                var input = $(couponoption[i]).find('input');
+
+                coupon = {
+                    price:input[0].value,
+                    num:input[1].value,
+                    condition:input[2].value,
+                    couponexpire:input[3].value,
+                    anchor:(function () {
+                        return input[4].checked?1:0;
+                    }()),
+                    user:(function () {
+                        return input[5].checked?1:0;
+                    }()),
+                    cid:input[6].value,
+                };
+                coupons.push(coupon);
+                coupon = {};
+            }
+            //活动时间
+            var timestart = $('#timestart').val();
+            var timeend = $('#timeend').val();
+            //链接有效期
+            var expire = $('#expire').val();
+            //链接领取个数
+            var limit = $('#limit').val();
+            //
+            var samelimit = $('#samelimit').val();
+            var sameactivitylimit = $('#sameactivitylimit').val();
+            //
+            var getway = $('#getway').val();
+            /*
+             var id = $('#id').val();
+             var mname = $('#mname').val();
+             var price = $('#price').val();
+             var condition = $('#condition').val();
+             var valid = $('#valid').val();*/
+            $.ajax({
+                url: '/activity/updatecoupon',
+                data:{name:name,type:type,coupons:coupons,timestart:timestart,timeend:timeend,
+                    expire:expire,limit:limit,samelimit:samelimit,getway:getway,sameactivitylimit:sameactivitylimit,poster:poster},
+                type:'post',
+                dataType:'json',
+                success:function(data){
+                    if(data.status==1){
+                        alert(data.info);
+                        window.location.href = "";
+                    }else{
+                        alert(data.info);
+                        window.location.href = "";
+                    }
+                }
+            })
+        }
+        function submit2() {
+            //活动名称
+            var name = $('#mname').val();
+            //活动类型
+            var type = $('#type').val();
+
+            //封面
+            var poster = $('#picpath').val();
+
+            //活动时间
+            var timestart2 = $('#timestart2').val();
+            var timeend2 = $('#timeend2').val();
+            //优惠卷
+            var couponoption = $('#coupondiv2 .type0');
+            var coupons = [];
+            var coupon = {};
+            for (var i=0;i<couponoption.length;i++){
+                var input = $(couponoption[i]).find('input');
+                coupon = {
+                    price:input[0].value,
+                    num:input[1].value,
+                    condition:input[2].value,
+                    couponexpire:input[3].value,
+                    anchor:(function () {
+                        return input[4].checked?1:0;
+                    }()),
+                    user:(function () {
+                        return input[5].checked?1:0;
+                    }()),
+                    cid:input[6].value,
+                };
+                coupons.push(coupon);
+                coupon = {};
+            }
+            var uids = $('#uids').val();
+            /*//活动时间
+             var timestart = $('#timestart').val();
+             var timeend = $('#timeend').val();
+             //链接有效期
+             var expire = $('#expire').val();
+             //链接领取个数
+             var limit = $('#limit').val();*/
+
+            /*
+             var id = $('#id').val();
+             var mname = $('#mname').val();
+             var price = $('#price').val();
+             var condition = $('#condition').val();
+             var valid = $('#valid').val();*/
+            $.ajax({
+                url: '/activity/updatecoupon',
+                data:{name:name,type:type,coupons:coupons,uids:uids,timestart2:timestart2,timeend2:timeend2,poster:poster},
+                type:'post',
+                dataType:'json',
+                success:function(data){
+                    if(data.status==1){
+                        alert(data.info);
+                        window.location.href = "";
+                    }else{
+                        alert(data.info);
+                        window.location.href = "";
+                    }
+                }
+            })
+        }
+    function addcoupon() {
+        var jsstr= '<div class="control-group">\
+                <label class="control-label">优惠卷</label>\
+                <div class="controls type0">\
+                面值：<input class="span1" type="text" placeholder="面值"/>欢朋币&nbsp;&nbsp;&nbsp;&nbsp;\
+                数量：<input class="span1" type="text" placeholder="数量"/>张&nbsp;&nbsp;&nbsp;&nbsp;\
+                使用条件：<input class="span2" type="text" placeholder="单笔交易满多少欢朋币可用"/>欢朋币&nbsp;&nbsp;&nbsp;&nbsp;\
+                有效时间：<input class="span1" type="text"  placeholder="有效期"  />天&nbsp;&nbsp;&nbsp;&nbsp;\
+                主播可使用<input type="checkbox" checked>\
+                用户可使用<input type="checkbox" checked>\
+                <input type="text" value="0" style="display:none">\
+                </div>\
+                </div>';
+        $('#coupondiv').append(jsstr);
+    }
+    
+    function sysactivity() {
+
+        //addcoupon();
+    }
+
+
+    </script>
+</block>

@@ -1,0 +1,95 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>主播管理</a><a href="javascript:;" ></i>提现列表</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>提现列表</h5>
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10 ln38">
+                <form class="form-search" id='myform'>
+                  <input name='uid' id='uid' type="text"   value="{{$Think.get.uid}}"  placeholder="UID" >
+                  <input type="text" name="month" class="form_datetime w100"  value="{{$Think.get.month}}" placeholder="月份">  
+                  <button type="submit" class="btn">搜索</button>
+                  <button type="submit" class="btn" name="export" value="1">导出详情</button>
+				  <button type="submit" class="btn" name="export" value="2">导出对账单</button><br>
+                </form>
+            </div>
+            
+        <div class="oyat">    
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <th>月份</th>
+                  <th>UID</th>
+                  <th>昵称</th>
+                  <th>首次签约日期</th>
+                  <th>是否禁播</th>
+                  <th>有效时长</th>
+                  <th>有效天数</th>
+                  <th>礼物收益</th>
+                  <th>底薪</th>
+                  <th>奖励</th>
+                  <th>总收入</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr>
+                  <td>{{$item.month}}</td>
+                  <td>{{$item.uid}}</td>
+                  <td>{{$item.nick}}</td>
+                  <td>{{$item.live_start}}</td>
+                  <td>{{$item.is_black}}</td>
+                  <td>{{$item.live_length}}</td>
+                  <td>{{$item.live_day}}</td>
+                  <td>{{$item.wages_gift_edit}}</td>
+                  <td>{{$item.wages_base_edit}}</td>
+                  <td>{{$item.wages_bonuses}}</td>
+                  <td>{{$item['wages_sum']}}</td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm',
+        showMeridian: false,
+        autoclose: true,
+        startView:3,
+        minView: 3,
+        todayBtn: true,
+        todayHighlight:false,
+    });
+    $('.form_datetime2').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        startView:2,
+        minView: 2,
+        todayBtn: true,
+        todayHighlight:false,
+    });    
+</script>
+</block>

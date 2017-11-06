@@ -1,0 +1,45 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>权限管理</a><a href="javascript:;" ></i>角色反查</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span6">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>权限列表</h5>
+            <a href="javascript:;" ><span class="label label-info"> {{$subtitle}}</span></a> </div>
+          <div class="widget-content nopadding">
+            <table id="main" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th width="60%">权限名称</th>
+                  <th>用户组</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="list" item="item" key="key">
+                <tr>
+                  <td>{{$item.menuname}}</td>
+                  <td>
+                      <foreach name="item.rolename" item="it">
+                      {{$it}}|
+                      </foreach>
+                      </td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+          </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="jsadd">
+ 
+</block>

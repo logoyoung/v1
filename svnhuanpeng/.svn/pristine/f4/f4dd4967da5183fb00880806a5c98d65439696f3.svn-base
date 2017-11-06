@@ -1,0 +1,286 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>主播统计</a><a href="javascript:;" ></i>主播列表</a><a href="javascript:;" ></i>主播详情</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"><span class="icon"> <i class="icon-th"></i></span>
+            <h5>主播详情</h5>
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10 ln38">
+                <form class="form-search">
+                  <input type="text" class="w120" name="uid" value="{{$Think.get.uid}}" placeholder="主播id">
+                  <input type="text" name="timestart" class="form_datetime w100"  value="{{$Think.get.timestart}}" placeholder="开始时间">
+				  <input type="text" name="timeend" class="form_datetime w100"  value="{{$Think.get.timeend}}" placeholder="结束时间">
+				  <button type="submit" class="btn">搜索</button>
+                  <br/>
+                  <button type="submit" class="btn" name="export" value="1">导出直播详情</button>
+                  <button type="submit" class="btn" name="export" value="2">导出人气详情</button>
+                  <button type="submit" class="btn" name="export" value="3">导出金币收益详情</button>
+                  <button type="submit" class="btn" name="export" value="4">导出金豆收益详情</button>
+                </form>
+            </div>
+			<div class="oyat">    
+				
+			</div>
+          </div>
+        </div>
+		<div class="widget-box">
+            <div class="widget-title">
+                <h5>直播时长--共{{$data.totalLength}}小时</h5>
+            </div>
+			<div class="widget-content">
+				<div class="oyat" id="length"></div>
+			</div>
+        </div>
+		<div class="widget-box">
+            <div class="widget-title"><h5>人气--人气峰值{{$data.maxPopular}}</h5></div>
+			<div class="widget-content">
+				<div class="oyat" id="popular"></div>
+			</div>
+        </div>
+		<div class="widget-box">
+            <div class="widget-title"><h5>金币收益--共{{$data.totalCoin}}</h5></div>
+			<div class="widget-content">
+				<div class="oyat" id="coin"></div>
+			</div>
+        </div>
+		<div class="widget-box">
+            <div class="widget-title"><h5>金豆收益--共{{$data.totalBean}}</h5></div>
+			<div class="widget-content">
+				<div class="oyat" id="bean"></div>
+			</div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title"><h5>粉丝数量变化曲线图</h5></div>
+			<div class="widget-content">
+				<div class="oyat" id="fans"></div>
+			</div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title"><h5>新增粉丝数量曲线图</h5></div>
+			<div class="widget-content">
+				<div class="oyat" id="newfans"></div>
+			</div>
+        </div>
+      </div>
+      </div>
+    </div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        minView: 2,
+        todayBtn: true,
+    });    
+</script>
+<script>
+	$(function () {
+		$('#length').highcharts({
+			chart: {
+				type: 'line'
+			},
+			title: {
+				text: '直播时长曲线图'
+			},
+			subtitle: {
+				text: '{{$user.nick}}'
+			},
+			xAxis: {
+				categories: [{{$data.strDate}}]
+			},
+			yAxis: {
+				title: {
+					text: '时间(小时)'
+				}
+			},
+			plotOptions: {
+				line: {
+					dataLabels: {
+						enabled: true
+					},
+					enableMouseTracking: false
+				}
+			},
+			series: [{
+				name: "{{$user.nick}}",
+				data: [{{$data.strLength}}]
+				}]
+		});
+
+		$('#popular').highcharts({
+			chart: {
+				type: 'line'
+			},
+			title: {
+				text: '直播人气曲线图'
+			},
+			subtitle: {
+				text: '{{$user.nick}}'
+			},
+			xAxis: {
+				categories: [{{$data.strDate}}]
+			},
+			yAxis: {
+				title: {
+					text: '人气(人)'
+				}
+			},
+			plotOptions: {
+				line: {
+					dataLabels: {
+						enabled: true
+					},
+					enableMouseTracking: false
+				}
+			},
+			series: [{
+				name: "{{$user.nick}}",
+				data: [{{$data.strPopular}}]
+				}]
+		});
+		
+		$('#coin').highcharts({
+			chart: {
+				type: 'line'
+			},
+			title: {
+				text: '金币收益曲线图'
+			},
+			subtitle: {
+				text: '{{$user.nick}}'
+			},
+			xAxis: {
+				categories: [{{$data.strDate}}]
+			},
+			yAxis: {
+				title: {
+					text: '金币数量(个)'
+				}
+			},
+			plotOptions: {
+				line: {
+					dataLabels: {
+						enabled: true
+					},
+					enableMouseTracking: false
+				}
+			},
+			series: [{
+				name: "{{$user.nick}}",
+				data: [{{$data.strCoin}}]
+				}]
+		});
+		
+		$('#bean').highcharts({
+			chart: {
+				type: 'line'
+			},
+			title: {
+				text: '金豆收益曲线图'
+			},
+			subtitle: {
+				text: '{{$user.nick}}'
+			},
+			xAxis: {
+				categories: [{{$data.strDate}}]
+			},
+			yAxis: {
+				title: {
+					text: '金豆数量(个)'
+				}
+			},
+			plotOptions: {
+				line: {
+					dataLabels: {
+						enabled: true
+					},
+					enableMouseTracking: false
+				}
+			},
+			series: [{
+				name: "{{$user.nick}}",
+				data: [{{$data.strBean}}]
+				}]
+		});
+		
+		$('#fans').highcharts({
+			chart: {
+				type: 'line'
+			},
+			title: {
+				text: '粉丝数量变化曲线图'
+			},
+			subtitle: {
+				text: '{{$user.nick}}'
+			},
+			xAxis: {
+				categories: [{{$data.strDate}}]
+			},
+			yAxis: {
+				title: {
+					text: '粉丝数量(人)'
+				}
+			},
+			plotOptions: {
+				line: {
+					dataLabels: {
+						enabled: true
+					},
+					enableMouseTracking: false
+				}
+			},
+			series: [{
+				name: "{{$user.nick}}",
+				data: [{{$data.fans}}]
+				}]
+		});
+		
+		$('#newfans').highcharts({
+			chart: {
+				type: 'line'
+			},
+			title: {
+				text: '新增粉丝数量曲线图'
+			},
+			subtitle: {
+				text: '{{$user.nick}}'
+			},
+			xAxis: {
+				categories: [{{$data.strDate}}]
+			},
+			yAxis: {
+				title: {
+					text: '粉丝数量(人)'
+				}
+			},
+			plotOptions: {
+				line: {
+					dataLabels: {
+						enabled: true
+					},
+					enableMouseTracking: false
+				}
+			},
+			series: [{
+				name: "{{$user.nick}}",
+				data: [{{$data.newfans}}]
+				}]
+		});
+		
+	});
+</script>
+</block>

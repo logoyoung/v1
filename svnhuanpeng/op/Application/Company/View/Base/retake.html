@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>运营平台</title>
+        <meta charset="UTF-8" />
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="__RES__css/bootstrap.min.css" />
+        <link rel="stylesheet" href="__RES__css/bootstrap-responsive.min.css" />
+        <link rel="stylesheet" href="__RES__op-admin/css/matrix-login.css" />
+        <link rel="stylesheet" href="__RES__css/ui-dialog.css" />
+        <link href="__RES__awesome/css/font-awesome.css" rel="stylesheet" />
+        <link href='http://fonts.useso.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div id="loginbox">            
+            <div class="control-group normal_text"><h3><img src="__RES__op-admin/img/login-logo.png" alt="Logo" /></h3></div>
+            <form class="form-vertical" action="">
+                <p class="normal_text">正在找回<b>{{$ac}}</b>的登录密码!</p>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_ly"><i class="icon-lock"></i></span><input type="password" name="p" placeholder="新密码" autofocus />
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_ly"><i class="icon-lock"></i></span><input type="password" name="p1" placeholder="再次输入新密码" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <input type="hidden" name="act" value="do"/>
+                    <span class="pull-left"><a href="/" class="flip-link btn btn-success" id="to-login">&laquo; 返回登录</a></span>
+                    <span class="pull-right"><button type="submit" class="btn btn-info">重置</button></span>
+                </div>
+            </form>
+        </div>
+        <script src="__RES__js/jquery.1.7.2.min.js"></script>
+        <script src="__RES__js/dialog-min.js"></script>
+        <script src="__RES__/op-admin/js/common.js"></script> 
+        <script>Op_common.ajaxForm($(document.forms[0]),function(obj){Op_common.alert(obj.msg)});</script> 
+    </body>
+</html>

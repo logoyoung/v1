@@ -1,0 +1,91 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>推荐管理</a><a href="javascript:;" ></i>已推荐主播</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>已推荐主播:拖动完成排序</h5>
+            </div>
+          <div class="widget-content">
+        <div class="oyat">    
+            <table class="table table-bordered table-striped" id="oCenter" style="" >
+              <thead>
+                <tr>
+                  <th>主播ID</th>
+                  <th>主播昵称</th>
+                  <th>是否直播</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr v="{{$item.uid}}">
+                  <td>{{$item.uid}}</td>
+                  <td>{{$item.nick|default='--'}}</td>
+                  <td>{{$item.islive|default='--'}}</td>
+                  <td><a class="badge badge-info" href="javascript:;" onclick="dos({{$item.uid}},'del')">删除</a></td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+          </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $(function() {
+    	var fixHelperModified = function(e, tr) {
+    	    var $originals = tr.children();
+    	    var $helper = tr.clone();
+    	    $helper.children().each(function(index) {
+    	        $(this).width($originals.eq(index).width())
+    	    });
+    	    return $helper;
+    	},
+   	    updateIndex = function(e, ui) {
+    		var sort = [];
+   	        $('tr', ui.item.parent()).each(function (i) {
+   	        	sort.push($(this).attr('v'));
+   	        });
+			if(sort){
+				sort = sort.join(',');
+				$.post('/recommend/anchorlive',{sort:sort,clinet:2},function(obj){
+					Op_common.alert(obj.msg);
+				});
+			}
+   	    };
+    	$("#oCenter tbody").sortable({
+    	    helper: fixHelperModified,
+    	    stop: updateIndex
+    	}).disableSelection();
+      });
+    
+    function dos(uid,act){//设置首页置顶
+        Op_common.confirm('确认操作?',function(){
+            $.post('/recommend/anchorlivesave',{list:uid,act:act},function(obj){
+            	if(obj.status==1){
+	            	Op_common.alert(obj.msg,function(){location=location;});
+            	}else{
+            		Op_common.alert(obj.msg);
+            	}
+            },'json');
+        });
+    }
+    
+</script>
+</block>

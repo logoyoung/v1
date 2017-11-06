@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/hp.html">\hp</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">127</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">31</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1205600844"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1205600844" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1041491538"></a>
+                                <a href="../namespaces/hp.html" style="margin-left: 30px; padding-left: 0">hp</a>
+            </div>
+            <div id="namespace-1041491538" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1286238146"></a>
+                                <a href="../namespaces/hp.lib.html" style="margin-left: 30px; padding-left: 0">lib</a>
+            </div>
+            <div id="namespace-1286238146" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/hp.lib.Anchor.html">Anchor</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.CDNHelper.html">CDNHelper</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.Finance.html">Finance</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.Gift.html">Gift</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.LiveRoom.html">LiveRoom</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.MailSend.html">MailSend</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.MsgPackage.html">MsgPackage</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.Register.html">Register</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.SmsSend.html">SmsSend</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.SocketSend.html">SocketSend</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.Task.html">Task</a></li>
+                                                    <li class="class"><a href="../classes/hp.lib.User.html">User</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/AnchorInterface.html">AnchorInterface</a></li>
+                                                    <li class="interface"><a href="../classes/UserInterface.html">UserInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/BaseInfo.html">BaseInfo</a></li>
+                                                    <li class="class"><a href="../classes/FinanceError.html">FinanceError</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/hp.lib.html">\hp\lib</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\hp\lib</small>MsgPackage</h1>
+                    <p><em>消息封包类操作</em></p>
+                    <p>Class MsgPackage</p>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getLiveStartMsgSocketPackage" class="">getLiveStartMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getLiveEndMsgSocketPackage" class="">getLiveEndMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getUserEnterMsgSocketPackage" class="">getUserEnterMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getUserSuccEnterMsgCallBackSocketpackage" class="">getUserSuccEnterMsgCallBackSocketpackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getUSerExitMsgSocketPackage" class="">getUSerExitMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getUserMsgSocketPackage" class="">getUserMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getUserMsgCallBackSocketPackage" class="">getUserMsgCallBackSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getSendBeanMsgSocketPackage" class="">getSendBeanMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getSendBeanMsgCallBackSocketPackage" class="">getSendBeanMsgCallBackSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getSendGiftMsgSocketPackage" class="">getSendGiftMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getSendGiftMsgCallBackSocketPackage" class="">getSendGiftMsgCallBackSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getSendFlyingGiftMsgSocketPackage" class="">getSendFlyingGiftMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getRoomSilenceUserMsgSocketPackage" class="">getRoomSilenceUserMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getOpenTreasureBoxMsgSocketPackage" class="">getOpenTreasureBoxMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getBackManageWaringMsgSocketPackage" class="">getBackManageWaringMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getBackManageStopLiveMsgSocketPackage" class="">getBackManageStopLiveMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getBackManageClosureMsgSocketPackage" class="">getBackManageClosureMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getRoomRankChangeMsgSocketPackage" class="">getRoomRankChangeMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getLiveStartNoticeMsgSocketPackage" class="">getLiveStartNoticeMsgSocketPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_socketMsgEncode" class="">socketMsgEncode()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_socketMsgDecode" class="">socketMsgDecode()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getRegisterUserCodeMsgSmsPackage" class="">getRegisterUserCodeMsgSmsPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getApplyAnchorCodeMsgSmsPackge" class="">getApplyAnchorCodeMsgSmsPackge()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getFindPasswdCodeMsgSmsPackage" class="">getFindPasswdCodeMsgSmsPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getFailedApplyAnchorReasonMsgSmsPackage" class="">getFailedApplyAnchorReasonMsgSmsPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getSuccApplyAnchorMsgSmsPackage" class="">getSuccApplyAnchorMsgSmsPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getBindMobileCodeMsgSmsPackage" class="">getBindMobileCodeMsgSmsPackage()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method_getCertifyEmailMsgEmailPackage" class="">getCertifyEmailMsgEmailPackage()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#constant_SOCKET_SITE_LUID" class="">SOCKET_SITE_LUID</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#constant_SOCKET_ROOM_LUID" class="">SOCKET_ROOM_LUID</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method__myBase64Encode" class="">_myBase64Encode()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method__myBase64Decode" class="">_myBase64Decode()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method__buildSocketData" class="">_buildSocketData()</a><br />
+                                                                    <a href="../classes/hp.lib.MsgPackage.html#method__getSocketMsgID" class="">_getSocketMsgID()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/MsgPackage.class.html"><div class="path-wrapper">MsgPackage.class.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\hp\lib\MsgPackage</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SOCKET_SITE_LUID" name="constant_SOCKET_SITE_LUID" class="anchor"></a>
+            <article id="constant_SOCKET_SITE_LUID" class="constant">
+                <h3 class="">SOCKET_SITE_LUID</h3>
+                <pre class="signature">SOCKET_SITE_LUID</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SOCKET_ROOM_LUID" name="constant_SOCKET_ROOM_LUID" class="anchor"></a>
+            <article id="constant_SOCKET_ROOM_LUID" class="constant">
+                <h3 class="">SOCKET_ROOM_LUID</h3>
+                <pre class="signature">SOCKET_ROOM_LUID</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getLiveStartMsgSocketPackage" name="method_getLiveStartMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getLiveStartMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getLiveStartMsgSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$liveid</span>) : mixed</pre>
+                <p><em>获取直播开始socket消息package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$liveid </td>
+                                <td><p>直播ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getLiveEndMsgSocketPackage" name="method_getLiveEndMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getLiveEndMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getLiveEndMsgSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$liveid</span>) : mixed</pre>
+                <p><em>获取直播结束socket消息package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$liveid </td>
+                                <td><p>直播ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUserEnterMsgSocketPackage" name="method_getUserEnterMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUserEnterMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUserEnterMsgSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$uid</span>, string  <span class="argument">$nick</span>, integer  <span class="argument">$group</span>, integer  <span class="argument">$level</span>, string  <span class="argument">$pic</span>, integer  <span class="argument">$viewCount</span>, integer  <span class="argument">$showHead</span>, integer  <span class="argument">$showWel</span>, integer  <span class="argument">$isGust</span>) : mixed</pre>
+                <p><em>获取用户进入房间通知的socket消息package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$uid </td>
+                                <td><p>用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$nick </td>
+                                <td><p>用户昵称</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$group </td>
+                                <td><p>用户所在分组</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$level </td>
+                                <td><p>用户等级</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$pic </td>
+                                <td><p>用户头像</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$viewCount </td>
+                                <td><p>观众人数&lt;虚拟人数&gt;</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$showHead </td>
+                                <td><p>是否展示头像</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$showWel </td>
+                                <td><p>是否发送欢迎信息</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$isGust </td>
+                                <td><p>是否为游客</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUserSuccEnterMsgCallBackSocketpackage" name="method_getUserSuccEnterMsgCallBackSocketpackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUserSuccEnterMsgCallBackSocketpackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUserSuccEnterMsgCallBackSocketpackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$uid</span>, integer  <span class="argument">$mid</span>, integer  <span class="argument">$e</span>) : mixed</pre>
+                <p><em>用户成功进入房间回调信息</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$uid </td>
+                                <td><p>用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$mid </td>
+                                <td><p>消息ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$e </td>
+                                <td><p>错误代码</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUSerExitMsgSocketPackage" name="method_getUSerExitMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUSerExitMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUSerExitMsgSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$uid</span>, integer  <span class="argument">$viewCount</span>, integer  <span class="argument">$showHead</span>, integer  <span class="argument">$showWel</span>, integer  <span class="argument">$isGust</span>) : mixed</pre>
+                <p><em>获取用户退出房间的socket消息package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$uid </td>
+                                <td><p>用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$viewCount </td>
+                                <td><p>观看人数&lt;虚拟人数&gt;</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$showHead </td>
+                                <td><p>是否展示头像</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$showWel </td>
+                                <td><p>是否欢迎</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$isGust </td>
+                                <td><p>是否为用户</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUserMsgSocketPackage" name="method_getUserMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUserMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUserMsgSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$uid</span>, string  <span class="argument">$nick</span>, string  <span class="argument">$msg</span>, integer  <span class="argument">$group</span>, integer  <span class="argument">$level</span>, integer  <span class="argument">$isPhone</span>, integer  <span class="argument">$msgid</span>) : mixed</pre>
+                <p><em>获取用户发言socket消息package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$uid </td>
+                                <td><p>用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$nick </td>
+                                <td><p>主播昵称</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$msg </td>
+                                <td><p>发送消息</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$group </td>
+                                <td><p>用户所在分组</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$level </td>
+                                <td><p>用户等级</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$isPhone </td>
+                                <td><p>是否为手机用户</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$msgid </td>
+                                <td><p>消息ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUserMsgCallBackSocketPackage" name="method_getUserMsgCallBackSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUserMsgCallBackSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUserMsgCallBackSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$uid</span>, integer  <span class="argument">$mid</span>, integer  <span class="argument">$e</span>) : mixed</pre>
+                <p><em>用户发言回调socket消息package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$uid </td>
+                                <td><p>用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$mid </td>
+                                <td><p>消息ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$e </td>
+                                <td><p>错误代码</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSendBeanMsgSocketPackage" name="method_getSendBeanMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSendBeanMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSendBeanMsgSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$uid</span>, string  <span class="argument">$senderNick</span>, integer  <span class="argument">$gid</span>, string  <span class="argument">$giftName</span>, integer  <span class="argument">$sendNum</span>, integer  <span class="argument">$senderLevel</span>, integer  <span class="argument">$isPhone</span>, integer  <span class="argument">$senderGroup</span>) : mixed</pre>
+                <p><em>获取用户赠送欢朋豆的socket消息package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$uid </td>
+                                <td><p>用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$senderNick </td>
+                                <td><p>送礼人昵称</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$gid </td>
+                                <td><p>礼物ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$giftName </td>
+                                <td><p>礼物名称</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$sendNum </td>
+                                <td><p>送礼数量</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$senderLevel </td>
+                                <td><p>送礼人等级</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$isPhone </td>
+                                <td><p>是否为手机发送</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$senderGroup </td>
+                                <td><p>送礼人所在房间组ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSendBeanMsgCallBackSocketPackage" name="method_getSendBeanMsgCallBackSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSendBeanMsgCallBackSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSendBeanMsgCallBackSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$uid</span>, integer  <span class="argument">$e</span>, integer  <span class="argument">$mid</span>, integer  <span class="argument">$coin</span>, integer  <span class="argument">$bean</span>, integer  <span class="argument">$cost</span>) : mixed</pre>
+                <p><em>用户赠送欢朋豆的回调通知</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$uid </td>
+                                <td><p>用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$e </td>
+                                <td><p>错误代码</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$mid </td>
+                                <td><p>消息ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$coin </td>
+                                <td><p>用户欢朋币余额</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$bean </td>
+                                <td><p>用户欢朋豆余额</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$cost </td>
+                                <td><p>送礼消耗欢朋豆数量</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSendGiftMsgSocketPackage" name="method_getSendGiftMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSendGiftMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSendGiftMsgSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$uid</span>, string  <span class="argument">$senderNick</span>, integer  <span class="argument">$gid</span>, string  <span class="argument">$giftName</span>, integer  <span class="argument">$sendNum</span>, integer  <span class="argument">$senderLevel</span>, integer  <span class="argument">$isPhone</span>, integer  <span class="argument">$senderGroup</span>, integer  <span class="argument">$sendTimer</span>) : mixed</pre>
+                <p><em>获取用户送礼socket 消息的package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$uid </td>
+                                <td><p>用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$senderNick </td>
+                                <td><p>送礼人昵称</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$gid </td>
+                                <td><p>礼物ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$giftName </td>
+                                <td><p>礼物名称</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$sendNum </td>
+                                <td><p>赠送数量</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$senderLevel </td>
+                                <td><p>送礼人等级</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$isPhone </td>
+                                <td><p>是否为手机用户</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$senderGroup </td>
+                                <td><p>送礼人所在分组</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$sendTimer </td>
+                                <td><p>赠送次数</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSendGiftMsgCallBackSocketPackage" name="method_getSendGiftMsgCallBackSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSendGiftMsgCallBackSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSendGiftMsgCallBackSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$uid</span>, integer  <span class="argument">$e</span>, integer  <span class="argument">$mid</span>, integer  <span class="argument">$coin</span>, integer  <span class="argument">$bean</span>, integer  <span class="argument">$cost</span>) : mixed</pre>
+                <p><em>送礼回调通知</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$uid </td>
+                                <td><p>用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$e </td>
+                                <td><p>错误代码</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$mid </td>
+                                <td><p>消息ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$coin </td>
+                                <td><p>用户欢朋币余额</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$bean </td>
+                                <td><p>用户欢朋豆余额</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$cost </td>
+                                <td><p>送礼消耗欢朋币数量</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSendFlyingGiftMsgSocketPackage" name="method_getSendFlyingGiftMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSendFlyingGiftMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSendFlyingGiftMsgSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$uid</span>, integer  <span class="argument">$gid</span>, integer  <span class="argument">$giftName</span>, string  <span class="argument">$senderNick</span>, string  <span class="argument">$anchorNick</span>, integer  <span class="argument">$treasureID</span>, integer  <span class="argument">$timeout</span>) : mixed</pre>
+                <p><em>获取用户赠送飞碟的socket消息package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$uid </td>
+                                <td><p>用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$gid </td>
+                                <td><p>礼物ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$giftName </td>
+                                <td><p>礼物名称</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$senderNick </td>
+                                <td><p>送礼人昵称</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$anchorNick </td>
+                                <td><p>收礼人昵称</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$treasureID </td>
+                                <td><p>宝箱ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$timeout </td>
+                                <td><p>宝箱开启时间</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRoomSilenceUserMsgSocketPackage" name="method_getRoomSilenceUserMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRoomSilenceUserMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRoomSilenceUserMsgSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$targetUid</span>, string  <span class="argument">$targetNick</span>, integer  <span class="argument">$adminUid</span>, string  <span class="argument">$adminNick</span>, integer  <span class="argument">$adminGroup</span>, integer  <span class="argument">$outTimeStamp</span>) : mixed</pre>
+                <p><em>获取房间禁言socket消息package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$targetUid </td>
+                                <td><p>目标用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$targetNick </td>
+                                <td><p>目标用户nic</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$adminUid </td>
+                                <td><p>管理员用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$adminNick </td>
+                                <td><p>管理员昵称</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$adminGroup </td>
+                                <td><p>管理员所属分组</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$outTimeStamp </td>
+                                <td><p>过期时间</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getOpenTreasureBoxMsgSocketPackage" name="method_getOpenTreasureBoxMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getOpenTreasureBoxMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getOpenTreasureBoxMsgSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$uid</span>, string  <span class="argument">$unick</span>, integer  <span class="argument">$num</span>) : mixed</pre>
+                <p><em>获取房间开启宝箱的socket消息package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$uid </td>
+                                <td><p>用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$unick </td>
+                                <td><p>用户昵称</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$num </td>
+                                <td><p>获取欢朋豆数量</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getBackManageWaringMsgSocketPackage" name="method_getBackManageWaringMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getBackManageWaringMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getBackManageWaringMsgSocketPackage(integer  <span class="argument">$luid</span>, string  <span class="argument">$reason</span>) : mixed</pre>
+                <p><em>获取后台发布警告消息socket消息package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$reason </td>
+                                <td><p>操作原因描述</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getBackManageStopLiveMsgSocketPackage" name="method_getBackManageStopLiveMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getBackManageStopLiveMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getBackManageStopLiveMsgSocketPackage(integer  <span class="argument">$luid</span>, string  <span class="argument">$reason</span>) : mixed</pre>
+                <p><em>获取后台发布停止直播socket消息package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$reason </td>
+                                <td><p>操作原因描述</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getBackManageClosureMsgSocketPackage" name="method_getBackManageClosureMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getBackManageClosureMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getBackManageClosureMsgSocketPackage(integer  <span class="argument">$luid</span>, string  <span class="argument">$reason</span>) : mixed</pre>
+                <p><em>获取后台发布封号消息socket消息package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$reason </td>
+                                <td><p>操作原因描述</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRoomRankChangeMsgSocketPackage" name="method_getRoomRankChangeMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRoomRankChangeMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRoomRankChangeMsgSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$type</span>) : mixed</pre>
+                <p><em>获取房间排行榜变化通知的socket 消息 package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$type </td>
+                                <td><p>更新类型，1：日榜，2：周榜，3：总榜</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getLiveStartNoticeMsgSocketPackage" name="method_getLiveStartNoticeMsgSocketPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getLiveStartNoticeMsgSocketPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getLiveStartNoticeMsgSocketPackage(integer  <span class="argument">$luid</span>, integer  <span class="argument">$uid</span>, string  <span class="argument">$msg</span>, string  <span class="argument">$anchorNick</span>, string  <span class="argument">$anchorPic</span>) : mixed</pre>
+                <p><em>开播提醒通知
+       注意，在应用层上，开播提醒是对应单个用于进行发送，这里返回的socketMsgPackage 是针对单个用户的包</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$uid </td>
+                                <td><p>用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$msg </td>
+                                <td><p>消息</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$anchorNick </td>
+                                <td><p>主播昵称</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$anchorPic </td>
+                                <td><p>主播头像</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_socketMsgEncode" name="method_socketMsgEncode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">socketMsgEncode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">socketMsgEncode(string  <span class="argument">$msg</span>) : mixed|string</pre>
+                <p><em>socket消息编码</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$msg </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_socketMsgDecode" name="method_socketMsgDecode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">socketMsgDecode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">socketMsgDecode(string  <span class="argument">$msgGz</span>) : mixed|string</pre>
+                <p><em>socket消息解码</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$msgGz </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRegisterUserCodeMsgSmsPackage" name="method_getRegisterUserCodeMsgSmsPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRegisterUserCodeMsgSmsPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRegisterUserCodeMsgSmsPackage(integer  <span class="argument">$code</span>, string  <span class="argument">$url</span>) : string</pre>
+                <p><em>获取注册短息验证码消息</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$code </td>
+                                <td><p>短信验证码</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url </td>
+                                <td><p>短信附带的URL</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getApplyAnchorCodeMsgSmsPackge" name="method_getApplyAnchorCodeMsgSmsPackge" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getApplyAnchorCodeMsgSmsPackge()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getApplyAnchorCodeMsgSmsPackge(  <span class="argument">$code</span>) : string</pre>
+                <p><em>获取认证主播短息验证码信息</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$code </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFindPasswdCodeMsgSmsPackage" name="method_getFindPasswdCodeMsgSmsPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getFindPasswdCodeMsgSmsPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFindPasswdCodeMsgSmsPackage(integer  <span class="argument">$code</span>) : string</pre>
+                <p><em>获取找回密码短息验证码信息</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$code </td>
+                                <td><p>短信验证码</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFailedApplyAnchorReasonMsgSmsPackage" name="method_getFailedApplyAnchorReasonMsgSmsPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getFailedApplyAnchorReasonMsgSmsPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFailedApplyAnchorReasonMsgSmsPackage(string  <span class="argument">$reason</span>) : string</pre>
+                <p><em>获取主播认证失败原因信息</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$reason </td>
+                                <td><p>失败原因</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSuccApplyAnchorMsgSmsPackage" name="method_getSuccApplyAnchorMsgSmsPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSuccApplyAnchorMsgSmsPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSuccApplyAnchorMsgSmsPackage(string  <span class="argument">$url</span>) : string</pre>
+                <p><em>获认证主播成功通知信息</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url </td>
+                                <td><p>下载客户端URL</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getBindMobileCodeMsgSmsPackage" name="method_getBindMobileCodeMsgSmsPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getBindMobileCodeMsgSmsPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getBindMobileCodeMsgSmsPackage(integer  <span class="argument">$code</span>) : string</pre>
+                <p><em>获取绑定手机验证码消息</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$code </td>
+                                <td><p>短信验证码</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getCertifyEmailMsgEmailPackage" name="method_getCertifyEmailMsgEmailPackage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getCertifyEmailMsgEmailPackage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getCertifyEmailMsgEmailPackage(integer  <span class="argument">$uid</span>, string  <span class="argument">$nick</span>, string  <span class="argument">$emailCallBackUrl</span>, string  <span class="argument">$emailAddress</span>, string  <span class="argument">$key = CERT_EMAIL_KEY</span>, integer  <span class="argument">$outTime = EMAIL_CERT_OUTTIME</span>) : string</pre>
+                <p><em>获取认证邮箱消息package</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$uid </td>
+                                <td><p>用户ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$nick </td>
+                                <td><p>用户昵称</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$emailCallBackUrl </td>
+                                <td><p>邮箱认证地址</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$emailAddress </td>
+                                <td><p>邮箱地址</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>邮箱发送的认证APPkey</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$outTime </td>
+                                <td><p>过期时间</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__myBase64Encode" name="method__myBase64Encode" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_myBase64Encode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_myBase64Encode(string  <span class="argument">$str</span>) : mixed|string</pre>
+                <p><em>私有Base64编码</em></p>
+                <p>将+ / = 字符 转换为 ( ) @ 字符</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$str </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__myBase64Decode" name="method__myBase64Decode" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_myBase64Decode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_myBase64Decode(string  <span class="argument">$str</span>) : mixed|string</pre>
+                <p><em>私有base64解码</em></p>
+                <p>将 ( ) @ 字符转换为 + / =字符</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$str </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__buildSocketData" name="method__buildSocketData" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_buildSocketData()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_buildSocketData(integer  <span class="argument">$type</span>, array  <span class="argument">$content</span>, integer  <span class="argument">$luid</span>, integer  <span class="argument">$uid</span>) : mixed</pre>
+                <p><em>构建socket包数据</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$type </td>
+                                <td><p>消息类型 标记全局发送，房间发送，还是对个人发送</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$content </td>
+                                <td><p>消息实体</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$luid </td>
+                                <td><p>主播ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$uid </td>
+                                <td><p>用户ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__getSocketMsgID" name="method__getSocketMsgID" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_getSocketMsgID()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_getSocketMsgID() : integer</pre>
+                <p><em>获取socket消息ID</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">MsgPackage.class.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/MsgPackage.class.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/hp.html">\hp</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on 
+Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /usr/lib/php/pear/phpDocumentor/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
+April 10th, 2017 at 10:18.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

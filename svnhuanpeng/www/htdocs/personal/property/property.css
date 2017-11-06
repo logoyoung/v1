@@ -1,0 +1,534 @@
+body{
+    background-color: #eeeeee;
+}
+#property{
+    padding: 0px 20px;
+    position: relative;
+    padding-bottom: 40px;
+}
+.page-title{
+    margin-top: 48px;
+    font-size: 18px;
+    border-bottom: 1px solid #e0e0e0;
+    height: 40px;
+    padding-left: 12px;
+    color:#333;
+}
+.page-title a{
+    color: #333;
+}
+#property .property-top-block{
+    padding: 0px 50px;
+}
+.my-balance{
+    margin-top: -4px;
+    width: 60%;
+    float: left;
+}
+.my-balance .my-balance-title{
+    font-size: 16px;
+}
+.my-balance .today-benefit-title{
+    font-size: 14px;
+}
+.my-balance .control-group{
+    margin: 0 0 20px 0;
+    width: 230px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.my-balance .control-group.total-benefit-group{
+    float: left;
+    width:230px;
+    margin: 20px 0 0 0;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.my-balance .control-group.total-benefit-group .controls{
+    width: 158px;
+    overflow: hidden;
+    margin-left:80px;
+    /*display: inline-block;*/
+}
+
+.my-balance .control-group  .control-label{
+    width: 70px;
+    padding-top: 0px;
+    font-size: 14px;
+    color: #333333;
+}
+
+.my-balance .control-group .controls{
+    margin-left: 90px;
+}
+
+.my-balance .control-label span{
+    float: left;
+}
+.my-balance .control-label .personal_icon{
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    margin-top: -2px;
+}
+.personal_icon.hpbean{
+    background-position: -275px 1px;
+}
+.personal_icon.hpcoin{
+    background-position: -251px 1px;
+}
+.my-balance .total-benefit-coin .total-benefit-time span:first-child{
+    margin-left: 30px;
+}
+
+.my-balance .total-benefit-coin .total-benefit-coin-num ,.my-balance .total-benefit-bean .total-benefit-bean-num{
+    font-size: 20px;
+    color: #ff7800;
+}
+
+.my-balance .total-benefit-coin .control-label,.my-balance .total-benefit-bean .control-label{
+    padding-top:6px;
+    /*display: inline-block;*/
+}
+
+.my-balance .today-benefit .control-label{
+    padding-top: 3px;
+}
+
+.my-balance .today-benefit .today-benefit-coin-num, .my-balance .today-benefit .today-benefit-bean-num{
+    font-size: 16px;
+    color: #ff7800;
+}
+
+
+.other-desc-div{
+    margin-left: 60%;
+    width: 40%;
+    margin-top: 36px;
+}
+
+.other-desc-div .property-option{
+    height:40px;
+    position: relative;
+}
+
+.other-desc-div .property-option #exchange-hpbean{
+    border-color: #ff7800;
+    border-width:2px;
+    background: #fff;
+    padding:0;
+    width:120px;
+    height:40px;
+    font-size:16px;
+    float: left;
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    border-radius:6px;
+    color: #ff7800;
+    line-height: 40px;
+    text-align: center;
+
+}
+
+.other-desc-div .property-option #withdraw{
+    border-color: #ff7800;
+    background-color:#ef6c00;
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    border-radius:6px;
+    color:#FFFFFF;
+    padding:0;
+    float: right;
+    padding:0;
+    font-size:16px;
+    width:122px;
+    height:40px;
+}
+
+#property .withdraw-record{
+    color:#ff7800;
+    font-size: 14px;
+    cursor:pointer;
+    position: absolute;
+    top:0px;
+    right:30px;
+}
+
+#property .withdraw-record .personal_icon{
+    width: 20px;
+    height: 20px;
+    background-position: -159px -25px;
+    float: left;
+    margin-right: 4px;
+}
+
+.other-desc-div .property-option .personal_icon{
+    width: 20px;
+    height: 20px;
+    background-position: -159px -25px;
+    float: left;
+    margin-right: 4px;
+}
+
+
+.other-desc-div .withdraw-rule-explain p{
+    line-height: 28px;
+    color: #666;
+}
+
+.benefit-record{
+    padding: 0 50px;
+}
+.benefit-record .benefit-title{
+    font-size: 16px;
+}
+.benefit-record .benefit-option{
+    border-bottom: 1px solid #e0e0e0;
+    height: 57px;
+}
+
+.benefit-record .benefit-option .select_tab{
+    margin: 20px 0px 0px 20px;
+    float: left;
+}
+.benefit-record .benefit-option .select_tab li{
+    width: 76px;
+    height: 36px;
+    line-height: 36px;
+    border: 1px solid #e0e0e0;
+    font-size: 14px;
+    border-radius: 6px 6px 0px 0px;
+    margin-right: 12px;
+    margin-left: 1px;
+}
+.benefit-record .benefit-option .select_tab li.selected{
+    border-bottom: 0;
+    border-color: #ff9e48;
+    border-width: 2px;
+    margin-right: 10px;
+    margin-left: 0px;
+    background-color:#fff;
+    color:#ff9e48;
+}
+.benefit-record .benefit-option .select-time{
+    float: right;
+    margin-top: 25px;
+    color: #333;
+}
+
+.benefit-record .benefit-option .select-time select {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    padding: 3px 14px 3px 6px;
+    min-width: 40px;
+    outline: 0;
+    background: url("../../static/img/icon/select-arrow.png") no-repeat scroll right center transparent;
+    background-position: 21px 4px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+.benefit-record .benefit-option .select-time select::-ms-expand {display: none;}
+
+.benefit-record .benefit-option .select-time #selectyear{
+    width: 54px;
+    background-position: 35px 4px;
+}
+
+.benefit-record .benefit-option .select-time #query-submit{
+    background-color: #ff9e48;
+    border: 1px solid #ff9e48;
+    border-radius: 4px;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+    padding: 3px 10px;
+}
+
+.benefit-record .benefit-table-div{
+    margin-top: 30px;
+}
+.benefit-record .benefit-table-div .table thead tr{
+    height: 40px;
+}
+.benefit-record .benefit-table-div .table thead tr th{
+    text-align: right;
+    font-size: 16px;
+    color: #333333;
+    border: 1px solid #e0e0e0;
+    font-weight: 200;
+}
+
+.benefit-record .benefit-table-div .table thead tr .th-time{
+    padding-right: 115px;
+    width: 60px;
+    height: 40px;
+}
+.benefit-record .benefit-table-div .table thead tr .th-user{
+    padding-right: 176px;
+    width: 80px;
+}
+
+.benefit-record .benefit-table-div .table thead tr .th-gift{
+    padding-right: 143px;
+    width: 107px;
+}
+
+.benefit-record .benefit-table-div .table thead tr .th-coin{
+    padding-right: 28px;
+}
+
+.benefit-record .benefit-table-div .table tbody tr{
+    height: 60px;
+    font-size: 14px;
+    color: #666666;
+}
+
+.benefit-record .benefit-table-div .table tbody tr td{
+    text-align: left;
+    padding-left: 30px;
+    border: 1px solid #e0e0e0;
+}
+.benefit-record .benefit-table-div .table tbody tr td img{
+    width: 38px;
+    height: 38px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+#withdrawPage{
+    padding: 0px 20px;
+}
+.page-title .sub-title{
+    font-size: 16px;
+}
+#withdrawPage .withdraw-page-notice{
+    margin-top: 60px;
+}
+#withdrawPage .withdraw-page-notice .notice-logo{
+    width: 84px;
+    height: 84px;
+    float: left;
+    border-radius: 100%;
+    margin-right: 30px;
+    margin-left: 248px;
+}
+#withdrawPage .withdraw-page-notice .notice-logo.green{
+    background-color: #dcfecc;
+}
+#withdrawPage .withdraw-page-notice .notice-logo.red{
+    background-color: #ffdad6;
+}
+
+#withdrawPage .withdraw-page-notice .notice-words{
+    margin-top:15px;
+    float: left;
+}
+#withdrawPage .withdraw-page-notice .notice-words p{
+    font-size: 20px;
+    color: #333333;
+}
+#withdrawPage .withdraw-page-notice .notice-words i{
+    font-size: 16px;
+    color: #666666;
+    font-style: normal;
+}
+
+#withdrawPage .withdraw-page-notice .btn{
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #FF7800;
+    color: #FFF;
+    border-color: #FF7800;
+    margin-left: 362px;
+    margin-top: 30px;
+    float: left;
+}
+
+#withdrawPage  .control-label{
+    width: 130px;
+    font-size: 16px;
+    padding-top: 0px;
+    color: #333333;
+}
+#withdrawPage  .controls{
+    margin-left: 150px;
+    color:#666666;
+    line-height: 24px;
+    font-size: 14px;
+}
+.withdraw-page .bank_icon{
+    float: left;
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+    margin-top: 3px;
+}
+.withdraw-page .personal_icon{
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+}
+.withdraw-page .bank-info {
+    font-size: 16px;
+}
+.withdraw-page .balance-info .controls span{
+    float: left;
+    line-height: 24px;
+}
+.withdraw-page .balance-info .controls .num{
+    font-size: 16px;
+    color: #ff9e48;
+    line-height: 20px;
+}
+#withdrawPage .withdraw-page .withdraw-input .control-label{
+    padding-top: 10px;
+}
+.withdraw-page .withdraw-input input[type=text]{
+    padding:13px 10px;
+    line-height: 14px;
+    margin-top: 0px;
+    width: 136px;
+    height: 16px;
+    outline: none;
+}
+
+.withdraw-page .withdraw-input input[type=text]:focus{
+    border-color: #FF7800;
+}
+.withdraw-page .withdraw-input .controls p{
+    font-size: 14px;
+    color: #666666;
+}
+#withdrawPage .withdraw-page .total-money .controls{
+    font-size: 16px;
+}
+.withdraw-page .total-money .controls span{
+    color: #FF7800;
+    font-size: 20px;
+    line-height: 14px;
+}
+.withdraw-page .total-money .controls .RMB-integer{
+    font-size: 30px;
+    line-height: 14px;
+}
+.withdraw-page .total-money .controls .dot{
+    margin:0px -4px 0px -4px;
+}
+.withdraw-page .total-money .controls i{
+    font-style: normal;
+    margin-right: 6px;
+}
+.withdraw-page .total-money .controls em{
+    font-style: normal;
+    color: #999999;
+}
+
+.withdraw-page .withdraw-rule .check-box{
+    height: 14px;
+    width: 14px;
+    float: left;
+    margin-top: 4px;
+    margin-right: 4px;
+    border: 1px solid #e0e0e0;
+}
+.withdraw-page .withdraw-rule .check-box.checked{
+    background-image: url('../../static/img/icon/personal_icon.png');
+    background-position:-164px -142px;
+}
+
+.withdraw-page .withdraw-rule span{
+    color: #333333;
+    cursor: pointer;
+}
+.withdraw-page .withdraw-rule a{
+    color: #ff9e48;
+}
+.withdraw-page .withdraw-rule .agree-rule{
+    cursor:pointer;
+}
+.withdraw-page .withdraw-rule .agree-rule a{
+    color: #333333;
+}
+#withdraw-commit{
+    padding: 12px 58px;
+    font-size: 14px;
+    background-color: #ff7800;
+    border-radius: 4px;
+    border-color: #FF7800;
+    color: #fff;
+}
+
+
+
+.platform-reward{
+    font-size: 14px;
+    color: #20b64a;
+    padding: 2px 12px;
+}
+.today-benefit-display{
+    font-size: 16px;
+    color: #333;
+    padding: 0px 0px 20px 30px;
+}
+.today-benefit-display #today-coin,
+.today-benefit-display #today-bean{
+    font-size: 14px;
+    color: #ff7800;
+}
+.benefit-record .benefit-table-div .table tbody tr:nth-child(2n){
+    background: #fbfbfb;
+}
+.benefit-record .benefit-table-div .table tbody tr td:nth-child(1){
+    border-right: none;
+}
+.benefit-record .benefit-table-div .table tbody tr td:nth-child(2){
+    border-left: none;
+    border-right: none;
+}
+.benefit-record .benefit-table-div .table tbody tr td:nth-child(3){
+    border-left: none;
+    border-right: none;
+}
+.benefit-record .benefit-table-div .table tbody tr td:nth-child(4){
+    border-left: none;
+}
+
+
+/*2017-05-08 zc*/
+/*.exchange_btn{
+	width: 60px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background: #ff7800;
+	color: #fff !important;
+	display: inline-block;
+	vertical-align: top;
+	border-radius: 4px;
+}
+
+.tx_record{
+	font-size: 16px;
+	color: #ff7800 !important;
+	float: right;
+	margin-right: 10px;
+	overflow: hidden;*zoom:1;
+}
+
+.tx_record span{
+	padding-left: 7px;
+}
+
+.exchange-icon{
+	width: 16px;
+	height: 17px;
+	float: left;
+	margin-top: 4px;
+	background: url(../../static/img/personal_icon.png);
+	background-position:27px -51px;
+}
+*/

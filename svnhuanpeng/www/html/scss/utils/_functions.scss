@@ -1,0 +1,47 @@
+
+
+@function imageBackGroundPosition($index, $left:0, $top:0, $rWidth, $rHeight, $row, $horizontal:0){
+  @if($horizontal == 0){
+    $p1 : -(floor(($index - 1)/ $row)) * $rWidth + $left ;
+    $p2 : -(($index - 1) % $row) * $rHeight + $top;
+  }@else{
+    $p1 : -(($index - 1) % $row) * $rWidth + $left;
+    $p2 : -(floor(($index - 1)/ $row)) * $rHeight + $top;
+  }
+  @return $p1 $p2;
+}
+
+/*level.css*/
+@function anchorLevelBackImage($level) {
+  @if ($level < 30) {
+    @return url("#{$anchorLevelIcon}1-20.png");
+  } @else {
+    @return url("#{$anchorLevelIcon}#{$level}.gif");
+  }
+}
+
+@function userLevelBackImage($level){
+  @if ($level < 30) {
+    @return url("#{$userLevelIcon}1-30.png");
+  } @else {
+    @return url("#{$userLevelIcon}#{$level}.gif");
+  }
+}
+
+@function userLevelBackPosition($level){
+  @if($level < 30){
+    @return imageBackGroundPosition($level, 0px, 2px, 46px, 20px, 10);
+  }@else{
+    @return 0 1px;
+  }
+}
+
+@function anchorLevelBackPosition($level){
+  @if($level <= 20){
+    @return imageBackGroundPosition($level, 0px, -2px, 30px, 24px, 10);
+  }@else if($level < 30){
+    @return imageBackGroundPosition($level - 20, -65px, -2px, 30px, 24px, 10);
+  }@else {
+    @return 2px -1px;
+  }
+}

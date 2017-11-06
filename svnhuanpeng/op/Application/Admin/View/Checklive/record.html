@@ -1,0 +1,122 @@
+<extend name="Base/matrix" />
+<block name="content">
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>活动管理</a><a href="javascript:;" ></i>用户优惠券</a></div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>直播检测明细</h5>
+                        </div>
+                        <div class="widget-content">
+                            <div class="text-center mb10 ln38">
+                                <form class="form-search">
+                                    <input type="text" class="w120" name="deviceid" value="{{$Think.get.deviceid}}" placeholder="设备ID">
+                                    <input type="text" class="w120" name="ip" value="{{$Think.get.ip}}" placeholder="IP">
+                                    <input type="text" class="w120" name="uid" value="{{$Think.get.uid}}" placeholder="用户ID">
+                                    <input id="company" type="text" class="w200" name="company" value="{{$Think.get.company}}" placeholder="公司">
+                                   <br/>
+                                    <input type="text" id="timestart" name="timestart" class="form_datetime w100"  value="{{$Think.get.timestart}}" placeholder="开始时间">  <input type="text" id = "timeend" name="timeend" class="form_datetime w100"  value="{{$Think.get.timeend}}" placeholder="结束时间">
+                                    <button type="submit" class="btn">搜索</button>
+                                    <button type="submit" class="btn" name="export" value="1">导出</button>
+                                    <!--<a href="addcoupon" class="btn btn-success">添加优惠卷</a>-->
+                                    <br>
+                                </form>
+                            </div>
+                            <table class="table table-bordered table-striped" >
+                                <thead>
+                                <tr>
+                                    <th style="color:#F00">用户UID</th>
+                                    <th style="color:#F00">昵称</th>
+                                    <th style="color:#F00">累计直播时长</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="dataInfo" item="item">
+                                    <tr>
+                                        <th>{{$item.uid}}</th>
+                                        <th>{{$item.nick}}</th>
+                                        <td>{{$item.length}}</td>
+                                    </tr>
+                                </foreach>
+                                </tbody>
+                            </table>
+
+
+                            <div class="oyat">
+                                <table class="table table-bordered table-striped" id="oCenter" style="">
+                                    <thead>
+                                    <tr>
+
+                                        <th>IP</th>
+                                        <th>设备</th>
+                                        <th>用户UID</th>
+                                        <th>昵称</th>
+                                        <th>公司</th>
+                                        <th>开始时间</th>
+                                        <th>结束时间</th>
+                                        <th>直播时长</th>
+                                        <th>播放录像</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <foreach name="data" item="item">
+                                        <tr>
+                                            <th>{{$item.ip}}</th>
+                                            <th>{{$item.deviceid}}</th>
+                                            <td>{{$item.uid}}</td>
+                                            <td>{{$item.nick}}</td>
+                                            <td>{{$companys[$item['cid']]|default='--'}}</td>
+                                            <td>{{$item.stime}}</td>
+                                            <td>{{$item.etime}}</td>
+                                            <td>{{$item.length}}</td>
+                                            <td><a target="_blank" href="{{$item.url}}">播放录像</a></td>
+                                        </tr>
+                                    </foreach>
+                                    </tbody>
+                                </table>
+                                <div class="pagination alternate text-center">{{$page}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</block>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+    <script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Autocomplete on User Supplied data
+            $.get('/public/getlist',{status:'0'},function(datas){
+                $('#company').change(function() {
+                    $('#cid').val('');
+                });
+                $('#company').autocomplete({
+                    lookup:datas,
+                    onSelect:function(data){
+                        //$('#cid').val(data.id);
+                        $('#company').val(data.value+'|'+data.id);
+                    }
+                });
+            },'json');
+        });
+        $('.form_datetime').datetimepicker({
+            format: 'yyyy-mm-dd',
+            showMeridian: false,
+            autoclose: true,
+            minView: 2,
+            todayBtn: true,
+        });
+
+
+    </script>
+</block>

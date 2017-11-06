@@ -1,0 +1,171 @@
+<extend name="Base/matrix" />
+<block name="content">
+    <img border='1px solid'   src="">
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>资质认证</a><a href="javascript:;" ></i>资质认证列表</a></div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>资质认证列表</h5>
+                        </div>
+                        <div class="widget-content">
+                            <div class="text-center mb10 ln38">
+                                <form class="form-search" id='myform'>
+                                    <input name='name' id='name' type="text" value="{{$Think.get.name}}"  placeholder="用户昵称"  >
+                                    <input name='uid' id='uid' type="text" value="{{$Think.get.uid}}"  placeholder="用户id"  >
+                                    <input name='luid' id='luid' type="text" value="{{$Think.get.luid}}"  placeholder="主播id"  >
+                                    <input name='certid' id='certid' type="text" value="{{$Think.get.orderid}}"  placeholder="订单ID"  >
+                                    <br/>
+                                    <input type="text" id="timestart" name="timestart" class="form_datetime w100"  value="{{$Think.get.timestart}}" placeholder="开始时间">  <input type="text" id = "timeend" name="timeend" class="form_datetime w100"  value="{{$Think.get.timeend}}" placeholder="结束时间">
+                                    <select class="span2" name="status">
+                                        <option value='-2' <eq name="Think.get.status" value="-2" >selected</eq>>选择审核状态</option>
+                                        <!--<option value='-2' <eq name="Think.get.status" value="-2" >selected</eq>>未上传</option>-->
+                                        <foreach name="checkstatus" item="v" key='key'>
+                                            <option value="{{$key}}" <if condition="$Think.get.status eq $key">selected</if> >{{$v}}</option>
+                                        </foreach>
+                                    </select>
+                                    <button type="submit" class="btn">搜索</button>
+                                    <button type="submit" class="btn" name="export" value="1">导出</button><br>
+                                </form>
+                            </div>
+                            <div class="oyat">
+                                <table class="table table-bordered table-striped" id="oCenter" style="">
+                                    <thead>
+                                    <tr>
+                                        <!--<td><input type="checkbox" class="full">全选</td>-->
+                                        <th>提交时间</th>
+                                        <th>订单ID</th>
+                                        <th>用户UID</th>
+                                        <th>用户昵称</th>
+                                        <th>主播UID</th>
+                                        <th>评论</th>
+                                        <th>审核时间</th>
+                                        <th>审核状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class='data'>
+                                    <foreach name="datas" item="item">
+                                        <tr>
+
+                                            <!--<th style="text-align: center"><input type="checkbox" id="{{$item.uid}}" v = "{{$item.pic}}"></th>-->
+                                            <th>{{$item.ctime}}</th>
+                                            <th>{{$item.order_id|default='--'}}</th>
+                                            <th>{{$item.uid|default='--'}}</th>
+                                            <th>{{$item.nick|default='--'}}</th>
+                                            <th>{{$item.cert_uid|default='--'}}</th>
+                                            <th>{{$item.comment|default='--'}}</th>
+                                            <if condition="$item.utime eq '1971-01-01 01:01:01'">
+                                            <th>--</th>
+                                                <else/>
+                                                <th>{{$item.utime|default='--'}}</th>
+                                                </if>
+                                            <th>{{$checkstatus[$item[status]]|default='--'}}</th>
+                                            <th><if  condition="($item.status eq -1 )  " >
+                                                <a class="badge badge-info" onclick="pass('{{$item.id}}','{{$item.uid}}','{{$item.nick}}');">通过</a>
+                                                <a id="unpass{{$item.id}}" href="#myModal" role="button" class="badge badge-info" data-toggle="modal"
+                                                   data-uid="{{$item.uid}}" data-nick="{{$item.nick}}" data-id="{{$item.id}}">拒绝</a>
+                                                <elseif  condition="($item.status eq 2 )  "/>
+                                                已通过
+                                                <!--<a id="unpass{{$item.id}}" href="#myModal" role="button" class="badge badge-info" data-toggle="modal" data-id="{{$item.id}}">拒绝</a>-->
+                                                <elseif  condition="($item.status eq 4 )  "/>
+                                                <!--<a class="badge badge-info" onclick="pass('{{$item.id}}');">通过</a>-->
+                                                已拒绝
+                                                <else/>
+                                                &#45;&#45;
+                                            </if></th>
+                                        </tr>
+                                    </foreach>
+                                    </tbody>
+                                </table>
+                                <div class="pagination alternate text-center">{{$page}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <div id="dataid" style="display: none"></div>
+            <div id="datauid" style="display: none"></div>
+            <div id="datanick" style="display: none"></div>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">拒绝原因</h3>
+        </div>
+        <div class="modal-body">
+            <textarea  style="width: 100%" minlength="5" maxlength="50" id="reason" placeholder="请输入拒绝原因（5～50字）"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            <button class="btn btn-primary" onclick="unpass()">提交</button>
+        </div>
+    </div>
+</block>
+<block name="jsadd">
+    <script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+    <script>
+        $('.form_datetime').datetimepicker({
+            format: 'yyyy-mm-dd',
+            showMeridian: false,
+            autoclose: true,
+            minView: 2,
+            todayBtn: true,
+        });
+        $("a[data-toggle='modal']").on('click', function(e) {
+            $('#dataid').val($(this).attr('data-id'));
+            $('#datauid').val($(this).attr('data-uid'));
+            $('#datanick').val($(this).attr('data-nick'));
+        });
+
+        function unpass(id) {
+            var reason = $('#reason').val();
+            var id = $('#dataid').val();
+            var uid = $('#datauid').val();
+            var nick = $('#datanick').val();
+            if(!reason){
+                alert('请填写拒绝原因');
+                return;
+            }
+            $.ajax({
+                url: '/ywcheck/ywcommentunpass',
+                data:{id:id,uid:uid,nick:nick,reason:reason},
+                type:'post',
+                dataType:'json',
+                success:function(data){
+                    if(data.status==1){
+                        alert(data.info)
+                        window.location.href = "";
+                    }else{
+                        alert(data.info)
+                        window.location.href = "";
+                    }
+                }
+            })
+        }
+        function pass(id,uid,nick) {
+            $.ajax({
+                url: '/ywcheck/ywcommentpass',
+                data:{id:id,uid:uid,nick:nick},
+                type:'post',
+                dataType:'json',
+                success:function(data){
+                    if(data.status==1){
+                        alert(data.info)
+                        window.location.href = "";
+                    }else{
+                        alert(data.info)
+                        window.location.href = "";
+                    }
+                }
+            })
+        }
+
+    </script>
+</block>

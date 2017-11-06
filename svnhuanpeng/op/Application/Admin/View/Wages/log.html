@@ -1,0 +1,136 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <style>
+    .zhengju{
+      width: 50px;
+      height: 50px;
+    }
+
+  </style>
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>审核日志</a><a href="javascript:;" ></i>直播审核</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>直播审核日志</h5>
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10">
+                <form class="form-search">
+				  <input name='wages_id' id='wages_id' type="text" value="{{$Think.get.wages_id}}"  placeholder="审核id" />
+				  <input name='name' id='name' type="text" value="{{$Think.get.name}}"  placeholder="管理员" />
+                  <input name='uid' id='uid' type="hidden" value="{{$Think.get.uid}}" />
+                  <input type="text" id="timestart" name="timestart" class="form_datetime w100"  value="{{$Think.get.timestart}}" placeholder="开始时间">  <input type="text" id = "timeend" name="timeend" class="form_datetime w100"  value="{{$Think.get.timeend}}" placeholder="结束时间" />
+                  <select name="type">
+                      <option value="">选择操作类型</option>
+                      <foreach name="types" key="key" item="item">
+                          <option value="{{$key}}" <eq name = "key" value= "$Think.get.type" >selected</eq>> {{$item}}</option>
+                      </foreach>
+                  </select>
+                  <input type="hidden" name="p" value="1"/>
+                    <button type="submit" class="btn" name="gn">查询</button>
+                    <button type="submit" class="btn" name="export" value="1">导出</button>
+                </form>
+            </div>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>操作</th>
+                  <th>状态</th>
+                  <th>管理员姓名</th>
+                  <th>主播id</th>
+                  <th>主播姓名</th>
+                  <th>公司</th>
+                  <th>描述</th>
+                  <th>操作时间</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr>
+                  <td><p <if condition="$item.wages_id eq 0">  class = 'text-error' </if> >{{$item.type_str|default='--'}}{{$item.company_type_str}}</p></td>
+                  <td>{{$item.status_str|default='--'}}</td>
+                  <td>{{$item.uaname|default='--'}}</td>
+                  <td>{{$item.uid|default='--'}}</td>
+                  <td>{{$item.realname|default='--'}}</td>
+                  <td>{{$item.company_name|default='--'}}</td>
+                  <td>{{$item.note|default='--'}}</td>
+                  <td>{{$item.ctime|default='--'}}</td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    function del(id){
+        Op_common.confirm(('确认删除?'),function(){
+            Op_common.ajax('/loan/loandel',{id:id},function(obj){
+                Op_common.alert(obj.message,function(){
+                    window.location.href="";
+                })
+            })
+        });
+    };
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        startView:2,
+        minView: 2,
+        todayBtn: true,
+    });
+    
+    
+    $(document).ready(function(){
+     	// Autocomplete on User Supplied data
+   		$('#name').change(function() {
+   			$('#uid').val('');
+   		});
+     	$.get('/oplog/getadmins',{status:'0'},function(datas){
+			$('#name').autocomplete({
+				lookup:datas,
+				onSelect:function(data){
+					$('#uid').val(data.id);
+					$('#name').val(data.value);
+				}
+			});
+     	},'json');
+    });
+
+    $(document).ready(function(){
+      // Autocomplete on User Supplied data
+      $('#company').change(function() {
+        $('#cid').val('');
+      });
+      $.get('/public/getlist',{status:'0'},function(datas){
+        $('#company').autocomplete({
+          lookup:datas,
+          onSelect:function(data){
+            $('#cid').val(data.id);
+            $('#company').val(data.value);
+          }
+        }).dblclick(function () {
+          $(this).autocomplete('search', '');
+        });
+      },'json');
+    });
+    
+</script>
+</block>

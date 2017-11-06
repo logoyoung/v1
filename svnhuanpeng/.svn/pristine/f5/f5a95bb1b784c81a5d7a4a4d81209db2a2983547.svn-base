@@ -1,0 +1,7 @@
+{
+    "require": {
+        "endroid/qrcode": "^1.6",
+        "phpmailer/phpmailer": "^5.2",
+        "jpush/jpush": "v3.5.*"
+    }
+}

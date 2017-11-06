@@ -1,0 +1,27 @@
+
+<table class="table table-bordered table-striped" border="1">
+  <thead>
+	<tr>
+	  <th>主播ID</th>
+	  <th>日期</th>
+	  <th>#</th>
+	  <foreach name="hours" item="item">
+	  <th>{{$item}}点</th>
+	  </foreach>
+	</tr>
+  </thead>
+  <tbody>
+  <foreach name="data" item="item" key="key">
+	<tr>
+	  <td>{{$item.uid}}</td>
+	  <td>{{$item.date}}</td>
+	  <td>展示数量<br/>真实数量<br/>次数</td>
+	<foreach name="item" item="item2" key="key2">
+	<if condition="($key2 nheq 'uid') and ($key2 nheq 'date')">
+	  <td>{{$item[$key2]}}</td>
+	  </if>
+	 </foreach>
+	</tr>
+  </foreach>
+  </tbody>
+</table>

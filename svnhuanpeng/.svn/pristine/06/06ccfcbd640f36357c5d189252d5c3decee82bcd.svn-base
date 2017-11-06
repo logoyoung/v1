@@ -1,0 +1,339 @@
+@charset "UTF-8";
+html,
+body {
+  overflow-x: hidden;
+  font-family: "Microsoft YaHei";
+  background-color: #fff;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+html .myRecive-container .myRecive-todayContent,
+body .myRecive-container .myRecive-todayContent {
+  height: 8.33333333rem;
+  position: relative;
+  background: url("../img/background.png") 50% top;
+  background-size: 35% 90%;
+  background-position: -0.5rem 0.9375rem;
+}
+html .myRecive-container .myRecive-todayContent .todayEarning,
+body .myRecive-container .myRecive-todayContent .todayEarning {
+  position: absolute;
+  left: 0.88888889rem;
+  top: 0.88888889rem;
+  color: #ff7800;
+  opacity: 0.7;
+  font-size: 0.875rem;
+}
+html .myRecive-container .myRecive-todayContent .earningBlock,
+body .myRecive-container .myRecive-todayContent .earningBlock {
+  width: 15.625rem;
+  height: 3.4375rem;
+  position: absolute;
+  top: 2.83333333rem;
+  left: 50%;
+  margin-left: -7.8125rem;
+  display: -webkit-flex;
+  display: flex;
+}
+html .myRecive-container .myRecive-todayContent .earningBlock > div,
+body .myRecive-container .myRecive-todayContent .earningBlock > div {
+  width: 33.3333333%;
+  text-align: center;
+}
+html .myRecive-container .myRecive-todayContent .earningBlock .add,
+body .myRecive-container .myRecive-todayContent .earningBlock .add {
+  line-height: 3.4375rem;
+  font-size: 2rem;
+  color: #ff7800;
+}
+html .myRecive-container .myRecive-todayContent .earningBlock .goldValue,
+body .myRecive-container .myRecive-todayContent .earningBlock .goldValue,
+html .myRecive-container .myRecive-todayContent .earningBlock .beanValue,
+body .myRecive-container .myRecive-todayContent .earningBlock .beanValue {
+  font-size: 1.55555556rem;
+  color: #ff7800;
+}
+html .myRecive-container .myRecive-todayContent .earningBlock .goldValue > p:first-of-type,
+body .myRecive-container .myRecive-todayContent .earningBlock .goldValue > p:first-of-type,
+html .myRecive-container .myRecive-todayContent .earningBlock .beanValue > p:first-of-type,
+body .myRecive-container .myRecive-todayContent .earningBlock .beanValue > p:first-of-type {
+  margin-bottom: 0.55555556rem;
+}
+html .myRecive-container .myRecive-todayContent .earningBlock .earning,
+body .myRecive-container .myRecive-todayContent .earningBlock .earning {
+  font-size: 0.88888889rem;
+  color: #ff7800;
+  opacity: 0.7;
+}
+html .myRecive-container .myRecive-allMoney,
+body .myRecive-container .myRecive-allMoney {
+  border-bottom: 1px solid whitesmoke;
+}
+html .myRecive-container .myRecive-allMoney .moneyTitle ,
+body .myRecive-container .myRecive-allMoney .moneyTitle {
+  margin: 0.88888889rem 0 0 0.88888889rem;
+}
+html .myRecive-container .myRecive-allMoney .moneyTitle p,
+body .myRecive-container .myRecive-allMoney .moneyTitle p{
+  color: #282828;
+  height: 2rem;
+  font-size: 0.7777778rem;
+}
+html .myRecive-container .myRecive-allMoney .moneyShow .moneyBox,
+body .myRecive-container .myRecive-allMoney .moneyShow .moneyBox {
+  box-sizing: border-box;
+  margin-bottom: 1.11111111rem;
+  display: flex;
+}
+html .myRecive-container .myRecive-allMoney .moneyShow .moneyBox > div,
+body .myRecive-container .myRecive-allMoney .moneyShow .moneyBox > div {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 50%;
+  padding-left: 0.88888889rem;
+}
+
+html .myRecive-container .myRecive-allMoney .moneyShow .moneyBox > div p,
+body .myRecive-container .myRecive-allMoney .moneyShow .moneyBox > div p {
+  text-align: center;
+}
+html .myRecive-container .myRecive-allMoney .moneyShow .moneyBox > div .goldDesc,
+body .myRecive-container .myRecive-allMoney .moneyShow .moneyBox > div .goldDesc {
+  font-size: 0.77777778rem;
+  color: #282828;
+  background: url("../img/myearnings_icon_jinbi@2x.png") no-repeat left center;
+  background-size: 1.33333333rem;
+}
+html .myRecive-container .myRecive-allMoney .moneyShow .moneyBox > div .beanDesc,
+body .myRecive-container .myRecive-allMoney .moneyShow .moneyBox > div .beanDesc {
+  font-size: 0.77777778rem;
+  color: #282828;
+  background: url("../img/myearnings_icon_jindou@2x.png") no-repeat left center;
+  background-size: 1.33333333rem;
+}
+html .myRecive-container .myRecive-allMoney .moneyShow .moneyBox > div .moenyCount,
+body .myRecive-container .myRecive-allMoney .moneyShow .moneyBox > div .moenyCount {
+  font-size: 1.33333333rem;
+  color: #ff7800;
+  margin-top: 0.5rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+html .myRecive-container .myRecive-allMoney .moneyShow .moneyBox .beanBalance,
+body .myRecive-container .myRecive-allMoney .moneyShow .moneyBox .beanBalance {
+  border-left: 0.0625rem solid #f5f5f5;
+}
+html .myRecive-container .myRecive-allMoney .moneyShow > p,
+body .myRecive-container .myRecive-allMoney .moneyShow > p {
+  font-size: 0.77777778rem;
+  color: #929292;
+  margin: 0 0 0.333333rem 0.88888889rem;
+}
+html .myRecive-container .myRecive-allMoney .moneyShow > p .awardGold,
+body .myRecive-container .myRecive-allMoney .moneyShow > p .awardGold {
+  color: #ff7800;
+}
+html .myRecive-container .myRecive-operationLoc,
+body .myRecive-container .myRecive-operationLoc {
+
+  padding: 1.11111111rem 0.88888889rem;
+}
+html .myRecive-container .myRecive-operationLoc > button,
+body .myRecive-container .myRecive-operationLoc > button {
+  width: 99%;
+  height: 2.66666667rem;
+  line-height: 2.66666667rem;
+  display: block;
+  font-size: 1rem;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 2rem;
+  border: none;
+  background-color: transparent;
+}
+html .myRecive-container .myRecive-operationLoc .change-box,
+body .myRecive-container .myRecive-operationLoc .change-box{
+
+}
+html .myRecive-container .myRecive-operationLoc .change-box>button,
+body .myRecive-container .myRecive-operationLoc .change-box>button{
+  -webkit-appearance: none;
+  width: 48.5%;
+  border-radius: 2rem;
+  background: #fff;
+  height: 2.66666667rem;
+  line-height: 1;
+}
+html .myRecive-container .myRecive-operationLoc .change-box .exchange,
+body .myRecive-container .myRecive-operationLoc .change-box .exchange {
+  color: #ff7800;
+  border: 1px solid #ff7800;
+  background-color: #fff;
+}
+html .myRecive-container .myRecive-operationLoc .exchangeCurrent,
+body .myRecive-container .myRecive-operationLoc .exchangeCurrent {
+  color: #ff7800;
+  border: 1px solid #ff7800;
+  background-color: #fff1e5;
+}
+html .myRecive-container .myRecive-operationLoc .withdraw,
+body .myRecive-container .myRecive-operationLoc .withdraw {
+  margin-top: 1.11111111rem;
+  background-color: #ff7800;
+  color: #ffffff;
+}
+html .myRecive-container .myRecive-operationLoc .withdrawCurrent,
+body .myRecive-container .myRecive-operationLoc .withdrawCurrent {
+  margin-top: 1.11111111rem;
+  background-color: #ff5a00;
+  color: #ffffff;
+}
+html .myRecive-container .myRecive-tips,
+body .myRecive-container .myRecive-tips {
+
+  padding:0 0.88888889rem;
+}
+html .myRecive-container .myRecive-tips p,
+body .myRecive-container .myRecive-tips p {
+  font-size: 0.66666667rem;
+  color: #929292;
+  line-height: 1.27777778rem;
+}
+
+html .modal-box,body .modal-box{
+  display: none;
+  position: absolute;
+  z-index: 99999;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  -moz-transition: all 200ms linear;
+  -ms-transition: all 200ms linear;
+  -o-transition: all 200ms linear;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+}
+html .modal-box .error-modal,body .modal-box .error-modal{
+  position: absolute;
+  width: 10rem;
+  height: 7.5rem;
+  left: 50%;
+  top: 50%;
+  z-index: 99999;
+  margin-top: -6.5625rem;
+  margin-left: -5rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  border: 1px solid whitesmoke;
+}
+html .modal-box .error-modal img,body .modal-box .error-modal img{
+  width: 2.25rem;
+  height: 2.25rem;
+  position: absolute;
+  z-index: 999999;
+  left: 50%;
+  top: 50%;
+  margin-left: -1.125rem;
+  margin-top: -2.25rem;
+}
+html .modal-box .error-modal p,body .modal-box .error-modal p{
+  position: absolute;
+  z-index: 99999;
+  left: 0%;
+  right: 0%;
+  top: 50%;
+  margin-top: 0.75rem;
+  width: 100%;
+  height: 1rem;
+  font-size: 0.8125rem;
+  text-align: center;
+  font-family: 微软雅黑;
+  word-break: break-all;
+}
+
+html .modal-box .modal-loading,
+body .modal-box .modal-loading {
+  display: none;
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  left: 50%;
+  top: 50%;
+  margin-left: -2.5rem;
+  margin-top: -5rem;
+  border-radius: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+html .modal-box .modal-loading .icon_loading,
+body .modal-box .modal-loading .icon_loading {
+  position: absolute;
+  z-index: 99999;
+  width: 2.25rem;
+  height: 2.25rem;
+  left: 50%;
+  top: 50%;
+  margin-left: -1.125rem;
+  margin-top: -1.125rem;
+  background: url("../img/icon_loading.png");
+  background-size: contain;
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -moz-animation: run 2s infinite linear;
+  -ms-animation: run 2s infinite linear;
+  -o-animation: run 2s infinite linear;
+  -webkit-animation: run 2s infinite linear;
+  -flyme-animation: run 2s infinite linear;
+  animation: run 2s infinite linear;
+}
+@-moz-keyframes run {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes run {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes run {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

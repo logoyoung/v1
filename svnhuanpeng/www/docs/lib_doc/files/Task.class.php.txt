@@ -1,0 +1,160 @@
+<?php
+namespace hp\lib;
+/**
+ * 任务类
+ * User: dong
+ * Date: 17/3/30
+ * Time: 上午9:50
+ */
+class Task
+{
+	public $uid = null;
+	private $_db = null;
+
+	public function __construct( $uid, $db = '' )
+	{
+		if( $uid )
+		{
+			$this->uid = (int)$uid;
+		}
+		if( $db )
+		{
+			$this->_db = $db;
+		}
+		else
+		{
+			$this->_db = new DBHelperi_huanpeng();
+		}
+		return true;
+	}
+
+	/**
+	 * 获取用户任务列表
+	 *
+	 * @return array  array('5'=>array('id'=>'','bean'=>'','type'=>'','coin'=>'','title'=>''))
+	 * key为任务id
+	 */
+	private function _getTaskList()
+	{
+		$list = array();
+		$res = $this->_db->field( 'id, bean, `type`, title' )->where( "status=" . TASK_STAT_ONLINE )->select( 'taskinfo' );
+		if( $res )
+		{
+			foreach ( $res as $v )
+			{
+				$list[$v['id']] = $v;
+			}
+		}
+		return $list;
+	}
+
+	/**
+	 * 获取任务详情
+	 *
+	 * @param  int $taskid 任务id
+	 *
+	 * @return array()
+	 */
+	private function _getTaskInfo( $taskid )
+	{
+		if( empty( $taskid ) )
+		{
+			return false;
+		}
+		$res = $this->_db->where( "id = $taskid and status=" . TASK_STAT_ONLINE )->select( 'taskinfo' );
+		if( $res )
+		{
+			return $res;
+		}
+		else
+		{
+			return array();
+		}
+	}
+
+	/**
+	 * 获取用户已经完成的任务ID列表
+	 *
+	 * @return array  array('6'=>'1')  key任务id;value任务状态
+	 */
+	private function _getFinishedTaskIdList()
+	{
+		$list = array();
+		$res = $this->_db->field( 'taskid,status' )->where( "uid=" . $this->uid )->select( 'task' );
+		if( $res )
+		{
+			foreach ( $res as $v )
+			{
+				$list[$v['taskid']] = $v['status'];
+			}
+		}
+		return $list;
+	}
+
+	/**
+	 * 我的任务列表
+	 *
+	 * @return array
+	 */
+	public function getUserTaskList()
+	{
+		$finishList = $this->_getFinishedTaskIdList();
+		$taskList = $this->_getTaskList();
+
+		$myTaskList = array();
+
+		if( $finishList )
+		{
+			foreach ( $taskList as $key => $row )
+			{
+				if( $finishList[$key] )
+				{
+					$row['status'] = $finishList[$key];
+				}
+				else
+				{
+					$row['status'] = 0;
+				}
+
+				array_push( $myTaskList, $row );
+			}
+		}
+		else
+		{
+			foreach ( $taskList as $key => $row )
+			{
+				$row['status'] = 0;
+				array_push( $myTaskList, $row );
+			}
+		}
+
+		return $myTaskList;
+
+	}
+
+	/**
+	 * 完成任务领取欢豆
+	 *
+	 * @param int $taskid 任务id
+	 *
+	 * @return bool  领取成功true  领取失败false
+	 */
+	public function getBeanByTask( $taskid )
+	{
+		//TODO
+	}
+
+	/**
+	 * 任务是否完成
+	 *
+	 * @param int $taskid
+	 *
+	 * @return bool 完成true   未完成false
+	 */
+	public function isTaskFinish( $taskid )
+	{
+		//TODO
+	}
+
+
+}

@@ -1,0 +1,111 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>推荐管理</a><a href="javascript:;" ></i>主播推荐</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>主播推荐</h5>
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10 ln38">
+                <form class="form-search">
+                  <input type="text" class="w120" name="uid" value="{{$Think.get.uid}}" placeholder="主播id">
+                  <input type="text" class="w120" name="nick" value="{{$Think.get.nick}}" placeholder="主播昵称">
+                  <input type="text" class="w120" name="username" value="{{$Think.get.username}}" placeholder="主播账号">
+                  <br>
+                  <select class="span2" name="yesno">
+                    <option value="-1">推荐状态</option>
+                    <foreach name="yesno" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.yesno eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <button type="submit" class="btn">搜索</button>
+                  <button type="submit" class="btn" name="export" value="1">导出</button><br>
+                </form>
+            </div>
+            
+            
+            
+        <div class="oyat">    
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <th>主播ID</th>
+                  <th>主播昵称</th>
+                  <th>是否已推荐</th>
+                  <th>是否直播</th>
+                  <th>编辑</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr>
+                  <td>{{$item.uid}}</td>
+                  <td>{{$item.nick|default='--'}}</td>
+                  <td>{{$item.status_str|default='--'}}</td>
+                  <td>{{$item.live_str|default='--'}}</td>
+                  <if condition="$item.status eq null">
+	                  <td><a class="badge badge-info" href="javascript:;" onclick="dos({{$item.uid}},'set')">推荐</a></td>
+                  <else/>
+	                  <td><a class="badge badge-info" href="javascript:;" onclick="dos({{$item.uid}},'unset')">取消推荐</a>
+	                  <a class="badge badge-info" href="javascript:;" onclick="dos2({{$item.uid}},'add')">首页置顶</a></td>
+                  </if>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        minView: 2,
+        todayBtn: true,
+    });
+    
+    function dos(uid,t){
+        Op_common.confirm('确认操作?',function(){
+            $.post('/recommend/recommendsave',{uid:uid,type:t},function(obj){
+            	if(obj.status==1){
+	            	Op_common.alert(obj.msg,function(){location=location;});
+            	}else{
+            		Op_common.alert(obj.msg);
+            	}
+            },'json');
+        });
+    }
+    
+    function dos2(uid,act){//设置首页置顶
+        Op_common.confirm('确认操作?',function(){
+            $.post('/recommend/anchorlivesave',{list:uid,act:act},function(obj){
+            	if(obj.status==1){
+	            	Op_common.alert(obj.msg,function(){location=location;});
+            	}else{
+            		Op_common.alert(obj.msg);
+            	}
+            },'json');
+        });
+    }
+    
+</script>
+</block>

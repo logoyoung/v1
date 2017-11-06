@@ -1,0 +1,219 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>旗下主播管理</a><a href="javascript:;" ></i>主播申请列表</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>申请列表--{{$company.name}}</h5>
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10 ln38">
+                <form class="form-search">
+                  <input type="text" class="w120" name="uid" value="{{$Think.get.uid}}" placeholder="主播id" />
+                  <input type="text" class="w120" name="nick" value="{{$Think.get.nick}}" placeholder="主播昵称" />
+                  <input name='companyname' id='companyname' type="text" value="{{$Think.get.companyname}}"  placeholder="公司名称" />
+                  <input name='cid' id='cid' type="hidden"   value="{{$Think.get.cid}}">
+                  <input type="text" id="timestart" name="timestart" class="form_datetime w100"  value="{{$Think.get.timestart}}" placeholder="申请开始时间" />
+                  <input type="text" id = "timeend" name="timeend" class="form_datetime w100"  value="{{$Think.get.timeend}}" placeholder="申请结束时间" />
+				  <select class="span2" name="status">
+                    <option value="-1">请选择状态</option>
+                    <foreach name="checkStatus" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.status eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <button type="submit" class="btn">搜索</button>
+                  <!--<button type="submit" class="btn" name="export" value="1">导出</button><br>-->
+                </form>
+            </div>
+
+        <div class="oyat">    
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <th>UID</th>
+                  <th>昵称/头像</th>
+                  <th>姓名/证件号</th>
+                  <th>录像</th>
+                  <th>游戏及等级</th>
+                  <th>QQ</th>
+                  <th>是否露脸</th>
+                  <th>申请时间</th>
+                  <th>申请公司</th>
+                  <th>公司审核理由</th>
+                  <th>公司审核时间</th>
+                  <th>官方审核理由</th>
+                  <th>官方审核时间</th>
+                  <th>状态</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr>
+                  <td>{{$item.uid}}</td>
+                  <td>{{$item.nick|default='--'}}<br/><img style="width: 40px; height: 40px;" src="{{$item.pic}}"/></td>
+                  <td>{{$item.realname}}<br/>{{$item.papersid}}</td>
+                  <td style="width: 130px; height: 70px;"><a target="_blank" href="{{$item.vfile}}"><img src="{{$item.poster}}"/></a></td>
+                  <td>{{$item.gamename|default='--'}}<br/>{{$item.gamelevel|default='--'}}</td>
+                  <td>{{$item.qq|default='--'}}</td>
+                  <td>{{$item.showface|default='--'}}</td>
+                  <td>{{$item.ctime|default='--'}}</td>
+                  <td>{{$item.company|default='--'}}</td>
+                  <td>{{$item.companyreason}}</td>
+                  <td>{{$item.utime}}</td>
+                  <td>{{$item.adminreason}}</td>
+                  <td>{{$item.admintime}}</td>
+                  <td>{{$checkStatus[$item[status]]|default='--'}}</td>
+                  <td>
+                  <if condition="($item.status eq '2')">
+                  <a class="badge badge-info" data-toggle="modal" data-target="#apply-list" data-uid="{{$item.uid}}" data-id="{{$item.id}}"
+							 data-nick="{{$item.nick}}" data-pic="{{$item.pic}}" >审核</a>
+                  <else/>
+                  <!--<a class="badge badge-info" href="javascript:;">无法操作</a>-->
+                  <if condition="($item.status eq '0')">
+                  	<if condition="($item.failcount egt '3')">
+                  		运营拒绝次数超过3次<br/><a class="badge badge-info" onclick="clearfailcount('{{$item.id}}')">清空</a>
+                  	</if>
+                  </if>
+                  </if>
+                  </td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="apply-list" style="display: none;">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                        <h5>审核用户</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <form id='f1' action='/check/checkapply'  method="post" class="form-horizontal">
+                            <div class="control-group">
+                                <label class="control-label">用户昵称和ID</label>
+                                <div class="controls">
+                                    <input type='text' id='a_nick' value='' readonly="true" class="span5" />
+                                    <input type='text' id='a_uid' value='' readonly="true" class="span3" />
+                                    <input type="hidden" id='a_id' name="id" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">用户头像</label>
+                                <div class="controls">
+                                    <img id="a_pic" style="height:100px; width:100px" src="" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">审核结果</label>
+                                <div class="controls">
+                                    <select name="status" id="status">
+										<option value="4">通过</option>
+										<option value="5">不通过</option>
+									</select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">理由说明</label>
+                                <div class="controls">
+                                    <textarea id="b_reason" name="reason" class="form-control" maxlength="225" rows="2" placeholder="请输入0-225个字符"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-actions text-center">
+                                <button type="submit" class="btn btn-danger">提交</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal">关闭</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        minView: 2,
+        todayBtn: true,
+    }); 
+    
+    Op_common.ajaxForm($('#f1'), function (obj){
+		console.log(obj);
+		if(obj.status=='1'){
+			Op_common.alert(obj.info||'操作成功!',function(){
+				window.location.href = "";
+			});
+		} else {
+			Op_common.alert(obj.info||'操作失败!');
+		}
+	}, {
+		before:function(data){
+		  if($("#status").val() == 5 && $("#b_reason").val() == '') {
+		      alert('请填写理由！');
+              return false;
+		  }
+          $('#apply-list').modal('hide');return data;}
+
+	});
+
+    $("a[data-toggle='modal']").on('click', function(e) {
+		if( $(this).attr('data-target') == '#apply-list' ){
+            $('#a_id').val($(this).attr('data-id'));
+			$('#a_uid').val($(this).attr('data-uid'));
+			$('#a_nick').val($(this).attr('data-nick'));
+			$('#a_pic').attr('src', $(this).attr('data-pic'));
+		}
+    });
+    
+    $('#companyname').change(function() {
+   			$('#cid').val('');
+   		});
+    $.get('/public/getlist',{status:'0'},function(datas){
+        $('#companyname').autocomplete({
+            lookup:datas,
+            onSelect:function(data){
+                $('#cid').val(data.id);
+                $('#companyname').val(data.value);
+            }
+        });
+    },'json');
+    
+    function clearfailcount(id){
+    	Op_common.confirm(('确认操作?'),function(){
+	    	Op_common.ajax('/check/clearfailcount',{id:id},function(o){
+	    		console.log(o);
+	            if(o.status == 1){
+	                Op_common.alert('操作成功!',function(){
+	                    location.href='';
+	                });
+	            }else{
+	                Op_common.alert('操作失败!');
+	            }
+	        });
+    	})
+    }
+</script>
+</block>

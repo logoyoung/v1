@@ -1,0 +1,254 @@
+<?php
+namespace lib;
+
+/**
+ * 注册类
+ * User: dong
+ * Date: 17/3/30
+ * Time: 上午9:50
+ */
+use \DBHelperi_huanpeng;
+
+class Register
+{
+
+	private $_db = null;
+	private $rport = 0;
+
+	public function __construct( $db = '' )
+	{
+		if( $db )
+		{
+			$this->_db = $db;
+		}
+		else
+		{
+			$this->_db = new DBHelperi_huanpeng();
+		}
+		return true;
+	}
+
+	public static function getDB()
+	{
+	    return new DBHelperi_huanpeng();
+	}
+
+	/**
+	 * 校验手机号是否被使用
+	 *
+	 * @param string $mobile 手机号码
+	 * @param object $db
+	 *
+	 * return bool  已使用true  ｜ 未使用 false
+	 */
+	public static function checkMobileIsUsed( $mobile, $db )
+	{
+		if( empty( $mobile ) )
+		{
+			return false;
+		}
+		$res = $db->field( "phone" )->where( "phone=" . $mobile )->limit( 1 )->select( 'userstatic' );
+		if( $res )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * 校验昵称是否被使用
+	 *
+	 * @param  string $nick 昵称
+	 * @param object  $db
+	 *
+	 * return bool  已使用true  ｜ 未使用 false
+	 */
+	public static function checkNickIsUsed( $nick, $db )
+	{
+		if( empty( $nick ) )
+		{
+			return false;
+		}
+		$res = $db->where( "nick='$nick'" )->select( 'userstatic' );
+		if( $res )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * 注册
+	 *
+	 * @param string $mobile   //手机号码
+	 * @param string $nick     //昵称
+	 * @param string $password //密码
+	 *
+	 * @return array  array(
+	 * 'uid'=> '',//用户uid
+	 * 'encpass'=>''// encpass
+	 * );
+	 */
+	public function reg( $mobile, $nick, $password )
+	{
+		if( empty( $mobile ) || empty( $nick ) || empty( $password ) )
+		{
+			return -4013;//参数为空
+		}
+		//校验手机号嘛是否已使用
+		$checkMobileIsUsed = $this->checkMobileIsUsed( $mobile, $this->_db );
+		if( $checkMobileIsUsed )
+		{
+			return -4060;
+		}
+		//校验昵称长度
+		$nick = filterWords( $nick );
+		$checkEmoji = checkEmoji( $nick );
+		if( $checkEmoji )
+		{
+			return -4091;
+		}
+		$nickLength = $this->checkNickLength( $nick );
+		if( !$nickLength )
+		{
+			return -4010;//昵称长度不符合规定
+		}
+		//校验昵称是否使用
+		$checkNickIsUsed = $this->checkNickIsUsed( $nick, $this->_db );
+		if( $checkNickIsUsed )
+		{
+			return -4035;
+		}
+		$checkPwd = $this->checkPassWordLeng( $password );
+		if( !$checkPwd )
+		{
+			return -1003;    //密码长度不符合规定
+		}
+
+		return $this->addUser( $mobile, $nick, $password );
+	}
+
+	/**
+	 * 过滤用户名称&检测用户名长度
+	 *
+	 * @param string $uername
+	 *
+	 * @return boolean  符合true ｜ 不符合false
+	 */
+	public static function checkNickLength( $nick )
+	{
+		if( mb_strlen( $nick, 'utf-8' ) < 3 || mb_strlen( $nick, 'utf-8' ) > 12 )
+		{
+			return false;
+		}
+		else
+		{
+			if( mb_strlen( $nick, 'latin1' ) < 3 || mb_strlen( $nick, 'latin1' ) > 30 )
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+	}
+
+	/**
+	 * 密码是否符合长度
+	 *
+	 * @param string $password 密码
+	 *
+	 * @return boolean  符合true ｜ 不符合false
+	 */
+	public static function checkPassWordLeng( $password )
+	{
+		//密码中是否包含中文
+		preg_match( '/[\x{4e00}-\x{9fa5}]+/u', $password, $matches_c );
+		if( $matches_c )
+		{
+			return false;
+		}
+		if( mb_strlen( $password, 'utf-8' ) < 6 || mb_strlen( $password, 'utf-8' ) > 12 )
+		{
+			return false;
+		}
+		return true;
+	}
+
+
+	/**
+	 * 添加数据到userstatic&&useractive表
+	 *
+	 * @param string $mobile   手机号码
+	 * @param string $nick     昵称
+	 * @param string $password 密码
+	 *
+	 * @return array|bool array(
+	 * 'uid'=> '',//用户uid
+	 * 'encpass'=>''// encpass
+	 * );
+	 */
+	private function addUser( $mobile, $nick, $password )
+	{
+		$data = array(
+			'username' => "$mobile",
+			'password' => md5password( $password ),
+			'nick' => $nick,
+			'phone' => $mobile,
+			'rip' => ip2long( fetch_real_ip( $this->rport ) ),
+			'rport' => $this->rport,
+			'rtime' => get_datetime(),
+			'encpass' => md5( md5( $password . time() ) ),
+			'sex' => 1
+		);
+		$res = $this->_db->insert( 'userstatic', $data );
+		if( !$res )
+		{
+			return false;
+		}
+		else
+		{
+			$activeDate = array(
+				'uid' => $res,
+				'lip' => ip2long( fetch_real_ip( $this->rport ) ),
+				'lport' => $this->rport,
+				'ltime' => get_datetime()
+			);
+			$result = $this->_db->insert( 'useractive', $activeDate );
+			if( !$result )
+			{
+				return false;
+			}
+			else
+			{
+				return array( 'uid' => $res, 'encpass' => $data['encpass'] );
+			}
+		}
+	}
+        
+        
+        /**
+         * 添加用户
+         * @param type $mobile
+         * @param type $nick
+         * @param type $password
+         * @param type $filter    是否数据已经过滤
+         * @return type   注册成功返回用户信息,不成功返回false或错误码
+         */
+        public function addUserWhitFilter( $mobile, $nick, $password ,$filter =false) {
+            if($filter){
+                return $this->addUser($mobile, $nick, $password);
+            }else{
+                return $this->reg($mobile, $nick, $password);
+            }
+            
+        }
+
+}

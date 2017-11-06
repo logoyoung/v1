@@ -1,0 +1,4 @@
+CREATE TABLE hpf_statement_base(
+`id` bigint(20) NOT NULL ,
+`uid` INT(10)
+)

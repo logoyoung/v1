@@ -1,0 +1,252 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>礼物管理</a><a href="javascript:;" ></i>编辑礼物</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span6">
+        <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>编辑礼物</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form name="f1" method="post" class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">礼物名称</label>
+              <div class="controls">
+                 <input id="giftname" <if condition="$id eq 31">readonly<else />name="giftname"</if> value="{{$giftname}}" type="text" placeholder="礼物名称"  />
+              </div>
+            </div>
+			<div class="control-group">
+              <label class="control-label">花费类型</label>
+              <div class="controls">
+                 <select class="span4" name="type" disabled>
+                    <foreach name="getType" item="v" key='key'>
+                        <option value="{{$key}}" <empty name='type'><if condition="$key eq 2">selected</if><if condition="$type eq $key">selected</if></empty> >{{$v}}</option>
+                    </foreach>
+                  </select>
+              </div>
+            </div>
+			<div class="control-group">
+              <label class="control-label">价格</label>
+              <div class="controls">
+                 <input id="money" <if condition="$id eq 31">readonly<else />name="money"</if> value="{{$money}}" type="text" placeholder="价格"  />
+              </div>
+            </div>
+			<div class="control-group">
+              <label class="control-label">获得经验</label>
+              <div class="controls">
+                 <input id="exp" <if condition="$id eq 31">readonly<else />name="exp"</if> value="{{$exp}}" type="text" placeholder="获得经验"  />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">全站通知状态</label>
+              <div class="controls">
+                 <select class="span4" name="all_site_notify">
+                    <foreach name="siteNotify" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$all_site_notify eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+              </div>
+            </div>
+			<div class="control-group">
+				<label class="control-label">礼物描述</label>
+				<div class="controls">
+					<textarea id="desc" name="desc" class="span11" rows="2">{{$desc}}</textarea>
+				</div>
+			</div>
+            <div class="control-group">
+				<label class="control-label">礼物图标</label>
+				<div class="controls">
+					<input name="poster" id="poster"  value="{{$poster}}" type="hidden"/>
+					<div class="poster1">
+						<ul class="poster" v="{{$poster}}">
+							<td><empty name='poster'><else/><img alt="" src="http://{{$conf.domain-img}}{{$poster}}"> </empty></td>
+						</ul>
+					</div>
+					<button con='poster1' id="poster1" class='upload' hidd="poster">选择文件</button>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">礼物图标3X</label>
+				<div class="controls">
+					<input name="poster_3x" id="poster_3x"  value="{{$poster_3x}}" type="hidden"/>
+					<div class="poster2">
+						<ul class="poster_3x" v="{{$poster_3x}}">
+							<td><empty name='poster_3x'><else /> <img alt="" src="http://{{$conf.domain-img}}{{$poster_3x}}"> </empty></td>
+						</ul>
+					</div>
+					<button con='poster2' id="poster2" class='upload' hidd="poster_3x">选择文件</button>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">移动端连击背景图</label>
+				<div class="controls">
+					<input name="bg" id="bg"  value="{{$bg}}" type="hidden"/>
+					<div class="bg1">
+						<ul class="bg1" v="{{$bg}}">
+							<td><empty name='bg'><else /> <img alt="" src="http://{{$conf.domain-img}}{{$bg}}"> </empty></td>
+						</ul>
+					</div>
+					<button con='bg1' id="bg1" class='upload' hidd="bg">选择文件</button>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">移动端连击背景图3X</label>
+				<div class="controls">
+					<input name="bg_3x" id="bg_3x"  value="{{$bg_3x}}" type="hidden"/>
+					<div class="bg2">
+						<ul class="bg_3x" v="{{$bg_3x}}">
+							<td><empty name='bg_3x'><else /> <img alt="" src="http://{{$conf.domain-img}}{{$bg_3x}}"> </empty></td>
+						</ul>
+					</div>
+					<button con='bg2' id="bg2" class='upload' hidd="bg_3x">选择文件</button>
+				</div>
+			</div>
+			<div class="control-group">
+              <label class="control-label">移动端礼物连击文字颜色</label>
+              <div class="controls">
+                 <input id="font_color" name="font_color" value="{{$font_color}}" type="text" placeholder="移动端礼物连击文字颜色"/>
+              </div>
+            </div>
+			<div class="control-group">
+				<label class="control-label">网站礼物预览图</label>
+				<div class="controls">
+					<input name="web_preview" id="web_preview"  value="{{$web_preview}}" type="hidden"/>
+					<div class="web_preview1">
+						<ul class="web_preview" v="{{$web_preview}}">
+							<td><empty name='web_preview'><else /> <img alt="" src="http://{{$conf.domain-img}}{{$web_preview}}"> </empty></td>
+						</ul>
+					</div>
+					<button con='web_preview1' id="web_preview1" class='upload' hidd="web_preview">选择文件</button>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">网站礼物连击背景图</label>
+				<div class="controls">
+					<input name="web_bg" id="web_bg"  value="{{$web_bg}}" type="hidden"/>
+					<div class="web_bg1">
+						<ul class="web_bg" v="{{$web_bg}}">
+							<td><empty name='web_bg'><else /> <img alt="" src="http://{{$conf.domain-img}}{{$web_bg}}"></empty></td>
+						</ul>
+					</div>
+					<button con='web_bg1' id="web_bg1" class='upload' hidd="web_bg">选择文件</button>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">聊天-礼物展示图</label>
+				<div class="controls">
+					<input name="thumb_poster" id="thumb_poster"  value="{{$thumb_poster}}" type="hidden"/>
+					<div class="thumb_poster1">
+						<ul class="thumb_poster" v="{{$thumb_poster}}">
+							<td><empty name='thumb_poster'><else /> <img alt="" src="http://{{$conf.domain-img}}{{$thumb_poster}}"></empty></td>
+						</ul>
+					</div>
+					<button con='thumb_poster1' id="thumb_poster1" class='upload' hidd="thumb_poster">选择文件</button>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">聊天-礼物展示图3X</label>
+				<div class="controls">
+					<input name="thumb_poster_3x" id="thumb_poster_3x"  value="{{$thumb_poster_3x}}" type="hidden"/>
+					<div class="thumb_poster_3x1">
+						<ul class="thumb_poster_3x" v="{{$thumb_poster_3x}}">
+							<td><empty name='thumb_poster_3x'><else /> <img alt="" src="http://{{$conf.domain-img}}{{$thumb_poster_3x}}"></empty></td>
+						</ul>
+					</div>
+					<button con='thumb_poster_3x1' id="thumb_poster_3x1" class='upload' hidd="thumb_poster_3x">选择文件</button>
+				</div>
+			</div>
+			<div class="control-group">
+              <label class="control-label">网页端礼物连击文字颜色</label>
+              <div class="controls">
+                 <input id="web_font_color" name="web_font_color" value="{{$web_font_color}}" type="text" placeholder="网页端礼物连击文字颜色"/>
+              </div>
+            </div>
+			<div class="control-group">
+              <label class="control-label">连击展示时间</label>
+              <div class="controls">
+                 <input id="combo_show_time" name="combo_show_time" value="{{$combo_show_time}}" type="text" placeholder="连击展示时间"/>
+              </div>
+            </div>
+            <div class="form-actions text-center">
+              <button type="submit" class="btn btn-success">保存</button>
+			  <button class="btn" onclick="history.go(-1);">取消</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+    <style>.group{display: none;}</style>
+</block>
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__RES__plupload/plupload.full.min.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii:ss',
+        showMeridian: false,
+        autoclose: true,
+        minView: 0,
+        todayBtn: true,
+    });
+    var f=document.forms.f1;
+    Op_common.ajaxForm($(f),function(obj){
+        if(obj.status==1){
+            Op_common.alert(obj.info,function(){
+				var str = '';
+				if(obj.id) {
+					str = '?id=' + obj.id;
+				}
+                window.location = window.location + str;
+            });
+        }else{
+            Op_common.alert(obj.info||'操作失败');
+        }
+    });
+    $('.upload').each(function(){
+		self = $(this);
+		var button_id = self.attr('id'), pics = self.attr('pics'),hidd = self.attr('hidd'),con = self.attr('con');
+
+		var uploader = new plupload.Uploader({ //实例化一个plupload上传对象
+			browse_button : button_id,
+			url : '/file/upgift?type=',
+			flash_swf_url : '__RES__plupload/Moxie.swf',
+			silverlight_xap_url : '__RES__plupload/Moxie.xap',
+			multi_selection : false,
+		});
+		uploader.init(); //初始化
+
+		//绑定文件添加进队列事件
+		uploader.bind('FilesAdded',function(uploader,files){
+			//构造html来更新UI
+			var html = '<li id="file-' + files[0].id +'"><p class="file-name">' + files[0].name + '</p><div class="progress progress-striped"><div class="bar" ></div></div></li>';
+			$(html).appendTo('.'+con);
+			uploader.start();
+		});
+
+		//绑定文件上传进度事件
+		uploader.bind('UploadProgress',function(uploader,file){
+			$('#file-'+file.id+' .bar').css('width',file.percent + '%');//控制进度条
+		});
+
+		//绑定文件上传进度事件
+		uploader.bind('FileUploaded',function(uploader,file,responseObject){
+			var json=$.parseJSON(responseObject.response);
+			$("#"+hidd).val(json.picpath);
+			$('.'+con+' ul').replaceWith('<ul class= '+hidd+' v='+json.picpath+'><img src= '+json.url+' /></ul>');
+			$('.'+con+' li').remove();//删除进度条
+		});
+	});
+    
+    
+</script>
+</block>

@@ -1,0 +1,364 @@
+.anchorLvl_icon{
+    width: 30px;
+    height: 20px;
+}
+.anchorLvl_icon.lv1 {
+    background: url("../img/level/anchor/1-20.png") 0px -2px no-repeat; }
+
+.anchorLvl_icon.lv2 {
+    background: url("../img/level/anchor/1-20.png") 0px -26px no-repeat; }
+
+.anchorLvl_icon.lv3 {
+    background: url("../img/level/anchor/1-20.png") 0px -50px no-repeat; }
+
+.anchorLvl_icon.lv4 {
+    background: url("../img/level/anchor/1-20.png") 0px -74px no-repeat; }
+
+.anchorLvl_icon.lv5 {
+    background: url("../img/level/anchor/1-20.png") 0px -98px no-repeat; }
+
+.anchorLvl_icon.lv6 {
+    background: url("../img/level/anchor/1-20.png") 0px -122px no-repeat; }
+
+.anchorLvl_icon.lv7 {
+    background: url("../img/level/anchor/1-20.png") 0px -146px no-repeat; }
+
+.anchorLvl_icon.lv8 {
+    background: url("../img/level/anchor/1-20.png") 0px -170px no-repeat; }
+
+.anchorLvl_icon.lv9 {
+    background: url("../img/level/anchor/1-20.png") 0px -194px no-repeat; }
+
+.anchorLvl_icon.lv10 {
+    background: url("../img/level/anchor/1-20.png") 0px -220px no-repeat; }
+
+.anchorLvl_icon.lv11 {
+    background: url("../img/level/anchor/1-20.png") -30px -2px no-repeat; }
+
+.anchorLvl_icon.lv12 {
+    background: url("../img/level/anchor/1-20.png") -30px -26px no-repeat; }
+
+.anchorLvl_icon.lv13 {
+    background: url("../img/level/anchor/1-20.png") -30px -50px no-repeat; }
+
+.anchorLvl_icon.lv14 {
+    background: url("../img/level/anchor/1-20.png") -30px -74px no-repeat; }
+
+.anchorLvl_icon.lv15 {
+    background: url("../img/level/anchor/1-20.png") -30px -98px no-repeat; }
+
+.anchorLvl_icon.lv16 {
+    background: url("../img/level/anchor/1-20.png") -30px -122px no-repeat; }
+
+.anchorLvl_icon.lv17 {
+    background: url("../img/level/anchor/1-20.png") -30px -146px no-repeat; }
+
+.anchorLvl_icon.lv18 {
+    background: url("../img/level/anchor/1-20.png") -30px -170px no-repeat; }
+
+.anchorLvl_icon.lv19 {
+    background: url("../img/level/anchor/1-20.png") -30px -194px no-repeat; }
+
+.anchorLvl_icon.lv20 {
+    background: url("../img/level/anchor/1-20.png") -30px -218px no-repeat; }
+
+.anchorLvl_icon.lv21 {
+    background: url("../img/level/anchor/1-20.png") -65px -2px no-repeat; }
+
+.anchorLvl_icon.lv22 {
+    background: url("../img/level/anchor/1-20.png") -65px -26px no-repeat; }
+
+.anchorLvl_icon.lv23 {
+    background: url("../img/level/anchor/1-20.png") -65px -50px no-repeat; }
+
+.anchorLvl_icon.lv24 {
+    background: url("../img/level/anchor/1-20.png") -65px -74px no-repeat; }
+
+.anchorLvl_icon.lv25 {
+    background: url("../img/level/anchor/1-20.png") -65px -98px no-repeat; }
+
+.anchorLvl_icon.lv26 {
+    background: url("../img/level/anchor/1-20.png") -65px -122px no-repeat; }
+
+.anchorLvl_icon.lv27 {
+    background: url("../img/level/anchor/1-20.png") -65px -146px no-repeat; }
+
+.anchorLvl_icon.lv28 {
+    background: url("../img/level/anchor/1-20.png") -65px -170px no-repeat; }
+
+.anchorLvl_icon.lv29 {
+    background: url("../img/level/anchor/1-20.png") -65px -194px no-repeat; }
+
+.anchorLvl_icon.lv30 {
+    background: url("../img/level/anchor/30.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv31 {
+    background: url("../img/level/anchor/31.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv32 {
+    background: url("../img/level/anchor/32.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv33 {
+    background: url("../img/level/anchor/33.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv34 {
+    background: url("../img/level/anchor/34.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv35 {
+    background: url("../img/level/anchor/35.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv36 {
+    background: url("../img/level/anchor/36.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv37 {
+    background: url("../img/level/anchor/37.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv38 {
+    background: url("../img/level/anchor/38.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv39 {
+    background: url("../img/level/anchor/39.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv40 {
+    background: url("../img/level/anchor/40.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv41 {
+    background: url("../img/level/anchor/41.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv42 {
+    background: url("../img/level/anchor/42.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv43 {
+    background: url("../img/level/anchor/43.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv44 {
+    background: url("../img/level/anchor/44.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv45 {
+    background: url("../img/level/anchor/45.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv46 {
+    background: url("../img/level/anchor/46.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv47 {
+    background: url("../img/level/anchor/47.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv48 {
+    background: url("../img/level/anchor/48.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv49 {
+    background: url("../img/level/anchor/49.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv50 {
+    background: url("../img/level/anchor/50.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv51 {
+    background: url("../img/level/anchor/51.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv52 {
+    background: url("../img/level/anchor/52.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv53 {
+    background: url("../img/level/anchor/53.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv54 {
+    background: url("../img/level/anchor/54.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv55 {
+    background: url("../img/level/anchor/55.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv56 {
+    background: url("../img/level/anchor/56.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv57 {
+    background: url("../img/level/anchor/57.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv58 {
+    background: url("../img/level/anchor/58.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv59 {
+    background: url("../img/level/anchor/59.gif") 2px -1px no-repeat; }
+
+.anchorLvl_icon.lv60 {
+    background: url("../img/level/anchor/60.gif") 2px -1px no-repeat; }
+
+.userLvl-icon.lv1 {
+    background: url("../img/level/user/1-30.png") 0px 2px no-repeat; }
+
+.userLvl-icon.lv2 {
+    background: url("../img/level/user/1-30.png") 0px -18px no-repeat; }
+
+.userLvl-icon.lv3 {
+    background: url("../img/level/user/1-30.png") 0px -38px no-repeat; }
+
+.userLvl-icon.lv4 {
+    background: url("../img/level/user/1-30.png") 0px -58px no-repeat; }
+
+.userLvl-icon.lv5 {
+    background: url("../img/level/user/1-30.png") 0px -78px no-repeat; }
+
+.userLvl-icon.lv6 {
+    background: url("../img/level/user/1-30.png") 0px -98px no-repeat; }
+
+.userLvl-icon.lv7 {
+    background: url("../img/level/user/1-30.png") 0px -118px no-repeat; }
+
+.userLvl-icon.lv8 {
+    background: url("../img/level/user/1-30.png") 0px -138px no-repeat; }
+
+.userLvl-icon.lv9 {
+    background: url("../img/level/user/1-30.png") 0px -158px no-repeat; }
+
+.userLvl-icon.lv10 {
+    background: url("../img/level/user/1-30.png") 0px -178px no-repeat; }
+
+.userLvl-icon.lv11 {
+    background: url("../img/level/user/1-30.png") -46px 2px no-repeat; }
+
+.userLvl-icon.lv12 {
+    background: url("../img/level/user/1-30.png") -46px -18px no-repeat; }
+
+.userLvl-icon.lv13 {
+    background: url("../img/level/user/1-30.png") -46px -38px no-repeat; }
+
+.userLvl-icon.lv14 {
+    background: url("../img/level/user/1-30.png") -46px -58px no-repeat; }
+
+.userLvl-icon.lv15 {
+    background: url("../img/level/user/1-30.png") -46px -78px no-repeat; }
+
+.userLvl-icon.lv16 {
+    background: url("../img/level/user/1-30.png") -46px -98px no-repeat; }
+
+.userLvl-icon.lv17 {
+    background: url("../img/level/user/1-30.png") -46px -118px no-repeat; }
+
+.userLvl-icon.lv18 {
+    background: url("../img/level/user/1-30.png") -46px -138px no-repeat; }
+
+.userLvl-icon.lv19 {
+    background: url("../img/level/user/1-30.png") -46px -158px no-repeat; }
+
+.userLvl-icon.lv20 {
+    background: url("../img/level/user/1-30.png") -46px -178px no-repeat; }
+
+.userLvl-icon.lv21 {
+    background: url("../img/level/user/1-30.png") -92px 2px no-repeat; }
+
+.userLvl-icon.lv22 {
+    background: url("../img/level/user/1-30.png") -92px -18px no-repeat; }
+
+.userLvl-icon.lv23 {
+    background: url("../img/level/user/1-30.png") -92px -38px no-repeat; }
+
+.userLvl-icon.lv24 {
+    background: url("../img/level/user/1-30.png") -92px -58px no-repeat; }
+
+.userLvl-icon.lv25 {
+    background: url("../img/level/user/1-30.png") -92px -78px no-repeat; }
+
+.userLvl-icon.lv26 {
+    background: url("../img/level/user/1-30.png") -92px -98px no-repeat; }
+
+.userLvl-icon.lv27 {
+    background: url("../img/level/user/1-30.png") -92px -118px no-repeat; }
+
+.userLvl-icon.lv28 {
+    background: url("../img/level/user/1-30.png") -92px -138px no-repeat; }
+
+.userLvl-icon.lv29 {
+    background: url("../img/level/user/1-30.png") -92px -158px no-repeat; }
+
+.userLvl-icon.lv30 {
+    background: url("../img/level/user/30.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv31 {
+    background: url("../img/level/user/31.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv32 {
+    background: url("../img/level/user/32.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv33 {
+    background: url("../img/level/user/33.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv34 {
+    background: url("../img/level/user/34.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv35 {
+    background: url("../img/level/user/35.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv36 {
+    background: url("../img/level/user/36.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv37 {
+    background: url("../img/level/user/37.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv38 {
+    background: url("../img/level/user/38.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv39 {
+    background: url("../img/level/user/39.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv40 {
+    background: url("../img/level/user/40.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv41 {
+    background: url("../img/level/user/41.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv42 {
+    background: url("../img/level/user/42.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv43 {
+    background: url("../img/level/user/43.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv44 {
+    background: url("../img/level/user/44.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv45 {
+    background: url("../img/level/user/45.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv46 {
+    background: url("../img/level/user/46.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv47 {
+    background: url("../img/level/user/47.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv48 {
+    background: url("../img/level/user/48.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv49 {
+    background: url("../img/level/user/49.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv50 {
+    background: url("../img/level/user/50.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv51 {
+    background: url("../img/level/user/51.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv52 {
+    background: url("../img/level/user/52.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv53 {
+    background: url("../img/level/user/53.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv54 {
+    background: url("../img/level/user/54.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv55 {
+    background: url("../img/level/user/55.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv56 {
+    background: url("../img/level/user/56.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv57 {
+    background: url("../img/level/user/57.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv58 {
+    background: url("../img/level/user/58.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv59 {
+    background: url("../img/level/user/59.gif") 0 1px no-repeat; }
+
+.userLvl-icon.lv60 {
+    background: url("../img/level/user/60.gif") 0 1px no-repeat; }
+

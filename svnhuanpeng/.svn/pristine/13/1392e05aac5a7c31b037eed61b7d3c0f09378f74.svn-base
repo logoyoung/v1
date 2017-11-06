@@ -1,0 +1,125 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>游戏管理</a><a href="javascript:;" ></i>游戏列表</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>游戏列表</h5>
+            <a href="/game/gamesave"><span class="label label-info">添加</span></a> 
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10 ln38">
+                <form class="form-search" id='myform'>
+                  <input name='name' id='name' type="text" value="{{$Think.get.name}}"  placeholder="游戏名称"  >
+                  <select class="span1" name="gstatus">
+                    <option value="">发布状态</option>
+                    <foreach name="gstatus" item="v" key='key'>
+                      <option value="{{$key}}" <if condition="$Think.get.gstatus eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <button type="submit" class="btn">搜索</button>
+                  <button type="submit" class="btn" name="export" value="1">导出</button><br>
+                </form>
+            </div>
+        <div class="oyat">    
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <th>游戏ID</th>
+                  <th>名称</th>
+                  <th>类型</th>
+                  <th>状态</th>
+                  <th>海报</th>
+                  <th>ICON(3x)</th>
+                  <th>ICON(2x)</th>
+                  <th>游戏图片</th>
+                  <th>背景</th>
+                  <th>描述</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr>
+                  <td>{{$item.gameid}}</td>
+                  <td>{{$item.name|default='--'}}</td>
+                  <td>{{$item.type|default='--'}}</td>
+                  <td>
+                    <if condition="$item.status eq 0" ><span class="badge badge-success ">已发布</span>
+                      <else/><span class="badge ">已下架</span>
+                    </if>
+                  </td>
+                  <td><empty name='item.poster'>--<else /> <img width="50" height="50"  alt="" src="http://{{$conf.domain-img}}{{$item.poster}}"> </empty></td>
+                  <td><empty name='item.icon'>--<else /> <img width="50" height="50"  alt="" src="http://{{$conf.domain-img}}{{$item.icon}}"> </empty></td>
+                  <td><empty name='item.iconx'>--<else /> <img width="50" height="50"  alt="" src="http://{{$conf.domain-img}}{{$item.iconx}}"> </empty></td>
+                  <td>
+                    <empty name='item.gamepic'>--
+                      <else /> <foreach name="item.gamepic" item="gamepic" ><img width="50" height="50" alt="" src="http://{{$conf.domain-img}}{{$gamepic}}"></foreach>
+                    </empty></td>
+                  <td><empty name='item.bgpic'>--<else /> <img width="50" height="50" alt="" src="http://{{$conf.domain-img}}{{$item.bgpic}}"> </empty></td>
+                  <td>{{$item.description|default='--'}}</td>
+                  <td><a class="btn btn-success" href="/game/gamesave?id={{$item.gameid}}">编辑</a> &nbsp;
+                    <if condition="$item.status eq 0" ><button onclick="unpublish('{{$item.gameid}}')" class="btn btn-warning">下架</button>
+                      <else/> <button onclick="publish('{{$item.gameid}}')" class="btn btn-info">恢复</button>
+                    </if>
+                  </td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    function del(gameid){
+        Op_common.confirm(('确认删除?'),function(){
+            Op_common.ajax('/loan/loandel',{gameid:gameid},function(obj){
+                Op_common.alert(obj.message,function(){
+                    window.location.href="";
+                })
+            })
+        });
+    };
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        minView: 2,
+        todayBtn: true,
+    });
+
+    function publish(id){
+      $.post('/game/publish',{"id":id},function(obj){
+        Op_common.alert(obj.info,function(){
+          window.location.reload();
+        });
+      });
+    }
+
+    function unpublish(id){
+      $.post('/game/unpublish',{"id":id},function(obj){
+        Op_common.alert(obj.info,function(){
+          window.location.reload();
+        });
+      });
+    }
+    
+</script>
+</block>

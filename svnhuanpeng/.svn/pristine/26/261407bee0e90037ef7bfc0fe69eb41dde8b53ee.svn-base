@@ -1,0 +1,87 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>渠道统计</a><a href="javascript:;" ></i>推广码管理</a><a href="javascript:;" ></i>推广码设置</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span6">
+        <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>设置推广码</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form name="f1" method="post" class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">推广码</label>
+              <div class="controls">
+                  <input name="promocode" id="promocode" value="{{$promocode}}" type="text" class="span11" <eq name="promocode" value=""><else/> readonly</eq> placeholder="" />
+              </div>
+            </div>
+			<div class="control-group">
+              <label class="control-label">名称</label>
+              <div class="controls">
+                  <input name="name" id="name" value="{{$name}}" type="text" class="span11" placeholder="推广码名称" />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">合作类型</label>
+              <div class="controls">
+                 <select class="select" name="vip" >
+                    <foreach name="hashvips" item="item" key="key" >
+                    <option value="{{$key}}" <eq name="key" value="$vip"> selected</eq>>{{$item}}</option>
+                    </foreach>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">状态</label>
+              <div class="controls">
+                 <select class="select" name="status" >
+                    <foreach name="hashstatus" item="item" key="key" >
+                    <option value="{{$key}}" <eq name="key" value="$status"> selected</eq>>{{$item}}</option>
+                    </foreach>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">描述</label>
+              <div class="controls">
+                  <textarea name="desc"  value="" type="textarea" class="span11" style="height:150px;" placeholder="" >{{$desc}}</textarea>
+              </div>
+            </div>
+            <div class="form-actions text-center">
+              <button type="submit" class="btn btn-success">保存</button>
+              <button class="btn" onclick="history.go(-1);">取消</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    var f=document.forms.f1;
+    Op_common.ajaxForm($(f),function(obj){
+        if(obj.status==1){
+            Op_common.alert(obj.info,function(){
+                window.location = obj.code;
+            });
+        }else{
+            Op_common.alert(obj.info||'操作失败');
+        }
+    },
+    {
+    	'rule':{'promocode':{'require':1,'msg':'推广码为必填!'},},
+
+    });
+</script>
+</block>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>iOS直播助手-欢朋直播-精彩手游直播</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	    <meta name="format-detection" content="telephone=no" >
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta name="apple-touch-fullscreen" content="yes">
+	    <meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">   
+		<link rel="stylesheet" type="text/css" href="iOS.css?v=1.0.4"/>
+		<script src="../js/statistics.js?v=0.0.2"></script>
+	</head>
+	<body>
+		<div class="content">
+			<a class="dl_btn"></a>
+		</div>
+		<script type="text/javascript">
+			/*移动端像素适配*/
+			var winW=document.documentElement.clientWidth;
+	        var desW=1242;
+	        var fontSize=100;
+	        var rem=desW/fontSize;
+	        if(winW>desW){
+	            winW=desW;
+	        }
+	        document.documentElement.style.fontSize=winW/rem+"px";
+
+	        var link = 'itms-services://?action=download-manifest&url=https://vi0.6rooms.com/huanpeng/ios/manifest.plist?' + new Date().getTime();
+
+	        document.querySelector('.dl_btn').setAttribute('href',link)
+		</script>
+	</body>
+</html>

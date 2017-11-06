@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+		<meta name="format-detection" content="telephone=no"/>
+		<meta content="email=no" name="format-detection" />
+		<title>主播朋伴福利大出击！</title>
+		<link rel="stylesheet" type="text/css" href="../css/zbpb/zbpb.css?v=0.0.5"/>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: 0;
+				-webkit-touch-callout:none;
+				/*-webkit-user-select:none;*/
+				/*-khtml-user-select:none;*/
+				/*-moz-user-select:none;*/
+				/*-ms-user-select:none;*/
+				/*user-select:none;*/
+				-webkit-font-smoothing: antialiased;
+				-webkit-tap-highlight-color:transparent;
+				-webkit-text-size-adjust: 100%;
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				-webkit-overflow-scrolling : touch;
+				-webkit-transform: translate3d(0,0,0);
+				-moz-transform: translate3d(0,0,0);
+				-ms-transform: translate3d(0,0,0);
+				transform: translate3d(0,0,0);
+			}
+		</style>
+		<script>
+            (function(){
+                size();
+                window.onresize = function (){
+                    size();
+                };
+                function size(){
+                    var winW = document.documentElement.clientWidth || document.documentElement.body.clientWidth;
+                    document.documentElement.style.fontSize = winW / 20 +'px';
+                }
+            })();
+		</script>
+	</head>
+	<body>
+		<div class="content">
+			<div class="top-img"></div>
+			<div class="blank-box">
+
+				<div class="blank-1">
+					<div class="blank-1-bg"></div>
+					<p>1.陪玩的特色是什么？</p><br>
+					<p>在线实时与主播交流，大神带玩儿carry全场，<strong>直接下单约妹纸</strong>，颜值和类型任你选找到心仪的玩伴。</p><br>
+					<p>2.主播朋伴福利是什么？</p><br>
+					<p>粉丝可直接下单与心仪主播零距离体验游戏，提高人气，赚取接单分成，让主播收益更高！</p><br>
+					<p>3.如何成为陪玩大神主播？（公测中<strong>仅对部分签约主播开放，后期逐渐对外开放，敬请期待</strong>）</p>
+				</div>
+				<div class="blank-2">
+					<div class="blank-2-bg"></div>
+					<div class="where-1"></div>
+					<div class="where-2"></div>
+					<div class="where-3"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

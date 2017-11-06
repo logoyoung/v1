@@ -1,0 +1,25 @@
+//*********mixins代码片段*//
+
+
+@mixin size($width:0px,$height:0px){
+	width:$width;
+	height:$height;
+}
+/**
+定义大小
+*/
+@mixin opacity($opacity:0){
+	filter:alpha(opacity=$opacity*100);
+	-moz-opacity:$opacity;
+	-khtml-opacity:$opacity;
+	opacity:$opacity;
+}
+/**
+定义动画
+*/
+@mixin transition($id:all,$second:0s){
+	transition:$id transform $second;
+	-webkit-transition:$id -ms-transform $second;
+	-moz-transition:$id -moz-transform $second;
+	-o-transition:$id -o-transform $second;
+}

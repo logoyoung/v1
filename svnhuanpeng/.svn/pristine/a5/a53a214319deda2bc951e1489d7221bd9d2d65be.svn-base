@@ -1,0 +1,3214 @@
+CREATE TABLE `admin_acl_access` (
+  `id` smallint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT 'ç±»åž‹(1:é¡¶èœå•,2:çˆ¶èœå•,3:å­èœå•,4:æƒé™)',
+  `name` varchar(20) NOT NULL DEFAULT '' COMMENT 'è§„åˆ™å”¯ä¸€è‹±æ–‡æ ‡è¯†',
+  `controller` varchar(20) NOT NULL DEFAULT '',
+  `action` varchar(20) NOT NULL DEFAULT '',
+  `icon` char(25) NOT NULL DEFAULT '',
+  `parent_id` smallint(6) unsigned NOT NULL DEFAULT '0',
+  `sort` smallint(6) NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'æ˜¯å¦æœ‰æ•ˆ(0:æ— æ•ˆ,1:æœ‰æ•ˆ)',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=112 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_acl_role` (
+  `id` smallint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(80) NOT NULL COMMENT 'ç”¨æˆ·ç»„å',
+  `uuid` smallint(2) unsigned NOT NULL DEFAULT '0',
+  `udate` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_acl_role_access` (
+  `id` smallint(8) unsigned NOT NULL DEFAULT '0',
+  `access_id` smallint(8) unsigned NOT NULL DEFAULT '0',
+  UNIQUE KEY `uid_group_id` (`id`,`access_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `admin_acl_user` (
+  `uid` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(32) NOT NULL DEFAULT '' COMMENT '',
+  `realname` varchar(20) NOT NULL DEFAULT '' COMMENT 'æ',
+  `email` varchar(32) NOT NULL DEFAULT '' COMMENT 'é‚®ç®±',
+  `mobile` char(11) NOT NULL DEFAULT '' COMMENT 'æ‰‹æœº',
+  `password` char(32) NOT NULL DEFAULT '' COMMENT 'å¯†ç ',
+  `cuid` smallint(6) unsigned NOT NULL DEFAULT '0',
+  `cdate` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ›å»ºæ—¶é—´',
+  `uuid` smallint(6) unsigned NOT NULL DEFAULT '0',
+  `udate` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'æ›´æ–°æ—¶é—´',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT 'æ˜¯å¦æœ‰æ•ˆ(0:æ— æ•ˆ,1:æœ‰æ•ˆ)',
+  `lastip` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸Šæ¬¡ç™»å½•IP',
+  `lasttime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸Šæ¬¡ç™»å½•æ—¶é—´',
+  PRIMARY KEY (`uid`),
+  UNIQUE KEY `account` (`username`)
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=latin1 COMMENT='åŽå°ç”¨æˆ·è¡¨';
+
+CREATE TABLE `admin_acl_user_role` (
+  `uid` smallint(8) unsigned NOT NULL DEFAULT '0',
+  `role_id` smallint(8) unsigned NOT NULL DEFAULT '0',
+  UNIQUE KEY `uid_group_id` (`uid`,`role_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_advertisement` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0ç«™å†…å¹¿å‘Š 1å¤–ç«™å¹¿å‘Š',
+  `location` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0é¦–é¡µå¹¿å‘Š 1ç›´æ’­é—´å¹¿å‘Š',
+  `url` varchar(100) NOT NULL DEFAULT '' COMMENT 'é“¾æŽ¥',
+  `poster` varchar(100) NOT NULL DEFAULT '' COMMENT 'å°é¢å›¾',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `adminid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ›å»ºè€…id',
+  `luid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸»æ’­id',
+  `click` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç‚¹å‡»æ•°é‡',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0å…³é—­ 1å¼€å¯ 2åˆ é™¤',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_app_break_report` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT 'æ ‡é¢˜',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `reason` blob NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10611 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_blacklist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip` char(16) DEFAULT '',
+  `accnum` int(8) DEFAULT '0',
+  `create_at` datetime DEFAULT NULL,
+  `remark` varchar(100) DEFAULT '',
+  `status` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ip` (`ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_certRealName` (
+  `certifyid` int(10) unsigned NOT NULL DEFAULT '0',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç”¨æˆ·id',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0ç©ºé—²ï¼Œ1å¤„ç†ä¸­ï¼Œ2å·²å®Œæˆ',
+  `heartTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  KEY `certifyid` (`certifyid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_channel_version` (
+  `channel` int(10) unsigned NOT NULL,
+  `client` int(10) NOT NULL COMMENT '1:android, 2:å®¢æˆ·ç«¯,3:ios',
+  `channelName` varchar(200) NOT NULL DEFAULT '',
+  `version` varchar(30) NOT NULL DEFAULT '' COMMENT 'ç‰ˆæœ¬å·',
+  `build` varchar(30) NOT NULL DEFAULT '' COMMENT 'æž„å»ºå·',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `desc` blob NOT NULL,
+  `status` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '0:å…³é—­ï¼Œ1:å¼€å¯',
+  PRIMARY KEY (`channel`,`client`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_check_mode` (
+  `id` int(10) unsigned NOT NULL COMMENT 'id',
+  `name` varchar(32) NOT NULL DEFAULT '' COMMENT 'åç§°',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'ä¿®æ”¹æ—¶é—´',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0:å…ˆå®¡åŽå‘,1:å…ˆå‘åŽå®¡',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_information` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tid` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ†ç±»id',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT 'èµ„è®¯æ ‡é¢˜',
+  `content` blob COMMENT 'å†…å®¹',
+  `poster` varchar(100) NOT NULL DEFAULT '' COMMENT 'å°é¢å›¾',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'ä¿®æ”¹æ—¶é—´',
+  `adminid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ›å»ºè€…id',
+  `click` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç‚¹å‡»æ•°é‡',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0å…³é—­ 1å¼€å¯ 2åˆ é™¤',
+  `isrecommend` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0ä¸æŽ¨è 1ç„¦ç‚¹æŽ¨è 2åˆ—è¡¨æŽ¨è',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0ç«™å†… 1ç«™å¤–',
+  `url` varchar(100) NOT NULL DEFAULT '' COMMENT 'é“¾æŽ¥',
+  `client` tinyint(3) unsigned NOT NULL DEFAULT '2' COMMENT '1appç«¯ 2 webç«¯',
+  `is_login` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'æ˜¯å¦éœ€è¦ç™»å½• é»˜è®¤0 ä¸éœ€è¦',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_information_type` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'èµ„è®¯ç±»åž‹id',
+  `name` varchar(20) NOT NULL DEFAULT '' COMMENT 'åˆ†ç±»åç§°',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `adminid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ›å»ºè€…id',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0å…³é—­ 1å¼€å¯ 2åˆ é™¤',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_ip` (
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `positionid` int(10) unsigned NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_liveReview` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `liveid` int(10) unsigned NOT NULL DEFAULT '0',
+  `luid` int(10) unsigned NOT NULL DEFAULT '0',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `livestatus` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `liveid` (`liveid`)
+) ENGINE=InnoDB AUTO_INCREMENT=108776 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_liveReviewReason` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `reason` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_liveReviewResult` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `taskid` int(10) unsigned NOT NULL DEFAULT '0',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `reason` varchar(100) NOT NULL DEFAULT '',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `taskid` (`taskid`)
+) ENGINE=InnoDB AUTO_INCREMENT=65307429 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_live_title` (
+  `liveid` int(10) unsigned NOT NULL COMMENT 'ç›´æ’­id',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT 'ç›´æ’­æ ‡é¢˜',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'å®¡æ ¸é€šè¿‡æ—¶é—´',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0:å¾…å®¡æ ¸, 1:äººå·¥å®¡æ ¸é€šè¿‡, 2:äººå·¥å®¡æ ¸æœªé€šè¿‡ ,3:æœºå™¨å®¡æ ¸é€šè¿‡,4:æœºå™¨å®¡æ ¸æœªé€šè¿‡',
+  `uid` int(10) NOT NULL DEFAULT '0' COMMENT 'ç”¨æˆ·uid',
+  `nick` varchar(30) NOT NULL DEFAULT '' COMMENT 'ç”¨æˆ·æ˜µç§°',
+  PRIMARY KEY (`liveid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_livebulletin` (
+  `luid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `adminid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ›å»ºè€…id',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0å¾…å®¡æ ¸ï¼Œ1å·²é€šè¿‡ï¼Œ2æœªé€šè¿‡ï¼Œ3é”å®šä¸­',
+  PRIMARY KEY (`luid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_log_opuser` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `uid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `time` int(11) unsigned NOT NULL DEFAULT '0',
+  `ip` int(11) unsigned NOT NULL DEFAULT '0',
+  `uaid` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=264 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_log_opuser_add` (
+  `lid` int(11) NOT NULL,
+  `msg` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`lid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_log_useragent` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idx` int(11) NOT NULL DEFAULT '0',
+  `content` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `searc_index` (`idx`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_position` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `country_id` varchar(32) NOT NULL DEFAULT '0',
+  `country` varchar(32) NOT NULL DEFAULT '',
+  `area_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `area` varchar(32) NOT NULL DEFAULT '',
+  `region_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `region` varchar(32) NOT NULL DEFAULT '',
+  `city_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `city` varchar(32) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `area_id` (`area_id`),
+  KEY `region_id` (`region_id`),
+  KEY `city_id` (`city_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_recommend_game` (
+  `type` tinyint(3) unsigned NOT NULL COMMENT '1 å¯¼èˆªæ  2æ¸¸æˆæŽ¨è 3æ¥¼å±‚æŽ¨è',
+  `gameid` varchar(100) NOT NULL DEFAULT '' COMMENT 'æ¸¸æˆidåˆ—è¡¨',
+  `number` varchar(100) NOT NULL DEFAULT '' COMMENT 'æ•°é‡',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_recommend_live` (
+  `uid` int(10) unsigned NOT NULL COMMENT 'ä¸»æ’­id',
+  `nick` varchar(50) NOT NULL DEFAULT '' COMMENT 'ä¸»æ’­æ˜µç§°',
+  `head` varchar(100) NOT NULL DEFAULT '' COMMENT 'ä¸»æ’­å¤´åƒ',
+  `poster` varchar(100) NOT NULL DEFAULT '' COMMENT 'æµ·æŠ¥',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'ä¿®æ”¹æ—¶é—´',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0å¾…æŽ¨è 1å·²æŽ¨è',
+  `adminid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç®¡ç†è€…id',
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_unpass_video` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `videoid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å½•åƒid',
+  `adminid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å®¡æ ¸è€…id',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'ç±»åž‹',
+  `describe` varchar(700) NOT NULL DEFAULT '' COMMENT 'å…·ä½“æè¿°',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  PRIMARY KEY (`id`),
+  KEY `adminid` (`adminid`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB AUTO_INCREMENT=8098 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_user` (
+  `uid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ç”¨æˆ·id',
+  `password` varchar(32) NOT NULL DEFAULT '',
+  `encpass` varchar(100) NOT NULL DEFAULT '',
+  `username` char(30) NOT NULL DEFAULT '',
+  `email` varchar(30) NOT NULL DEFAULT '',
+  `usertype` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`uid`),
+  KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_user_control` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL COMMENT '权限名称',
+  `url` varchar(100) NOT NULL DEFAULT '' COMMENT 'URL 同个项目要保持唯一',
+  `parent_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+  `operater` int(10) unsigned NOT NULL COMMENT '最后一次操作者',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态1正常2已删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_user_login` (
+  `admin_id` int(11) NOT NULL,
+  `session_id` varchar(100) NOT NULL,
+  `agent` varchar(50) NOT NULL,
+  `stime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`admin_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='记录登录信息';
+
+CREATE TABLE `admin_user_nick` (
+  `uid` int(10) unsigned NOT NULL COMMENT 'ç”¨æˆ·id',
+  `nick` varchar(50) DEFAULT NULL,
+  `oldnick` varchar(50) DEFAULT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'å®¡æ ¸å¼€å§‹æ—¶é—´',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0:å¾…å®¡æ ¸, 1:äººå·¥å®¡æ ¸é€šè¿‡, 2:äººå·¥å®¡æ ¸æœªé€šè¿‡ ,3:æœºå™¨å®¡æ ¸é€šè¿‡,4:æœºå™¨å®¡æ ¸æœªé€šè¿‡',
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_user_pic` (
+  `uid` int(10) unsigned NOT NULL COMMENT 'ç”¨æˆ·id',
+  `pic` varchar(100) NOT NULL DEFAULT '' COMMENT 'å¤´åƒ',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'å®¡æ ¸å¼€å§‹æ—¶é—´',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0,å®¡æ ¸ä¸­.1,æœºå™¨å®¡æ ¸é€šè¿‡.2,äººå·¥å®¡æ ¸é€šè¿‡.3,æœºå™¨å®¡æ ¸æœªé€šè¿‡ 4,äººå·¥å®¡æ ¸æœªé€šè¿‡',
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_user_position` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `positionid` varchar(10) NOT NULL DEFAULT '',
+  `region_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`uid`,`positionid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_user_right` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç”¨æˆ·id',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '1:å®¡æ ¸äººå‘˜ï¼Œ2:ä¼šè®¡è´¢åŠ¡ 3:è¿è¥å›¢é˜Ÿ',
+  `right` smallint(5) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_user_role` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `des` varchar(100) NOT NULL COMMENT '角色描述',
+  `control` varchar(200) NOT NULL COMMENT '拥有权限',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  `operater` int(10) unsigned NOT NULL COMMENT '最后一次操作者',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态 1正常2已删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='后台用户角色表';
+
+CREATE TABLE `admin_user_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(100) NOT NULL COMMENT '邮箱',
+  `nickname` varchar(100) NOT NULL COMMENT '昵称',
+  `real_name` varchar(100) NOT NULL COMMENT '真实姓名',
+  `mobile` varchar(20) NOT NULL COMMENT '手机号码',
+  `password` varchar(100) NOT NULL COMMENT '密码',
+  `role` int(10) unsigned NOT NULL COMMENT '所属角色',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  `operater` int(10) unsigned NOT NULL COMMENT '创建者',
+  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1普通用户2经纪公司用户',
+  `company_id` int(11) NOT NULL DEFAULT '0' COMMENT '如果是经纪公司，需要和公司的ID绑定',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1 COMMENT='后台用户表';
+
+CREATE TABLE `admin_userdevice` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `udid` varchar(20) NOT NULL,
+  `channel` varchar(10) NOT NULL,
+  `ctime` datetime NOT NULL,
+  `cdate` int(10) unsigned NOT NULL,
+  `deviceModel` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `udid` (`udid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='è®¾å¤‡è¡¨';
+
+CREATE TABLE `admin_userviewrecord` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `udid` varchar(20) NOT NULL,
+  `channel` varchar(10) NOT NULL,
+  `device` varchar(20) NOT NULL,
+  `deviceType` varchar(10) NOT NULL,
+  `system` varchar(20) NOT NULL,
+  `language` varchar(10) NOT NULL,
+  `appVersion` varchar(20) NOT NULL,
+  `deviceModel` varchar(50) NOT NULL,
+  `action` varchar(10) NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `jailBreak` int(11) NOT NULL,
+  `app` varchar(30) NOT NULL,
+  `ctime` datetime NOT NULL,
+  `md5` char(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `md5` (`md5`),
+  KEY `udid` (`udid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1405 DEFAULT CHARSET=latin1 COMMENT='è®¿é—®è®°å½•ç»Ÿè®¡è¡¨';
+
+CREATE TABLE `admin_videomerge_failed` (
+  `liveid` int(10) unsigned NOT NULL,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`liveid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_wait_live_title` (
+  `liveid` int(10) unsigned NOT NULL COMMENT 'ç›´æ’­id',
+  `adminid` int(10) unsigned NOT NULL COMMENT 'å®¡æ ¸è€…id',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `utime` datetime NOT NULL,
+  `heartTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`liveid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `admin_wait_pass_video` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `videoid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å½•åƒid',
+  `adminid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å®¡æ ¸è€…id',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'å®¡æ ¸å¼€å§‹æ—¶é—´',
+  `etime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'å®¡æ ¸å®Œæˆæ—¶é—´',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0ç©ºé—²ï¼Œ1å¤„ç†ä¸­ï¼Œ2å·²å®Œæˆ',
+  `heartTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `videoid` (`videoid`),
+  KEY `adminid` (`adminid`),
+  KEY `ctime` (`ctime`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=21110 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_wait_user_nick` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `uid` int(10) unsigned NOT NULL COMMENT 'ç”¨æˆ·id',
+  `adminid` int(10) unsigned NOT NULL COMMENT 'å®¡æ ¸è€…id',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `heartTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_wait_user_pic` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `uid` int(10) unsigned NOT NULL COMMENT 'ç”¨æˆ·id',
+  `adminid` int(10) unsigned NOT NULL COMMENT 'å®¡æ ¸è€…id',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `heartTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=11211 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `admin_wait_video_comment` (
+  `commentid` int(10) unsigned NOT NULL COMMENT 'è¯„è®ºid',
+  `adminid` int(10) unsigned NOT NULL COMMENT 'å®¡æ ¸è€…id',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `etime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'å®¡æ ¸å®Œæˆæ—¶é—´',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `heartTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`commentid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `anchor` (
+  `uid` int(10) unsigned NOT NULL,
+  `level` int(10) unsigned NOT NULL DEFAULT '1',
+  `income` int(10) unsigned NOT NULL DEFAULT '0',
+  `integral` float(14,3) NOT NULL DEFAULT '0.000',
+  `bean` float(14,3) NOT NULL DEFAULT '0.000',
+  `coin` float(14,3) NOT NULL DEFAULT '0.000',
+  `videolimit` int(10) unsigned NOT NULL DEFAULT '5',
+  `cid` int(10) NOT NULL DEFAULT '0' COMMENT 'ç»çºªå…¬å¸idâ€™;\n',
+  `cert_status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'æ˜¯å¦å®žå',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'æ·»åŠ æ—¶é—´',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'ä¿®æ”¹æ—¶é—´',
+  `rate` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT 'å…¬å¸æ±‡çŽ‡ å¦‚:70è¡¨ç¤º3:7åˆ†',
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `anchor_blackList` (
+  `luid` int(10) unsigned NOT NULL DEFAULT '0',
+  `recordid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`luid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `anchor_change_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL COMMENT '用户id',
+  `before_cid` int(10) NOT NULL COMMENT '变更前所属cid',
+  `after_cid` int(10) NOT NULL COMMENT '当前所属cid',
+  `adminid` int(10) unsigned NOT NULL COMMENT '管理员id',
+  `desc` blob NOT NULL COMMENT '修改描述',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `anchor_most_popular` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `liveid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç›´æ’­id',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸»æ’­id',
+  `popular` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'äººæ°”',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=67792 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `anchorblackrecord` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `luid` int(10) unsigned NOT NULL,
+  `type` tinyint(3) unsigned NOT NULL COMMENT 'æ“ä½œç±»åž‹',
+  `reason` int(10) unsigned NOT NULL COMMENT 'æ“ä½œåŽŸå› ',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `liveid` int(10) unsigned NOT NULL COMMENT 'å½“å‰ç›´æ’­ID',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1 COMMENT='å¯¹ä¸»æ’­è¿›è¡Œè­¦å‘Šæ–­æµå°å·çš„æµæ°´è¡¨';
+
+CREATE TABLE `anchorlevel` (
+  `level` int(10) unsigned NOT NULL,
+  `integral` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`level`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `anchortag` (
+  `anchorid` int(10) unsigned NOT NULL DEFAULT '0',
+  `tag` varchar(30) NOT NULL DEFAULT '',
+  PRIMARY KEY (`anchorid`,`tag`),
+  KEY `tag` (`tag`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `bank` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL DEFAULT '' COMMENT 'é“¶è¡Œåç§°',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0ä½¿ç”¨ä¸­ 1æš‚åœä½¿ç”¨',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `bank_card` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸»æ’­id',
+  `name` varchar(30) NOT NULL DEFAULT '' COMMENT 'å¼€æˆ·å',
+  `bankid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'é“¶è¡Œid',
+  `address` varchar(100) NOT NULL DEFAULT '' COMMENT '银行支行地址',
+  `phone` char(11) NOT NULL DEFAULT '' COMMENT 'ç”µè¯å·ç ',
+  `cardid` varchar(30) NOT NULL DEFAULT '' COMMENT 'å¡å·',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT ' 0ä½¿ç”¨ä¸­ 1å·²è§£ç»‘',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ucid` (`uid`,`cardid`),
+  KEY `cardid` (`cardid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `billdetail` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'çºªå½•ID',
+  `customerid` int(10) NOT NULL DEFAULT '0' COMMENT 'æ¶ˆè´¹ç”¨æˆ·ID',
+  `purchase` int(10) NOT NULL DEFAULT '0' COMMENT 'æ¶ˆè´¹é‡‘é¢',
+  `beneficiaryid` int(10) NOT NULL DEFAULT '0' COMMENT 'æ”¶ç›Šäººid',
+  `income` int(10) NOT NULL DEFAULT '0' COMMENT 'æ”¶ç›Šé‡‘é¢',
+  `type` int(10) NOT NULL DEFAULT '0' COMMENT 'ç±»åž‹',
+  `info` varchar(32) NOT NULL DEFAULT '' COMMENT 'æ¶ˆè´¹å†…å®¹ï¼ˆå……å€¼è®°å½•IDï¼Œæˆ–è€…é€ç¤¼çºªå½•IDï¼‰',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'æ¶ˆè´¹æ—¶é—´',
+  PRIMARY KEY (`id`),
+  KEY `type` (`type`),
+  KEY `info` (`info`)
+) ENGINE=InnoDB AUTO_INCREMENT=265823 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `channel_user` (
+  `uid` int(10) unsigned NOT NULL,
+  `channel` int(10) unsigned NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid`,`channel`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `city` (
+  `id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åŸŽå¸‚id',
+  `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'çœçº§id',
+  `name` varchar(40) DEFAULT '' COMMENT 'åŸŽå¸‚åç§°',
+  UNIQUE KEY `idp` (`id`,`pid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `company` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ç»çºªå…¬å¸id',
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT 'ç»çºªå…¬å¸åç§°',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0ä½¿ç”¨,1å…³é—­',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '1ç»çºªå…¬å¸,2å®¶æ—',
+  `owner_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç»çºªå…¬å¸æˆ–å·¥ä¼šæ‰€æœ‰è€…id',
+  `rate` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT 'å…¬å¸æ±‡çŽ‡ å¦‚:70è¡¨ç¤º3:7åˆ†',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `company_anchor` (
+  `cid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç»çºªå…¬å¸id',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸»æ’­id',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'æ·»åŠ æ—¶é—´',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'ä¿®æ”¹æ—¶é—´',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0ç­¾çº¦çŠ¶æ€,1è§£é™¤ç­¾çº¦çŠ¶æ€',
+  UNIQUE KEY `cuid` (`uid`,`cid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `conversion` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢è€…id',
+  `before` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢å‰',
+  `after` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢åŽ',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0ä¸»æ’­æ¬¢å¸å…‘ç”¨æˆ·æ¬¢å¸',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=536 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `dong_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT 'æ ‡é¢˜',
+  `content` blob COMMENT 'å†…å®¹',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=307 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `due_game_area` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `area` varchar(50) NOT NULL DEFAULT '' COMMENT '游戏区',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='游戏分区表';
+
+CREATE TABLE `due_game_level` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `game_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '游戏ID',
+  `level` varchar(25) NOT NULL DEFAULT '' COMMENT '游戏等级，如青铜、白银等',
+  `sort` smallint(4) unsigned NOT NULL DEFAULT '0' COMMENT '排序字段',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='游戏等级表';
+
+CREATE TABLE `due_order_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '订单id',
+  `cert_id` int(11) NOT NULL DEFAULT '0' COMMENT '认证主播id',
+  `skill_id` int(11) NOT NULL DEFAULT '0' COMMENT '技能ID',
+  `price` int(11) NOT NULL DEFAULT '0' COMMENT '单价',
+  `unit` tinyint(4) NOT NULL DEFAULT '0' COMMENT '计价方式',
+  `number` int(10) NOT NULL DEFAULT '0' COMMENT '购买数量',
+  `start_time` int(11) NOT NULL DEFAULT '0' COMMENT '开始时间',
+  `end_time` int(11) NOT NULL DEFAULT '0' COMMENT '结束时间',
+  `role_name` varchar(30) NOT NULL DEFAULT '' COMMENT '角色名',
+  `contact_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '联系方式',
+  `contact` varchar(30) NOT NULL DEFAULT '' COMMENT '联系号码',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表订单详情';
+
+CREATE TABLE `due_recommend` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `skill_id` int(11) unsigned NOT NULL COMMENT '用户技能id',
+  `uid` int(11) unsigned NOT NULL COMMENT '认证用户ID',
+  `is_del` tinyint(4) unsigned NOT NULL DEFAULT '1' COMMENT '1推荐中；2删除推荐 等',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='约玩推荐';
+
+CREATE TABLE `due_rong_user` (
+  `uid` int(11) NOT NULL COMMENT 'uid',
+  `token` varchar(100) NOT NULL COMMENT 'token',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='融云即时聊天';
+
+CREATE TABLE `due_set_info` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '认证用户ID',
+  `cert_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '资质ID',
+  `game_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '认证游戏ID',
+  `tag_ids` varchar(50) NOT NULL DEFAULT '' COMMENT '标签ID',
+  `price` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '单价',
+  `unit` varchar(10) NOT NULL DEFAULT '' COMMENT '价格单位 1、小时 2、局',
+  `service_time` varchar(50) NOT NULL DEFAULT '' COMMENT '服务时间范围',
+  `service_day` varchar(20) NOT NULL DEFAULT '' COMMENT '服务日期（1、周一 2、周二 3、周三 4、周四 5、周五 6、周六 7、周日）',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `utime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='认证设置表';
+
+CREATE TABLE `due_tags` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tag` varchar(50) NOT NULL DEFAULT '' COMMENT '标签',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标签表';
+
+CREATE TABLE `exchange_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `beforefrom` bigint(20) NOT NULL DEFAULT '0' COMMENT '兑换前被兑换项数值',
+  `beforeto` bigint(20) NOT NULL DEFAULT '0' COMMENT '兑换前兑换成的数值',
+  `afterfrom` bigint(20) NOT NULL DEFAULT '0' COMMENT '兑换后被兑换项数值',
+  `afterto` bigint(20) NOT NULL DEFAULT '0' COMMENT '兑换后兑换成的数值',
+  `message` varchar(300) NOT NULL DEFAULT '' COMMENT '兑换描述',
+  `number` bigint(20) NOT NULL DEFAULT '0' COMMENT '兑换数量',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '兑换方式',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `exchange_detail_201704` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `otid` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ˜ å°„ID',
+  `tid` bigint(20) NOT NULL DEFAULT '0' COMMENT 'è´¢åŠ¡è¿”å›žID',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç”¨æˆ·ID',
+  `beforefrom` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢å‰è¢«å…‘æ¢é¡¹æ•°å€¼',
+  `beforeto` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢å‰å…‘æ¢æˆçš„æ•°å€¼',
+  `afterfrom` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢åŽè¢«å…‘æ¢é¡¹æ•°å€¼',
+  `afterto` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢åŽå…‘æ¢æˆçš„æ•°å€¼',
+  `message` varchar(300) NOT NULL DEFAULT '' COMMENT 'å…‘æ¢æè¿°',
+  `number` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢æ•°é‡',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢æ–¹å¼',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'è®°å½•çŠ¶æ€ 0é»˜è®¤ 1åˆ›å»º 2å®¡æ ¸ 3æˆåŠŸ 4å¤±è´¥',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `exchange_detail_201705` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `otid` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ˜ å°„ID',
+  `tid` bigint(20) NOT NULL DEFAULT '0' COMMENT 'è´¢åŠ¡è¿”å›žID',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç”¨æˆ·ID',
+  `beforefrom` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢å‰è¢«å…‘æ¢é¡¹æ•°å€¼',
+  `beforeto` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢å‰å…‘æ¢æˆçš„æ•°å€¼',
+  `afterfrom` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢åŽè¢«å…‘æ¢é¡¹æ•°å€¼',
+  `afterto` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢åŽå…‘æ¢æˆçš„æ•°å€¼',
+  `message` varchar(300) NOT NULL DEFAULT '' COMMENT 'å…‘æ¢æè¿°',
+  `number` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢æ•°é‡',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢æ–¹å¼',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'è®°å½•çŠ¶æ€ 0é»˜è®¤ 1åˆ›å»º 2å®¡æ ¸ 3æˆåŠŸ 4å¤±è´¥',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=374 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `exchange_detail_template` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `otid` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ˜ å°„ID',
+  `tid` bigint(20) NOT NULL DEFAULT '0' COMMENT 'è´¢åŠ¡è¿”å›žID',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç”¨æˆ·ID',
+  `beforefrom` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢å‰è¢«å…‘æ¢é¡¹æ•°å€¼',
+  `beforeto` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢å‰å…‘æ¢æˆçš„æ•°å€¼',
+  `afterfrom` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢åŽè¢«å…‘æ¢é¡¹æ•°å€¼',
+  `afterto` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢åŽå…‘æ¢æˆçš„æ•°å€¼',
+  `message` varchar(300) NOT NULL DEFAULT '' COMMENT 'å…‘æ¢æè¿°',
+  `number` bigint(20) NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢æ•°é‡',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'å…‘æ¢æ–¹å¼',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'è®°å½•çŠ¶æ€ 0é»˜è®¤ 1åˆ›å»º 2å®¡æ ¸ 3æˆåŠŸ 4å¤±è´¥',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `feedback` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `feedback` blob NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=234 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `game` (
+  `gameid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `gametid` int(10) unsigned NOT NULL DEFAULT '0',
+  `name` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `icon` varchar(100) NOT NULL DEFAULT '',
+  `poster` varchar(100) NOT NULL DEFAULT '',
+  `ord` int(10) unsigned NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `direction` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `gamepic` blob COMMENT '游戏图片',
+  `bgpic` varchar(100) NOT NULL DEFAULT '' COMMENT '背景图片',
+  `description` blob NOT NULL COMMENT '游戏描述',
+  PRIMARY KEY (`gameid`)
+) ENGINE=InnoDB AUTO_INCREMENT=521 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `game_zone` (
+  `gameid` int(10) unsigned NOT NULL,
+  `poster` varchar(100) NOT NULL DEFAULT '',
+  `gamepic` varchar(100) NOT NULL DEFAULT '',
+  `bgpic` varchar(100) NOT NULL DEFAULT '',
+  `description` blob NOT NULL,
+  `status` tinyint(3) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`gameid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `gamefollow` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gameid` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid`,`gameid`),
+  KEY `gameid` (`gameid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `gametype` (
+  `gametid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL DEFAULT '',
+  `icon` varchar(100) NOT NULL DEFAULT '',
+  `ord` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`gametid`),
+  KEY `ord` (`ord`)
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `gift` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `money` int(10) unsigned NOT NULL DEFAULT '0',
+  `giftname` varchar(30) NOT NULL DEFAULT '',
+  `type` int(10) unsigned NOT NULL DEFAULT '0',
+  `conversionrate` int(10) NOT NULL DEFAULT '0',
+  `exp` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `giftrecord` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'è®°å½•id',
+  `luid` int(10) unsigned NOT NULL COMMENT 'ä¸»æ’­id',
+  `liveid` int(10) unsigned NOT NULL COMMENT 'ç›´æ’­id',
+  `uid` int(10) unsigned NOT NULL COMMENT 'é€ç¤¼äººid',
+  `giftid` tinyint(3) unsigned NOT NULL COMMENT 'ç¤¼ç‰©id',
+  `giftnum` int(10) unsigned NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'é€ç¤¼æ—¶é—´',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `income` float(14,2) NOT NULL DEFAULT '0.00',
+  `cost` float(14,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`),
+  KEY `liveid` (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB AUTO_INCREMENT=55072 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `giftrecord_201703` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '记录id',
+  `luid` int(10) unsigned NOT NULL COMMENT 'ä¸»æ’­id',
+  `liveid` int(10) unsigned NOT NULL COMMENT 'ç›´æ’­id',
+  `uid` int(10) unsigned NOT NULL COMMENT 'é€ç¤¼äººid',
+  `giftid` tinyint(3) unsigned NOT NULL COMMENT 'ç¤¼ç‰©id',
+  `giftnum` int(10) unsigned NOT NULL COMMENT '礼物数',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'é€ç¤¼æ—¶é—´',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `income` float(14,2) NOT NULL DEFAULT '0.00',
+  `cost` float(14,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`),
+  KEY `liveid` (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB AUTO_INCREMENT=30036 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `giftrecord_201704` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '记录id',
+  `luid` int(10) unsigned NOT NULL COMMENT 'ä¸»æ’­id',
+  `liveid` int(10) unsigned NOT NULL COMMENT 'ç›´æ’­id',
+  `uid` int(10) unsigned NOT NULL COMMENT 'é€ç¤¼äººid',
+  `giftid` tinyint(3) unsigned NOT NULL COMMENT 'ç¤¼ç‰©id',
+  `giftnum` int(10) unsigned NOT NULL COMMENT '礼物数',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'é€ç¤¼æ—¶é—´',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `income` float(14,2) NOT NULL DEFAULT '0.00',
+  `cost` float(14,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`),
+  KEY `liveid` (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB AUTO_INCREMENT=52997 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `giftrecord_201705` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '记录id',
+  `luid` int(10) unsigned NOT NULL COMMENT 'ä¸»æ’­id',
+  `liveid` int(10) unsigned NOT NULL COMMENT 'ç›´æ’­id',
+  `uid` int(10) unsigned NOT NULL COMMENT 'é€ç¤¼äººid',
+  `giftid` tinyint(3) unsigned NOT NULL COMMENT 'ç¤¼ç‰©id',
+  `giftnum` int(10) unsigned NOT NULL COMMENT '礼物数',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'é€ç¤¼æ—¶é—´',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `income` float(14,2) NOT NULL DEFAULT '0.00',
+  `cost` float(14,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`),
+  KEY `liveid` (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB AUTO_INCREMENT=201705271422532890 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `giftrecord_201706` (
+  `id` bigint(20) unsigned NOT NULL COMMENT 'è®°å½•id',
+  `luid` int(10) unsigned NOT NULL COMMENT 'ä¸»æ’­id',
+  `liveid` int(10) unsigned NOT NULL COMMENT 'ç›´æ’­id',
+  `uid` int(10) unsigned NOT NULL COMMENT 'é€ç¤¼äººid',
+  `giftid` tinyint(3) unsigned NOT NULL COMMENT 'ç¤¼ç‰©id',
+  `giftnum` int(10) unsigned NOT NULL COMMENT 'ç¤¼ç‰©æ•°',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'é€ç¤¼æ—¶é—´',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `income` float(14,2) NOT NULL DEFAULT '0.00',
+  `cost` float(14,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`),
+  KEY `liveid` (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `giftrecordcoin` (
+  `id` varchar(20) NOT NULL DEFAULT '' COMMENT 'è®°å½•id',
+  `luid` int(10) unsigned NOT NULL COMMENT 'ä¸»æ’­id',
+  `liveid` int(10) unsigned NOT NULL COMMENT 'ç›´æ’­id',
+  `uid` int(10) unsigned NOT NULL COMMENT 'é€ç¤¼äººid',
+  `giftid` tinyint(3) unsigned NOT NULL COMMENT 'ç¤¼ç‰©id',
+  `giftnum` tinyint(3) unsigned NOT NULL COMMENT 'ç¤¼ç‰©æ•°',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'é€ç¤¼æ—¶é—´',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `income` float(14,2) NOT NULL DEFAULT '0.00',
+  `cost` float(14,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`),
+  KEY `liveid` (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `giftrecordcoin_201703` (
+  `id` varchar(20) NOT NULL DEFAULT '' COMMENT 'è®°å½•id',
+  `luid` int(10) unsigned NOT NULL COMMENT 'ä¸»æ’­id',
+  `liveid` int(10) unsigned NOT NULL COMMENT 'ç›´æ’­id',
+  `uid` int(10) unsigned NOT NULL COMMENT 'é€ç¤¼äººid',
+  `giftid` tinyint(3) unsigned NOT NULL COMMENT 'ç¤¼ç‰©id',
+  `giftnum` tinyint(3) unsigned NOT NULL COMMENT 'ç¤¼ç‰©æ•°',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'é€ç¤¼æ—¶é—´',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `income` float(14,2) NOT NULL DEFAULT '0.00',
+  `cost` float(14,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`),
+  KEY `liveid` (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `giftrecordcoin_201704` (
+  `id` varchar(20) NOT NULL DEFAULT '' COMMENT 'è®°å½•id',
+  `luid` int(10) unsigned NOT NULL COMMENT 'ä¸»æ’­id',
+  `liveid` int(10) unsigned NOT NULL COMMENT 'ç›´æ’­id',
+  `uid` int(10) unsigned NOT NULL COMMENT 'é€ç¤¼äººid',
+  `giftid` tinyint(3) unsigned NOT NULL COMMENT 'ç¤¼ç‰©id',
+  `giftnum` tinyint(3) unsigned NOT NULL COMMENT 'ç¤¼ç‰©æ•°',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'é€ç¤¼æ—¶é—´',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `income` float(14,2) NOT NULL DEFAULT '0.00',
+  `cost` float(14,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`),
+  KEY `liveid` (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `giftrecordcoin_201705` (
+  `id` varchar(20) NOT NULL DEFAULT '' COMMENT 'è®°å½•id',
+  `luid` int(10) unsigned NOT NULL COMMENT 'ä¸»æ’­id',
+  `liveid` int(10) unsigned NOT NULL COMMENT 'ç›´æ’­id',
+  `uid` int(10) unsigned NOT NULL COMMENT 'é€ç¤¼äººid',
+  `giftid` tinyint(3) unsigned NOT NULL COMMENT 'ç¤¼ç‰©id',
+  `giftnum` tinyint(3) unsigned NOT NULL COMMENT 'ç¤¼ç‰©æ•°',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'é€ç¤¼æ—¶é—´',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `income` float(14,2) NOT NULL DEFAULT '0.00',
+  `cost` float(14,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`),
+  KEY `liveid` (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `giftrecordcoin_201706` (
+  `id` bigint(20) unsigned NOT NULL COMMENT 'è®°å½•id',
+  `luid` int(10) unsigned NOT NULL COMMENT 'ä¸»æ’­id',
+  `liveid` int(10) unsigned NOT NULL COMMENT 'ç›´æ’­id',
+  `uid` int(10) unsigned NOT NULL COMMENT 'é€ç¤¼äººid',
+  `giftid` tinyint(3) unsigned NOT NULL COMMENT 'ç¤¼ç‰©id',
+  `giftnum` int(10) unsigned NOT NULL COMMENT 'ç¤¼ç‰©æ•°',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'é€ç¤¼æ—¶é—´',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `income` float(14,2) NOT NULL DEFAULT '0.00',
+  `cost` float(14,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`),
+  KEY `liveid` (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `history` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `luid` int(10) unsigned NOT NULL DEFAULT '0',
+  `stime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '1æ­£å¸¸ 0åˆ é™¤',
+  PRIMARY KEY (`uid`,`luid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_balance` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_beanToGBRecord_197409` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_beanToGBRecord_197605` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_beanToGBRecord_201703` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_beanToGBRecord_201704` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_beanToGBRecord_201705` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_beanToGBRecord_201706` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_beanToGBRecord_template` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_changeRateRecord` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `rate` float(10,3) unsigned NOT NULL DEFAULT '0.000',
+  `rateNew` float(10,3) unsigned NOT NULL DEFAULT '0.000',
+  `desc` blob NOT NULL,
+  `type` int(20) unsigned NOT NULL DEFAULT '0',
+  `ip` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `otid` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB AUTO_INCREMENT=194 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_changeRateRecord_template` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `rate` float(10,3) unsigned NOT NULL DEFAULT '0.000',
+  `rateNew` float(10,3) unsigned NOT NULL DEFAULT '0.000',
+  `desc` blob NOT NULL,
+  `type` int(20) unsigned NOT NULL DEFAULT '0',
+  `ip` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `otid` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_changeWithdrawStatusRecord_197409` (
+  `id` bigint(20) unsigned NOT NULL,
+  `withdrawID` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` int(10) unsigned NOT NULL DEFAULT '0',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `result` int(10) NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_changeWithdrawStatusRecord_197605` (
+  `id` bigint(20) unsigned NOT NULL,
+  `withdrawID` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` int(10) unsigned NOT NULL DEFAULT '0',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `result` int(10) NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_changeWithdrawStatusRecord_201703` (
+  `id` bigint(20) unsigned NOT NULL,
+  `withdrawID` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` int(10) unsigned NOT NULL DEFAULT '0',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `result` int(10) NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_changeWithdrawStatusRecord_201704` (
+  `id` bigint(20) unsigned NOT NULL,
+  `withdrawID` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` int(10) unsigned NOT NULL DEFAULT '0',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `result` int(10) NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_changeWithdrawStatusRecord_201705` (
+  `id` bigint(20) unsigned NOT NULL,
+  `withdrawID` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` int(10) unsigned NOT NULL DEFAULT '0',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `result` int(10) NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_changeWithdrawStatusRecord_template` (
+  `id` bigint(20) unsigned NOT NULL,
+  `withdrawID` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` int(10) unsigned NOT NULL DEFAULT '0',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `result` int(10) NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_exchangeRecord_197409` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_exchangeRecord_197605` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_exchangeRecord_201703` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `hpf_exchangeRecord_201704` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_getHDRecord_197605` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'èŽ·å–æ¸ é“ï¼Œ1:åˆ°æ—¶é¢†å–ï¼Œ2:å®ç®±é¢†å–',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_getHDRecord_201703` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'èŽ·å–æ¸ é“ï¼Œ1:åˆ°æ—¶é¢†å–ï¼Œ2:å®ç®±é¢†å–',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_getHDRecord_201704` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'èŽ·å–æ¸ é“ï¼Œ1:åˆ°æ—¶é¢†å–ï¼Œ2:å®ç®±é¢†å–',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_getHDRecord_201705` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'èŽ·å–æ¸ é“ï¼Œ1:åˆ°æ—¶é¢†å–ï¼Œ2:å®ç®±é¢†å–',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_getHDRecord_201706` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'èŽ·å–æ¸ é“ï¼Œ1:åˆ°æ—¶é¢†å–ï¼Œ2:å®ç®±é¢†å–',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_getHDRecord_template` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'èŽ·å–æ¸ é“ï¼Œ1:åˆ°æ—¶é¢†å–ï¼Œ2:å®ç®±é¢†å–',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_innerCostHBRecord_197409` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å¹³å°å†…éƒ¨æ¶ˆè´¹æ¸ é“ï¼Œå¦‚æ”¹åï¼š1',
+  `otid` int(10) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_innerCostHBRecord_197605` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å¹³å°å†…éƒ¨æ¶ˆè´¹æ¸ é“ï¼Œå¦‚æ”¹åï¼š1',
+  `otid` int(10) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_innerCostHBRecord_201703` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å¹³å°å†…éƒ¨æ¶ˆè´¹æ¸ é“ï¼Œå¦‚æ”¹åï¼š1',
+  `otid` int(10) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_innerCostHBRecord_201704` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å¹³å°å†…éƒ¨æ¶ˆè´¹æ¸ é“ï¼Œå¦‚æ”¹åï¼š1',
+  `otid` int(10) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_innerCostHBRecord_201705` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å¹³å°å†…éƒ¨æ¶ˆè´¹æ¸ é“ï¼Œå¦‚æ”¹åï¼š1',
+  `otid` int(10) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_innerCostHBRecord_201706` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å¹³å°å†…éƒ¨æ¶ˆè´¹æ¸ é“ï¼Œå¦‚æ”¹åï¼š1',
+  `otid` int(10) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_innerCostHBRecord_template` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å¹³å°å†…éƒ¨æ¶ˆè´¹æ¸ é“ï¼Œå¦‚æ”¹åï¼š1',
+  `otid` int(10) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_innerRechargeRecord_197409` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å†…éƒ¨å‘æ”¾æ¸ é“',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_innerRechargeRecord_197605` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å†…éƒ¨å‘æ”¾æ¸ é“',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_innerRechargeRecord_201703` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å†…éƒ¨å‘æ”¾æ¸ é“',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_innerRechargeRecord_201704` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å†…éƒ¨å‘æ”¾æ¸ é“',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_innerRechargeRecord_201705` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å†…éƒ¨å‘æ”¾æ¸ é“',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_innerRechargeRecord_201706` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å†…éƒ¨å‘æ”¾æ¸ é“',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_innerRechargeRecord_template` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å†…éƒ¨å‘æ”¾æ¸ é“',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `channel` (`channel`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_rate` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `type` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'è½¬æ¢ç±»åž‹ 1:æ¬¢æœ‹å¸=>é‡‘å¸,2:äººæ°‘å¸=>æ¬¢æœ‹å¸,3:é‡‘å¸=>æ¬¢æœ‹å¸,4:é‡‘è±†=>é‡‘å¸,5:é‡‘å¸=>äººæ°‘å¸, 6:æ¬¢æœ‹å¸=>æ¬¢æœ‹å¸',
+  `rate` float(10,3) unsigned NOT NULL DEFAULT '0.000',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid`,`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_rechargeRecord_197409` (
+  `id` bigint(20) unsigned NOT NULL,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `paytime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `rmb` bigint(20) NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `client` varchar(10) NOT NULL DEFAULT '' COMMENT 'web/android/ios',
+  `refer_url` varchar(100) NOT NULL DEFAULT '' COMMENT 'è®¢å•æ¥è·¯',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `thrid_order_id` varchar(100) NOT NULL DEFAULT '',
+  `thrid_buyer_id` varchar(100) NOT NULL DEFAULT '',
+  `promotionID` int(10) unsigned NOT NULL DEFAULT '0',
+  `channel` varchar(10) NOT NULL DEFAULT '' COMMENT 'wechat/alipay',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `thrid_order_id` (`thrid_order_id`,`channel`),
+  KEY `channel` (`channel`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_rechargeRecord_197605` (
+  `id` bigint(20) unsigned NOT NULL,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `paytime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `rmb` bigint(20) NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `client` varchar(10) NOT NULL DEFAULT '' COMMENT 'web/android/ios',
+  `refer_url` varchar(100) NOT NULL DEFAULT '' COMMENT 'è®¢å•æ¥è·¯',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `thrid_order_id` varchar(100) NOT NULL DEFAULT '',
+  `thrid_buyer_id` varchar(100) NOT NULL DEFAULT '',
+  `promotionID` int(10) unsigned NOT NULL DEFAULT '0',
+  `channel` varchar(10) NOT NULL DEFAULT '' COMMENT 'wechat/alipay',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `thrid_order_id` (`thrid_order_id`,`channel`),
+  KEY `channel` (`channel`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_rechargeRecord_201703` (
+  `id` bigint(20) unsigned NOT NULL,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `paytime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `rmb` bigint(20) NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `client` varchar(10) NOT NULL DEFAULT '' COMMENT 'web/android/ios',
+  `refer_url` varchar(100) NOT NULL DEFAULT '' COMMENT 'è®¢å•æ¥è·¯',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `thrid_order_id` varchar(100) NOT NULL DEFAULT '',
+  `thrid_buyer_id` varchar(100) NOT NULL DEFAULT '',
+  `promotionID` int(10) unsigned NOT NULL DEFAULT '0',
+  `channel` varchar(10) NOT NULL DEFAULT '' COMMENT 'wechat/alipay',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `thrid_order_id` (`thrid_order_id`,`channel`),
+  KEY `channel` (`channel`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_rechargeRecord_201704` (
+  `id` bigint(20) unsigned NOT NULL,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `paytime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `rmb` bigint(20) NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `client` varchar(10) NOT NULL DEFAULT '' COMMENT 'web/android/ios',
+  `refer_url` varchar(100) NOT NULL DEFAULT '' COMMENT 'è®¢å•æ¥è·¯',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `thrid_order_id` varchar(100) NOT NULL DEFAULT '',
+  `thrid_buyer_id` varchar(100) NOT NULL DEFAULT '',
+  `promotionID` int(10) unsigned NOT NULL DEFAULT '0',
+  `channel` varchar(10) NOT NULL DEFAULT '' COMMENT 'wechat/alipay',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `thrid_order_id` (`thrid_order_id`,`channel`),
+  KEY `channel` (`channel`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_rechargeRecord_201705` (
+  `id` bigint(20) unsigned NOT NULL,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `paytime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `rmb` bigint(20) NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `client` varchar(10) NOT NULL DEFAULT '' COMMENT 'web/android/ios',
+  `refer_url` varchar(100) NOT NULL DEFAULT '' COMMENT 'è®¢å•æ¥è·¯',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `thrid_order_id` varchar(100) NOT NULL DEFAULT '',
+  `thrid_buyer_id` varchar(100) NOT NULL DEFAULT '',
+  `promotionID` int(10) unsigned NOT NULL DEFAULT '0',
+  `channel` varchar(10) NOT NULL DEFAULT '' COMMENT 'wechat/alipay',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `thrid_order_id` (`thrid_order_id`,`channel`),
+  KEY `channel` (`channel`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_rechargeRecord_201706` (
+  `id` bigint(20) unsigned NOT NULL,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `paytime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `rmb` bigint(20) NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `client` varchar(10) NOT NULL DEFAULT '' COMMENT 'web/android/ios',
+  `refer_url` varchar(100) NOT NULL DEFAULT '' COMMENT 'è®¢å•æ¥è·¯',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `thrid_order_id` varchar(100) NOT NULL DEFAULT '',
+  `thrid_buyer_id` varchar(100) NOT NULL DEFAULT '',
+  `promotionID` int(10) unsigned NOT NULL DEFAULT '0',
+  `channel` varchar(10) NOT NULL DEFAULT '' COMMENT 'wechat/alipay',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `thrid_order_id` (`thrid_order_id`,`channel`),
+  KEY `channel` (`channel`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_rechargeRecord_template` (
+  `id` bigint(20) unsigned NOT NULL,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `paytime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `rmb` bigint(20) NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `client` varchar(10) NOT NULL DEFAULT '' COMMENT 'web/android/ios',
+  `refer_url` varchar(100) NOT NULL DEFAULT '' COMMENT 'è®¢å•æ¥è·¯',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `thrid_order_id` varchar(100) NOT NULL DEFAULT '',
+  `thrid_buyer_id` varchar(100) NOT NULL DEFAULT '',
+  `promotionID` int(10) unsigned NOT NULL DEFAULT '0',
+  `channel` varchar(10) NOT NULL DEFAULT '' COMMENT 'wechat/alipay',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `thrid_order_id` (`thrid_order_id`,`channel`),
+  KEY `channel` (`channel`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_sendBeanRecord_197409` (
+  `id` bigint(20) unsigned NOT NULL,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `suid` (`suid`,`ruid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_sendBeanRecord_197605` (
+  `id` bigint(20) unsigned NOT NULL,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `suid` (`suid`,`ruid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_sendBeanRecord_201703` (
+  `id` bigint(20) unsigned NOT NULL,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `suid` (`suid`,`ruid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_sendBeanRecord_201704` (
+  `id` bigint(20) unsigned NOT NULL,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `suid` (`suid`,`ruid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_sendBeanRecord_201705` (
+  `id` bigint(20) unsigned NOT NULL,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `suid` (`suid`,`ruid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_sendBeanRecord_201706` (
+  `id` bigint(20) unsigned NOT NULL,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `suid` (`suid`,`ruid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_sendBeanRecord_template` (
+  `id` bigint(20) unsigned NOT NULL,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hd` bigint(20) NOT NULL DEFAULT '0',
+  `gd` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `suid` (`suid`,`ruid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_sendGiftRecord_197409` (
+  `id` bigint(20) unsigned NOT NULL,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'ç½‘ç«™å‰å°å¯¹ç…§ç¥¨æ®',
+  PRIMARY KEY (`id`),
+  KEY `suid` (`suid`,`ruid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_sendGiftRecord_197605` (
+  `id` bigint(20) unsigned NOT NULL,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'ç½‘ç«™å‰å°å¯¹ç…§ç¥¨æ®',
+  PRIMARY KEY (`id`),
+  KEY `suid` (`suid`,`ruid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_sendGiftRecord_201703` (
+  `id` bigint(20) unsigned NOT NULL,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'ç½‘ç«™å‰å°å¯¹ç…§ç¥¨æ®',
+  PRIMARY KEY (`id`),
+  KEY `suid` (`suid`,`ruid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_sendGiftRecord_201704` (
+  `id` bigint(20) unsigned NOT NULL,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'ç½‘ç«™å‰å°å¯¹ç…§ç¥¨æ®',
+  PRIMARY KEY (`id`),
+  KEY `suid` (`suid`,`ruid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_sendGiftRecord_201705` (
+  `id` bigint(20) unsigned NOT NULL,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'ç½‘ç«™å‰å°å¯¹ç…§ç¥¨æ®',
+  PRIMARY KEY (`id`),
+  KEY `suid` (`suid`,`ruid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_sendGiftRecord_201706` (
+  `id` bigint(20) unsigned NOT NULL,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'ç½‘ç«™å‰å°å¯¹ç…§ç¥¨æ®',
+  PRIMARY KEY (`id`),
+  KEY `suid` (`suid`,`ruid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_sendGiftRecord_template` (
+  `id` bigint(20) unsigned NOT NULL,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'ç½‘ç«™å‰å°å¯¹ç…§ç¥¨æ®',
+  PRIMARY KEY (`id`),
+  KEY `suid` (`suid`,`ruid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_statement_197409` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹å¸ä½™é¢',
+  `gb` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸ä½™é¢',
+  `hd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹è±†ä½™é¢',
+  `gd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘è±†ä½™é¢',
+  `hbd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹å¸å·®å€¼+-',
+  `gbd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸å·®å€¼+-',
+  `hdd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹è±†å·®å€¼+-',
+  `gdd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘è±†å·®å€¼+-',
+  `tid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'å¯¹è´¦å•ID',
+  `type` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'è´¦ç›®ç±»åž‹ 1:é€ç¤¼ï¼Œ2:å……å€¼ï¼Œ3:é‡‘å¸å…‘æ¢æ¬¢æœ‹å¸ï¼Œ4:é‡‘è±†å…‘æ¢æˆé‡‘å¸ï¼Œ5:æçŽ°ï¼Œ6:å†…éƒ¨å‘æ”¾',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `tid` (`tid`,`type`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_statement_197605` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹å¸ä½™é¢',
+  `gb` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸ä½™é¢',
+  `hd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹è±†ä½™é¢',
+  `gd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘è±†ä½™é¢',
+  `hbd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹å¸å·®å€¼+-',
+  `gbd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸å·®å€¼+-',
+  `hdd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹è±†å·®å€¼+-',
+  `gdd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘è±†å·®å€¼+-',
+  `tid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'å¯¹è´¦å•ID',
+  `type` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'è´¦ç›®ç±»åž‹ 1:é€ç¤¼ï¼Œ2:å……å€¼ï¼Œ3:é‡‘å¸å…‘æ¢æ¬¢æœ‹å¸ï¼Œ4:é‡‘è±†å…‘æ¢æˆé‡‘å¸ï¼Œ5:æçŽ°ï¼Œ6:å†…éƒ¨å‘æ”¾',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `tid` (`tid`,`type`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_statement_201703` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹å¸ä½™é¢',
+  `gb` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸ä½™é¢',
+  `hd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹è±†ä½™é¢',
+  `gd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘è±†ä½™é¢',
+  `hbd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹å¸å·®å€¼+-',
+  `gbd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸å·®å€¼+-',
+  `hdd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹è±†å·®å€¼+-',
+  `gdd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘è±†å·®å€¼+-',
+  `tid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'å¯¹è´¦å•ID',
+  `type` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'è´¦ç›®ç±»åž‹ 1:é€ç¤¼ï¼Œ2:å……å€¼ï¼Œ3:é‡‘å¸å…‘æ¢æ¬¢æœ‹å¸ï¼Œ4:é‡‘è±†å…‘æ¢æˆé‡‘å¸ï¼Œ5:æçŽ°ï¼Œ6:å†…éƒ¨å‘æ”¾',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `tid` (`tid`,`type`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2384 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_statement_201704` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹å¸ä½™é¢',
+  `gb` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸ä½™é¢',
+  `hd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹è±†ä½™é¢',
+  `gd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘è±†ä½™é¢',
+  `hbd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹å¸å·®å€¼+-',
+  `gbd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸å·®å€¼+-',
+  `hdd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹è±†å·®å€¼+-',
+  `gdd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘è±†å·®å€¼+-',
+  `tid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'å¯¹è´¦å•ID',
+  `type` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'è´¦ç›®ç±»åž‹ 1:é€ç¤¼ï¼Œ2:å……å€¼ï¼Œ3:é‡‘å¸å…‘æ¢æ¬¢æœ‹å¸ï¼Œ4:é‡‘è±†å…‘æ¢æˆé‡‘å¸ï¼Œ5:æçŽ°ï¼Œ6:å†…éƒ¨å‘æ”¾',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `tid` (`tid`,`type`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=59176 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_statement_201705` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹å¸ä½™é¢',
+  `gb` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸ä½™é¢',
+  `hd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹è±†ä½™é¢',
+  `gd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘è±†ä½™é¢',
+  `hbd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹å¸å·®å€¼+-',
+  `gbd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸å·®å€¼+-',
+  `hdd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹è±†å·®å€¼+-',
+  `gdd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘è±†å·®å€¼+-',
+  `tid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'å¯¹è´¦å•ID',
+  `type` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'è´¦ç›®ç±»åž‹ 1:é€ç¤¼ï¼Œ2:å……å€¼ï¼Œ3:é‡‘å¸å…‘æ¢æ¬¢æœ‹å¸ï¼Œ4:é‡‘è±†å…‘æ¢æˆé‡‘å¸ï¼Œ5:æçŽ°ï¼Œ6:å†…éƒ¨å‘æ”¾',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `tid` (`tid`,`type`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=8745 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_statement_201706` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹å¸ä½™é¢',
+  `gb` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸ä½™é¢',
+  `hd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹è±†ä½™é¢',
+  `gd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘è±†ä½™é¢',
+  `hbd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹å¸å·®å€¼+-',
+  `gbd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸å·®å€¼+-',
+  `hdd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹è±†å·®å€¼+-',
+  `gdd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘è±†å·®å€¼+-',
+  `tid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'å¯¹è´¦å•ID',
+  `type` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'è´¦ç›®ç±»åž‹ 1:é€ç¤¼ï¼Œ2:å……å€¼ï¼Œ3:é‡‘å¸å…‘æ¢æ¬¢æœ‹å¸ï¼Œ4:é‡‘è±†å…‘æ¢æˆé‡‘å¸ï¼Œ5:æçŽ°ï¼Œ6:å†…éƒ¨å‘æ”¾',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `tid` (`tid`,`type`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_statement_template` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `hb` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹å¸ä½™é¢',
+  `gb` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸ä½™é¢',
+  `hd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹è±†ä½™é¢',
+  `gd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘è±†ä½™é¢',
+  `hbd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹å¸å·®å€¼+-',
+  `gbd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸å·®å€¼+-',
+  `hdd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'æ¬¢æœ‹è±†å·®å€¼+-',
+  `gdd` bigint(20) NOT NULL DEFAULT '0' COMMENT 'é‡‘è±†å·®å€¼+-',
+  `tid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'å¯¹è´¦å•ID',
+  `type` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'è´¦ç›®ç±»åž‹ 1:é€ç¤¼ï¼Œ2:å……å€¼ï¼Œ3:é‡‘å¸å…‘æ¢æ¬¢æœ‹å¸ï¼Œ4:é‡‘è±†å…‘æ¢æˆé‡‘å¸ï¼Œ5:æçŽ°ï¼Œ6:å†…éƒ¨å‘æ”¾',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `tid` (`tid`,`type`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_withdrawRecord_197409` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `rmb` bigint(20) NOT NULL DEFAULT '0',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_withdrawRecord_197605` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `rmb` bigint(20) NOT NULL DEFAULT '0',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_withdrawRecord_201703` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `rmb` bigint(20) NOT NULL DEFAULT '0',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_withdrawRecord_201704` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `rmb` bigint(20) NOT NULL DEFAULT '0',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_withdrawRecord_201705` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `rmb` bigint(20) NOT NULL DEFAULT '0',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(10) unsigned NOT NULL DEFAULT '0',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_withdrawRecord_201706` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `rmb` bigint(20) NOT NULL DEFAULT '0',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(10) unsigned NOT NULL DEFAULT '0',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `hpf_withdrawRecord_template` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gb` bigint(20) NOT NULL DEFAULT '0',
+  `rmb` bigint(20) NOT NULL DEFAULT '0',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `desc` blob NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(10) unsigned NOT NULL DEFAULT '0',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `otid` (`otid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `iap_handle_table_record` (
+  `name` varchar(20) NOT NULL DEFAULT '',
+  `status` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`name`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `iap_product_info` (
+  `item_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `app_item_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `product_id` varchar(100) NOT NULL DEFAULT '',
+  `hpcoin_amount` int(10) unsigned NOT NULL DEFAULT '0',
+  `cash_amount` decimal(13,3) unsigned NOT NULL DEFAULT '0.000',
+  `bid` varchar(100) NOT NULL DEFAULT '',
+  `channel_id` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `iap_record_201705` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `app_item_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `item_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `product_id` varchar(100) NOT NULL DEFAULT '',
+  `quantity` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'dollar',
+  `bvrs` varchar(20) NOT NULL DEFAULT '' COMMENT 'appversion',
+  `bid` varchar(100) NOT NULL DEFAULT '' COMMENT 'APPBundleID',
+  `version_external_identifier` varchar(32) NOT NULL DEFAULT '',
+  `original_purchase_date_ms` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `purchase_date_ms` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `unique_vendor_identifier` varchar(100) NOT NULL DEFAULT '',
+  `unique_identifier` varchar(100) NOT NULL DEFAULT '',
+  `original_transaction_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `transaction_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0:åˆ›å»º,10:éªŒè¯æˆåŠŸ,20:éªŒè¯å¤±è´¥',
+  `mix` char(32) NOT NULL DEFAULT '',
+  `receipt` blob NOT NULL,
+  `errorno` int(10) unsigned NOT NULL DEFAULT '0',
+  `ftid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `channelid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `mix` (`mix`),
+  KEY `ftid` (`ftid`),
+  KEY `uid` (`uid`),
+  KEY `channelid` (`channelid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Table structure for table `iap_record_201706`
+--
+
+DROP TABLE IF EXISTS `iap_record_201706`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `iap_record_201706` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `app_item_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `item_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `product_id` varchar(100) NOT NULL DEFAULT '',
+  `quantity` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'dollar',
+  `bvrs` varchar(20) NOT NULL DEFAULT '' COMMENT 'appversion',
+  `bid` varchar(100) NOT NULL DEFAULT '' COMMENT 'APPBundleID',
+  `version_external_identifier` varchar(32) NOT NULL DEFAULT '',
+  `original_purchase_date_ms` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `purchase_date_ms` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `unique_vendor_identifier` varchar(100) NOT NULL DEFAULT '',
+  `unique_identifier` varchar(100) NOT NULL DEFAULT '',
+  `original_transaction_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `transaction_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0:åˆ›å»º,10:éªŒè¯æˆåŠŸ,20:éªŒè¯å¤±è´¥',
+  `mix` char(32) NOT NULL DEFAULT '',
+  `receipt` blob NOT NULL,
+  `errorno` int(10) unsigned NOT NULL DEFAULT '0',
+  `ftid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `channelid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `mix` (`mix`),
+  KEY `ftid` (`ftid`),
+  KEY `uid` (`uid`),
+  KEY `channelid` (`channelid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `iap_record_template` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `app_item_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `item_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `product_id` varchar(100) NOT NULL DEFAULT '',
+  `quantity` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'dollar',
+  `bvrs` varchar(20) NOT NULL DEFAULT '' COMMENT 'appversion',
+  `bid` varchar(100) NOT NULL DEFAULT '' COMMENT 'APPBundleID',
+  `version_external_identifier` varchar(32) NOT NULL DEFAULT '',
+  `original_purchase_date_ms` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `purchase_date_ms` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `unique_vendor_identifier` varchar(100) NOT NULL DEFAULT '',
+  `unique_identifier` varchar(100) NOT NULL DEFAULT '',
+  `original_transaction_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `transaction_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0:创建,10:验证成功,20:验证失败',
+  `mix` char(32) NOT NULL DEFAULT '',
+  `receipt` blob NOT NULL,
+  `errorno` int(10) unsigned NOT NULL DEFAULT '0',
+  `ftid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `channelid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `mix` (`mix`),
+  KEY `ftid` (`ftid`),
+  KEY `uid` (`uid`),
+  KEY `channelid` (`channelid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `inside_test_inviteRecoed` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `code` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'é‚€è¯·ç ',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'è¢«é‚€è¯·è€…id',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'é»˜è®¤0ï¼Œå®Œæˆå®žåå®¡æ ¸1',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ruid` (`ruid`)
+) ENGINE=InnoDB AUTO_INCREMENT=786 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `internal_distribution_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL COMMENT '收益者id',
+  `adminid` int(10) unsigned NOT NULL COMMENT '发放者id',
+  `hpcoin` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '欢朋币',
+  `hpbean` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '欢朋豆',
+  `coin` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '金币',
+  `bean` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '金豆',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '101内币发放，110活动发放',
+  `desc` blob NOT NULL COMMENT '下发描述',
+  `activeid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '活动id',
+  `ftid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '交易id',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=233 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `invite_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `suid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ†äº«è€…id',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'æ–°ç”¨æˆ·id',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0ä¸å¯é¢†å–,1å¯é¢†å– ,2å·²é¢†å–',
+  `luid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸»æ’­id',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `rsuid` (`suid`,`ruid`),
+  KEY `suid` (`suid`)
+) ENGINE=InnoDB AUTO_INCREMENT=3186 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `invite_reward_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ†äº«è€…id',
+  `ruid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'æ–°ç”¨æˆ·id',
+  `reward` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å¥–åŠ±æ¬¢å¸æ•°',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `rsuid` (`uid`,`ruid`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `isupvideo` (
+  `videoid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å½•åƒid',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç”¨æˆ·id',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'å…³æ³¨æ—¶é—´',
+  KEY `videoid` (`videoid`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `live` (
+  `liveid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `stream` varchar(100) NOT NULL,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gametid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gameid` int(10) unsigned DEFAULT '0',
+  `gamename` varchar(100) DEFAULT '',
+  `title` varchar(100) DEFAULT '',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `poster` varchar(100) NOT NULL DEFAULT '',
+  `upcount` int(10) unsigned NOT NULL DEFAULT '0',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `deviceid` varchar(100) NOT NULL DEFAULT '',
+  `orientation` tinyint(3) unsigned NOT NULL,
+  `server` varchar(100) NOT NULL,
+  `etime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `antopublish` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `quality` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `stop_reason` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `livetype` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'ç›´æ’­ç±»åž‹ 0å½•å±ç›´æ’­  1æ‘„åƒå¤´ç›´æ’­',
+  `longitude` varchar(30) NOT NULL DEFAULT '' COMMENT 'ç»åº¦',
+  `latitude` varchar(30) NOT NULL DEFAULT '' COMMENT 'çº¬åº¦',
+  `stime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`liveid`),
+  KEY `uid` (`uid`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=81439 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `liveStreamLog` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `liveid` int(10) unsigned NOT NULL DEFAULT '0',
+  `stream` varchar(100) NOT NULL,
+  `lstatus` tinyint(3) unsigned DEFAULT NULL,
+  `sstatus` tinyint(3) unsigned DEFAULT NULL,
+  `server` varchar(100) NOT NULL,
+  `ref` tinyint(3) unsigned DEFAULT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3954 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `liveStreamRecord` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `liveid` int(10) unsigned NOT NULL DEFAULT '0',
+  `stream` varchar(100) NOT NULL DEFAULT '',
+  `server` varchar(100) NOT NULL DEFAULT '',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'ä¿®æ”¹æ—¶é—´',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '1ç›´æ’­ä¸­,2å·²ç»“æŸ ,3å½•åƒå›žè°ƒ',
+  `bucket` varchar(100) NOT NULL DEFAULT '' COMMENT 'å½•åˆ¶å­˜å‚¨çš„ç©ºé—´å',
+  `keys` varchar(200) NOT NULL DEFAULT '' COMMENT 'æ–‡ä»¶å',
+  `urls` varchar(900) NOT NULL DEFAULT '',
+  `ops` varchar(400) NOT NULL DEFAULT '' COMMENT 'å½•åˆ¶å‚æ•°',
+  `length` varchar(30) NOT NULL DEFAULT '',
+  `stime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'å¼€å§‹æ—¶é—´',
+  `etime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'ç»“æŸæ—¶é—´',
+  PRIMARY KEY (`id`),
+  KEY `liveid` (`liveid`)
+) ENGINE=InnoDB AUTO_INCREMENT=115427 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `live_VideoRecord` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `liveid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç›´æ’­id',
+  `stream` varchar(100) NOT NULL DEFAULT '' COMMENT 'ç›´æ’­æµåç§°',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `bucket` varchar(100) NOT NULL DEFAULT '' COMMENT 'å½•åˆ¶å­˜å‚¨çš„ç©ºé—´å',
+  `keys` varchar(200) NOT NULL DEFAULT '' COMMENT 'æ–‡ä»¶å',
+  `urls` varchar(200) NOT NULL DEFAULT '' COMMENT 'è®¿é—®åœ°å€åˆ—è¡¨',
+  `length` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å½•åƒæ—¶é•¿',
+  PRIMARY KEY (`id`),
+  KEY `liveid` (`liveid`)
+) ENGINE=InnoDB AUTO_INCREMENT=88083 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `live_length` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸»æ’­ID',
+  `date` date NOT NULL DEFAULT '0000-00-00' COMMENT 'æ—¥æœŸ',
+  `length` varchar(30) NOT NULL DEFAULT '' COMMENT 'ç›´æ’­æ—¶é•¿',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  UNIQUE KEY `duid` (`uid`,`date`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE `live_length_copy` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸»æ’­ID',
+  `date` date NOT NULL DEFAULT '0000-00-00' COMMENT 'æ—¥æœŸ',
+  `length` varchar(30) NOT NULL DEFAULT '' COMMENT 'ç›´æ’­æ—¶é•¿',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  UNIQUE KEY `duid` (`uid`,`date`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `live_notice` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç”¨æˆ·id',
+  `luid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸»æ’­id',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  PRIMARY KEY (`luid`,`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `live_pushmsg_list` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `liveid` int(10) unsigned NOT NULL DEFAULT '0',
+  `luid` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0:create, 1:runing, 2:finish',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `stime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `info` blob NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`),
+  KEY `stime` (`stime`)
+) ENGINE=InnoDB AUTO_INCREMENT=1203 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `livebulletin` (
+  `luid` int(10) unsigned NOT NULL DEFAULT '0',
+  `bulletin` varchar(900) NOT NULL DEFAULT '',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0å®¡æ ¸ä¸­ï¼Œ1å·²é€šè¿‡ï¼Œ2æœªé€šè¿‡',
+  PRIMARY KEY (`luid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `livemsg` (
+  `msgid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `luid` int(10) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL,
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `msg` blob NOT NULL,
+  PRIMARY KEY (`msgid`),
+  KEY `luid` (`luid`)
+) ENGINE=InnoDB AUTO_INCREMENT=349121 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `liveroom` (
+  `luid` int(10) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL,
+  `userip` int(10) unsigned NOT NULL DEFAULT '0',
+  `userport` int(10) unsigned NOT NULL DEFAULT '0',
+  `serverip` int(10) unsigned NOT NULL DEFAULT '0',
+  `serverport` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`luid`,`uid`,`userip`,`userport`),
+  KEY `tm` (`tm`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `liveuser` (
+  `liveid` int(10) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL,
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`liveid`,`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `log_anchor_income_day` (
+  `date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `companyid` int(10) unsigned NOT NULL DEFAULT '0',
+  `liveid` int(10) unsigned NOT NULL DEFAULT '0',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `coin` int(10) unsigned NOT NULL DEFAULT '0',
+  `bean` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `count_t` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'æœ¬æ¬¡ç»Ÿè®¡ç»Ÿè®¡æ¬¡æ•°',
+  PRIMARY KEY (`date`,`companyid`,`liveid`),
+  KEY `companyid` (`companyid`),
+  KEY `uid` (`uid`),
+  KEY `liveid` (`liveid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `log_anchor_income_month` (
+  `date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `companyid` int(10) unsigned NOT NULL DEFAULT '0',
+  `liveid` int(10) unsigned NOT NULL DEFAULT '0',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `coin` int(10) unsigned NOT NULL DEFAULT '0',
+  `bean` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `count_t` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'æœ¬æ¬¡ç»Ÿè®¡ç»Ÿè®¡æ¬¡æ•°',
+  PRIMARY KEY (`date`,`companyid`,`liveid`),
+  KEY `companyid` (`companyid`),
+  KEY `uid` (`uid`),
+  KEY `liveid` (`liveid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `log_for_chinaNet` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT 'æ ‡é¢˜',
+  `content` blob COMMENT 'å†…å®¹',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2183222 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `mds_app` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'è‡ªå¢žç¼–å·',
+  `app` varbinary(200) NOT NULL DEFAULT '' COMMENT 'åº”ç”¨æè¿°',
+  `prod` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'äº§å“ç¼–å·',
+  `type` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åº”ç”¨ç±»åž‹',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `app` (`app`,`prod`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `mds_basis` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'è‡ªå¢žç¼–å·',
+  `action` int(10) unsigned NOT NULL DEFAULT '0' COMMENT ' è¡Œä¸º',
+  `deviceModel_i` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'è®¾å¤‡åž‹å· - å•ç‹¬ç´¢å¼•è¡¨',
+  `udid_i` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'è®¾å¤‡æ ‡è¯† - å•ç‹¬ç´¢å¼•è¡¨',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'è®¾å¤‡IP',
+  `port` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'è®¾å¤‡ç«¯å£',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'æ¸ é“ç¼–å·',
+  `app_i` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åº”ç”¨æè¿° - å•ç‹¬ç´¢å¼•è¡¨',
+  `mix_i` varchar(32) NOT NULL DEFAULT '' COMMENT 'å…³è”ä¸² - å•ç‹¬ç´¢å¼•è¡¨',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `udidapp` (`udid_i`,`app_i`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `mds_deviceModel` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `deviceModel` varbinary(200) NOT NULL DEFAULT '' COMMENT 'è®¾å¤‡åž‹å·',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `deviceModel` (`deviceModel`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `mds_udid` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `udid` varbinary(200) NOT NULL DEFAULT '' COMMENT 'è®¾å¤‡æ ‡è¯†',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `udid` (`udid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `mds_udid_active` (
+  `udid` varbinary(200) NOT NULL DEFAULT '' COMMENT 'è®¾å¤‡æ ‡è¯†',
+  `channel` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'æ¸ é“ç¼–å·',
+  `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`udid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `mds_version` (
+  `mix` varchar(32) NOT NULL DEFAULT '' COMMENT 'å…³è”ä¸²',
+  `uid` int(10) unsigned NOT NULL COMMENT 'ç”¨æˆ·ç¼–å·',
+  `device` varbinary(200) NOT NULL DEFAULT '' COMMENT 'è®¾å¤‡æè¿° ï¼ˆä¾‹å¦‚ï¼šxingxingâ€™s iPadï¼‰',
+  `deviceType` int(10) unsigned NOT NULL DEFAULT '0' COMMENT ' è®¾å¤‡ç±»åž‹ 0/1ï¼ˆiPad/iPhoneï¼‰',
+  `system` varchar(10) NOT NULL DEFAULT '' COMMENT 'ç³»ç»Ÿç‰ˆæœ¬',
+  `language` varchar(10) NOT NULL DEFAULT '' COMMENT 'ç³»ç»Ÿè¯­è¨€',
+  `appVersion` varchar(10) NOT NULL DEFAULT '' COMMENT 'åº”ç”¨ç‰ˆæœ¬',
+  `giftVersion` varchar(10) NOT NULL DEFAULT '' COMMENT 'ç¤¼ç‰©ç‰ˆæœ¬',
+  `prod` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'äº§å“ç¼–å·',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`mix`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `pickTreasure` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'é¢†å–ç”¨æˆ·ID',
+  `treasureid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å®ç®±ID',
+  `getNum` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'èŽ·å–æ¬¢è±†æ•°é‡',
+  `luid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `tid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`uid`,`treasureid`),
+  KEY `treasureid` (`treasureid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `pickupHpbean` (
+  `date` date NOT NULL DEFAULT '0000-00-00',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `pickid` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` int(10) unsigned NOT NULL DEFAULT '0',
+  `getNum` int(10) unsigned NOT NULL DEFAULT '0',
+  `time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åœ¨çº¿æ—¶é•¿',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `luid` int(10) unsigned NOT NULL DEFAULT '0',
+  `otid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`date`,`uid`,`pickid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `pickupRule` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'é¢†å–ID',
+  `time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'é¢†å–æ—¶é—´é™åˆ¶',
+  `range` varchar(10) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `popularoty_record` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸»æ’­ID',
+  `date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'æ—¥æœŸ',
+  `popularoty` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'äººæ°”',
+  `count` int(10) unsigned NOT NULL DEFAULT '1',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  UNIQUE KEY `duid` (`uid`,`date`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `product_info` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL DEFAULT '',
+  `price` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å•†å“ä»·æ ¼å•ä½ä¸ºåˆ†',
+  `price_org` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å‰ç«¯æ˜¾ç¤ºçš„å®šä»·å•ä½ä¸ºåˆ†',
+  `val` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'é‡‘å¸ä¸ªæ•°',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `province` (
+  `id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'çœçº§id',
+  `name` varchar(32) DEFAULT '' COMMENT 'çœä»½åç§°',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `push_notify_set` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `deviceToken` varchar(100) NOT NULL DEFAULT '',
+  `isopen` tinyint(3) NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid` (`uid`,`deviceToken`)
+) ENGINE=InnoDB AUTO_INCREMENT=38301 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `rank_all` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `luid` int(10) unsigned NOT NULL DEFAULT '0',
+  `cost` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`uid`,`luid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `rank_day` (
+  `date` date NOT NULL DEFAULT '0000-00-00',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `luid` int(10) unsigned NOT NULL DEFAULT '0',
+  `cost` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`date`,`uid`,`luid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `rank_week` (
+  `date` date NOT NULL DEFAULT '0000-00-00',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `luid` int(10) unsigned NOT NULL DEFAULT '0',
+  `cost` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`date`,`uid`,`luid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `rate_change_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL COMMENT '用户id',
+  `before_rate` varchar(100) NOT NULL DEFAULT '' COMMENT '修改之前的比率',
+  `after_rate` varchar(100) NOT NULL DEFAULT '' COMMENT '修改之后的比率',
+  `adminid` int(10) unsigned NOT NULL COMMENT '管理员id',
+  `type` tinyint(1) unsigned NOT NULL COMMENT '1主播角色变更影响比率变更，2主播角色未变更但比率变更',
+  `role_change_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '对应主播角色表里的id',
+  `desc` blob NOT NULL COMMENT '修改描述',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否通知到财务系统,0没有通知 1已通知到',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=422 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `recharge_order` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `order_id` varchar(32) NOT NULL DEFAULT '',
+  `thrid_order_id` varchar(32) NOT NULL DEFAULT '',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `paytime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `product_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `product_price` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'äº§å“ä»·æ ¼',
+  `total_price` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'è®¢å•æ€»ä»·æ ¼',
+  `quantity` int(10) unsigned NOT NULL DEFAULT '0',
+  `channel` varchar(10) NOT NULL DEFAULT '',
+  `promation_id` int(10) NOT NULL DEFAULT '0' COMMENT 'é¢„ç•™å­—æ®µï¼Œä¿ƒé”€è§„åˆ™ID',
+  `client` varchar(10) NOT NULL DEFAULT '' COMMENT 'å®¢æˆ·ç«¯ç±»åž‹ web/android/ios',
+  `thrid_buyer_id` varchar(32) NOT NULL DEFAULT '' COMMENT 'ä¹°å®¶ç¬¬ä¸‰æ–¹id',
+  `refer_url` varchar(100) NOT NULL DEFAULT '' COMMENT 'è®¢å•æ¥è·¯',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `order_id` (`order_id`),
+  UNIQUE KEY `thrid_order_id` (`thrid_order_id`,`channel`),
+  KEY `channel` (`channel`)
+) ENGINE=InnoDB AUTO_INCREMENT=6142 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `recommend_advertisement` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `aid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å¹¿å‘Šid',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0ç«™å†…å¹¿å‘Š 1å¤–ç«™å¹¿å‘Š',
+  `location` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0é¦–é¡µ 1ç›´æ’­é—´',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `luid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸»æ’­id',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0å…³é—­ 1å¼€å¯ 2åˆ é™¤',
+  PRIMARY KEY (`id`),
+  KEY `aid` (`aid`),
+  KEY `luid` (`luid`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `recommend_information` (
+  `id` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '1ç„¦ç‚¹æŽ¨è 2 åˆ—è¡¨æŽ¨è',
+  `client` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '1appç«¯ 2 webç«¯',
+  `list` varchar(64) NOT NULL DEFAULT '' COMMENT 'æŽ¨èèµ„è®¯idåˆ—è¡¨',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'ä¿®æ”¹æ—¶é—´',
+  UNIQUE KEY `c_id` (`id`,`client`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `recommend_live` (
+  `client` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '1appç«¯ 2 webç«¯',
+  `list` varchar(64) NOT NULL DEFAULT '' COMMENT 'æŽ¨èä¸»æ’­åˆ—è¡¨',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'ä¿®æ”¹æ—¶é—´',
+  PRIMARY KEY (`client`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `reg_channel_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç”¨æˆ·id',
+  `channel` varchar(30) NOT NULL DEFAULT '' COMMENT 'æ³¨å†Œæ¥æºæ¸ é“',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1096 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `report` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `liveid` int(10) unsigned NOT NULL COMMENT 'ç›´æ’­id',
+  `uid` int(10) unsigned NOT NULL COMMENT 'ç”¨æˆ·id',
+  `luid` int(10) unsigned NOT NULL COMMENT 'ä¸»æ’­id',
+  `pic` varchar(100) NOT NULL DEFAULT '' COMMENT 'ä¸¾æŠ¥æˆªå›¾',
+  `reason` varchar(900) NOT NULL COMMENT 'ä¸¾æŠ¥åŽŸå› ',
+  `contact` varchar(100) NOT NULL DEFAULT '' COMMENT 'è”ç³»æ–¹å¼',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'ä¸¾æŠ¥æ—¶é—´',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸¾æŠ¥ç±»åž‹',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'å¤„ç†çŠ¶æ€',
+  PRIMARY KEY (`id`),
+  KEY `liveid` (`liveid`),
+  KEY `luid` (`luid`),
+  KEY `type` (`type`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB AUTO_INCREMENT=194 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `reportLiveMsg` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `msgid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(10) NOT NULL DEFAULT '0',
+  `handletime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid` (`uid`,`msgid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `roomid` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸»æ’­id',
+  `roomid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'æˆ¿é—´id',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'ä¿®æ”¹æ—¶é—´',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=5504 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `roommanager` (
+  `luid` int(10) unsigned NOT NULL DEFAULT '0',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `level` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`luid`,`uid`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `send_email_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(20) NOT NULL DEFAULT '0',
+  `businessid` varchar(32) NOT NULL DEFAULT '',
+  `email` varchar(64) NOT NULL DEFAULT '',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `etime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `errorNo` int(10) NOT NULL DEFAULT '1',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2958 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `send_mobileMsg_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0æ³¨å†Œ 1ç»‘å®šæ‰‹æœº 2å¿˜è®°å¯†ç  3ä¸»æ’­è®¤è¯',
+  `businessid` varchar(32) NOT NULL DEFAULT '',
+  `mobile` char(11) NOT NULL DEFAULT '',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `etime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `errorNo` int(10) NOT NULL DEFAULT '1',
+  `code` int(10) NOT NULL DEFAULT '0',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `type` (`type`),
+  KEY `mobile` (`mobile`)
+) ENGINE=InnoDB AUTO_INCREMENT=25295 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `silencedlist` (
+  `luid` int(10) unsigned NOT NULL DEFAULT '0',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`luid`,`uid`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `sysmessage` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'è®°å½•id',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT 'ç«™å†…ä¿¡æ ‡é¢˜',
+  `msg` varchar(900) NOT NULL DEFAULT '' COMMENT 'ç«™å†…ä¿¡å†…å®¹',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '2' COMMENT 'ç«™å†…ä¿¡ç±»åž‹',
+  `group` varchar(100) NOT NULL DEFAULT '' COMMENT 'åˆ†ç»„',
+  `stime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'å‘é€æ—¶é—´',
+  `sendid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å‘ä»¶äººid',
+  PRIMARY KEY (`id`),
+  KEY `stime` (`stime`)
+) ENGINE=InnoDB AUTO_INCREMENT=49406 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `task` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL COMMENT 'ç”¨æˆ·id',
+  `taskid` int(10) unsigned NOT NULL COMMENT 'ä»»åŠ¡id',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'å®Œæˆæ—¶é—´',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'ä»»åŠ¡ç±»åž‹',
+  `status` int(10) NOT NULL DEFAULT '0',
+  `getbean` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid_taskid` (`uid`,`taskid`),
+  KEY `uid` (`uid`),
+  KEY `taskid` (`taskid`),
+  KEY `ctime` (`ctime`)
+) ENGINE=InnoDB AUTO_INCREMENT=92000 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `taskinfo` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `exp` int(10) unsigned NOT NULL COMMENT 'ç»éªŒ',
+  `bean` int(10) unsigned NOT NULL COMMENT 'æ¬¢æœ‹è±†',
+  `coin` int(10) unsigned NOT NULL COMMENT 'æ¬¢æœ‹å¸',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'çŠ¶æ€',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `stime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'å¼€å§‹æ—¶é—´',
+  `etime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'ç»“æŸæ—¶é—´',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'ä»»åŠ¡ç±»åž‹',
+  `title` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `type` (`type`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `test` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `msg` blob NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1993 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `test_1` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `msg` blob NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `three_side_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `openid` char(40) NOT NULL DEFAULT '',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `channel` varchar(10) NOT NULL DEFAULT '',
+  `nick` varchar(100) NOT NULL DEFAULT '',
+  `unionid` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid_openid_channel` (`uid`,`openid`,`channel`),
+  KEY `openid` (`openid`)
+) ENGINE=InnoDB AUTO_INCREMENT=14225 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `time_deduct_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸»æ’­ID',
+  `adminid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å®¡æ ¸è€…ID',
+  `deduct` varchar(30) NOT NULL DEFAULT '' COMMENT 'æ‰£é™¤æ—¶é•¿',
+  `reason` blob NOT NULL COMMENT 'æ‰£é™¤åŽŸå› ',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `tmp_anchor_balance` (
+  `uid` int(10) NOT NULL DEFAULT '0',
+  `bean` int(10) NOT NULL DEFAULT '0',
+  `coin` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `tmp_user_balance` (
+  `uid` int(10) NOT NULL DEFAULT '0',
+  `bean` int(10) NOT NULL DEFAULT '0',
+  `coin` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `treasurebox` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'èµ é€ç”¨æˆ·ID',
+  `luid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ä¸»æ’­ID',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å®ç®±çŠ¶æ€ 0:æœªé¢†å–,1:å·²ç»å…³é—­',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1074 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `unsuccess_log_for_financeBack` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '标题',
+  `desc` blob NOT NULL COMMENT '描述',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `update_nick_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL COMMENT '用户id',
+  `before_name` varchar(100) NOT NULL DEFAULT '' COMMENT '修改之前的昵称',
+  `after_name` varchar(100) NOT NULL DEFAULT '' COMMENT '修改之后的昵称',
+  `type` tinyint(1) unsigned NOT NULL COMMENT '1花钱修改，2免费修改',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `useractive` (
+  `uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `lip` int(10) unsigned NOT NULL DEFAULT '0',
+  `lport` int(10) unsigned NOT NULL DEFAULT '0',
+  `ltime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `level` int(10) unsigned NOT NULL DEFAULT '1',
+  `readsign` int(10) unsigned NOT NULL DEFAULT '0',
+  `hpbean` float(13,3) NOT NULL DEFAULT '0.000',
+  `hpcoin` float(13,3) NOT NULL DEFAULT '0.000',
+  `integral` float(14,3) NOT NULL DEFAULT '0.000',
+  `isnotice` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `province` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `city` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `address` varchar(200) NOT NULL DEFAULT '',
+  `enterroom` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=69355 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `userbankcard` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `bank` varchar(30) NOT NULL DEFAULT '',
+  `cardid` varchar(30) NOT NULL DEFAULT '',
+  `bankface` varchar(30) NOT NULL DEFAULT '',
+  `bankback` varchar(30) NOT NULL DEFAULT '',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(3) NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `passtime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `userblockedlist` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL COMMENT 'ç®¡ç†å‘˜ID',
+  `luid` int(10) unsigned NOT NULL COMMENT 'ç”¨æˆ·ID',
+  `reason` varchar(100) NOT NULL COMMENT 'å°å·åŽŸå› ',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'å°å·æ—¶é—´',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COMMENT='å°å·æµæ°´è¡¨';
+
+CREATE TABLE `userfollow` (
+  `uid1` int(10) unsigned NOT NULL DEFAULT '0',
+  `uid2` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid1`,`uid2`),
+  KEY `uid2` (`uid2`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `userlevel` (
+  `level` int(10) unsigned NOT NULL,
+  `integral` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`level`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `usermessage` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `msgid` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `msgid` (`msgid`)
+) ENGINE=InnoDB AUTO_INCREMENT=49404 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `userrealname` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL DEFAULT '',
+  `papersid` varchar(30) NOT NULL DEFAULT '',
+  `papersetime` date NOT NULL DEFAULT '0000-00-00',
+  `face` varchar(100) NOT NULL DEFAULT '',
+  `back` varchar(100) NOT NULL DEFAULT '',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` tinyint(3) NOT NULL DEFAULT '0',
+  `paperstype` tinyint(3) NOT NULL DEFAULT '0',
+  `passtime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `handheldPhoto` varchar(100) NOT NULL DEFAULT '',
+  `checkid` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=4393 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `usersilence` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL COMMENT 'ç®¡ç†å‘˜id',
+  `luid` int(10) unsigned NOT NULL COMMENT 'ä¸»æ’­id',
+  `roomid` int(10) unsigned NOT NULL COMMENT 'æˆ¿é—´id',
+  `reason` varchar(50) NOT NULL COMMENT 'ç¦è¨€åŽŸå› ',
+  `fromto` tinyint(4) NOT NULL COMMENT '1åŽå°2å‰å°',
+  `stime` datetime NOT NULL COMMENT 'ç¦è¨€å¼€å§‹æ—¶é—´',
+  `etime` datetime NOT NULL COMMENT 'ç¦è¨€ç»“æŸæ—¶é—´',
+  `type` smallint(5) unsigned NOT NULL COMMENT 'ç±»åž‹ 1 ç¦è¨€ 2è§£ç¦',
+  `uuid` int(10) unsigned NOT NULL COMMENT 'è§£ç¦ç®¡ç†å‘˜id',
+  `utime` datetime NOT NULL COMMENT 'æ›´æ–°æ—¶é—´',
+  PRIMARY KEY (`id`),
+  KEY `luid` (`luid`),
+  KEY `roomid` (`roomid`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1 COMMENT='ç¦è¨€è§£ç¦æµæ°´è¡¨';
+
+CREATE TABLE `userstatic` (
+  `uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` char(40) NOT NULL DEFAULT '',
+  `nick` varchar(50) DEFAULT NULL,
+  `password` varchar(32) NOT NULL DEFAULT '',
+  `pic` varchar(200) NOT NULL DEFAULT '',
+  `rip` int(10) unsigned NOT NULL DEFAULT '0',
+  `rport` int(10) unsigned NOT NULL DEFAULT '0',
+  `rtime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `encpass` varchar(100) NOT NULL DEFAULT '',
+  `phone` char(11) NOT NULL DEFAULT '',
+  `mail` varchar(30) NOT NULL DEFAULT '',
+  `sex` tinyint(3) unsigned NOT NULL,
+  `mailstatus` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `isfree` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'æ˜¯å¦æœ‰å…è´¹æ”¹åæœºä¼š',
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=69355 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `utf_test_tb` (
+  `a` int(11) DEFAULT NULL,
+  `b` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `video` (
+  `videoid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gametid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gameid` int(10) unsigned DEFAULT '0',
+  `gamename` varchar(100) DEFAULT '',
+  `title` varchar(100) DEFAULT '',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `length` int(10) unsigned NOT NULL,
+  `poster` varchar(100) NOT NULL DEFAULT '',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `viewcount` int(10) unsigned NOT NULL,
+  `vfile` varchar(100) NOT NULL DEFAULT '',
+  `orientation` tinyint(3) unsigned NOT NULL,
+  `publish` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `upcount` int(10) unsigned NOT NULL DEFAULT '0',
+  `stop_reason` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `liveid` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`videoid`),
+  KEY `uid` (`uid`),
+  KEY `gameid` (`gameid`),
+  KEY `gametid` (`gametid`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=68074 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `video_download_record` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `liveid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç›´æ’­id',
+  `url` varchar(100) NOT NULL DEFAULT '' COMMENT 'ä¸‹è½½åœ°å€',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'åˆ›å»ºæ—¶é—´',
+  `utime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'æ›´æ–°æ—¶é—´',
+  `status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'çŠ¶æ€ 0:æœªä¸‹è½½,1:å·²ä¸‹è½½,2:ä¸‹è½½å¤±è´¥',
+  PRIMARY KEY (`id`),
+  KEY `liveid` (`liveid`)
+) ENGINE=InnoDB AUTO_INCREMENT=52156 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `video_merge_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `taskid` varchar(64) NOT NULL DEFAULT '' COMMENT 'ä»»åŠ¡id',
+  `liveid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç›´æ’­id',
+  `opt` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '1åˆå¹¶    é»˜è®¤0',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0åˆå¹¶ä¸­ 1åˆå¹¶å·²å®Œæˆ  2æˆªå›¾ä¸­  3æˆªå›¾å·²å®Œæˆ',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `bucket` varchar(100) NOT NULL DEFAULT '' COMMENT 'å½•åˆ¶å­˜å‚¨çš„ç©ºé—´å',
+  `vname` varchar(32) NOT NULL DEFAULT '' COMMENT 'å½•åƒå',
+  `posterid` varchar(64) NOT NULL DEFAULT '' COMMENT 'æˆªå›¾id',
+  `length` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆå¹¶åŽå½•åƒæ—¶é•¿',
+  PRIMARY KEY (`id`),
+  KEY `taskid` (`taskid`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=320454 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `videocomment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `videoid` int(10) unsigned NOT NULL DEFAULT '0',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `rate` tinyint(3) unsigned NOT NULL,
+  `comment` blob NOT NULL,
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `port` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(3) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `videoid` (`videoid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1520 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `videoconverted` (
+  `liveid` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`liveid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `videofollow` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `videoid` int(10) unsigned NOT NULL DEFAULT '0',
+  `tm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid`,`videoid`),
+  KEY `videoid` (`videoid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `videosave_queue` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `liveid` int(10) unsigned NOT NULL,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `stype` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `go` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0é»˜è®¤ ,1ç»“æŸç›´æ’­',
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=76750 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `withdrawRecord` (
+  `id` varchar(20) NOT NULL DEFAULT '',
+  `luid` int(10) unsigned NOT NULL DEFAULT '0',
+  `bean` int(10) unsigned NOT NULL DEFAULT '0',
+  `coin` int(10) unsigned NOT NULL DEFAULT '0',
+  `beanMoney` float(14,2) unsigned NOT NULL DEFAULT '0.00',
+  `coinMoney` float(14,2) unsigned NOT NULL DEFAULT '0.00',
+  `money` float(14,2) unsigned NOT NULL DEFAULT '0.00',
+  `status` int(10) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `cardid` varchar(30) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+

@@ -1,0 +1,194 @@
+.vertify-portlet .portlet-title .inputs {
+  float: right;
+  margin-top: 4px; }
+
+.vertify-portlet .table th.checkbox-th {
+  width: 10px; }
+
+.vertify-portlet .table td {
+  vertical-align: middle;
+  text-align: center; }
+
+.user-head-table {
+  position: relative;
+  height: 488px; }
+
+#userCheckBox > .head-check-exchange {
+  text-align: center; }
+  #userCheckBox > .head-check-exchange .option-group {
+    margin-top: 85px; }
+    #userCheckBox > .head-check-exchange .option-group .btn {
+      background: url("../img/head-check-icon.png") -69px -1px no-repeat #fff !important;
+      border: 2px solid #e0e0e0;
+      width: 74px;
+      height: 38px; }
+  #userCheckBox > .head-check-exchange .option-group + .option-group {
+    margin-top: 260px; }
+#userCheckBox > .head-check-submit {
+  text-align: right;
+  margin-top: 20px; }
+  #userCheckBox > .head-check-submit .submit {
+    background-color: #ff7800;
+    padding: 10px 30px;
+    color: #fff;
+    -webkit-border-radius: 4px !important;
+    -moz-border-radius: 4px !important;
+    border-radius: 4px !important; }
+
+.head-check-box {
+  overflow: hidden;
+  -webkit-border-radius: 4px !important;
+  -moz-border-radius: 4px !important;
+  border-radius: 4px !important; }
+  .head-check-box > .head-box-head {
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff; }
+    .head-check-box > .head-box-head i {
+      width: 24px;
+      height: 24px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 20px;
+      background: url("../img/head-check-icon.png") no-repeat; }
+  .head-check-box > .head-box-body {
+    padding-top: 25px;
+    height: 460px;
+    border-color: #E0E0E0;
+    border-width: 2px;
+    border-style: none solid solid solid;
+    overflow: hidden; }
+
+.head-succ-list > .head-check-box > .head-box-head {
+  background-color: #34d666; }
+  .head-succ-list > .head-check-box > .head-box-head i {
+    background-position: -52px -6px; }
+
+.head-failed-list > .head-check-box > .head-box-head {
+  background-color: #ff6d6d; }
+  .head-failed-list > .head-check-box > .head-box-head i {
+    background-position: -10px -6px; }
+
+.user-head-one {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+  height: 128px; }
+  .user-head-one .user-head {
+    cursor: pointer;
+    width: 100%;
+    height: 100%; }
+  .user-head-one .pass-option-group {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    top: 0; }
+    .user-head-one .pass-option-group > .pass-option-box {
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      position: relative;
+      width: 100%; }
+      .user-head-one .pass-option-group > .pass-option-box > .option-label {
+        width: 30px;
+        height: 30px;
+        border-radius: 30px !important;
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        background-color: rgba(255, 255, 255, 0.7); }
+  .user-head-one.passed-module .pass-option-box .option-label {
+    background: url("../common/admin/pages/img/head-check-icon.png") -45px -3px no-repeat; }
+  .user-head-one.passed-module.check .pass-option-box .option-label {
+    background-color: #23dc60; }
+  .user-head-one.un-passed-module .pass-option-box .option-label {
+    background: url("../common/admin/pages/img/head-check-icon.png") -13px -2px no-repeat; }
+  .user-head-one.un-passed-module.check .pass-option-box .option-label {
+    background-color: #ff5252; }
+
+.user-head-option-panel {
+  margin-left: 30px;
+  border: 1px solid #e0e0e0; }
+  .user-head-option-panel .option-item-one {
+    display: block; }
+    .user-head-option-panel .option-item-one .btn {
+      background-color: lightgray; }
+      .user-head-option-panel .option-item-one .btn.active, .user-head-option-panel .option-item-one .btn.submit {
+        background-color: #FF7800;
+        color: #fff; }
+      .user-head-option-panel .option-item-one .btn.submit {
+        padding: 7px 40px; }
+    .user-head-option-panel .option-item-one > .btn-circle {
+      padding: 1px 5px;
+      line-height: 30px; }
+      .user-head-option-panel .option-item-one > .btn-circle > .circle-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 100% !important;
+        vertical-align: middle;
+        background-color: #fff;
+        display: inline-block; }
+      .user-head-option-panel .option-item-one > .btn-circle > .text {
+        display: inline-block;
+        vertical-align: middle;
+        color: #999;
+        font-size: 14px;
+        font-weight: bolder;
+        padding: 0 7px; }
+        .user-head-option-panel .option-item-one > .btn-circle > .text:first-child {
+          display: none; }
+      .user-head-option-panel .option-item-one > .btn-circle.active .text:first-child {
+        color: #fff;
+        display: inline-block; }
+      .user-head-option-panel .option-item-one > .btn-circle.active .text:last-child {
+        display: none; }
+    .user-head-option-panel .option-item-one.failed-select > .btn-circle.active {
+      background-color: #ff5252; }
+    .user-head-option-panel .option-item-one.success-select > .btn-circle.active {
+      background-color: #24db60; }
+  .user-head-option-panel #show-num .option-item-one .btn-circle {
+    min-width: 32px;
+    margin-right: 5px; }
+  .user-head-option-panel.option-hidden .portlet-title .caption {
+    display: none; }
+  .user-head-option-panel.option-hidden .control-label {
+    display: none; }
+  .user-head-option-panel.option-hidden #show-num {
+    margin-top: 25px; }
+  .user-head-option-panel.option-hidden #show-num .btn {
+    display: none; }
+    .user-head-option-panel.option-hidden #show-num .btn.active {
+      display: block;
+      margin-right: 4px; }
+  .user-head-option-panel.option-hidden .option-group {
+    width: 100%; }
+  .user-head-option-panel.option-hidden .form-actions .submit {
+    margin-left: 4px;
+    padding: 7px 14px; }
+
+.col-md-5-5 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  float: left; }
+
+@media (min-width: 992px) {
+  .col-md-5-5 {
+    width: 45.83333333%; } }
+.user-head-list td img {
+  width: 60px;
+  height: 60px; }
+
+.input-checkbox-div {
+  cursor: pointer; }
+  .input-checkbox-div > .input-checkbox {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #e0e0e0; }
+    .input-checkbox-div > .input-checkbox.checked {
+      background: url("../img/head-check-icon.png") no-repeat -9px -44px !important; }
+
+/*# sourceMappingURL=userHead.css.map */

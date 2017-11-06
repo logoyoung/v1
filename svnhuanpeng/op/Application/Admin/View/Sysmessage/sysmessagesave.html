@@ -1,0 +1,78 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>站内信管理</a><a href="/rbac/user" ></i>站内信操作</a><a href="javascript:;" ></i>公司设置</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>新建站内信</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form name="f1" method="post" class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">标题</label>
+              <div class="controls">
+                  <input <empty name="id">name="title"<else/>disabled</empty> value="{{$title}}" type="text" class="span11" placeholder="" />
+              </div>
+            </div>
+            
+            <div class="control-group">
+              <label class="control-label">内容</label>
+              <div class="controls">
+                  <textarea maxlength="800" <empty name="id">name="msg"<else/>disabled</empty>    class="span11" style="height:150px;" placeholder="" >{{$msg}}</textarea>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">类型:</label>
+              <div class="controls">
+                <label><input type="radio" checked="checked" name="type" value="0"/>个人&nbsp;<input type="radio" name="type" value="2"/>所有人</label>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">是否同时进行消息推送:</label>
+              <div class="controls">
+                <label><input type="radio" checked="checked" name="ptype" value="0"/>不推送&nbsp;<input type="radio" name="ptype" value="1"/>推送</label>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">用户uid</label>
+              <div class="controls">
+                <input <empty name="id">name="uids"<else/>disabled</empty> value="{{$uid}}" type="text" class="span11" placeholder="多个用户uid用逗号隔开如：1815,2780" />
+              </div>
+            </div>
+            <div class="form-actions text-center">
+              <button type="submit" class="btn btn-success">確定</button>
+              <button type="submit" class="btn btn-success" onclick="history.back(-1);">返回</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+    <style>.group{display: none;}</style>
+</block>
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+
+    var f=document.forms.f1;
+    Op_common.ajaxForm($(f),function(obj){
+        if(obj.status==1){
+            Op_common.alert(obj.info,function(){
+                window.location = '/sysmessage/sysmessage';
+            });
+        }else{
+            Op_common.alert(obj.info||'操作失败');
+        }
+    });
+</script>
+</block>

@@ -1,0 +1,238 @@
+<?php
+
+namespace \hp\lib;
+use \hp;
+use \DBHelperi_huanpeng;
+use \hp\lib\CDNHelper;
+
+
+/**
+ * Created by PhpStorm.
+ * User: logoyoung
+ * Date: 17/4/1
+ * Time: 15:32
+ */
+
+
+/**
+ * Class Video
+ *
+ * 录像类
+ */
+class Video
+{
+	/**
+	 * @var    $_liveID    直播id
+	 */
+	private $_liveID;
+
+	/**
+	 * @var $_videoID 录像id
+	 */
+	private $_videoID;
+
+	/**
+	 * @var	$_db  数据对象
+	 */
+	private $_db;
+
+	/**
+	 * @var $_videoTable 录像表
+	 */
+	private $_videoTable;
+
+
+	/**
+	 * @var $_videoMergeRecordTable 录像合并、转码、截图记录表
+	 */
+	private $_videoMergeRecordTable;
+
+	/**
+	 * @var    $_videoMergeQueueTable  录像合并队列
+	 */
+	private $_videoMergeQueueTable;
+
+	/**
+	 * const VIDEO_LOG_FILE        录像错误日志
+	 */
+	const VIDEO_LOG_FILE = LOG_DIR . 'video.error.log';
+
+	/**
+	 * Video constructor.
+	 */
+	public function __construct()
+	{
+	}
+
+	/**
+	 * 获取某场直播录像片段
+	 *
+	 * @param $liveid      直播id
+	 *
+	 * @return    array    flv片段
+	 */
+	public function getFlvs()
+	{
+
+	}
+
+	/**
+	 * 拼接录像
+	 *
+	 * @param $files   录像片段
+	 *
+	 * @return bool       是否拼接成功
+	 */
+	public function merge( $files )
+	{
+	}
+
+	/**
+	 * 录像截图
+	 *
+	 * @param $file       录像文件
+	 *
+	 * @return bool       是否截图成功
+	 */
+	public function poster( $file )
+	{
+	}
+
+	/**
+	 * 删除录像
+	 *
+	 * @param $file       录像文件
+	 *
+	 * @return bool       是否删除成功
+	 */
+	public function delete( $file )
+	{
+	}
+
+	/**
+	 * 保存录像
+	 *
+	 * @param $file       录像信息
+	 *
+	 * @return bool       是否保存成功
+	 */
+	public function save( $data )
+	{
+	}
+
+	/**
+	 * 下载录像
+	 *
+	 * @param $file       录像文件
+	 *
+	 * @return bool       是否下载成功
+	 */
+	public function download( $file )
+	{
+	}
+
+	/**
+	 * 获取录像信息
+	 *
+	 * @param $videoID 录像ID
+	 *
+	 * @return array    录像信息
+	 */
+	public function getVideoInfo()
+	{
+	}
+
+	/**
+	 * 发布录像
+	 *
+	 * @param $videoID    录像ID
+	 *
+	 * @return bool        是否发布成功
+	 */
+	public function publishVideo()
+	{
+	}
+
+	/**
+	 * 删除用户录像
+	 *
+	 * @param $uid			用户id
+	 * @param $videoList    待删除录像
+	 * 单个删
+	 * @return bool            是否删除成功
+	 */
+	public function deleteUserVideoList()
+	{
+	}
+
+
+	/**
+	 * 获取用户录像
+	 *
+	 * @param $uid            用户id
+	 *
+	 * @return array          用户录像
+	 */
+	public function getUserVideoList()
+	{
+	}
+
+
+	/**
+	 * 获取录像播放地址
+	 *
+	 * @param $videoID          录像id
+	 *
+	 * @return string          录像播放地址
+	 */
+	public function getVideoPlayUrl()
+	{
+	}
+
+	/**
+	 * 评论录像
+	 *
+	 * @param $videoID        录像ID
+	 *
+	 * @return bool            是否评论成功
+	 */
+	public function commentVideo()
+	{
+	}
+
+	/**
+	 * 获取录像评论
+	 *
+	 * @param $videoID        录像ID
+	 *
+	 * @return array        录像评论
+	 */
+	public function getVideoComments()
+	{
+	}
+
+	/**
+	 * 获取推荐录像
+	 *
+	 * @param videoID        录像ID
+	 *
+	 * @return array        推荐录像
+	 */
+	public function getRecommendVideoList()
+	{
+	}
+
+	//todo 点赞
+	//todo 收藏
+
+	/**
+	 * 录像日志
+	 *
+	 * @param $error        错误信息
+	 *
+	 * @return bool            是否记录成功
+	 */
+	private function _videoLog()
+	{
+	}
+}

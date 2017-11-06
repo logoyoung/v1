@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta content="email=no" name="format-detection" />
+    <title>小仙女保护战-高能来袭</title>
+    <link rel="stylesheet" type="text/css" href="../css/xnbwz/xnbwz.css?v=0.0.5"/>
+    <style>*{margin:0;padding:0;border:0;-webkit-touch-callout:none;/*-webkit-user-select:none;user-select:none;*/-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:rgba(0, 0, 0, 0);-webkit-overflow-scrolling:touch;-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}td{border: 1px solid #ff7800;}</style>
+    <script>(function(){a();window.onresize=function(){a()};function a(){var b=document.documentElement.clientWidth||document.documentElement.body.clientWidth;document.documentElement.style.fontSize=b/23.4375+"px"}})();</script>
+</head>
+<body>
+<div class="content">
+    <div class="top-img"></div>
+    <div class="blank-box">
+        <div class="blank-1">
+            <div class="blank-1-bg"></div>
+            <p>报名时间：即日起截止到7月16日</p>
+        </div>
+        <div class="blank-2">
+            <div class="blank-2-bg"></div>
+            <p>报名方式: 加群 <span>545898749</span>，在群文件中由女主播填写成员报名信息表</p>
+            <p>报名范围: 欢朋认证主播且《王者荣耀》<span>QQ登录用户</span> </p>
+        </div>
+        <div class="blank-3">
+            <div class="blank-3-bg"></div>
+            <p>两支队伍进行5V5对抗，每个队伍由四位男主播，一位女主播组成，每个队伍要在保证己方女主播不被击杀的同时， 尽可能多的击杀敌方方队伍里的女主播，女主播当然也要积极参与到线上的对决中来，获得尽可能多的击杀和助攻。（会有惩罚哦~ ）</p>
+            <p>究竟谁才 是守护“小仙女”的曙光使者，仙女保卫战，前方高能即将来袭！</p>
+        </div>
+        <div class="blank-4">
+            <div class="blank-4-bg"></div>
+            <p>比赛时间：比赛日20:00-21:00</p>
+            <p>1.两队妹子主播须<span>直播比赛选择</span><span>中单AP英雄</span>并积极参与线上的发育，<span>高地塔掉之前不得缩在高地</span>；</p>
+            <p>2.妹子主播<span>不得待在泉水超过10S</span>；</p>
+            <p>3.击破敌方水晶为<span>胜利方</span>，可获得曙光使者奖励。两位妹子主播中，<span>死亡次数较多</span>的一方需要接受惩罚。</p>
+        </div>
+        <div class="blank-5">
+            <div class="blank-5-bg"></div>
+            <p>1.<span>胜利方</span>男主播每人可获得X2滑板，<span>妹子主播可获得</span>X5滑板；死亡次数较多的妹子主播需要接受<span>在直播间为水友唱一首歌或者真心话大冒险</span>惩罚</p>
+            <p>2.</p>
+            <table style="width: 92%;margin-left: 1.25rem;text-align: center;" border="1">
+                <tr>
+                    <td colspan="2" width="40%"><span>死亡次数</span></td>
+                    <td><span>奖励</span></td>
+                    <td><span>惩罚</span></td>
+                </tr>
+                <tr>
+                    <td>水晶胜利方</td>
+                    <td>女主播较少</td>
+                    <td>可获得 x5滑板</td>
+                    <td>无</td>
+                </tr>
+                <tr>
+                    <td>水晶胜利方</td>
+                    <td>女主播较多</td>
+                    <td>完成惩罚可获得x3滑板（<span>可选择不完成惩罚则没有奖励</span>）</td>
+                    <td>唱歌或真心话大冒险</td>
+                </tr>
+                <tr>
+                    <td>水晶失败方</td>
+                    <td>女主播较多</td>
+                    <td>完成惩罚可获得 x1滑板（可选择不完成惩罚则没有奖励）</td>
+                    <td>唱歌或真心话大冒险</td>
+                </tr>
+                <tr>
+                    <td>水晶失败方</td>
+                    <td>女主播较少</td>
+                    <td>获得安慰奖X2滑板</td>
+                    <td>无</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

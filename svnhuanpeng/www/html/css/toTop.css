@@ -1,0 +1,166 @@
+/*  返回顶部控件  */
+#top_control{
+    /* width: 40px; */
+    position: fixed;
+    right: 5px;
+    bottom: 130px;
+    z-index: 999;
+}
+#top_control .icon_set{
+    background:url(../img/icon/bg_btn_navi.png?v.1.0) no-repeat;
+}
+#top_control .opt_block{
+    /* border: 1px solid #dcd8d8; */
+    cursor: pointer;
+    margin-top: 4px;
+    background: #fafafa;
+    /* box-shadow: 0px 0px 0.5px 0.5px #999999; */
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+}
+#top_control .opt_block .txt{
+    text-align:center;
+    display:none;
+    font-size:12px;
+    line-height:50px;
+    color:#fff;
+}
+#top_control .opt_block:hover .to_top,
+#top_control .opt_block:hover .app,
+#top_control .opt_block:hover .weixin,
+#top_control .opt_block:hover .beanchor
+{
+    background: #ff7800;
+    border-color:#ff7800;
+}
+#top_control .opt_block:hover .txt{
+    display:block;
+}
+#top_control .opt_block:hover .to_top{
+    /* background-position: -268px -171px; */
+    background: #ff7800;
+}
+#top_control .opt_block:hover .app{
+    /* background-position: -299px -169px; */
+    background: #ff7800;
+}
+#top_control .opt_block:hover .weixin{
+    /* background-position: -365px -168px; */
+    background: #ff7800;
+}
+#top_control .opt_block:hover .beanchor{
+    /* background-position: -332px -171px; */
+    background: #ff7800;
+}
+#top_control .opt{
+    width:50px;
+    height:50px;
+}
+#top_control .to_top{
+    display:none;
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    background-position: 0px 0px;
+    border: 1px solid #d2d2d2;
+}
+#top_control .app{
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    background-position: -50px -2px;
+    border: 1px solid #d2d2d2;
+}
+#top_control .opt_block:hover .app_down{
+    display:block;
+    padding:10px;
+}
+#top_control .opt_block:hover .share{
+    display:block;
+    padding:10px;
+}
+#top_control .weixin{
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    background-position: -150px 0px;
+    border: 1px solid #d2d2d2;
+}
+
+#top_control .beanchor{
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    background-position: -100px 0px;
+    border: 1px solid #d2d2d2;
+}
+#top_control .app_down{
+    /* width: 110px; */
+    margin-left: -193px;
+    background: #fff;
+    position: absolute;
+    border: 1px solid #DCD8D8;
+    display: none;
+    margin-top: -51px;
+}
+#top_control .imgcode{
+    width: 150px;
+    height: 150px;
+    padding:10px;
+}
+#top_control .imgcode img{
+    width: 100%;
+    height: 100%;
+}
+#top_control .app_down .down_title{
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    line-height: 30px;
+}
+#top_control .app_down  .btn_down{
+    width: 110px;
+    height: 18px;
+    background: #03a9f4;
+    text-align: center;
+    line-height: 18px;
+    font-size: 12px;
+    color: #fff;
+    margin-top: 5px;
+    /* margin-left: 0px; */
+}
+#top_control .share{
+    margin-left: -192px;
+    background: #fff;
+    position: absolute;
+    border: 1px solid #DCD8D8;
+    display: none;
+    margin-top: -51px;
+}
+#top_control .share .share_code{
+    width:150px;
+    height:150px;
+    padding:10px;
+}
+#top_control .share .share_code img{
+    width: 100%;
+    height: 100%;
+}
+#top_control .share .share_title{
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    line-height: 30px;
+}
+
+#top_control .icon_set_top{
+    background:url(../img/icon/bg_btn_navi_2.png) no-repeat;
+}
+#top_control .jubao{
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    background-position: -200px 0;
+    border: 1px solid #d2d2d2;
+}
+#top_control .opt_block:hover .jubao
+{
+    background: #ff7800;
+    border-color:#ff7800;
+}
+

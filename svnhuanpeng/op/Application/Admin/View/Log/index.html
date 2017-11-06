@@ -1,0 +1,123 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>文件管理</a><a href="javascript:;" ></i>文件列表</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="widget-box">
+              <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+              <h5>文件列表</h5>
+              </div>
+            <div class="widget-content">
+              <table id="data-list" class="table table-bordered table-striped">
+                <tbody id="file">
+                <foreach name="rootDir" item="item">
+                  <tr>
+                    <td class="server dir" v="{{$key}}">{{$item}}</td>
+                  </tr>
+                </foreach>
+                </tbody>
+              </table>
+            </div>
+            </div>
+        </div>
+        <div class="span9">
+            <div class="widget-box">
+              <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+              <h5 id="filepath"></h5>
+              </div>
+            <div class="widget-content">
+                <div id="file-tools">
+                  <input id="filenum" type="number" class="w50" value="20">行
+                  <div id="fileact" class="btn-group" data-toggle="buttons-radio">
+                    <button type="button" class="btn btn-primary active">tail</button>
+                    <button type="button" class="btn btn-primary">head</button>
+                  </div>
+                  
+                    <button id="fileread" class="btn" type="button">查看</button>
+                    <button id="filewatch" class="btn" type="button"  data-toggle="button">监听</button>
+                    <button id="filedown" class="btn" type="button">下载</button>
+                </div>
+                <div>
+                    <textarea id="file-content"></textarea>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="cssadd">
+    <style>
+    #file td{cursor: pointer;}
+    #file .dir,#file .link{color:green;font-weight:bold;}
+    #file .file{color:red;}
+    #file .file em{float:right;color:#000}
+    #filepath em{margin-left:10px}
+    #file-content{width:98%;height:500px};
+    #filewatch.active{background:#006dcc}
+    </style>
+</block>
+<block name="jsadd">
+<script>
+    $(function(){
+        var flist=$('#file');
+        flist.on('click','td.dir,td.link',function(){
+            var p=$(this).attr('v');
+            Op_common.ajax('/log/get',{p:p},function(obj){
+                if(obj.status==1){
+                    var html='',add;
+                    $.each(obj.info,function(k,v){
+                        if(v.type=='file'){
+                            add = '<em>'+v.size+'</em>';
+                        }else{
+                            add = '';
+                        }
+                        html += '<tr><td class="'+v.type+'" v="'+v.dir+'">'+v.name+add+'</td></tr>';
+                    })
+                    flist.html(html);
+                }
+            });
+        });
+        flist.on('click','td.file',function(){
+            var p=$(this).attr('v');
+            $('#filepath').html('');
+            $(this).clone().prependTo($('#filepath'));
+        });
+        
+        $('#fileread').click(function(){
+            var p=$('#filepath').find('.file'),self=$(this);
+            if(p.length<1)return;
+            Op_common.ajax('/log/get',{p:p.attr('v'),act:$('#fileact .active').text(),num:$('#filenum').val()},function(obj){
+                if(obj.status=='1'){
+                    $('#file-content').html(obj.info);
+                    
+                    if(window.filewatch_handle){
+                        setTimeout(function(){
+                            self.click();
+                        },1000);
+                    }
+                }
+            },{modal:false});
+        });
+        
+        $('#filewatch').click(function(){
+            if($(this).hasClass('active')){
+                window.filewatch_handle = false;
+            }else{
+                window.filewatch_handle = true;
+                $('#fileread').click();
+            }
+        });
+        
+        $('#filedown').click(function(){
+            window.location = '/log/get?down=1&p='+$('#filepath').find('.file').attr('v');
+        });
+    });
+</script>
+</block>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta content="email=no" name="format-detection" />
+	<title>iOS主播端 - 欢朋直播</title>
+	<link rel="stylesheet" href="./css/style.css">
+	<script src="../js/jquery-1.9.1.min.js"></script>
+	<script src="http://static.geetest.com/static/tools/gt.js"></script>
+	<script src="../js/statistics.js?v=0.0.3"></script>
+	<script src="../../static/js/common.js"></script>
+	<script src="./js/layer.js"></script>
+	<script src="./js/register.js"></script>
+	<script>
+        (function(){
+            size();
+            window.onresize = function (){
+                size();
+            };
+            function size(){
+                var winW = document.documentElement.clientWidth || document.documentElement.body.clientWidth;
+                document.documentElement.style.fontSize = winW / 22.5 +'px';
+            }
+        })();
+    </script>
+</head>
+<body>
+<div class="container pdt44">
+	<!-- 注册start -->
+	<article id="register">
+		<form id="registerForm" class="form-container register-container">
+			<input type="text" name="client" value="0" hidden>
+			<div class="wrapper">
+				<label for="registerPhone" class="icon-phone"></label>
+				<input type="number" id="registerPhone" placeholder="请输入手机号" name="mobile">
+			</div>
+			<div class="wrapper">
+				<label for="registerVerify" class="icon-verify"></label>
+				<input type="text" id="registerVerify" placeholder="请输入验证码" name="mobileCode">
+				<button class="mobile-code" id="mobileCode">获取验证码</button>
+			</div>
+			<div class="wrapper">
+				<label for="registerName" class="icon-user"></label>
+				<input type="text" id="registerName" placeholder="请输入昵称" value="" name="nick">
+			</div>
+			<div class="wrapper">
+				<label for="registerPassword" class="icon-password"></label>
+				<input type="password" id="registerPassword" placeholder="请输入6-12位密码" value="" name="password">
+			</div>
+		</form>
+		<div class="register-btn">
+			<button class="btn" id="registerBtn" disabled>注册</button>
+			<div class="wrapper">
+				
+				<input type="checkbox" id="agreement" class="no">
+				<label for="agreement" class="agreement"></label>
+				<a href="http://www.huanpeng.com/protocol/protocolUser.php">已阅读并同意<span class="strong">《欢朋直播用户协议》</span></a>
+			</div>
+		</div>
+	</article>
+	<div id="geetest"></div>
+	<!-- 注册end -->
+	<!--注册成功start-->
+	<article class="approve no" id="approveCheck">
+		<div class="logo-success">
+			<img src="./images/check-succ-logo.png" alt="">
+		</div>
+		<div class="wrapper">
+			<p class="strong">注册成功，开始你的直播之旅吧！</p>
+			<!--<p>完成实名认证后，即可下载欢朋直播助手哦～</p>-->
+			<a href="./index.html" class="btn">返回登录</a>
+		</div>
+	</article>
+	<!--注册成功end-->
+</div>
+</body>
+</html>

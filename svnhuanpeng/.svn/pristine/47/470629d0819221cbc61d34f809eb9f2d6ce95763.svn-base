@@ -1,0 +1,77 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>用户管理</a><a href="javascript:;" ></i>用户日志</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>用户日志</h5>
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10">
+                <form class="form-search">
+                  <input type="text" name="id" value="{{$id}}" placeholder="输入用户ID搜索">
+                  <input type="text" name="n" value="{{$n}}" placeholder="输入用户名搜索">
+                  <input type="text" name="ip" value="{{$ip}}" placeholder="输入IP搜索">
+                  操作类型<select name="t">
+                      <option value="">全部</option>
+                      <foreach name="type" key="key" item="item">
+                          <option value="{{$key}}" <eq name="t" value="$key">selected</eq>>{{$item.name}}</option>
+                      </foreach>
+                  </select>
+                  <input type="hidden" name="p" value="1"/>
+                    <button type="submit" class="btn" name="gn">查询</button>
+                </form>
+            </div>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>用户ID</th>
+                  <th>用户名</th>
+                  <th>操作类型</th>
+                  <th>IP地址</th>
+                  <th>操作时间</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr>
+                  <td>{{$item.id}}</td>
+                  <td>{{$item.uid}}</td>
+                  <td>{{$item.realname}}</td>
+                  <td>{{$item.typecn}}</td>
+                  <td>{{$item.ipaddr}}</td>
+                  <td>{{$item.timestr}}</td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="jsadd">
+<script>
+    function del(uid,t,s){
+        Op_common.confirm((s?'确认恢复?':'确认删除?'),function(){
+            $.post('?act=del',{uid:uid,status:s},function(obj){
+                if(obj.status=='1'){
+                    window.location.reload();
+                }else{
+                    Op_common.alert(obj.msg||'操作失败!');
+                }
+            },'json');
+        });
+    }
+</script>
+</block>

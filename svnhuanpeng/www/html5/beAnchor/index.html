@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta content="email=no" name="format-detection">
+    <title>主播认证</title>
+    <link rel="stylesheet" href="font/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/reset.css?v=0.0.4">
+    <script src="../../static/js/jquery-1.9.1.min.js"></script>
+    <script src="../../static/js/common.js?v=0.0.4"></script>
+    <script src="../../static/js/jquery.form.js"></script>
+    <script src="js/highcharts.js"></script>
+    <script>
+        (function(){a();window.onresize=function(){a()};function a(){var b=document.documentElement.clientWidth||document.documentElement.body.clientWidth;document.documentElement.style.fontSize=b/20+"px"}})();
+    </script>
+    <link rel="stylesheet" href="css/level.css?v=0.0.4">
+    <link rel="stylesheet" href="css/beAnchor.css?v=0.0.4">
+    <link rel="stylesheet" href="css/anchor_info.css?v=0.0.4">
+    <style>html,body{width:100%;height:100%;overflow-x:hidden;overflow-y:scroll;font-family:微软雅黑;background-color:#f2f2f2;position:relative}html .modal-box,body .modal-box{display:none;position:absolute;width:100%;height:100%;left:0;right:0;top:0;bottom:0;background:#fff}html .modal-box .modal-loading,body .modal-box .modal-loading{display:none;position:absolute;width:10.125rem;height:10.125rem;left:50%;top:50%;margin-left:-5.0625rem;margin-top:-5.625rem}html .modal-box .modal-loading .icon_loading,body .modal-box .modal-loading .icon_loading{position:absolute;z-index:99999;width:100%;height:100%;background:url("image/loading.gif");background-size:cover}</style>
+</head>
+<body>
+	<!---->
+	
+	
+	<!---->
+<div class="page-content">
+    <div class="page-body"></div>
+    <div class="page-foot"></div>
+</div>
+<div class="modal-box">
+    <div class="modal-loading" style="display: none;">
+        <div class="icon_loading"></div>
+    </div>
+</div>
+
+<script src="js/status.js?v=0.0.6"></script>
+ <script src="js/anchor_info.js?v=0.0.5"></script> 
+
+
+<script>
+    var uid = null;
+    var encpass = null;
+    mobileLoading(1);
+
+    function getParams(a,b){
+        //异常处理 wait
+        if(!a || !b){
+            return false;
+        }
+        uid = a;
+        encpass = b;
+        sessionStorage.setItem('_uid',uid);
+        sessionStorage.setItem('_enc',encpass);
+        setTimeout(function () {
+            statusCheck();
+            mobileLoading(0);
+            
+        },1000)
+		
+    }
+    if(isIphoneClient()){
+        if(appLoginUid && appEncpass){
+            getParams(appLoginUid,appEncpass);
+        }else{
+            var LoginUid = getCookie('_uid');
+            var Encpass  = getCookie('_enc');
+            getParams(LoginUid,Encpass);
+        }
+    }
+
+    function mobileLoading(a) {
+        if(a == 1){
+            $('.modal-box, .modal-loading').show();
+        }else{
+            $('.modal-box, .modal-loading').hide();
+        }
+    }
+
+</script>
+</body>
+</html>

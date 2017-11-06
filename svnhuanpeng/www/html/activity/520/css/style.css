@@ -1,0 +1,106 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    -webkit-touch-callout:none;
+    /*-webkit-user-select:none;*/
+    /*-khtml-user-select:none;*/
+    /*-moz-user-select:none;*/
+    /*-ms-user-select:none;*/
+    /*user-select:none;*/
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color:transparent;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-overflow-scrolling : touch;
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-family: serif;
+    background-color: #ffc9e0;
+    color: #fc5b90;
+}
+.content {
+    padding-bottom: 3.75rem;
+}
+.content .top-img {
+    height: 13.75rem;
+    background: url("../images/top-img.png") top center no-repeat;
+    background-size: 100%;
+}
+.content .blank-box {
+     margin: -0.625rem auto 0;
+     background-color: #ffc9e0;
+ }
+.content .blank-box>p{
+     text-align: center;
+     font-size: 1.025rem;
+     line-height: 1.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.0625rem;
+}
+.content .blank-box span{
+    text-align: center;
+    color: #cf4fff;
+    font-size: 1.125rem;
+    line-height: 1.25rem;
+}
+
+.content .blank-box .blank-1-bg,
+.content .blank-box .blank-2-bg,
+.content .blank-box .blank-3-bg {
+    height: 3.125rem;
+    margin: 0.3125rem 0;
+    background-size: cover;
+    -webkit-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    transform: scale(0.8);
+}
+.content .blank-box .blank-1-bg {
+    background: url("../images/blank-1.png") top center no-repeat;
+}
+.content .blank-box .blank-2-bg {
+    background: url("../images/blank-2.png") top center no-repeat;
+}
+
+.content .blank-box .blank-1 {
+    width: 90%;
+    margin: 0 auto;
+}
+.content .blank-box .blank-1 p {
+    text-align: center;
+    font-size: 1.125rem;
+}
+.content .blank-box .blank-2,
+.content .blank-box .blank-3 {
+    width: 90%;
+    margin: 0 auto;
+}
+.content .blank-box .blank-2 h2,
+.content .blank-box .blank-3 h2 {
+    font-size: 1.125rem;
+    font-weight: 400;
+}
+.content .blank-box .blank-2 p,
+.content .blank-box .blank-3 p {
+    margin-left: 1.25rem;
+    font-size: 1.025rem;
+    letter-spacing: 0.0625rem;
+    line-height: 1.75rem;
+    word-break: break-all;
+}
+.content i {
+    color: #cf4fff;
+    font-style: normal;
+    font-weight: normal;
+}

@@ -1,0 +1,56 @@
+
+html .request-container,
+body .request-container {
+    margin: 0 auto;
+    width: 100%;
+    min-width: 1200px;
+    max-width: 1424px;
+    height: 100%;
+    background-color: #775cfd;
+}
+html .request-container .request-header,
+body .request-container .request-header {
+    width: 100%;
+    height: 638px;
+}
+html .request-container .request-header .header-content,
+body .request-container .request-header .header-content {
+    height: 638px;
+    background: url("../img/headerContent.png") no-repeat;
+    background-size: 100% 100%;
+}
+html .request-container .request-awaBox,
+body .request-container .request-awaBox,
+html .request-container .request-shareBox,
+body .request-container .request-shareBox {
+    display: none;
+}
+html .request-container .request-getAward,
+body .request-container .request-getAward {
+    display: none;
+}
+html .request-container .request-listBox,
+body .request-container .request-listBox {
+    display: none;
+}
+html .request-container .request-footer,
+body .request-container .request-footer {
+    display: none;
+}
+html .request-container .request-IE8,
+body .request-container .request-IE8 {
+    display: block;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    padding: 70px 0;
+    font-size: 30px;
+    background-color: #775cfd;
+    color: #fff;
+    text-align: center;
+    font-family: 幼圆;
+}
+html .request-container .request-IE8 a,
+body .request-container .request-IE8 a {
+    color: #ff7800;
+}

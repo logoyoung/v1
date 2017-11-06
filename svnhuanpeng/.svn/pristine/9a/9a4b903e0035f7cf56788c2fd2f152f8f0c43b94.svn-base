@@ -1,0 +1,278 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+	<div id="content-header">
+		<div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>地域统计</a><a href="javascript:;" ></i>用户统计</a></div>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title"> <span class="icon"> <i class="icon-th"></i></span>
+						<h5>用户统计</h5>
+					</div>
+					<div class="widget-content">
+						<div class="text-center mb10 ln38">
+							<form class="form-search">
+								<select class="span2" name="provinceid">
+									<option value="0">全国</option>
+									<foreach name="province" item="v" key='key'>
+									<option value="{{$key}}" <if condition="$Think.get.provinceid eq $key">selected</if> >{{$v}}</option>
+									</foreach>
+								</select>
+								<input type="text" name="timestart" class="form_datetime w100"  value="{{$Think.get.timestart}}" placeholder="开始时间">
+								<input type="text" name="timeend" class="form_datetime w100"  value="{{$Think.get.timeend}}" placeholder="结束时间">
+								<button type="submit" class="btn">搜索</button>
+								
+								<a target="_blank" class="btn" href="/ip/user?provinceid={{$Think.get.provinceid}}&timestart={{$Think.get.timestart}}&timeend={{$Think.get.timeend}}">查看表格</a>
+								<a target="_blank" class="btn" href="/ip/usermap?timestart={{$Think.get.timestart}}&timeend={{$Think.get.timeend}}">查看地图</a>
+							</form>
+						</div>
+						<hr/>
+						<div class="oyat">    
+							<div id="totaluser"></div>
+						</div>
+						<hr/>
+						<div class="oyat">    
+							<div id="newuser"></div>
+						</div>
+						<hr/>
+						<div class="oyat">    
+							<div id="totalrecharge"></div>
+						</div>
+						<hr/>
+						<div class="oyat">    
+							<div id="newrecharge"></div>
+						</div>
+						<hr/>
+						<div class="oyat">    
+							<div id="totalmoney"></div>
+						</div>
+						<hr/>
+						<div class="oyat">    
+							<div id="newmoney"></div>
+						</div>
+						<hr/>
+						<div class="oyat">    
+							<div id="anchor"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        minView: 2,
+        todayBtn: true,
+    });
+</script>
+<script>
+$('#totaluser').highcharts({
+	chart: {
+		type: 'line'
+	},
+	title: {
+		text: '注册总人数曲线图'
+	},
+	subtitle: {
+		text: '{{$provincename}}'
+	},
+	xAxis: {
+		categories: [{{$date}}]
+	},
+	yAxis: {
+		title: {
+			text: '注册数量(人)'
+		}
+	},
+	plotOptions: {
+		line: {
+			dataLabels: {
+				enabled: true
+			},
+			enableMouseTracking: false
+		}
+	},
+	series: [{
+		name: "{{$provincename}}",
+		data: [{{$totaluser}}]
+		}]
+});
+</script>
+<script>
+$('#newuser').highcharts({
+	chart: {
+		type: 'line'
+	},
+	title: {
+		text: '日注册人数曲线图'
+	},
+	subtitle: {
+		text: '{{$provincename}}'
+	},
+	xAxis: {
+		categories: [{{$date}}]
+	},
+	yAxis: {
+		title: {
+			text: '注册数量(人)'
+		}
+	},
+	plotOptions: {
+		line: {
+			dataLabels: {
+				enabled: true
+			},
+			enableMouseTracking: false
+		}
+	},
+	series: [{
+		name: "{{$provincename}}",
+		data: [{{$newuser}}]
+		}]
+});
+</script>
+<script>
+$('#totalrecharge').highcharts({
+	chart: {
+		type: 'line'
+	},
+	title: {
+		text: '充值总人数曲线图'
+	},
+	subtitle: {
+		text: '{{$provincename}}'
+	},
+	xAxis: {
+		categories: [{{$date}}]
+	},
+	yAxis: {
+		title: {
+			text: '充值人数(人)'
+		}
+	},
+	plotOptions: {
+		line: {
+			dataLabels: {
+				enabled: true
+			},
+			enableMouseTracking: false
+		}
+	},
+	series: [{
+		name: "{{$provincename}}",
+		data: [{{$totalrecharge}}]
+		}]
+});
+</script>
+<script>
+$('#newrecharge').highcharts({
+	chart: {
+		type: 'line'
+	},
+	title: {
+		text: '日新增充值人数曲线图'
+	},
+	subtitle: {
+		text: '{{$provincename}}'
+	},
+	xAxis: {
+		categories: [{{$date}}]
+	},
+	yAxis: {
+		title: {
+			text: '充值人数(人)'
+		}
+	},
+	plotOptions: {
+		line: {
+			dataLabels: {
+				enabled: true
+			},
+			enableMouseTracking: false
+		}
+	},
+	series: [{
+		name: "{{$provincename}}",
+		data: [{{$newrecharge}}]
+		}]
+});
+</script>
+<script>
+$('#totalmoney').highcharts({
+	chart: {
+		type: 'line'
+	},
+	title: {
+		text: '充值总额曲线图'
+	},
+	subtitle: {
+		text: '{{$provincename}}'
+	},
+	xAxis: {
+		categories: [{{$date}}]
+	},
+	yAxis: {
+		title: {
+			text: '充值总额(元)'
+		}
+	},
+	plotOptions: {
+		line: {
+			dataLabels: {
+				enabled: true
+			},
+			enableMouseTracking: false
+		}
+	},
+	series: [{
+		name: "{{$provincename}}",
+		data: [{{$totalmoney}}]
+		}]
+});
+</script>
+<script>
+$('#newmoney').highcharts({
+	chart: {
+		type: 'line'
+	},
+	title: {
+		text: '日充值总额曲线图'
+	},
+	subtitle: {
+		text: '{{$provincename}}'
+	},
+	xAxis: {
+		categories: [{{$date}}]
+	},
+	yAxis: {
+		title: {
+			text: '充值总额(元)'
+		}
+	},
+	plotOptions: {
+		line: {
+			dataLabels: {
+				enabled: true
+			},
+			enableMouseTracking: false
+		}
+	},
+	series: [{
+		name: "{{$provincename}}",
+		data: [{{$newmoney}}]
+		}]
+});
+</script>
+</block>

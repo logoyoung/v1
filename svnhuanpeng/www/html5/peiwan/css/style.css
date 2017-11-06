@@ -1,0 +1,276 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  font-family: serif;
+  background-color: #fff;
+  color: #000;
+  font-family: "微软雅黑";
+}
+/*common*/
+.l {
+  float: left;
+  display: inline;
+}
+.r {
+  float: right;
+  display: inline;
+}
+.of {
+  overflow: hidden;
+  *zoom: 1;
+}
+.block {
+  display: block;
+}
+.none {
+  display: none;
+}
+.clearfix {
+  clear: both;
+}
+.content {
+  width: 92%;
+  margin: 0 auto;
+}
+.container {
+  background: #fff;
+}
+.df {
+  display: flex;
+}
+/*资格认证申请*/
+.classBox {
+  height: 3.92857143rem;
+  padding: 0.17857143rem;
+  border-bottom: 0.03571429rem solid #cccccc;
+}
+.classBox p {
+  float: left;
+  line-height: 3.92857143rem;
+  font-size: 1rem;
+  color: #666;
+}
+.classBox .classSelt {
+  font-size: 1rem;
+  color: #999;
+  margin: 1.35714286rem 0;
+  padding-right: 0.17857143rem;
+  background: none;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+.classBox .arrow {
+  float: right;
+  position: relative;
+  padding-right: 0.71428571rem;
+}
+.classBox i {
+  font-size: 0.64285714rem;
+  color: #999;
+  position: relative;
+  top: -0.07142857rem;
+}
+.screenshotBox {
+  padding-top: 0.71428571rem;
+  border-bottom: 0.03571429rem solid #eeeeee;
+}
+.screenshotBox p {
+  font-size: 0.35714286rem;
+}
+.screenshotBox li {
+  float: left;
+  margin-right: 0.85714286rem;
+  position: relative;
+  background: #f0f0f0;
+  width: 33.33333333%;
+}
+.screenshotBox li input {
+  display: none;
+}
+.screenshotBox li .image-box {
+  width: 6.28571429rem;
+  height: 4.28571429rem;
+  position: relative;
+  z-index: 10;
+}
+.screenshotBox li .image-box img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.screenshotBox li .image-box img[src=''] {
+  opacity: 0;
+}
+.screenshotBox li .screenBtn {
+  width: 6.28571429rem;
+  height: 4.28571429rem;
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.screenshotBox li:last-child {
+  margin-right: 0;
+}
+.screenshotBox li::before {
+  position: absolute;
+  display: block;
+  content: '';
+  width: 1.14285714rem;
+  border-top: 2px solid #fff;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-46%);
+}
+.screenshotBox li::after {
+  position: absolute;
+  display: block;
+  content: '';
+  height: 1.14285714rem;
+  border-left: 2px solid #fff;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-46%);
+}
+.screenshotBox .info {
+  font-size: 0.85714286rem;
+  color: #999;
+  text-indent: 1.78571429rem;
+  margin: 1.07142857rem auto 1.42857143rem;
+}
+.instructionsBox {
+  padding: 0.35714286rem;
+}
+.instructionsBox .textBox {
+  height: 2.07142857rem;
+  padding: 0.71428571rem 0;
+  color: #666;
+}
+.instructionsBox textarea {
+  width: 100%;
+  height: 5.64285714rem;
+  color: #666;
+  font-size: 0.85714286rem;
+  line-height: 1.10714286rem;
+  padding: 0.28571429rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.instructionsBox :-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #ccc;
+}
+.instructionsBox ::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #ccc;
+}
+.instructionsBox textarea:-ms-input-placeholder {
+  color: #ccc;
+}
+.instructionsBox textarea::-webkit-input-placeholder {
+  color: #ccc;
+}
+.instructionsBox .num {
+  color: #999;
+  font-size: 0.85714286rem;
+  text-align: right;
+  margin-top: 0.35714286rem;
+}
+.btnBox {
+  padding: 0.35714286rem;
+}
+.btnBox .submitBtn {
+  width: 98%;
+  height: 2.85714286rem;
+  display: block;
+  text-align: center;
+  background: #ff7800;
+  margin: 0 auto;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1.42857143rem;
+  letter-spacing: 0.35714286rem;
+  box-shadow: 0 3px 6px #C1A58C;
+}
+.btnBox .submitBtn[disabled] {
+  background: #ddd;
+  color: #fff;
+  box-shadow: none;
+}
+.btnBox .agreementBox {
+  margin: 1.42857143rem auto 0;
+  text-align: center;
+}
+.btnBox .agreementBox a {
+  color: #666;
+  font-size: 0.85714286rem;
+}
+.btnBox .agreementBox label {
+  width: 0.71428571rem;
+  height: 0.71428571rem;
+  display: inline-block;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.btnBox .agreementBox #rule:checked + label {
+  background: #ff7800;
+  border: 1px solid #ff7800;
+}
+/*资格认证已提交*/
+.promptTop {
+  padding: 5.35714286rem 0 2.85714286rem 6.07142857rem;
+}
+.promptTop .image_box {
+  width: 9.28571429rem;
+  height: 9.28571429rem;
+}
+.promptTop .image_box img {
+  width: 9.28571429rem;
+  height: 9.28571429rem;
+}
+.promptText p {
+  text-align: center;
+}
+.promptText .p1 {
+  font-size: 1.21428571rem;
+  color: #333333;
+  padding-bottom: 0.71428571rem;
+}
+.promptText .p2 {
+  font-size: 0.85714286rem;
+  color: #999;
+}
+.finshBtn {
+  width: 17.85714286rem;
+  height: 2.85714286rem;
+  margin: 2.71428571rem auto;
+  display: block;
+  background: #ff7800;
+  font-size: 1.5rem;
+  color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 3px 6px #C1A58C;
+}
+/*资格认证失败*/
+.applyBtn {
+  width: 17.85714286rem;
+  height: 2.85714286rem;
+  margin: 2.71428571rem auto;
+  display: block;
+  background: #ff7800;
+  font-size: 1.5rem;
+  color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 3px 6px #C1A58C;
+}
+/*# sourceMappingURL=style.css.map */

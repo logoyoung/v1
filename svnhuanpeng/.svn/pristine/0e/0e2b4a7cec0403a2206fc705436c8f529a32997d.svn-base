@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><extend name="Base/matrix" />
+        <block name="content">
+            <style>
+                .option {
+                    margin-right: 5px;
+                    margin-top: 0px;
+                    padding: 11px 20px;
+                    color: #fff;
+                    display: block;
+                    float: left;
+                    background-color: #ffa04c;
+                }
+            </style>
+            <div id="content">
+                <div id="content-header">
+                    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>审核管理</a><a href="javascript:;" ></i>直播禁播</a></div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="span7">
+                            <div class="widget-box">
+                                <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                                    <h5>请填写原因</h5>
+                                </div>
+                                <div class="widget-content nopadding">
+                                    <form id='f1' action='/live/checklive'  method="post" class="form-horizontal">
+                                        <input  name='liveid' id='lid' value="{{$Think.get.liveid}}" style="display: none">
+                                        <input  name='luid' id='luid' value="{{$Think.get.uid}}" style="display: none">
+                                        <input  name='act' id='act' value="{{$Think.get.act}}" style="display: none">
+                                        <div class="control-group">
+                                            <label class="control-label">主播房间</label>
+                                            <div class="controls">
+                                                <a class="btn "  target="_blank" href="http://{{$conf.outside-domain}}/room.php?luid={{$Think.get.uid}}">进入直播间</a>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">主播UID</label>
+                                            <div class="controls" id="uid">
+                                                {{$Think.get.uid}}
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">主播昵称</label>
+                                            <div class="controls" id="nick">
+                                                {{$Think.get.nick}}
+                                            </div>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <label class="control-label">所属公司</label>
+                                            <div class="controls" cid="cid">
+                                                {{$company.name|default='暂无公司'}}  (注：公司ID为{{$company.cid|default='--'}})
+                                            </div>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <label class="control-label">原因类型</label>
+                                            <div class="controls">
+                                                <select class="span5" name="reasontype">
+                                                    <foreach name="reasontype" item="v" key='key'>
+                                                        <option value="{{$key}}" >{{$v}}</option>
+                                                    </foreach>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <label class="control-label">上传截图</label>
+                                            <div class="controls">
+                                                <input name ="gamepic" id="gamepic" value="{{$gamepic}}" type="hidden"   />
+                                                <div class="con2">
+                                                    <foreach name="gamepics" item="item">
+                                                        <ul class="gamepic" v="{{$item}}" >
+                                                            <empty name='gamepics'><else /> <img alt="" src="http://{{$conf.domain-img}}{{$item}}"> <a onclick="del(this,'gamepic')" href="javascript:;" class="badge badge-important" style="display: inline-block;">删除</a> </empty>
+                                                        </ul>
+                                                    </foreach>
+                                                </div>
+                                                <button pics='1' con = 'con2' id="id2" class='upload' hidd = "gamepic" >选择文件</button>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">备注</label>
+                                            <div class="controls">
+                                                <textarea  maxlength="800" <empty name="remark">name="remark"<else/>disabled</empty>    class="span6" style="height:150px;width:300px" placeholder="" >{{$remark}}</textarea>
+                                            </div>
+
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">推送消息内容</label>
+                                            <div class="controls">
+                                                <textarea maxlength="800" id="textareaValidate"   <empty name="id">name="content"<else/>disabled</empty>    class="span6" style="height:150px;width:300px" placeholder="" >{{$msg}}</textarea>
+                                            </div>
+
+                                            <table class="table table-bordered table-striped with-check">
+                                                <tbody>
+                                                <tr id="tr1">
+                                                    <td>
+                                                        <input id="buttonValidate1" class="btn btn-mini btn-primary" type="button" value="您的直播内容涉嫌挂机违规!"/> &nbsp;
+                                                        <input id="buttonValidate2" class="btn btn-mini btn-info" type="button" value="您的直播内容不符合直播标准! "/> &nbsp;
+                                                        <input id="buttonValidate3" class="btn btn-mini btn-success" type="button" value="您的直播内容为禁播游戏!"/>&nbsp;
+                                                        <input id="buttonValidate4" class="btn btn-mini btn-warning" type="button" value="您的直播内容已涉嫌侵权行为!"/>&nbsp;
+                                                        <input id="buttonValidate5" class="btn btn-mini btn-danger" type="button" value="您的直播内容已涉嫌色情、暴力、政治等敏感内容!"/>&nbsp;
+                                                        <input id="buttonValidate6" class="btn btn-mini btn-info" type="button" value="您的直播内容涉嫌消极直播"/>
+
+                                                    </td>
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="form-actions text-center">
+                                            <button type="submit" class="btn btn-danger" >確定</button>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">关闭</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span5">
+                            <div class="widget-box">
+                                <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                                    <h5>违规记录列表</h5>
+                                </div>
+                                <div class="widget-content nopadding">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>时间</th>
+                                            <th>管理员</th>
+                                            <th>类型</th>
+                                            <th>原因</th>
+                                            <th>备注</th>
+                                            <th>描述</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <foreach name="history" item="item">
+                                            <tr>
+                                                <td>{{$item.ctime|default='--'}}</td>
+                                                <td>{{$item.adminName|default='--'}}</td>
+                                                <td>{{$item.type|default='--'}}</td>
+                                                <td>{{$item.reason|default='--'}}</td>
+                                                <td>{{$item.remark|default='--'}}</td>
+                                                <td>{{$item.content|default='--'}}</td>
+                                            </tr>
+                                        </foreach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            
+        </block>
+        <block name="cssadd">
+            <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+        </block>
+        <block name="jsadd">
+            <script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+
+            <script type="text/javascript" src="__RES__plupload/plupload.full.min.js"></script>
+            <script>
+
+                Op_common.ajaxForm($('#f1'), function (obj){
+                    console.log(obj);
+                    if(obj.status=='1'){
+                        Op_common.alert('操作成功!',function(){ window.location.href = "";});
+                    }else{
+                        Op_common.alert(obj.info||'操作失败!');
+                    }
+                },{
+                    before:function(data){$('#myModal').modal('hide');return data;}
+                });
+                $(document).ready(function(){
+                    $("input[id^='buttonValidate']").click(function(){  //当点击所有的id中包含'buttonValidate'的input标签时，执行函数
+                        var btnVal=$.trim($(this).val());//trim函数，去掉空格
+                        var str = $('#textareaValidate').val() + btnVal;//
+                        $('#textareaValidate').val(str);//
+                    });
+                });
+
+                !(function () {
+                    $('.upload').each(function(){
+                        self = $(this);
+                        var button_id = self.attr('id'),
+                                pics = self.attr('pics'),
+                                hidd = self.attr('hidd'),
+                                con = self.attr('con');
+
+                        var uploader = new plupload.Uploader({ //实例化一个plupload上传对象
+                            browse_button : button_id,
+                            url : '/file/examine?type=',
+                            flash_swf_url : '__RES__plupload/Moxie.swf',
+                            silverlight_xap_url : '__RES__plupload/Moxie.xap',
+                            multi_selection : true,
+                        });
+                        uploader.init(); //初始化
+
+                        //绑定文件添加进队列事件
+                        uploader.bind('FilesAdded',function(uploader,files){
+                            //构造html来更新UI
+                            if((files.length+uploader.total.uploaded)>3){
+                                alert('图片超过三张');
+                                for (var i =0; i<files.length;i++)
+                                    uploader.removeFile(files[i]);
+                                return;
+                            }
+                            var html = '<li id="file-' + files[0].id +'"><p class="file-name">' + files[0].name + '</p><div class="progress progress-striped"><div class="bar" ></div></div></li>';
+                            $(html).appendTo('.'+con);
+                            uploader.start();
+                        });
+
+                        //绑定文件上传进度事件
+                        uploader.bind('UploadProgress',function(uploader,file){
+                            $('#file-'+file.id+' .bar').css('width',file.percent + '%');//控制进度条
+                        });
+
+                        //绑定文件上传进度事件
+                        uploader.bind('FileUploaded',function(uploader,file,responseObject){
+                            var json=$.parseJSON(responseObject.response);
+                            if(pics==1){//上传多张
+                                var html =' <ul class= '+hidd+' v='+json.picpath+' ><img src= '+json.url+' /> <a onclick="del(this)" href="javascript:;" class="badge badge-important" style="display: inline-block;">删除</a></ul>';
+                                $('.'+con+' ').append(html);
+                            }else{//单张
+                                $('.'+con+' ul').replaceWith('<ul class= '+hidd+' v='+json.picpath+'><img src= '+json.url+' /></ul>');
+                            }
+                            $('.'+con+' li').remove();//删除进度条
+                            createform(hidd);
+                        });
+                    });
+
+
+                }());
+                function del(obj,hidd){
+                    var dev = $(obj).closest('ul');
+                    dev.replaceWith('');
+                    createform('gamepic');
+                }
+                function createform(hidd){
+                    $('#'+hidd).val('');
+                    $("ul."+hidd).each(function(){
+                        v = $(this).attr('v');
+                        if($('#'+hidd).val()){
+                            $('#'+hidd).val($('#'+hidd).val()+','+v);
+                        }else{
+                            $('#'+hidd).val(v);
+                        }
+                    });
+                }
+
+            </script>
+        </block>
+    </title>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+$anchorMaxLevel: 60;
+$anchorLevelIcon: "../img/level/anchor/";
+$anchorLevelLow: "1-20.png";
+
+@function anchorLevelBackImage($level) {
+  @if ($level < 30) {
+    @return url("#{$anchorLevelIcon}#{$anchorLevelLow}");
+  } @else {
+    @return url("#{$anchorLevelIcon}#{$level}.gif");
+  }
+}
+
+$al-marginLeft: 0px;
+$al-marginTop: 0px;
+$al-spaceTop: 10px;
+$al-spaceLeft: 0px;
+$al-imgWidth: 36px;
+$al-imgHeight: 14px;
+
+@function anchorLevelBackPosition($level) {
+//  @if ($level < 30) {
+//    $pLeft: -(floor((($level - 1)/10)) * ($al-imgWidth + $al-spaceLeft)) + $al-marginLeft;
+//    $pTop: -(($level - 1)%10) * ($al-imgHeight + $al-spaceTop) + $al-marginTop;
+//
+//    @return $pLeft $pTop;
+//  } @else {
+//    @return 2px -1px;
+//  }
+
+  @if ($level < 10) {
+    @return 0px (-($level - 1)*24)-2px;
+  } @else if ($level <= 20) {
+    @return -30px (-($level - 11)*24)-2px;
+  } @else if($level < 30){
+    @return -65px (-($level - 21)*24)-2px;
+  }@else{
+    @return 2px -1px;
+
+  }
+}
+
+$i: 1;
+@while $i <= $anchorMaxLevel {
+  .anchorLvl-icon.lv#{$i} {
+    background: anchorLevelBackImage($i) anchorLevelBackPosition($i) no-repeat;
+
+  }
+  $i: $i + 1;
+}
+
+$userMaxLevel: 60;
+$userLevelIcon: "../img/level/user/";
+$userLevelLow: "1-30.png";
+
+@function userLevelBackImage($level) {
+  @if ($level < 30) {
+    @return url("#{$userLevelIcon}#{$userLevelLow}");
+  } @else {
+    @return url("#{$userLevelIcon}#{$level}.gif");
+  }
+}
+
+$ul-marginLeft: 0px;
+$ul-marginTop: 2px;
+$ul-spaceTop: 4px;
+$ul-spaceLeft: 10px;
+$ul-imgWidth: 36px;
+$ul-imgHeight: 16px;
+
+@function userLevelBackPosition($level) {
+  @if ($level < 30) {
+    $pLeft: -(floor((($level - 1)/10)) * ($ul-imgWidth + $ul-spaceLeft)) + $ul-marginLeft;
+    $pTop: -(($level - 1)%10) * ($ul-imgHeight + $ul-spaceTop) + $ul-marginTop;
+
+    @return $pLeft $pTop;
+  } @else {
+    @return 0 1px;
+  }
+}
+
+$i: 1;
+@while ($i<=$userMaxLevel) {
+  .userLvl-icon.level#{$i} {
+    background: userLevelBackImage($i) userLevelBackPosition($i) no-repeat;
+  }
+  $i: $i + 1;
+}

@@ -1,0 +1,136 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>渠道统计</a><a href="javascript:;" ></i>渠道列表</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>渠道列表</h5>
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10 ln38">
+                <form class="form-search" id='myform'>
+                 <input type="text" id="timestart" name="timestart" class="form_datetime w100"  value="{{$Think.get.timestart}}" placeholder="开始时间">  <input type="text" id = "timeend" name="timeend" class="form_datetime w100"  value="{{$Think.get.timeend}}" placeholder="结束时间">
+                  <!--  <select class="span2" name="isanchor">
+                    <option value="-1">是否签约</option>
+                    <foreach name="isanchor" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.isanchor eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>-->
+                  
+                  <select class="span2" name="status">
+                    <option value="-1">选择状态</option>
+                    <foreach name="status" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.status eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <select class="span2" name="isanchor">
+                    <option value="-1">是否主播</option>
+                    <foreach name="isanchor" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.isanchor eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <button type="submit" class="btn">搜索</button>
+                  <button type="submit" class="btn" name="export" value="1">导出</button><br>
+                </form>
+            </div>
+            
+        <div class="oyat">    
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <th>充值总额</th>
+                  <th>主播</th>
+                  <th>非主播</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{$sum.rmb}}</td>
+                  <td>{{$sum.anchor_rmb|default='--'}}({{$sum['anchor_rmb']/$sum['rmb']*100|round=###,2}}%)</td>
+                  <td>{{$sum.user_rmb|default='--'}}({{$sum['user_rmb']/$sum['rmb']*100|round=###,2}}%)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        <div class="oyat">    
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>创建时间</th>
+                  <th>支付时间</th>
+                  <th>uid</th>
+                  <th>是否主播</th>
+                  <th>公司id</th>
+                  <th>金额</th>
+                  <th>欢朋币</th>
+                  <th>平台</th>
+                  <th>ip</th>
+                  <th>订单来路</th>
+                  <th>描述</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr>
+                  <td>{{$item.id}}</td>
+                  <td>{{$item.ctime|default='--'}}</td>
+                  <td>{{$item.paytime|default='--'}}</td>
+                  <td>{{$item.uid|default='--'}}</td>
+                  <td>{{$item.isanchor|default='--'}}</td>
+                  <td>{{$item.companyname|default='--'}}</td>
+                  <td>{{$item.rmb|default='--'}}</td>
+                  <td>{{$item.hb|default='--'}}</td>
+                  <td>{{$item.client|default='--'}}</td>
+                  <td>{{$item.ip|default='--'}}</td>
+                  <td>{{$item.refer_url|default='--'}}</td>
+                  <td>{{$item.desc|default='--'}}</td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    function del(id){
+        Op_common.confirm(('确认删除?'),function(){
+            Op_common.ajax('/loan/loandel',{id:id},function(obj){
+                Op_common.alert(obj.message,function(){
+                    window.location.href="";
+                })
+            })
+        });
+    };
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        minView: 2,
+        todayBtn: true,
+    });
+		
+    
+    
+
+    
+</script>
+</block>

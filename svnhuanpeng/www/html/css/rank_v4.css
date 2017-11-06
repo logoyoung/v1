@@ -1,0 +1,304 @@
+/*reset*/
+body{margin:0;padding:0;color:#444;font-size:12px;line-height:1.5em;background-color:#eee;/*font-family:"microsoft yahei"*/}
+ul,li{margin:0;padding:0;list-style:none;}
+h1,h2,h3,h4,h5,h6,p{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+a{text-decoration:none;outline:none;}
+a:hover{text-decoration:underline;}
+img{border:none;}
+
+/*common*/
+.l{float: left;display: inline;}
+.r{float: right;display: inline;}
+.of{overflow: hidden;*zoom:1;}
+.clearfix{
+   clear: both;
+}
+.w1180{width: 1180px;}
+
+
+/*rank*/
+.content {
+	background: #fff none repeat scroll 0 0;
+	border: 1px solid #e7e7e7;
+	margin: 70px auto 80px;
+	width: 1180px;
+}
+
+.rankBox{
+	overflow: hidden;*zoom:1;
+	
+}
+
+.rank-block{
+	width: 330px;
+	margin: 40px 0;
+	padding: 0 28px;
+	background: #fff;
+	overflow: hidden;*zoom:1;
+}
+
+.rank-title{
+	height: 92px;
+	border-bottom: 1px solid #eee;
+	overflow: hidden;*zoom:1;
+}
+.rank-sub{
+	color: #ff7800;
+	font-size: 24px;
+	font-weight: 100;
+	margin: 0;
+	padding: 0 20px 0 7px;
+	overflow: hidden;*zoom:1;
+	float: left;
+}
+
+.icon-income{
+	width: 37px;
+	height: 40px;
+	display: inline-block;
+	float: left;
+	margin-left: 5px;
+	background: url(../img/coins.png) no-repeat;
+}
+
+.rank-tab{
+	overflow: hidden;*zoom:1;
+}
+
+.rank-tabBtn{
+	float: right;
+	line-height: 51px;
+	margin-right: 5px;
+}
+.rank-tabBtn a{
+	width: 45px;
+	height: 26px;
+	font-size: 14px;
+	color: #444;
+	padding: 3px 8px;
+}
+.rank-tabBtn a:hover{
+	color:#ff7800;
+	text-decoration: none;
+}
+
+
+.rank-tabBtn a.cur{
+	background: #ff7800;
+	color: #fff;
+	padding: 3px 8px;
+}
+
+.rank-main{
+	overflow: hidden;*zoom:1;
+}
+
+.rank-incomeBox{
+	float: left;
+	min-height: 528px;
+}
+
+.rank-incomeBox :nth-child(2) .icon-rankNum{
+	color:#ff7800;
+}
+.rank-incomeBox :nth-child(3) .icon-rankNum{
+	color:#ff7800;
+}
+
+
+.rankLi-first{
+	height: 73px;
+}
+
+.rank-list{
+	width: 330px;
+	border-bottom: 1px solid #eee;
+	float: left;
+	color: #444;
+}
+
+.rank-list:hover{
+	color: #ff7800;
+}
+
+.icon-rankCrown{
+	width: 32px;
+	height: 32px;
+	display: inline-block;
+	margin-left: 13px;
+	margin-top: 20px;
+	background: url(../img/icon_set_1.png) no-repeat;
+	background-position: -351px -210px;
+	float: left;
+}
+
+.rankLi-first .icon-pic{
+	width: 53px;
+	height: 53px;
+	border: 0 none;
+	margin: 10px 0 10px 22px;
+	float: left;
+}
+.rankLi-first .icon-pic .user-pic{
+	width: 48px;
+	height: 48px;
+	border: 1px solid #ff7800;
+	border-radius: 50%;
+	margin-left: 0;
+	margin-top: 3px;
+	overflow: hidden;
+}
+
+.icon-lv{
+	width: 35px;
+	height: 20px;
+	float: left;
+	margin: 26px 5px 0 9px;
+}
+
+.rankLi-first .nick{
+	width: 120px;
+	display: inline-block;
+	font-size: 16px;
+	line-height: 73px;
+	max-width: 120px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.icon-up{
+	width: 20px;
+	height: 20px;
+	background:url(../img/icon_set_1.png) no-repeat -667px -83px;
+	float: right;
+	margin-right: 16px;
+	margin-top: 26px;
+}
+
+.icon-keep{
+	width: 20px;
+	height: 20px;
+	background:url(../img/icon_set_1.png) no-repeat -716px -83px;
+	float: right;
+	margin-right: 16px;
+	margin-top: 26px;
+}
+
+.icon-down{
+	width: 20px;
+	height: 20px;
+	background:url(../img/icon_set_1.png) no-repeat -691px -83px;
+	float: right;
+	margin-right: 16px;
+	margin-top: 26px;
+}
+
+.icon-rankNum{
+	width: 25px;
+	font-size: 14px;
+	line-height: 50px;
+	margin-left: 23px;
+	color: #999;
+	float: left;
+}
+.rankLi-sec{
+	height: 50px;
+}
+
+.rankLi-sec .rank-list{
+	width: 330px;
+	height: 50px;
+	border-bottom: 1px solid #eee;
+	float: left;
+	color: #444;
+}
+
+.rankLi-sec .icon-pic{
+	width: 35px;
+	height: 35px;
+	border: 0 none;
+	margin: 8px 9px 8px 26px;
+	float: left;
+}
+
+.rankLi-sec .icon-pic .user-pic{
+	width: 30px;
+	height: 30px;
+	border: 1px solid #ff7800;
+	border-radius: 50%;
+	margin-left: 0;
+	margin-top: 3px;
+	overflow: hidden;
+}
+
+.rankLi-sec .nick{
+	width: 120px;
+	display: inline-block;
+	font-size: 16px;
+	line-height: 50px;
+	max-width: 100px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.rankLi-sec .icon-lv{
+	width: 35px;
+	height: 20px;
+	float: left;
+	margin: 15px 5px 0 9px;
+}
+
+.rankLi-sec .icon-up{
+	width: 20px;
+	height: 20px;
+	background:url(../img/icon_set_1.png) no-repeat -667px -83px;
+	float: right;
+	margin-right: 16px;
+	margin-top: 15px;
+}
+.rankLi-sec .rank-list:hover{
+	color: #ff7800;
+}
+
+.fc-orange{
+	color: #ff7800;
+}
+
+.icon-sentiment{
+	width: 37px;
+	height: 40px;
+	font-size: 0;
+	display: inline-block;
+	float: left;
+	margin-left: 5px;
+	background: url(../img/flower.png) no-repeat;
+}
+.icon-level{
+	width: 37px;
+	height: 40px;
+	display: inline-block;
+	float: left;
+	margin-left: 5px;
+	background: url(../img/lv.png) no-repeat;
+}
+.icon-contribution{
+	width: 37px;
+	height: 40px;
+	display: inline-block;
+	float: left;
+	margin-left: 5px;
+	background: url(../img/user.png) no-repeat;
+}
+
+.rank-ttext{
+	display: inline-block;
+	float: left;
+	margin: 13px 0 0 5px;
+}
+
+.rank-incomeBox .rankLi-sec:last-child .rank-list{
+	border-bottom: none;
+}

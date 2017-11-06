@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>__NAME__运营平台</title>
+<meta charset="UTF-8" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="__RES__css/bootstrap.min.css" />
+<link rel="stylesheet" href="__RES__css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="__RES__css/bootstrap-wysihtml5.css" />
+<link rel="stylesheet" href="__RES__css/uniform.css" />
+<link rel="stylesheet" href="__RES__css/select2.css" />
+<link rel="stylesheet" href="__RES__css/level.css" />
+<link rel="stylesheet" href="__RES__css/ui-dialog.css" />
+<link rel="stylesheet" href="__RES__op-admin/css/matrix-style.css" />
+<link rel="stylesheet" href="__RES__op-admin/css/matrix-media.css" />
+<link href="__RES__awesome/css/font-awesome.css" rel="stylesheet" />
+<link href="__RES__auto-complete/src/styles.css" rel="stylesheet" />
+<block name="cssadd"></block>
+</head>
+<body>
+<?php 
+    $tree=\HP\Op\Admin::getTree(); 
+    $nt=cookie('nt');
+    $nt or $nt=key($tree);
+    $ns=(string)cookie('ns');
+    $nd=(string)cookie('nd');
+?>
+<!--Header-part-->
+<div id="header">
+  <h1><a href="javascript:;"></a></h1>
+</div>
+<!--close-Header-part--> 
+
+<!--top-Header-menu-->
+<div id="user-nav" class="navbar navbar-inverse">
+  <ul class="nav">
+    <foreach name="tree" key="key" item="item" >
+	<if condition="$item.name eq '合作'">
+    <li class=""><a href="javascript:;" class="active" data-id="{{$key}}"><i class="icon {{$item.icon}}"></i><span class="text">{{$item.name}}</span></a></li>
+    </if>
+	</foreach>
+  </ul>
+</div>
+
+<!--start-top-serch-->
+<div id="search">
+    <ul class="nav">
+    <li  class="dropdown" id="profile-messages" ><a href="javascript:;" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">Welcome <i class="icon icon-user"></i><span class="text"> {{$Think.session.u.realname}}</span><b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="/"><i class="icon-user"></i>个人首页</a></li>
+        <li class="divider"></li>
+        <li class="divider"></li>
+        <li><a id="loginout" href="javascript:;"><i class="icon-key"></i>退出登录</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<!--close-top-serch--> 
+
+<!--sidebar-menu-->
+<foreach name="tree" key="item1key" item="item1" >
+<if condition="$item1.name eq '合作'">
+<div class="user-sidebar" p="{{$item1key}}"<neq name="nt" value="$item1key"> style="display:block;"</neq>>
+  <ul>
+    <foreach name="item1.child" key="item2key" item="item2" >
+    <li class="submenu <eq name="ns" value="$item2key">open</eq>"><a href="javascript:;" data-id="{{$item2key}}"><i class="icon {{$item2.icon}}"></i><span>{{$item2.name}}</span></a>
+      <ul <eq name="ns" value="$item2key"> style="display:block;"</eq>>
+        <foreach name="item2.child" item="item3" >
+            <li <eq name="nd" value="$item3.url">class="active"</eq>><a href="{{$item3.url}}"><i class="icon {{$item3.icon}}"></i>{{$item3.name}}</a></li>
+        </foreach>
+      </ul>
+    </li>
+    </foreach>
+  </ul>
+</div>
+</if>
+</foreach>
+<block name="jsdata">
+  <div id="jsdata" jsdata='{{$jsdata}}' style="display: none;"></div>
+</block>
+
+<!--content-->
+<block name="content"></block>
+
+<!--Footer-part-->
+<div class="row-fluid">
+  <div id="footer" class="span12"> 2017 &copy; Power By HuanPeng.com</a> </div>
+</div>
+<!--end-Footer-part-->
+<script type="text/javascript" src="__RES__js/jquery.1.7.2.min.js"></script> 
+<script type="text/javascript" src="__RES__js/jquery-ui.min.js"></script> 
+<script type="text/javascript" src="__RES__js/jquery.wizard.js"></script> 
+<script type="text/javascript" src="__RES__js/jquery.uniform.js"></script> 
+<script type="text/javascript" src="__RES__js/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__RES__js/select2.min.js"></script> 
+<script type="text/javascript" src="__RES__js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__RES__js/dialog-min.js"></script>
+<script type="text/javascript" src="__RES__js/common.js"></script>
+<script type="text/javascript" src="__RES__js/highcharts.js"></script>
+<script type="text/javascript" src="__RES__js/highcharts-them.js"></script>
+<script type="text/javascript" src="__RES__js/highcharts-export.js"></script>
+<script type="text/javascript" src="__RES__js/no-data-to-display.js"></script>
+<script type="text/javascript" src="__RES__op-admin/js/common.js"></script>
+<script type="text/javascript" src="__RES__op-admin/js/matrix.js"></script>
+<script type="text/javascript" src="__RES__auto-complete/src/jquery.autocomplete.js"></script>
+<block name="jsadd"></block>
+</body>
+</html>

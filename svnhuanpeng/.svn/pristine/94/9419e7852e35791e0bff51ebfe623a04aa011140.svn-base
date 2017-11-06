@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta content="email=no" name="format-detection" />
+	<title>iOS主播端 - 欢朋直播</title>
+	<!-- <link rel="stylesheet" href="../../../static/css/reset.css"> -->
+	<link rel="stylesheet" href="./css/style.css?v=0.0.2">
+	<script src="../js/jquery-1.9.1.min.js"></script>
+	<script src="http://static.geetest.com/static/tools/gt.js"></script>
+	<script src="../js/statistics.js?v=0.0.3"></script>
+	<script src="../../static/js/common.js"></script>
+	<script src="./js/layer.js"></script>
+	
+	<script>
+        (function(){
+            size();
+            window.onresize = function (){
+                size();
+            };
+            function size(){
+                var winW = document.documentElement.clientWidth || document.documentElement.body.clientWidth;
+                document.documentElement.style.fontSize = winW / 22.5 +'px';
+            }
+        })();
+    </script>
+</head>
+<body>
+
+<div class="container">
+	<!-- 登录start -->
+	<article class="" id="login">
+		<div class="logo-huanpeng">
+			<img src="./images/logo@136x136.png" alt="">
+		</div>
+		<form id="loginForm" class="form-container">
+			<div class="wrapper">
+				<label for="loginPhone" class="icon-phone"></label>
+				<input type="number" name="mobile" id="loginPhone" placeholder="请输入手机号">
+			</div>
+			<div class="wrapper">
+				<label for="loginPassword" class="icon-password"></label>
+				<input type="password" name="password" id="loginPassword" placeholder="请输入密码">
+			</div>
+		</form>
+		<div class="login-btn">
+			<a class="btn" id="loginBtn">登录</a>
+			<a href="./register.html" class="btn btn-white mt20" id="goRegister">注册</a>
+		</div>
+	</article>
+	<!-- 登录end -->
+	<div id="geetest"></div>
+	<!-- 认证提示start -->
+	<article class="approve no" id="approveCheck">
+		<div class="logo-success">
+			<img src="./images/check-succ-logo.png" alt="">
+		</div>
+		<div class="wrapper">
+			<p class="strong">直播需要实名认证哦～</p>
+			<p>完成实名认证后，即可下载欢朋直播助手哦～</p>
+			<a href="javascript:void(0);" class="btn">立即认证</a>
+		</div>
+	</article>
+	<!--认证提示end-->
+	<script src="./js/main.js"></script>
+</div>
+</body>
+</html>

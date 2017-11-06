@@ -1,0 +1,67 @@
+<?php
+return array(
+    'URL_MODEL'=>2,
+    'DEFAULT_MODULE'=>'Www',
+    'URL_HTML_SUFFIX'=>false,
+    'URL_DENY_SUFFIX'=>false,
+    'VAR_PATHINFO'=>'_path_info_',
+    'TMPL_L_DELIM'=>'{{',
+    'TMPL_R_DELIM'=>'}}',
+    'AUTOLOAD_NAMESPACE' => array(
+        'HP'     => COMMON_PATH.'HP',
+    ),
+    
+    
+//***************************************//
+//************以下是本地化配套**************//
+//***************************************//
+    
+    
+    'TMPL_EXCEPTION_FILE'   =>  APP_PATH.'Www/View/Base/error.html',// 异常页面的模板文件
+    'SHOW_PAGE_TRACE' =>true,
+    'TMPL_PARSE_STRING'  =>array(
+        '__RES__'=>'http://res.huanpeng.cc/',
+        '__NAME__'=>'响当当',
+    ),
+    
+    //***********DB**************//
+    'DB_TYPE'   => 'mysqli', // 数据库类型
+    'DB_HOST'   => 'i2.grid.huanpeng.net', // 服务器地址
+    'DB_NAME'   => 'huanpeng', // 数据库名
+    'DB_USER'   => 'root', // 用户名
+    'DB_PWD'    => '123123',  // 密码
+    'DB_PORT'   => '3306', // 端口
+    'DB_PREFIX' => '', // 数据库表前缀
+    
+    //***********Cache************//
+    'DATA_CACHE_TYPE' => 'memcache',
+    'MEMCACHED_SERVER' => [['127.0.0.1',11211]],
+    'MEMCACHE_HOST' => '127.0.0.1',
+    'MEMCACHE_PORT' => '11211',
+    
+    //***********GEARMAN************//
+    'GEARMAN_SERVER' => '127.0.0.1:4730',
+    
+    //********** upload **********//
+    'FILE_UPLOAD_PATH'      =>  '/tmp/',
+    'FILE_PUBLIC_MODE'      =>  1,
+    'FILE_BUCKET_START'      =>  10,
+    'FILE_BUCKET_END'      =>  15,
+    'FILE_PUBLIC_ARGS'      =>  ['http://res.huanpeng.cc/','bc/'],
+    #图片自动剪裁设定
+    'FILE_PIC_THUMB'        => [
+        '1'=>['type'=>'thumb','width'=>200,'height'=>200],
+        '2'=>['type'=>'watermark'],
+    ],
+    
+    
+    //********* cronlog **********//
+    'HP_LOG_PATH' => '/tmp/',
+
+    //********* BaoFoo payment ******//
+    'BF_SELF_PFX' => '',
+    'BF_SELF_PWD' => '',
+    'BF_SERVER_CER' => '',
+    'BF_MEMBER_ID' => '',
+    'BF_TERMINAL_ID' => '',
+);

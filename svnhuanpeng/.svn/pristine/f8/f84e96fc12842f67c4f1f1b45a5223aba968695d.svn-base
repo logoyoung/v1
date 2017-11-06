@@ -1,0 +1,148 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>公司统计</a><a href="javascript:;" ></i>公司管理</a><a href="javascript:;" ></i>公司设置</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span6">
+        <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>设置公司</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form name="f1" method="post" class="form-horizontal">
+          
+            <div class="control-group">
+              <label class="control-label">公司名称</label>
+              <div class="controls">
+                  <input name="name" value="{{$name}}" type="text" class="span11" placeholder="" />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">状态</label>
+              <div class="controls">
+                 <select class="select"  <empty name="id">name="status"<else/>disabled</empty> >
+                    <foreach name="statusHash" item="item" key="key" >
+                    <option value="{{$key}}" <eq name="key" value="$status"> selected</eq>>{{$item}}</option>
+                    </foreach>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">公司类型</label>
+              <div class="controls">
+                 <select class="select"  <empty name="id">name="type"<else/>disabled</empty> >
+                    <foreach name="typeHash" item="item" key="key" >
+                    <option value="{{$key}}" <eq name="key" value="$type"> selected</eq>>{{$item}}</option>
+                    </foreach>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">所有者id</label>
+              <div class="controls">
+                  <input <empty name="id">name="owner_id"<else/>disabled</empty> value="{{$owner_id}}" type="text"  />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">比率</label>
+              <div class="controls">
+                  <input  name="rate" value="{{$rate}}" type="text" class="span2"/>%
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">税率</label>
+              <div class="controls">
+                  <input  name="txtrate" value="{{$txtrate}}" type="text" class="span2"/>%
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">所属银行</label>
+              <div class="controls">
+                  <select class="select2" name="bankid">
+                    <option value="0">请选择银行</option>
+                    <foreach name="bank" item="item" key="key" >
+                    <option value="{{$key}}" <eq name="key" value="$bankid">selected</eq>>{{$item}}</option>
+                  </foreach>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">开户行</label>
+              <div class="controls">
+                  <input  name="bankaddress" id="bankaddress" value="{{$bankaddress}}" type="text" class="span11"  />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">卡号</label>
+              <div class="controls">
+                  <input  name="cardid" id="cardid" value="{{$cardid}}" type="text" class="span11"  />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">姓名</label>
+              <div class="controls">
+                  <input  name="ownername" value="{{$ownername}}" type="text"/>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">身份证号</label>
+              <div class="controls">
+                  <input  name="papersid" value="{{$papersid}}" type="text"/>
+              </div>
+            </div>
+			<div class="control-group">
+              <label class="control-label">联系电话</label>
+              <div class="controls">
+                  <input  name="phone" value="{{$phone}}" type="text"/>
+              </div>
+            </div>
+			<div class="control-group">
+              <label class="control-label">联系地址</label>
+              <div class="controls">
+                  <input  name="address" value="{{$address}}" type="text" class="span11" />
+              </div>
+            </div>
+            <div class="form-actions text-center">
+              <button type="submit" class="btn btn-success">保存</button>
+              <button class="btn" onclick="history.go(-1);">取消</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+    <style>.group{display: none;}</style>
+</block>
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    var f=document.forms.f1;
+    Op_common.ajaxForm($(f),function(obj){
+        if(obj.status==1){
+            Op_common.alert(obj.info,function(){
+                window.location = obj.code;
+            });
+        }else{
+            Op_common.alert(obj.info||'操作失败');
+        }
+    });
+    $('#cardid').keyup(function(){
+        var card = $(this).val();
+        card = card.replace(/\D/g,'')
+        var ncard='';
+        for(var n=0;n<card.length;n=n+4){
+            ncard += card.substring(n,n + 4) + " ";
+        }
+        //console.log(ncard.replace(/(\s*$)/g,""));
+        $('#cardid').val(ncard.replace(/(\s*$)/g,""));
+    });
+</script>
+</block>

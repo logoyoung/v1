@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>     &raquo; Compilation errors
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/hp.html">\hp</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">127</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">31</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+
+            <ul class="side-nav nav nav-list">
+                <li class="nav-header">Navigation</li>
+                                                                            <li><a href="#finance.class.php"><i class="icon-file"></i> finance.class.php</a></li>
+                                                                                                    <li><a href="#Live.class.php"><i class="icon-file"></i> Live.class.php</a></li>
+                                                                                                    <li><a href="#SmsSend.php"><i class="icon-file"></i> SmsSend.php</a></li>
+                                                                                                    <li><a href="#Anchor.interface.php"><i class="icon-file"></i> Anchor.interface.php</a></li>
+                                                                                                    <li><a href="#MsgPackage.class.php"><i class="icon-file"></i> MsgPackage.class.php</a></li>
+                                                                                                    <li><a href="#Game.class.php"><i class="icon-file"></i> Game.class.php</a></li>
+                                                                                                    <li><a href="#MailSend.class.php"><i class="icon-file"></i> MailSend.class.php</a></li>
+                                                                                                    <li><a href="#Register.class.php"><i class="icon-file"></i> Register.class.php</a></li>
+                                                                                                    <li><a href="#financeError.class.php"><i class="icon-file"></i> financeError.class.php</a></li>
+                                                                                                    <li><a href="#User.class.php"><i class="icon-file"></i> User.class.php</a></li>
+                                                                                                    <li><a href="#SocketSend.class.php"><i class="icon-file"></i> SocketSend.class.php</a></li>
+                                                                                                    <li><a href="#WcsHelper.class.php"><i class="icon-file"></i> WcsHelper.class.php</a></li>
+                                                                                                    <li><a href="#LiveRoom.class.php"><i class="icon-file"></i> LiveRoom.class.php</a></li>
+                                                                                                    <li><a href="#User.interface.php"><i class="icon-file"></i> User.interface.php</a></li>
+                                                                                                    <li><a href="#CDNHelper.class.php"><i class="icon-file"></i> CDNHelper.class.php</a></li>
+                                                                                                    <li><a href="#Anchor.class.php"><i class="icon-file"></i> Anchor.class.php</a></li>
+                                                                                                    <li><a href="#Gift.class.php"><i class="icon-file"></i> Gift.class.php</a></li>
+                                                                                                    <li><a href="#BaseInfo.class.php"><i class="icon-file"></i> BaseInfo.class.php</a></li>
+                                                                                                    <li><a href="#Task.class.php"><i class="icon-file"></i> Task.class.php</a></li>
+                                                                                                    <li><a href="#Video.class.php"><i class="icon-file"></i> Video.class.php</a></li>
+                                                                    </ul>
+        </div>
+
+        <div class="span10 offset2">
+            <ul class="breadcrumb">
+                <li><a href="../"><i class="icon-remove-sign"></i></a><span class="divider">\</span></li>
+                <li>Compilation Errors</li>
+            </ul>
+
+            
+                            <div class="package-contents">
+                                            <a name="finance.class.php" id="finance.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            finance.class.php
+                            <small style="float: right;padding-right: 10px;">73</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>168</td>
+                                        <td>Argument $db is missing from the Docblock of __construct</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>168</td>
+                                        <td>Argument $redis is missing from the Docblock of __construct</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>168</td>
+                                        <td>No summary for method __construct()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>351</td>
+                                        <td>Argument $suid is missing from the Docblock of sendBean</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>351</td>
+                                        <td>Argument $ruid is missing from the Docblock of sendBean</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>351</td>
+                                        <td>Argument $hdd is missing from the Docblock of sendBean</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>351</td>
+                                        <td>Argument $desc is missing from the Docblock of sendBean</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>351</td>
+                                        <td>No summary for method sendBean()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>369</td>
+                                        <td>No summary for method _sendBean()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>473</td>
+                                        <td>Argument $uid is missing from the Docblock of _addUserBean</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>473</td>
+                                        <td>Argument $hdd is missing from the Docblock of _addUserBean</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>473</td>
+                                        <td>Argument $channel is missing from the Docblock of _addUserBean</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>473</td>
+                                        <td>Argument $desc is missing from the Docblock of _addUserBean</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>473</td>
+                                        <td>No summary for method _addUserBean()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>509</td>
+                                        <td>Argument $uid is missing from the Docblock of _addUserGetBeanRecord</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>509</td>
+                                        <td>Argument $hdd is missing from the Docblock of _addUserGetBeanRecord</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>509</td>
+                                        <td>Argument $channel is missing from the Docblock of _addUserGetBeanRecord</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>509</td>
+                                        <td>Argument $desc is missing from the Docblock of _addUserGetBeanRecord</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>509</td>
+                                        <td>No summary for method _addUserGetBeanRecord()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>784</td>
+                                        <td>Argument $desc is missing from the Docblock of withdraw</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>800</td>
+                                        <td>Argument $desc is missing from the Docblock of _withdraw</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>800</td>
+                                        <td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $desc in _withdraw()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>868</td>
+                                        <td>No summary for method setWithdrawStatusChecking()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>880</td>
+                                        <td>No summary for method setWithdrawStatusSuccess()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>893</td>
+                                        <td>No summary for method setWithdrawStatusFailed()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>994</td>
+                                        <td>Argument $desc is missing from the Docblock of exchange</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1010</td>
+                                        <td>Argument $desc is missing from the Docblock of _exchange</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1048</td>
+                                        <td>Argument $uid is missing from the Docblock of _addExchangeRecord</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1048</td>
+                                        <td>Argument $gb is missing from the Docblock of _addExchangeRecord</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1048</td>
+                                        <td>Argument $hb is missing from the Docblock of _addExchangeRecord</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1048</td>
+                                        <td>Argument $desc is missing from the Docblock of _addExchangeRecord</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1048</td>
+                                        <td>No summary for method _addExchangeRecord()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1076</td>
+                                        <td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $gd in excGD2GB()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1076</td>
+                                        <td>Argument $desc is missing from the Docblock of excGD2GB</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1076</td>
+                                        <td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $desc in excGD2GB()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1092</td>
+                                        <td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $gd in _excGD2GB()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1092</td>
+                                        <td>Argument $desc is missing from the Docblock of _excGD2GB</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1140</td>
+                                        <td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $gd in _addExcGD2GBRecord()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1140</td>
+                                        <td>Argument $desc is missing from the Docblock of _addExcGD2GBRecord</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1140</td>
+                                        <td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $desc in _addExcGD2GBRecord()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1154</td>
+                                        <td>Argument $uid is missing from the Docblock of costUserHb</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1154</td>
+                                        <td>Argument $hbd is missing from the Docblock of costUserHb</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1154</td>
+                                        <td>Argument $channel is missing from the Docblock of costUserHb</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1154</td>
+                                        <td>Argument $desc is missing from the Docblock of costUserHb</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1154</td>
+                                        <td>No summary for method costUserHb()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1162</td>
+                                        <td>Argument $uid is missing from the Docblock of _costUserHb</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1162</td>
+                                        <td>Argument $hbd is missing from the Docblock of _costUserHb</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1162</td>
+                                        <td>Argument $channel is missing from the Docblock of _costUserHb</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1162</td>
+                                        <td>Argument $desc is missing from the Docblock of _costUserHb</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1162</td>
+                                        <td>No summary for method _costUserHb()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1201</td>
+                                        <td>Argument $uid is missing from the Docblock of _addCostUserHbRecord</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1201</td>
+                                        <td>Argument $hbd is missing from the Docblock of _addCostUserHbRecord</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1201</td>
+                                        <td>Argument $channel is missing from the Docblock of _addCostUserHbRecord</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1201</td>
+                                        <td>Argument $desc is missing from the Docblock of _addCostUserHbRecord</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1201</td>
+                                        <td>No summary for method _addCostUserHbRecord()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1373</td>
+                                        <td>Argument $uid is missing from the Docblock of getReceivedGBByDay</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1373</td>
+                                        <td>Argument $date is missing from the Docblock of getReceivedGBByDay</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1373</td>
+                                        <td>No summary for method getReceivedGBByDay()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1382</td>
+                                        <td>Argument $stime is missing from the Docblock of getReceivedGBByTime</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1382</td>
+                                        <td>Argument $etime is missing from the Docblock of getReceivedGBByTime</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1382</td>
+                                        <td>No summary for method getReceivedGBByTime()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1473</td>
+                                        <td>Argument $type is missing from the Docblock of _statement</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1473</td>
+                                        <td>Argument $tid is missing from the Docblock of _statement</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1725</td>
+                                        <td>No summary for method _setBizResult()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1737</td>
+                                        <td>Argument $result is missing from the Docblock of checkBizResult</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1737</td>
+                                        <td>No summary for method checkBizResult()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1758</td>
+                                        <td>No summary for method _doCreateMonthTable()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1808</td>
+                                        <td>Argument $tableName is missing from the Docblock of _createMonthTable</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1808</td>
+                                        <td>No summary for method _createMonthTable()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>128</td>
+                                        <td>No summary for property $_db</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>132</td>
+                                        <td>No summary for property $_redis</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>139</td>
+                                        <td>No summary for property $_tabListStaticKey</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="Live.class.php" id="Live.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            Live.class.php
+                            <small style="float: right;padding-right: 10px;">1</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="SmsSend.php" id="SmsSend.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            SmsSend.php
+                            <small style="float: right;padding-right: 10px;">1</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="Anchor.interface.php" id="Anchor.interface.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            Anchor.interface.php
+                            <small style="float: right;padding-right: 10px;">1</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="MsgPackage.class.php" id="MsgPackage.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            MsgPackage.class.php
+                            <small style="float: right;padding-right: 10px;">1</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="Game.class.php" id="Game.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            Game.class.php
+                            <small style="float: right;padding-right: 10px;">1</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="MailSend.class.php" id="MailSend.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            MailSend.class.php
+                            <small style="float: right;padding-right: 10px;">1</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="Register.class.php" id="Register.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            Register.class.php
+                            <small style="float: right;padding-right: 10px;">5</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>16</td>
+                                        <td>Argument $db is missing from the Docblock of __construct</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>16</td>
+                                        <td>No summary for method __construct()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>13</td>
+                                        <td>No summary for property $_db</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>14</td>
+                                        <td>No summary for property $rport</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="financeError.class.php" id="financeError.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            financeError.class.php
+                            <small style="float: right;padding-right: 10px;">1</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="User.class.php" id="User.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            User.class.php
+                            <small style="float: right;padding-right: 10px;">6</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>5</td>
+                                        <td>No summary for class \hp\lib\User</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1044</td>
+                                        <td>Argument $type is missing from the Docblock of updateIsFree</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>1044</td>
+                                        <td>No summary for method updateIsFree()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>7</td>
+                                        <td>No summary for property $uid</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>8</td>
+                                        <td>No summary for property $_db</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="SocketSend.class.php" id="SocketSend.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            SocketSend.class.php
+                            <small style="float: right;padding-right: 10px;">1</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="WcsHelper.class.php" id="WcsHelper.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            WcsHelper.class.php
+                            <small style="float: right;padding-right: 10px;">1</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="LiveRoom.class.php" id="LiveRoom.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            LiveRoom.class.php
+                            <small style="float: right;padding-right: 10px;">5</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>462</td>
+                                        <td>Argument $financeObj is missing from the Docblock of _sendGiftSuccessHanlde</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>462</td>
+                                        <td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $financeObj in _sendGiftSuccessHanlde()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>595</td>
+                                        <td>Argument $msgPackage is missing from the Docblock of _sendSocketMsg</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>595</td>
+                                        <td>No summary for method _sendSocketMsg()</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="User.interface.php" id="User.interface.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            User.interface.php
+                            <small style="float: right;padding-right: 10px;">1</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="CDNHelper.class.php" id="CDNHelper.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            CDNHelper.class.php
+                            <small style="float: right;padding-right: 10px;">3</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>28</td>
+                                        <td>Argument $WcsHelper is missing from the Docblock of __construct</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>28</td>
+                                        <td>No summary for method __construct()</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="Anchor.class.php" id="Anchor.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            Anchor.class.php
+                            <small style="float: right;padding-right: 10px;">5</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>7</td>
+                                        <td>No summary for class \hp\lib\Anchor</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>237</td>
+                                        <td>No summary for method _addExp()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>9</td>
+                                        <td>No summary for property $uid</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>10</td>
+                                        <td>No summary for property $_db</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="Gift.class.php" id="Gift.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            Gift.class.php
+                            <small style="float: right;padding-right: 10px;">6</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>99</td>
+                                        <td>Argument $sendType is missing from the Docblock of getSendExp</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>99</td>
+                                        <td>Argument $sendNum is missing from the Docblock of getSendExp</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>99</td>
+                                        <td>Argument $money is missing from the Docblock of getSendExp</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>99</td>
+                                        <td>Argument $exp is missing from the Docblock of getSendExp</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>99</td>
+                                        <td>No summary for method getSendExp()</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="BaseInfo.class.php" id="BaseInfo.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            BaseInfo.class.php
+                            <small style="float: right;padding-right: 10px;">7</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>15</td>
+                                        <td>Argument $db is missing from the Docblock of __construct</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>15</td>
+                                        <td>No summary for method __construct()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>82</td>
+                                        <td>Argument $ids is missing from the Docblock of _getInfoListByIds</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>82</td>
+                                        <td>Argument $db is missing from the Docblock of _getInfoListByIds</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>82</td>
+                                        <td>No summary for method _getInfoListByIds()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>12</td>
+                                        <td>No summary for property $_db</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="Task.class.php" id="Task.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            Task.class.php
+                            <small style="float: right;padding-right: 10px;">6</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>14</td>
+                                        <td>Argument $uid is missing from the Docblock of __construct</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>14</td>
+                                        <td>Argument $db is missing from the Docblock of __construct</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>14</td>
+                                        <td>No summary for method __construct()</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>11</td>
+                                        <td>No summary for property $uid</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>12</td>
+                                        <td>No summary for property $_db</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
+                                            <a name="Video.class.php" id="Video.class.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            Video.class.php
+                            <small style="float: right;padding-right: 10px;">1</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                    </div>
+    </section>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/hp.html">\hp</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on 
+Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /usr/lib/php/pear/phpDocumentor/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
+April 10th, 2017 at 10:18.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

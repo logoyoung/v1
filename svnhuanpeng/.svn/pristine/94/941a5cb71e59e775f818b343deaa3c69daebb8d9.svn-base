@@ -1,0 +1,69 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>用户管理</a><a href="javascript:;" ></i>权限管理</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>权限列表</h5>
+            <a href="/rbac/accesssave"><span class="label label-info">添加</span></a> </div>
+          <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>类型</th>
+                  <th>名称</th>
+                  <th>控制器/权限</th>
+                  <th>动作</th>
+                  <th>父级</th>
+                  <th>排序</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr>
+                  <td>{{$item.id}}</td>
+                  <td>{{$item.typecn}}</td>
+                  <td><i class="icon {{$item.icon}}"></i>{{$item.name}}</td>
+                  <td>{{$item.controller}}</td>
+                  <td>{{$item.action}}</td>
+                  <td>{{$item.parentname}}</td>
+                  <td>{{$item.sort}}</td>
+                  <td>
+                      <a class="badge badge-info" href="/rbac/accesssave?id={{$item.id}}">编辑</a>
+                      <a class="badge badge-important" href="javascript:;" onclick="del({{$item.id}},this)">删除</a>
+                      <a class="badge badge-info" href="/rbac/menurole?id={{$item.id}}">角色查看</a>
+                  </td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+          </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="jsadd">
+<script>
+    function del(id,t){
+        Op_common.confirm('确认删除?',function(){
+            $.post('?act=del',{id:id},function(obj){
+                if(obj.status=='1'){
+                    $(t).closest('tr').remove();
+                }else{
+                    Op_common.alert(obj.msg||'操作失败!');
+                }
+            },'json');
+        });
+    }
+</script>
+</block>

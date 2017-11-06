@@ -1,0 +1,434 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>用户统计</a><a href="javascript:;" ></i>充值{{$title}}统计</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>充值统计-{{$title}}报</h5>
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10 ln38">
+                <form class="form-search" id='myform'>
+                 <!-- <input name='count_type' id='count_type' type="hidden"   value="{{$Think.get.count_type}}">-->
+                  <input name='channelname' id='channelname' type="text" value="{{$Think.get.channelname}}"  placeholder="注册来源名称"  >
+                  <input name='channel' id='channel' type="hidden"   value="{{$Think.get.channel}}">
+                  <!--<input type="hidden" name="count_type" value="day">-->
+                  <input type="hidden" name="type" value="1">
+                  <input type="text" class="w120" name="client" value="{{$Think.get.client}}" placeholder="渠道">
+                  <input type="text" class="w120" name="pay_client" value="{{$Think.get.pay_client}}" placeholder="平台">
+                  <input type="text" id="timestart" name="timestart" class="form_datetime w100"  value="{{$Think.get.timestart}}" placeholder="开始时间">  <input type="text" id = "timeend" name="timeend" class="form_datetime w100"  value="{{$Think.get.timeend}}" placeholder="结束时间">
+                  <if  condition="($Think.get.chart eq '1')  " >
+                    <button type="submit" class="btn" name="chart" value="1">搜索</button>
+                    <button type="submit" class="btn" name="chart" value="0">数据</button>
+                    <else/>
+                    <button type="submit" class="btn" name="chart" value="0">搜索</button>
+                    <button type="submit" class="btn" name="chart" value="1">图表</button>
+                  </if>
+                  <button type="submit" class="btn" name="export" value="1">导出</button><br>
+                </form>
+            </div>
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>笔数</th>
+                  <th>用户数</th>
+                  <th>金额(元)</th>
+                  <th>新增人数</th>
+                  <th>新增金额(元)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>总计：</td>
+                  <td>{{$sum.count_num|default='--'}}</td>
+                  <td>{{$sum.count_user|default='--'}}</td>
+                  <td>{{$sum.count_rmb|default='--'}}</td>
+                  <td>{{$sum.count_num_new|default='--'}}</td>
+                  <td>{{$sum.count_rmb_new|default='--'}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <if  condition="($Think.get.chart eq '1')  " >
+              <div></div>
+              <div id="container1" style="min-width:400px;height:400px"></div>
+              <div id="container2" style="min-width:400px;height:400px"></div>
+              <div id="container3" style="min-width:400px;height:400px"></div>
+              <div id="container4" style="min-width:400px;height:400px"></div>
+              <else/>
+        <div class="oyat">    
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <th>日期</th>
+                  <th>平台</th>
+                  <th>渠道编号</th>
+                  <th>注册来源</th>
+                  <th>渠道名称</th>
+                  <th>笔数</th>
+                  <th>用户数</th>
+                  <th>金额(元)</th>
+                  <th>新增人数</th>
+                  <th>新增金额(元)</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item" key="date">
+                <tr>
+                  <td>{{$item.date|default='--'}}</td>
+                  <td>{{$item.pay_channel|default='--'}}</td>
+                  <td>{{$item.client|default='--'}}</td>
+                  <td>{{$channels[$item[channel]]|default='其他'}}</td>
+                  <td>{{$item.channel|default='--'}}</td>
+                  <td>{{$item.count_num|default='--'}}</td>
+                  <td>{{$item.count_user|default='--'}}</td>
+                  <td>{{$item.count_rmb|default='--'}}</td>
+                  <td>{{$item.count_num_new|default='--'}}</td>
+                  <td>{{$item.count_rmb_new|default='--'}}</td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          <!--</div>
+        </div>-->
+        </if>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        startView:2,
+        minView: 2,
+        todayBtn: true,
+    });
+    
+    
+    $(document).ready(function(){
+     	// Autocomplete on User Supplied data
+   		$('#channelname').change(function() {
+   			$('#channel').val('');
+   		});
+     	$.get('/public/getchannellist',{status:'0'},function(datas){
+			$('#channelname').autocomplete({
+				lookup:datas,
+				onSelect:function(data){
+					$('#channel').val(data.id);
+					$('#channelname').val(data.value);
+				}
+			});
+     	},'json');
+    });
+
+    $(function () {
+      window.datas = JSON.parse($('#jsdata').attr('jsdata'));
+      var start = $('#timestart').val();
+      var end =$('#timeend').val();
+      $('#container1').highcharts({
+        chart: {
+          type: 'line'
+        },
+        title: {
+          text: '充值金额'
+        },
+        subtitle: {
+          text: start+'到'+end+'充值金额渠道统计'
+        },
+        xAxis: {
+          min:0,
+          tickInterval:1,
+          categories:(function(){
+            var dd = [];
+            $.each(datas.count_rmb,function(k,data){
+              $.each(data,function(j,dj){
+                dd.push(j);
+              })
+            });
+            return dd;
+          }()),
+        },
+        yAxis: {
+          title: {
+            text: ''
+          },
+          min: 0
+        },
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            },
+            enableMouseTracking: false
+          }
+        },
+        tooltip: {
+          borderColor: '#000000',
+          backgroundColor: '#fff',
+          crosshairs: {
+            width: 2,
+            color: 'gray',
+            dashStyle: 'shortdot'
+          },
+          pointFormat: '<a href="">{series.name}: <b>{point.y}</b></a><br/>',
+          valueSuffix: ' ',
+        },
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            },
+          },
+          series: {
+            cursor: 'pointer',
+            events: {
+              click: function (event) {
+                window.location.href = "";
+              }
+            }
+          },
+        },
+        series: (function () {
+          return getseries(datas.count_rmb);
+        }())
+      });
+      $('#container2').highcharts({
+        chart: {
+          type: 'line'
+        },
+        title: {
+          text: '新增充值'
+        },
+        subtitle: {
+          text: start+'到'+end+'新增充值渠道统计'
+        },
+        xAxis: {
+          min:0,
+          tickInterval:1,
+          categories:(function(){
+            var dd = [];
+            $.each(datas.count_rmb,function(k,data){
+              $.each(data,function(j,dj){
+                dd.push(j);
+              })
+            });
+            return dd;
+          }()),
+        },
+        yAxis: {
+          title: {
+            text: ''
+          },
+          min: 0
+        },
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            },
+            enableMouseTracking: false
+          }
+        },
+        tooltip: {
+          borderColor: '#000000',
+          backgroundColor: '#fff',
+          crosshairs: {
+            width: 2,
+            color: 'gray',
+            dashStyle: 'shortdot'
+          },
+          pointFormat: '<a href="">{series.name}: <b>{point.y}</b></a><br/>',
+          valueSuffix: ' ',
+        },
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            },
+          },
+          series: {
+            cursor: 'pointer',
+            events: {
+              click: function (event) {
+                window.location.href = "";
+              }
+            }
+          },
+        },
+        series: (function () {
+          return getseries(datas.count_rmb_new);
+        }())
+      });
+      $('#container3').highcharts({
+        chart: {
+          type: 'line'
+        },
+        title: {
+          text: '充值用户'
+        },
+        subtitle: {
+          text: start+'到'+end+'充值用户渠道统计'
+        },
+        xAxis: {
+          min:0,
+          tickInterval:1,
+          categories:(function(){
+            var dd = [];
+            $.each(datas.count_user,function(k,data){
+              $.each(data,function(j,dj){
+                dd.push(j);
+              })
+            });
+            return dd;
+          }()),
+        },
+        yAxis: {
+          title: {
+            text: ''
+          },
+          min: 0
+        },
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            },
+            enableMouseTracking: false
+          }
+        },
+        tooltip: {
+          borderColor: '#000000',
+          backgroundColor: '#fff',
+          crosshairs: {
+            width: 2,
+            color: 'gray',
+            dashStyle: 'shortdot'
+          },
+          pointFormat: '<a href="">{series.name}: <b>{point.y}</b></a><br/>',
+          valueSuffix: ' ',
+        },
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            },
+          },
+          series: {
+            cursor: 'pointer',
+            events: {
+              click: function (event) {
+                window.location.href = "";
+              }
+            }
+          },
+        },
+        series: (function () {
+          return getseries(datas.count_user);
+        }())
+      });
+      $('#container4').highcharts({
+        chart: {
+          type: 'line'
+        },
+        title: {
+          text: '新增充值用户'
+        },
+        subtitle: {
+          text: start+'到'+end+'新增充值用户渠道统计'
+        },
+        xAxis: {
+          min:0,
+          tickInterval:1,
+          categories:(function(){
+            var dd = [];
+            $.each(datas.count_user_new,function(k,data){
+              $.each(data,function(j,dj){
+                dd.push(j);
+              })
+            });
+            return dd;
+          }()),
+        },
+        yAxis: {
+          title: {
+            text: ''
+          },
+          min: 0
+        },
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            },
+            enableMouseTracking: false
+          }
+        },
+        tooltip: {
+          borderColor: '#000000',
+          backgroundColor: '#fff',
+          crosshairs: {
+            width: 2,
+            color: 'gray',
+            dashStyle: 'shortdot'
+          },
+          pointFormat: '<a href="">{series.name}: <b>{point.y}</b></a><br/>',
+          valueSuffix: ' ',
+        },
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            },
+          },
+          series: {
+            cursor: 'pointer',
+            events: {
+              click: function (event) {
+                window.location.href = "";
+              }
+            }
+          },
+        },
+        series: (function () {
+          return getseries(datas.count_user_new);
+        }())
+      });
+
+    });
+
+    var getseries = function(datas){
+
+      var series = [];
+      $.each(datas,function(k,data){
+        var channel = {};
+        channel['name'] = (k=='0')?'其他渠道':k;
+        channel['data'] = [];
+        var dd = [];
+        $.each(data,function(j,dj){
+          dd.push([parseInt(dj)]);
+        })
+        channel['data']=dd;
+        series.push(channel);
+      });
+
+      return series;
+    }
+
+</script>
+</block>

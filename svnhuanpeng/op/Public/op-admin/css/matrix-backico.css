@@ -1,0 +1,128 @@
+.recharge-addbank{
+	width: 782px;
+}
+
+.recharge-addbank span{
+	float: left;
+	margin-right: 3px;
+	line-height: 32px;
+}
+.p-img{
+	display: inline-block;
+	width: 600px;
+	height: 33px;
+	overflow: hidden;
+}
+.p-img a{
+	display:block;
+	height: 31px;
+	width: 141px;
+	margin-bottom: 7px;
+	float: left;
+	margin-right: 5px;
+	border: 1px solid #dcdcdc;
+	position: relative;
+}
+.p-img a.on i{
+	background: url(../images/a_bg.png);
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 31px;
+	width: 141px;
+	display: block;
+}
+
+.p-img a.on i{
+	background: url(../images/a_bg.png);
+	height: 31px;
+	width: 141px;
+	display: block;
+}
+.a1{
+	background: url(../images/bankico.png);
+	background-position: -16px -16px;
+}
+
+.a2{
+	background: url(../images/bankico.png);
+	background-position: -161px -16px;
+}
+
+.a3{
+	background: url(../images/bankico.png);
+	background-position: -306px -16px;
+}
+
+.a4{
+	background: url(../images/bankico.png);
+	background-position: -450px -16px;
+}
+
+.a5{
+	background: url(../images/bankico.png);
+	background-position: -16px -52px;
+}
+
+.a6{
+	background: url(../images/bankico.png);
+	background-position: -161px -52px;
+}
+
+.a7{
+	background: url(../images/bankico.png);
+	background-position: -306px -52px;
+}
+
+.a8{
+	background: url(../images/bankico.png);
+	background-position: -450px -52px;
+}
+
+.a9{
+	background: url(../images/bankico.png);
+	background-position: -16px -88px;
+}
+
+.a10{
+	background: url(../images/bankico.png);
+	background-position: -161px -88px;
+}
+
+.a11{
+	background: url(../images/bankico.png);
+	background-position: -306px -88px;
+}
+
+.a12{
+	background: url(../images/bankico.png);
+	background-position: -450px -88px;
+}
+.a13{
+	background: url(../images/bankico.png);
+	background-position: -16px -124px;
+}
+.a14{
+	background: url(../images/bankico.png);
+	background-position: -161px -124px;
+}
+.a15{
+	background: url(../images/bankico.png);
+	background-position: -306px -124px;
+}
+.a16{
+	background: url(../images/bankico.png);
+	background-position: -450px -124px;
+}
+.a17{
+	background: url(../images/bankico.png);
+	background-position: -16px -159px;
+}
+.a18{
+	background: url(../images/bankico.png);
+	background-position: -161px -159px;
+}
+.a19{
+	background: url(../images/bankico.png);
+	background-position: -305px -159px;
+}

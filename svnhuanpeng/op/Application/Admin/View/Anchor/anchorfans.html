@@ -1,0 +1,96 @@
+<extend name="Base/matrix" />
+<block name="content">
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>主播统计</a><a href="javascript:;" ></i>粉丝统计</a></div>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>粉丝统计</h5>
+            </div>
+          <div class="widget-content">
+            <div class="text-center mb10 ln38">
+                <form class="form-search">
+                  <input type="text" class="w120" name="uid" value="{{$Think.get.uid}}" placeholder="主播id">
+				  <input type="text" class="w120" name="nick" value="{{$Think.get.nick}}" placeholder="主播昵称">
+				  <input type="text" class="w120" name="username" value="{{$Think.get.username}}" placeholder="主播账号">
+				  <input name='companyname' id='companyname' type="text" value="{{$Think.get.companyname}}"  placeholder="公司名称"  >
+                  <input name='cid' id='cid' type="hidden"   value="{{$Think.get.cid}}">
+				  <input type="text" name="date" class="form_datetime w100"  value="{{$Think.get.date}}" placeholder="选择日期">
+                  <select class="span2" name="order">
+                    <foreach name="orderHash" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.order eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>
+                  <button type="submit" class="btn">搜索</button>
+                  <button type="submit" class="btn" name="export" value="1">导出</button><br>
+                </form>
+            </div>
+        <div class="oyat">    
+            <table class="table table-bordered table-striped" id="oCenter" style="">
+              <thead>
+                <tr>
+                  <th>主播ID</th>
+				  <th>昵称</th>
+				  <th>所属公司</th>
+                  <th>粉丝数量</th>
+                  <th>新增粉丝数量</th>
+                  <th>查看详情</th>
+                </tr>
+              </thead>
+              <tbody>
+              <foreach name="data" item="item">
+                <tr>
+                  <td>{{$item.uid}}</td>
+				  <td>{{$item.nick}}</td>
+				  <td>{{$item.companyname|default="--"}}</td>
+                  <td>{{$item.fans|default='0'}}</td>
+                  <td>{{$item.newfans|default='0'}}</td>
+                  <td><a class="btn btn-success" target="_blank" href="/anchor/anchorstatistics?uid={{$item.uid}}#fans">查看</a></td>
+                </tr>
+              </foreach>
+              </tbody>
+            </table>
+            <div class="pagination alternate text-center">{{$page}}</div>
+          </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+<block name="cssadd">
+<link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+<script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        showMeridian: false,
+        autoclose: true,
+        minView: 2,
+        todayBtn: true,
+    });
+	$(document).ready(function(){
+	 	// Autocomplete on User Supplied data
+	 	$.get('/public/getlist',{status:'0'},function(datas){
+	 		$('#companyname').change(function() {
+	 			$('#cid').val('');
+	 		});
+			$('#companyname').autocomplete({
+				lookup:datas,
+				onSelect:function(data){
+					$('#cid').val(data.id);
+					$('#companyname').val(data.value);
+				}
+			});
+	 	},'json');
+	});
+</script>
+</block>

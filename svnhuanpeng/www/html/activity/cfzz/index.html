@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+		<meta name="format-detection" content="telephone=no"/>
+		<meta content="email=no" name="format-detection" />
+		<title>欢朋——无兄弟不火线！cf之战不服输</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: 0;
+				-webkit-touch-callout:none;
+				/*-webkit-user-select:none;*/
+				/*-khtml-user-select:none;*/
+				/*-moz-user-select:none;*/
+				/*-ms-user-select:none;*/
+				/*user-select:none;*/
+				-webkit-font-smoothing: antialiased;
+				-webkit-tap-highlight-color:transparent;
+				-webkit-text-size-adjust: 100%;
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				-webkit-overflow-scrolling : touch;
+				-webkit-transform: translate3d(0,0,0);
+				-moz-transform: translate3d(0,0,0);
+				-ms-transform: translate3d(0,0,0);
+				transform: translate3d(0,0,0);
+			}
+		</style>
+		<script>
+            (function(){
+                size();
+                window.onresize = function (){
+                    size();
+                };
+                function size(){
+                    var winW = document.documentElement.clientWidth || document.documentElement.body.clientWidth;
+                    document.documentElement.style.fontSize = winW / 20 +'px';
+                }
+            })();
+		</script>
+	</head>
+	<body>
+		<div class="content">
+			<div class="top-img"></div>
+			<div class="blank-box">
+
+				<div class="blank-1">
+					<div class="blank-1-bg"></div>
+					<p>报名时间 : 6月10日--- 6月18日</p>
+					<p>比赛时间 : 官方群内通知</p>
+					<p>报名方式 : QQ群630120835</p>
+					<p>比赛模式 : 爆破模式的胜利即可直接获胜</p>
+				</div>
+
+				<div class="blank-2">
+					<div class="blank-2-bg"></div>
+					<p>a.参赛选手进入比赛群内需将群内昵称改为游戏内昵称（<i>战队名称+游戏昵称</i>）</p>
+					<p>b.比赛<i>CT</i>方由官方随机挑选战队，另一方自动为T方,并在比赛前群内通知</p>
+					<p>c.官方指定<i>观战解说员创建房间并将房间号公布在比赛qq群中，比赛选手超过5分钟未进入比赛房间视为弃权。</i></p>
+					<p>d.<i>每回合比赛结束后，比赛CT方和T方双方互换阵营。</i></p>
+				</div>
+
+				<div class="blank-3">
+					<div class="blank-3-bg"></div>
+					<p>1.每张地图结束之后，可以在下一场地图开始进行选手更换。</p>
+					<p>2.比赛中不可以使用<i>具有功能的角色</i>（幻影、白狼、曼陀罗等）、每支队伍只允许有<i>1人使用霰弹枪</i>。</p>
+					<p>3.比赛过程中禁止使用非CF手游游戏内正规渠道获取的道具（官方奖励道具除外），或官方未正式发布的道具。</p>
+					<p>4.比赛地图可使用<i>双穿透点</i>，但不可使用<i>单穿透点</i>。如有选手违反，第一次将被警告，第二次将被判犯规，取消团队比赛资格。</p>
+					<p>5.比赛过程中故意使用地图BUG时，<i>第一次将被警告，第二次将被判犯规，取消团队比赛资格</i>。如比赛过程因地图BUG被挤出地图或无法比赛的，该回合继续，不做重赛。</p>
+					<p>6.比赛过程中对于使用作弊器进行比赛的队伍，一经发现当场取消比赛资格，<i>永久禁赛并取消发放该队应得的奖金</i>。</p>
+				</div>
+				<div class="blank-4">
+					<div class="blank-4-bg"></div>
+					<h2>选手必须满足以下条件：</h2>
+					<p>1.每支战队队长为签约主播，并组织其余战队队员。</p>
+					<p>2.战队选手的游戏等级需要达到游戏内“枪王”等级</p>
+					<p>3.战队队长需填写参赛“自由组队表”并发至官方报名人员（QQ：1109880110）报名群<i>630120835</i>。 </p>
+				</div>
+				<div class="blank-5">
+					<div class="blank-5-bg"></div>
+					<p><i>获胜战队50元 （奖金指定给予组织队长并为签约主播）每场胜利方，每位成员100欢朋币，失败方 1000欢朋豆</i>。</p>
+				</div>
+			</div>
+		</div>
+		<div class="hp_download" style="display: none;">
+			<img src="images/closeBtn.png" class="close">
+			<figure>
+				<img src="images/hpLogo.jpg">
+				<figcaption>
+					<p>下载App领取欢朋豆</p>
+					<span>精彩手游直播,尽在欢朋!</span>
+				</figcaption>
+			</figure>
+			<a href="../../download.php" class="openApp">打开APP观看</a>
+		</div>
+	</body>
+	<script>
+		var hp_download = document.querySelector('.hp_download');
+		var close = document.querySelector('.close');
+        if(window.huanpengShare || window.getParams){
+            hp_download.style.display = 'none';
+        }
+		close.onclick = function () {
+			hp_download.style.display = 'none';
+		}
+	</script>
+</html>

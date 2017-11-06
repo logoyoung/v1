@@ -1,0 +1,1 @@
+/usr/bin/rsync -avr --delete /usr/local/huanpeng/htdocs/main/api/app/ /usr/local/huanpeng-pub/htdocs/api/app

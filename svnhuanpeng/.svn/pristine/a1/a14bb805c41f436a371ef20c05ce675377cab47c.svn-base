@@ -1,0 +1,497 @@
+<extend name="Base/matrix" />
+<block name="content">
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>游戏统计</a><a href="javascript:;" ></i>游戏统计列表</a></div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>游戏统计列表</h5>
+                        </div>
+                        <div class="widget-content">
+                            <div class="text-center mb10 ln38">
+                                <form class="form-search">
+                                    <input type="text" id="timestart" name="timestart" class="form_datetime w100"  value="{{$Think.get.timestart}}" placeholder="开始时间">
+                                    <input type="text" id = "timeend" name="timeend" class="form_datetime w100"  value="{{$Think.get.timeend}}" placeholder="结束时间">
+                                    <input name='gamename' id='gamename' type="text" value="{{$Think.get.gamename}}"  placeholder="游戏名称"  >
+                                    <input name='gid' id='gid' type="hidden"   value="{{$Think.get.gid}}">
+                                    <if  condition="($Think.get.chart eq '1')  " >
+                                        <button type="submit" class="btn" name="chart" value="1">搜索</button>
+                                        <button type="submit" class="btn" name="chart" value="0">数据</button>
+                                        <else/>
+                                        <button type="submit" class="btn" name="chart" value="0">搜索</button>
+                                        <button type="submit" class="btn" name="chart" value="1">图表</button>
+                                    </if>
+                                    <button type="submit" class="btn" name="export" value="1">导出</button>
+                                </form>
+                            </div>
+
+                            <table class="table table-bordered table-striped"  style="text-align: center">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>开播数</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>总计：</td>
+                                    <td>{{$total}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <if  condition="($Think.get.chart eq '1')  " >
+                                <div id="container1" style="min-width:400px;height:400px"></div>
+                                <div id="container2" style="min-width:400px;height:400px"></div>
+                                <div id="container3" style="min-width:400px;height:400px"></div>
+                                <div id="container4" style="min-width:400px;height:400px"></div>
+                                <else/>
+                            <div class="oyat">
+                                <table class="table table-bordered table-striped" id="oCenter" style="">
+                                    <thead>
+                                    <tr>
+                                        <th>日期</th>
+                                        <th>开播数量</th>
+                                        <th>开播人数</th>
+                                        <th>直播总时长</th>
+                                        <th>开播峰值</th>
+                                        <th>峰值时刻</th>
+                                        <th>开播低谷</th>
+                                        <th>低谷时刻</th>
+                                        <!--<th>开播人数</th>-->
+                                        <th>游戏</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <volist name="datas" id="item">
+                                        <tr>
+                                            <td>{{$item.date|default='--'}}</td>
+                                            <td>{{$item.livecount}}</td>
+                                            <td>{{$item.liveusercount}}</td>
+                                            <td>{{$item.length}}</td>
+                                            <td>{{$item.peakcount}}</td>
+                                            <td>{{$item.peaktime|default='--'}}</td>
+                                            <td>{{$item.troughcount|default='--'}}</td>
+                                            <td>{{$item.troughtime|default='--'}}</td>
+                                            <!--<td>{{$item.liveusercount|default='&#45;&#45;'}}</td>-->
+                                            <td>{{$games.$item[gameid]|default='--'}}</td>
+                                        </tr>
+                                    </volist>
+                                    </tbody>
+                                </table>
+                                <div class="pagination alternate text-center">{{$page}}</div>
+                            </div>
+                                </if>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</block>
+<div class="modal" id="myModal" tabindex="-1" style="display: none;"  >
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                        <h5>审核拒绝原因</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <form id='f1' action='/check/videounpass'  method="post" class="form-horizontal">
+                            <input type='hidden' name='videoid' id='videoid' value=''>
+                            <div class="control-group">
+                                <label class="control-label">原因类型</label>
+                                <div class="controls">
+                                    <select class="span11" name="reasontype">
+                                        <foreach name="reason" item="v" key='key'>
+                                            <option value="{{$key}}">{{$v}}</option>
+                                        </foreach>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">描述</label>
+                                <div class="controls">
+                                    <input name = 'reason' type="textarea" class="span11" style="height:150px;" placeholder="" />
+                                </div>
+                            </div>
+                            <div class="form-actions text-center">
+                                <button type="submit" class="btn btn-danger" >確定</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal">关闭</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+    <script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+    <script>
+
+        $('.form_datetime').datetimepicker({
+            format: 'yyyy-mm-dd',
+            showMeridian: false,
+            autoclose: true,
+            startView:2,
+            minView: 2,
+            todayBtn: true,
+        });
+
+        /*$("#timestart").on('changeDate',function(e){
+            var selectdate = e.date.toLocaleString();
+            var date = new Date(Date.parse(selectdate.replace(/-/g, "/")));
+            var month = date.getMonth()+1;
+            var year = date.getFullYear();
+            var day = new Date(year,month,0).getDate();
+            var endTime = year+"-"+month+"-"+day;
+            var startTime = year+"-"+month+"-01";
+            console.log(startTime);
+            console.log(endTime);
+            $('#timeend').datetimepicker('setEndDate',endTime);
+            $('#timeend').datetimepicker('setStartDate',startTime);
+            $("#timeend").val("");
+        });*/
+        $(document).ready(function(){
+            // Autocomplete on User Supplied data
+            $('#gamename').change(function() {
+                $('#gid').val('');
+            });
+            $.get('/public/gamelist',{status:'0'},function(datas){
+                $('#gamename').autocomplete({
+                    lookup:datas,
+                    onSelect:function(data){
+                        $('#gid').val(data.id);
+                        $('#gamename').val(data.value);
+                    }
+                }).dblclick(function () {
+                    $(this).autocomplete('search', '');
+                });
+            },'json');
+        });
+
+        $(function () {
+            var start = $('#timestart').val();
+            var end =$('#timeend').val();
+            window.datas = JSON.parse($('#jsdata').attr('jsdata'));
+            $('#container1').highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: '直播游戏开播数量统计数据'
+                },
+                subtitle: {
+                    text: start+'到'+end+'直播游戏开播数量统计数据(根据开播量显示前五个游戏)'
+                },
+                /*xAxis: {
+                    min:0,
+                    tickInterval:1,
+                    labels:{
+                        formatter:function(){
+                            var arr = [];
+                            $.each(datas['jsdatalivecount'],function(k,data){
+                                $.each(data,function(j,dj){
+                                    arr.push(j);
+                                })
+                            });
+                            window.line = arr;
+                            return arr[this.value];
+                        }
+                    }},*/
+                xAxis: {
+                    min:0,
+                    tickInterval:1,
+                    categories:(function () {
+                        var arr = [];
+                        $.each(datas['jsdatalivecount'],function(k,data){
+                            $.each(data,function(j,dj){
+                                arr.push(j);
+                            })
+                        });
+                        return arr;
+                    }()),
+                },
+                yAxis: {
+                    title: {
+                        text: '个'
+                    },
+                    min: 0
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+
+                tooltip: {
+                    borderColor: '#000000',
+                    backgroundColor: '#fff',
+                    crosshairs: {
+                        width: 2,
+                        color: 'gray',
+                        dashStyle: 'shortdot'
+                    },
+                    pointFormat: '<a href="">{series.name}: <b>{point.y}</b></a><br/>',
+                    valueSuffix: ' 个',
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                    },
+                    series: {
+                        cursor: 'pointer',
+                        events: {
+                            click: function (event) {
+                                window.location.href = "";
+                            }
+                        }
+                    },
+                },
+                series: (function(){
+                    return getseries(datas['jsdatalivecount']);
+                }())
+            });
+            $('#container2').highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: '直播游戏开播人数统计数据'
+                },
+                subtitle: {
+                    text: start+'到'+end+'直播游戏开播人数统计数据(根据开播量显示前五个游戏)'
+                },
+                xAxis: {
+                    min:0,
+                    tickInterval:1,
+                    categories:(function () {
+                        var arr = [];
+                        $.each(datas['jsdatalivecount'],function(k,data){
+                            $.each(data,function(j,dj){
+                                arr.push(j);
+                            })
+                        });
+                        return arr;
+                    }()),
+                },
+                yAxis: {
+                    title: {
+                        text: '个'
+                    },
+                    min: 0
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+
+                tooltip: {
+                    borderColor: '#000000',
+                    backgroundColor: '#fff',
+                    crosshairs: {
+                        width: 2,
+                        color: 'gray',
+                        dashStyle: 'shortdot'
+                    },
+                    pointFormat: '<a href="">{series.name}: <b>{point.y}</b></a><br/>',
+                    valueSuffix: ' 个',
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                    },
+                    series: {
+                        cursor: 'pointer',
+                        events: {
+                            click: function (event) {
+                                window.location.href = "";
+                            }
+                        }
+                    },
+                },
+                series: (function(){
+                    return getseries(datas['jsdataliveusercount']);
+                }())
+            });
+            $('#container3').highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: '直播游戏开播峰值统计数据'
+                },
+                subtitle: {
+                    text: start+'到'+end+'直播游戏开播峰值统计数据(根据开播量显示前五个游戏)'
+                },
+                xAxis: {
+                    min:0,
+                    tickInterval:1,
+                    categories:(function () {
+                        var arr = [];
+                        $.each(datas['jsdatalivecount'],function(k,data){
+                            $.each(data,function(j,dj){
+                                arr.push(j);
+                            })
+                        });
+                        return arr;
+                    }()),
+                },
+                yAxis: {
+                    title: {
+                        text: '个'
+                    },
+                    min: 0
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+
+                tooltip: {
+                    borderColor: '#000000',
+                    backgroundColor: '#fff',
+                    crosshairs: {
+                        width: 2,
+                        color: 'gray',
+                        dashStyle: 'shortdot'
+                    },
+                    pointFormat: '<a href="">{series.name}: <b>{point.y}</b></a><br/>',
+                    valueSuffix: ' 个',
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                    },
+                    series: {
+                        cursor: 'pointer',
+                        events: {
+                            click: function (event) {
+                                window.location.href = "";
+                            }
+                        }
+                    },
+                },
+                series: (function(){
+                    return getseries(datas['jsdatapeakcount']);
+                }())
+            });
+            $('#container4').highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: '直播游戏开播低谷统计数据'
+                },
+                subtitle: {
+                    text: start+'到'+end+'直播游戏开播低谷统计数据(根据开播量显示前五个游戏)'
+                },
+                xAxis: {
+                    min:0,
+                    tickInterval:1,
+                    categories:(function () {
+                        var arr = [];
+                        $.each(datas['jsdatalivecount'],function(k,data){
+                            $.each(data,function(j,dj){
+                                arr.push(j);
+                            })
+                        });
+                        return arr;
+                    }()),
+                },
+                yAxis: {
+                    title: {
+                        text: '个'
+                    },
+                    min: 0
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+
+                tooltip: {
+                    borderColor: '#000000',
+                    backgroundColor: '#fff',
+                    crosshairs: {
+                        width: 2,
+                        color: 'gray',
+                        dashStyle: 'shortdot'
+                    },
+                    pointFormat: '<a href="">{series.name}: <b>{point.y}</b></a><br/>',
+                    valueSuffix: ' 个',
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                    },
+                    series: {
+                        cursor: 'pointer',
+                        events: {
+                            click: function (event) {
+                                window.location.href = "";
+                            }
+                        }
+                    },
+                },
+                series: (function(){
+                    return getseries(datas['jsdatatroughcount']);
+                }())
+            });
+        });
+
+
+        var getseries = function(datas){
+            //console.log();
+            var series = [];
+            $.each(datas,function(k,data){
+                var game = {};
+                game['name'] = k;
+                game['data'] = [];
+                var dd = [];
+                $.each(data,function(j,dj){
+                    dd.push([parseInt(dj)]);
+                    console.log(dd);
+                })
+                game['data']=dd;
+                series.push(game);
+            });
+
+            //console.log(series);
+            return series;
+        }
+
+    </script>
+</block>

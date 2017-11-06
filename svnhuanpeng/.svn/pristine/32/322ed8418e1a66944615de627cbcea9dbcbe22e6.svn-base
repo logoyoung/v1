@@ -1,0 +1,417 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+html,
+body {
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  margin: 0 auto;
+}
+html .request-container,
+body .request-container {
+  margin: 0 auto;
+//width: 100%;
+  min-width: 1200px;
+//max-width: 1424px;
+  height: 100%;
+  background-color: #775cfd;
+}
+html .request-container .request-header,
+body .request-container .request-header {
+  width: 100%;
+  height: 638px;
+  overflow: hidden;
+  min-width: 1200px;
+  background: url("../img/headerBG.png") 50% 0px no-repeat;
+  background-size:cover;
+}
+html .request-container .request-header .header-content,
+body .request-container .request-header .header-content {
+  width: 1200px;
+  height: 638px;
+  overflow: hidden;
+  margin: 0 auto;
+  background: url("../img/headerContent.png") no-repeat center center;
+  background-size: cover;
+}
+html .request-container .request-awaBox,
+body .request-container .request-awaBox,
+html .request-container .request-shareBox,
+body .request-container .request-shareBox {
+  width: 100%;
+  height: 628px;
+  background-color: #775cfd;
+}
+html .request-container .request-awaBox .request-award,
+body .request-container .request-awaBox .request-award,
+html .request-container .request-shareBox .request-award,
+body .request-container .request-shareBox .request-award,
+html .request-container .request-awaBox .request-share,
+body .request-container .request-awaBox .request-share,
+html .request-container .request-shareBox .request-share,
+body .request-container .request-shareBox .request-share {
+  width: 980px;
+  height: 628px;
+  margin: 0 auto;
+  background: url("../img/request-award.png") no-repeat;
+  background-size: 100% 100%;
+}
+html .request-container .request-awaBox .request-share,
+body .request-container .request-awaBox .request-share,
+html .request-container .request-shareBox .request-share,
+body .request-container .request-shareBox .request-share {
+  background: url("../img/shareStep.png") no-repeat;
+  background-size: 100% 100%;
+}
+html .request-container .request-getAward,
+body .request-container .request-getAward {
+  width: 100%;
+  height: 208px;
+  background-color: #775cfd;
+}
+html .request-container .request-getAward .request-getContent,
+body .request-container .request-getAward .request-getContent {
+  width: 980px;
+  height: 208px;
+  text-align: center;
+  margin: 0 auto;
+}
+html .request-container .request-getAward .request-getContent .getAward,
+body .request-container .request-getAward .request-getContent .getAward {
+  width: 372px;
+  height: 97px;
+  margin-top: 20px;
+  margin-bottom: 29px;
+  background: url("../img/btn.png") no-repeat;
+  background-size: 100% 100%;
+  outline: none;
+  cursor: pointer;
+}
+html .request-container .request-getAward .request-getContent .pcP,
+body .request-container .request-getAward .request-getContent .pcP {
+  color: #ffffff;
+  font-size: 20px;
+  letter-spacing: 10px;
+  font-family: 微软雅黑;
+  font-weight: bold;
+}
+html .request-container .request-getAward .request-getContent .pcP #openList,
+body .request-container .request-getAward .request-getContent .pcP #openList {
+  font-style: normal;
+  cursor: pointer;
+}
+@font-face {
+
+}
+html .request-container .request-getAward .request-getContent .mobileBtn-center,
+body .request-container .request-getAward .request-getContent .mobileBtn-center,
+html .request-container .request-getAward .request-getContent .mobile-right,
+body .request-container .request-getAward .request-getContent .mobile-right,
+html .request-container .request-getAward .request-getContent .mobileP,
+body .request-container .request-getAward .request-getContent .mobileP {
+  display: none;
+}
+html .request-container .request-listBox,
+body .request-container .request-listBox {
+  width: 100%;
+  height: 630px;
+  background-color: #775cfd;
+  position: relative;
+}
+html .request-container .request-listBox .request-listAward,
+body .request-container .request-listBox .request-listAward {
+  width: 980px;
+  height: 548px;
+  margin: 0 auto;
+  background: url("../img/listBG.png") no-repeat;
+  background-size: 100% 100%;
+}
+html .request-container .request-listBox .request-listAward .listLeft,
+body .request-container .request-listBox .request-listAward .listLeft {
+  padding-top: 160px;
+  padding-top: 160px\9;
+  width: 500px;
+  float: left;
+}
+html .request-container .request-listBox .request-listAward .listLeft #leftTable,
+body .request-container .request-listBox .request-listAward .listLeft #leftTable {
+  table-layout: fixed;
+  vertical-align: middle;
+  margin-left: 105px;
+  width: 405px;
+  line-height: 66px;
+  line-height: 66px\9;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: 微软雅黑;
+  font-weight: bold;
+  height: auto;
+}
+html .request-container .request-listBox .request-listAward .listLeft #leftTable td,
+body .request-container .request-listBox .request-listAward .listLeft #leftTable td {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+html .request-container .request-listBox .request-listAward .listLeft #leftTable tr td:first-of-type,
+body .request-container .request-listBox .request-listAward .listLeft #leftTable tr td:first-of-type {
+  width: 132px;
+  text-indent: 16px;
+  text-align: left;
+}
+html .request-container .request-listBox .request-listAward .listLeft #leftTable tr td:nth-of-type(2),
+body .request-container .request-listBox .request-listAward .listLeft #leftTable tr td:nth-of-type(2) {
+  text-indent: 36px;
+  text-align: left;
+}
+html .request-container .request-listBox .request-listAward .listRight,
+body .request-container .request-listBox .request-listAward .listRight {
+  width: 391px;
+  height: 345px;
+  height: 345px\9;
+  overflow: hidden;
+  float: right;
+  margin-top: 135px;
+  margin-top: 135px\9;
+  margin-right: 34px;
+}
+html .request-container .request-listBox .request-listAward .listRight .right-content ul,
+body .request-container .request-listBox .request-listAward .listRight .right-content ul{
+  margin-top: -60px;
+
+}
+html .request-container .request-listBox .request-listAward .listRight .right-content ul li,
+body .request-container .request-listBox .request-listAward .listRight .right-content ul li {
+  padding-left: 25px;
+  padding-top: 25px;
+  padding-top: 28px\9;
+  margin-bottom: 5px;
+}
+html .request-container .request-listBox .request-listAward .listRight .right-content ul li p,
+body .request-container .request-listBox .request-listAward .listRight .right-content ul li p {
+  background: url("../img/gold.png") no-repeat left center;
+  background-size: 14%;
+  text-indent: 55px;
+  height: 30px;
+  line-height: 30px;
+  width: 366px;
+  font-family: 微软雅黑;
+  font-weight: bold;
+  font-size: 18px;
+}
+html .request-container .request-listBox .request-listAward .listRight .right-content ul li span,
+body .request-container .request-listBox .request-listAward .listRight .right-content ul li span {
+  color: #ff7200;
+  font-size: 18px;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: middle;
+  text-indent: 0;
+}
+html .request-container .request-listBox .request-listAward .listRight .right-content ul li span:nth-of-type(2),
+body .request-container .request-listBox .request-listAward .listRight .right-content ul li span:nth-of-type(2) {
+  color: #7b5f4f;
+}
+html .request-container .request-listBox .request-listAward .listRight .right-content ul li .userName,
+body .request-container .request-listBox .request-listAward .listRight .right-content ul li .userName {
+  width: 90px;
+}
+html .request-container .request-listBox .request-listAward .listRight .right-content ul li .money,
+body .request-container .request-listBox .request-listAward .listRight .right-content ul li .money {
+  width: 155px;
+}
+html .request-container .request-footer,
+body .request-container .request-footer {
+  width: 100%;
+  height: 350px;
+  background-color: #775cfd;
+}
+html .request-container .request-footer .request-footerTitle,
+body .request-container .request-footer .request-footerTitle {
+  width: 980px;
+  height: 120px;
+  margin: 0 auto;
+  background: url("../img/footerTitle.png") no-repeat;
+  background-size: 100% 100%;
+}
+html .request-container .request-footer .request-footerContent,
+body .request-container .request-footer .request-footerContent {
+  width: 980px;
+  height: 230px;
+  margin: 0 auto;
+  background: url("../img/footerContent.png") no-repeat;
+  background-size: 100% 100%;
+}
+html .request-container .request-IE8,
+body .request-container .request-IE8 {
+  display: none;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  font-family: 幼圆;
+}
+html .request-container .request-IE8 a,
+body .request-container .request-IE8 a {
+  color: #ff7800;
+}
+html .request-container .request-listModal,
+body .request-container .request-listModal {
+  display: none;
+  position: absolute;
+  z-index: 999999;
+  width: 980px;
+  left: 50%;
+  top: 50%;
+  margin-top: 50px;
+  margin-top: 1200px\9;
+  margin-left: -490px;
+  background: url("../img/getAwardTitle.png") 50% 20px no-repeat,
+  url("../img/cancelBtn.png") right top no-repeat;
+  background-color: #fff8e5;
+  border-radius: 20px;
+
+  -o-animation: run 0.5s linear;
+  -ms-animation: run 0.5s linear;
+  -moz-animation: run 0.5s linear;
+  -webkit-animation: run 0.5s linear;
+  animation: run 0.5s linear;
+}
+@keyframes run {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+html .request-container .request-listModal table,
+body .request-container .request-listModal table {
+  width: 860px;
+  height: 500px;
+  margin: 100px 0 0 60px;
+  border-collapse: separate;
+  text-align: center;
+  table-layout: fixed;
+  font-family: "Microsoft YaHei UI";
+}
+html .request-container .request-listModal table tr,
+body .request-container .request-listModal table tr {
+  height: 70px;
+  font-size: 20px;
+  color: #7b5f4f;
+  font-weight: 600;
+}
+html .request-container .request-listModal table td,
+body .request-container .request-listModal table td {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+html .request-container .request-listModal table tr:first-of-type,
+body .request-container .request-listModal table tr:first-of-type {
+  border-bottom: 1px solid #e5d8b8;
+}
+html .request-container .request-listModal table tr:first-of-type > th,
+body .request-container .request-listModal table tr:first-of-type > th {
+  text-align: left;
+  color: #b3866b;
+  font-size: 18px;
+  border-bottom: 1px solid #e5d8b8;
+  text-align: center;
+}
+html .request-container .request-listModal table tr:first-of-type > th:first-of-type,
+body .request-container .request-listModal table tr:first-of-type > th:first-of-type,
+html .request-container .request-listModal table tr > td:first-of-type,
+body .request-container .request-listModal table tr > td:first-of-type {
+  text-indent: 30px;
+  text-align: left;
+  width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+html .request-container .request-listModal table tr > th:nth-of-type(2),
+body .request-container .request-listModal table tr > th:nth-of-type(2) {
+  width: 265px;
+}
+html .request-container .request-listModal table tr > td:nth-of-type(3),
+body .request-container .request-listModal table tr > td:nth-of-type(3) {
+  color: #ff7200;
+  font-weight: bold;
+  width: 165px;
+  text-indent: 27px;
+  text-align: left;
+}
+html .request-container .request-listModal table tr > td:nth-of-type(4) .getImg,
+body .request-container .request-listModal table tr > td:nth-of-type(4) .getImg {
+  width: 110px;
+  height: 47px;
+  outline: none;
+  cursor: pointer;
+  vertical-align: middle;
+  background-size: contain;
+  background: url("../img/get.png") no-repeat;
+}
+html .request-container .request-listModal table tr > td:nth-of-type(4) .doneImg,
+body .request-container .request-listModal table tr > td:nth-of-type(4) .doneImg {
+  width: 110px;
+  height: 47px;
+  outline: none;
+  cursor: pointer;
+  vertical-align: middle;
+  background-size: contain;
+  background: url("../img/get.png") no-repeat;
+}
+html .request-container .request-listModal table tr > td:nth-of-type(4) .doneImg,
+body .request-container .request-listModal table tr > td:nth-of-type(4) .doneImg {
+  background: url("../img/getdone.png") no-repeat;
+}
+html .request-container .request-listModal #closeModal,
+body .request-container .request-listModal #closeModal {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 85px;
+  height: 85px;
+  outline: none;
+  background-color: transparent;
+}
+html .request-container .modalBg,
+body .request-container .modalBg {
+  width: 100%;
+  height: 3200px;
+  overflow: hidden;
+  z-index: 990;
+  position: absolute;
+  left: 0;
+  top: -240px;
+  right: 0;
+  background-color: transparent;
+  display: none;
+}

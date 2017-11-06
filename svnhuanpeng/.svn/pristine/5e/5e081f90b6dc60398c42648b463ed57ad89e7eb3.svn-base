@@ -1,0 +1,166 @@
+<extend name="Base/matrix" />
+<block name="content">
+    <div id="content">
+        <div id="content-header">
+            <div id="breadcrumb"><a href="javascript:;" >陪玩</a><a href="javascript:;" ></i>订单管理</a></div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                            <h5>订单列表</h5>
+                        </div>
+                        <div class="widget-content">
+                            <div class="text-center mb10 ln38">
+                                <form class="form-search" id='myform'>
+                                    <input type="text" class="w120" name="user_id" value="{{$Think.get.user_id}}" placeholder="用户id">
+                                    <input type="text" class="w120" name="uid" value="{{$Think.get.uid}}" placeholder="主播id">
+                                    <input type="text" class="w120" name="orderid" value="{{$Think.get.orderid}}" placeholder="订单号">
+                                    <input type="text" id="timestart" name="timestart" class="form_datetime w100"  value="{{$timestart}}" placeholder="开始时间">  <input type="text" id = "timeend" name="timeend" class="form_datetime w100"  value="{{$timeend}}" placeholder="结束时间">
+                                    <select class="span2" name="status">
+                                        <option value="">订单状态</option>
+                                        <foreach name="status" item="v" key='key'>
+                                            <option value="{{$key}}" <if condition="$Think.get.status eq $key">selected</if> >{{$v}}</option>
+                                        </foreach>
+                                    </select>
+                                    <button type="submit"  class="btn">搜索</button>
+                                    <button type="submit" class="btn" name="export" value="1">导出</button><br>
+                                </form>
+                            </div>
+                            <table class="table table-bordered table-striped" >
+                                <thead>
+                                <tr>
+                                    <th>订单数</th>
+                                    <th>应付总额(欢朋币)</th>
+                                    <th>优惠总额(欢朋币)</th>
+                                    <th>实付总额(欢朋币)</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td style="color:#F00" >{{$sum.order|default='--'}}</td>
+                                    <td style="color:#F00">{{$sum.pay|default='--'}}</td>
+                                    <td style="color:#F00">{{$sum.discount|default='--'}}</td>
+                                    <td style="color:#F00">{{$sum.real|default='--'}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+
+
+                            <div class="oyat">
+                                <table class="table table-bordered table-striped" id="oCenter" style="">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>订单号</th>
+                                        <th>用户ID</th>
+                                        <th>用户昵称</th>
+                                        <th>主播ID</th>
+                                        <th>主播昵称</th>
+                                        <th>资质ID</th>
+                                        <th>总价(欢朋币)</th>
+                                        <th>优惠金额(欢朋币)</th>
+                                        <th>实际付款(欢朋币)</th>
+                                        <th>订单状态</th>
+                                        <th>有无评论</th>
+                                        <th>订单创建时间</th>
+                                        <th>订单完成时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <foreach name="data" item="item">
+                                        <tr>
+                                            <td>{{$item.id}}</td>
+                                            <td>{{$item.order_id|default='--'}}</td>
+                                            <td>{{$item.uid|default='--'}}</td>
+                                            <td>{{$item.usernick|default='--'}}</td>
+                                            <td>{{$item.cert_uid|default='--'}}</td>
+                                            <td>{{$item.nick|default='--'}}</td>
+                                            <td>{{$item.cert_id|default='--'}}</td>
+                                            <td>{{$item.amount|default='--'}}</td>
+                                            <td>{{$item.discount|default='--'}}</td>
+                                            <td>{{$item.real_amount|default='--'}}</td>
+                                            <td><span class="badge ">{{$item.status|default='--'}}</span></td>
+                                            <td>{{$item.comment|default='--'}}</td>
+                                            <td>{{$item.ctime|default='--'}}</td>
+                                            <td>{{$item.stime|default='--'}}</td>
+                                           <td> <button onclick="detail('{{$item.order_id}}')" class="btn btn-success">详情</button></td>
+                                        </tr>
+                                    </foreach>
+                                    </tbody>
+                                </table>
+                                <div class="pagination alternate text-center">{{$page}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</block>
+<block name="cssadd">
+    <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+    <script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+    <script>
+        $('.form_datetime').datetimepicker({
+            format: 'yyyy-mm-dd',
+            showMeridian: false,
+            autoclose: true,
+            startView:2,
+            minView: 2,
+            todayBtn: true
+        });
+
+        $("#timestart").on('changeDate',function(e){
+//            $('#timeend').datetimepicker('setEndDate',endTime);
+            var selectdate = e.date.toLocaleString();
+            var date = new Date(Date.parse(selectdate.replace(/-/g, "/")));
+            var month = date.getMonth()+1;
+            var year = date.getFullYear();
+            var day = new Date(year,month,0).getDate();
+            var endTime = year+"-"+month+"-"+day;
+            var startTime = year+"-"+month+"-01";
+            console.log(startTime);
+            console.log(endTime);
+            $('#timeend').datetimepicker('setStartDate',$('#timestart').val());
+//            $('#timeend').datetimepicker('setStartDate',startTime);
+            $("#timeend").val("");
+        });
+
+        $(document).ready(function(){
+            // Autocomplete on User Supplied data
+            $('.detail').click(function() {
+                $('#myform').attr('action','/order/index');
+                $('#myform').submit();
+            });
+
+        });
+
+        function publishInfo(id){
+            $.post('/due/recommend',{"id":id},function(obj){
+                Op_common.alert(obj.info,function(){
+                    window.location.reload();
+                });
+            });
+        }
+
+        function  unpublishInfo(id){
+            $.post('/due/delete',{"id":id},function(obj){
+                Op_common.alert(obj.info,function(){
+                    window.location.reload();
+                });
+            });
+        }
+
+            function  detail(id){
+                window.location = 'orderlog?id='+id;
+            }
+
+    </script>
+</block>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>运营平台</title>
+        <meta charset="UTF-8" />
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="__RES__css/bootstrap.min.css" />
+        <link rel="stylesheet" href="__RES__css/bootstrap-responsive.min.css" />
+        <link rel="stylesheet" href="__RES__op-admin/css/matrix-login.css" />
+        <link rel="stylesheet" href="__RES__css/ui-dialog.css" />
+        <link href="__RES__awesome/css/font-awesome.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="loginbox">            
+            <div class="control-group normal_text"><h3><img src="__RES__op-admin/img/login-logo.png" alt="Logo" /></h3></div>
+            <form id="loginform" class="form-vertical" action="">
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_lg"><i class="icon-user"></i></span><input type="text" name="u" placeholder="Username" autocomplete="off" autofocus />
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_ly"><i class="icon-lock"></i></span><input type="password" name="p" placeholder="Password" />
+                        </div>
+                    </div>
+                </div>
+                <empty name="noverify">
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box verify">
+                            <img src="/public/verify" title="点击刷新"><input type="verify" name="v" placeholder="Verify" />
+                        </div>
+                    </div>
+                </div>
+                </empty>
+                <div class="form-actions">
+                    <span class="pull-left"><a href="javascript:;" class="flip-link btn btn-info" id="to-recover">找回密码</a></span>
+                    <span class="pull-right"><a id="login" class="btn btn-success" />登录</a></span>
+                </div>
+            </form>
+            <form id="recoverform" action="/public/retake" class="form-vertical">
+                <p class="normal_text">请输入您的用户名,我们将发送重置密码的链接~</p>
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_lo"><i class="icon-user"></i></span><input name="u" type="text" placeholder="请输入用户名" />
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <span class="pull-left"><a href="javascript:;" class="flip-link btn btn-success" id="to-login">&laquo; 返回登录</a></span>
+                    <span class="pull-right"><button type="submit" class="btn btn-info">重置</button></span>
+                </div>
+            </form>
+        </div>
+        <script src="__RES__js/jquery.1.7.2.min.js"></script>
+        <script src="__RES__js/dialog-min.js"></script>
+        <script src="__RES__op-admin/js/common.js"></script> 
+        <script src="__RES__op-admin/js/matrix.login.js"></script> 
+    </body>
+</html>

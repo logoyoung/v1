@@ -1,0 +1,246 @@
+<extend name="Base/matrix" />
+<block name="content">
+  <style>
+    .option {
+      margin-right: 5px;
+      margin-top: 0px;
+      padding: 11px 20px;
+      color: #fff;
+      display: block;
+      float: left;
+      background-color: #ffa04c;
+    }
+  </style>
+  <div id="content">
+    <div id="content-header">
+      <div id="breadcrumb"><a href="javascript:;" ><i class="icon-home"></i>审核管理</a><a href="javascript:;" ></i>直播审核列表</a></div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+              <h5>直播审核列表</h5>
+            </div>
+            <div class="widget-content">
+              <div class="text-center mb10 ln38">
+                <form class="form-search" id='myform'>
+                  <input name='name' id='name' type="text" value="{{$Think.get.name}}"  placeholder="用户昵称"  >
+                  <input name='uid' id='uid' type="text" value="{{$Think.get.uid}}"  placeholder="用户id"  >
+                  <input name='roomid' id='roomid' type="text" value="{{$Think.get.roomid}}"  placeholder="房间id"  >
+                  <input name='gamename' id='gamename' type="text" value="{{$Think.get.gamename}}"  placeholder="游戏名称"  >
+                  <!--<select class="span2" name="status">
+                  <option value='-1' selected> 选择审核状态 </option>
+                    <foreach name="reasontype" item="v" key='key'>
+                        <option value="{{$key}}" <if condition="$Think.get.status eq $key">selected</if> >{{$v}}</option>
+                    </foreach>
+                  </select>-->
+                  <button type="submit" class="btn">搜索</button>
+                </form>
+              </div>
+              <div class="oyat">
+                <table class="table table-bordered table-striped" id="oCenter" style="">
+                  <tbody class='data'>
+                  <volist name="data" id="item" mod="3">
+                    <eq name="mod" value="0"><tr></eq>
+                    <th id='viewer_{{$item.liveid}}' liveid = {{$item.liveid}} class="live-viewer">
+                      <div  style="width: 100%; height: 170.438px; ">
+                        <div  style="width: 302px ; height: 100%; background: #000;margin: auto;position: relative;">
+                          <object id="{{$item.liveid}}" test="test" name="{{$item.liveid}}" stream="{{$item.stream}}" orientation="{{$item.orientation}}" streamlist="{{$conf.stream-watch}}"
+                                  type="application/x-shockwave-flash" allowscriptaccess="always"
+                                  allowfullscreen="true" allowfullscreeninteractive="true" name="mix79355-378863"
+                                  align="middle"
+                                  width="100%" height="100%" id="viewer79355-378863" style="visibility: visible;">
+                            <param name="quality" value="hight"><param name="bgcolor" value="#869ca7">
+                            <param name="allowScriptAccess" value="always"><param name="allowFullScreen" value="true">
+                            <param name="allowFullScreenInteractive" value="true"><param name="WindowlessVideo" value="1">
+                            <param name="wmode" value="transparent">
+                          </object>
+                          <div style="position: absolute;left: 0;bottom: 0;width: 100%; ">
+                            <div id = 'mix_{{$item.liveid}}' class="mix-details" style="display:none;margin: auto;">
+                              <!--<a class="btn btn-warning" data-toggle="modal" data-target ="#myModal" data-liveid="{{$item.liveid}}" data-uid="{{$item.uid}}" data-nick="{{$item.nick}}" data-act="kill">禁播 </a>-->
+                              <a class="btn btn-warning" target="_blank" href="jinbo?liveid={{$item.liveid}}&nick={{$item.nick}}&act=kill&uid={{$item.uid}}">禁播 </a>
+                              <a class="btn btn-warning" target="_blank" href="jinbo?liveid={{$item.liveid}}&nick={{$item.nick}}&act=stop&uid={{$item.uid}}">关流 </a>
+                              <a class="btn btn-warning" target="_blank" href="jinbo?liveid={{$item.liveid}}&nick={{$item.nick}}&act=notice&uid={{$item.uid}}">警告 </a>
+                              <!--<a class="btn btn-warning"  data-toggle="modal" data-target ="#myModal" data-liveid="{{$item.liveid}}" data-uid="{{$item.uid}}" data-nick="{{$item.nick}}" data-act="stop" >关流</a>
+                              <a class="btn btn-warning"  data-toggle="modal" data-target ="#myModal" data-liveid="{{$item.liveid}}" data-uid="{{$item.uid}}" data-nick="{{$item.nick}}" data-act="notice" >警告</a>-->
+                              <a class="btn btn-warning"  target="_blank" href="http://{{$conf.outside-domain}}/room.php?luid={{$item.uid}}">进入直播间</a>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="live-{{$item.liveid}}" name="live-data" liveid="{{$item.liveid}}" stream="{{$item.stream}}" orientation="{{$item.orientation}}" streamlist="{{$conf.stream-watch}}"></div>
+                      </div>
+
+                    </th>
+                    <eq name="mod" value="3"></tr></eq>
+                  </volist>
+                  </tbody>
+                </table>
+                <div class="pagination alternate text-center">{{$page}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="myModal" tabindex="-1" style="display: none;"  >
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+              <h5>请填写原因</h5>
+            </div>
+            <div class="widget-content nopadding">
+              <form id='f1' action='/live/checklive'  method="post" class="form-horizontal">
+                <input type='hidden' name='liveid' id='lid' value=''>
+                <input type='hidden' name='luid' id='luid' value=''>
+                <input type='hidden' name='act' id='act' value=''>
+                <div class="control-group">
+                  <label class="control-label">主播房间</label>
+                  <div class="controls">
+                    <a  href="http://www.huanpeng.com/room.php?luid={{$item.uid}}">进入直播间</a>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">主播昵称</label>
+                  <div class="controls" id="nick">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">原因类型</label>
+                  <div class="controls">
+                    <select class="span5" name="reasontype">
+                      <foreach name="reasontype" item="v" key='key'>
+                        <option value="{{$key}}" >{{$v}}</option>
+                      </foreach>
+                    </select>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">具体描述</label>
+                  <div class="controls">
+                    <textarea  maxlength="300" <empty name="id">name="content"<else/>disabled</empty>    class="span6" style="height:150px;width:300px" placeholder="" >{{$msg}}</textarea>
+                  </div>
+                </div>
+                <div class="form-actions text-center">
+                  <button type="submit" class="btn btn-danger" >確定</button>
+                  <button type="button" class="btn btn-success" data-dismiss="modal">关闭</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</block>
+<block name="cssadd">
+  <link rel="stylesheet" href="__RES__css/bootstrap-datetimepicker.min.css" />
+</block>
+<block name="jsadd">
+  <script src="__RES__js/bootstrap-datetimepicker.min.js"></script>
+  <script type="text/javascript" src="__RES__js/swfobject.js"></script>
+  <script>
+
+    $('.live-viewer').mouseover(function(){
+      var liveid = $(this).attr('liveid');
+      $('#mix_'+liveid).css('display','block');
+    }).mouseout(function(){
+      var liveid = $(this).attr('liveid');
+      $('#mix_'+liveid).css('display','none');
+    })
+    //创建 swf
+    $(function(){
+      $('object').each(function(){
+        var playerId = $(this).attr('id');
+
+        var dataDom = $('#live-'+playerId);
+        var stream = dataDom.attr('stream') ;
+        var streamList = dataDom.attr('streamlist');
+        var orientation = dataDom.attr('orientation');
+
+
+        var file = "__RES__op-admin/flash/player3.swf";
+        var flashvar = {
+          'serverURL':'rtmp://'+streamList,
+          'streamURL':stream,
+          'screenDirection':orientation,
+          'volume':0,
+        };
+        var params = {
+          quality: 'hight',
+          bgcolor: '#869ca7',
+          allowScriptAccess: 'always',
+          allowFullScreen: 'true',
+          allowFullScreenInteractive: 'true',
+          WindowlessVideo: '1',
+          wmode: 'transparent'
+        };
+        var attrbuite = {
+          allowScriptAccess: 'always',
+          allowFullScreen: 'true',
+          allowFullScreenInteractive: 'true',
+          name: 'live'+playerId,
+          align: 'middle'
+        };
+        swfobject.embedSWF(file, playerId, '100%', '100%', '9.0.0', 'expressInstall.swf', flashvar, params, attrbuite);
+        //runSwfFunction(playerId,'setVolumeAuthority', 0, 0);
+      });
+    });
+
+
+    //运行swf 方法
+    function runSwfFunction(playerId, callfunc){
+      var player = swfobject.getObjectById(playerId);
+      console.log(playerId);
+      var playerInterval = setInterval(function () {
+        if (swfobject.getObjectById(playerId)) {
+          player = swfobject.getObjectById(playerId);
+          var dataDom = $('#live-'+playerId);
+          var stream = dataDom.attr('stream') ;
+          var streamList = dataDom.attr('streamlist');
+          var orientation = dataDom.attr('orientation');
+
+          /* stream = "Y-379607-8882042?wsSecret=f79be00dffebc4a6a3c2a5f9fbaed320&eTime=591eb3db";
+           streamList = ["drtmp.huanpeng.com/liverecord"];
+           liveid = 379607;
+           orientation = 1; */
+
+
+          if (player.PercentLoaded() == 100) {
+            player.inputURL(stream, 'rtmp://'+streamList);
+            if(orientation == 0){
+              console.log('vertical');
+              player.setScreenDirection('vertical');
+            }else{
+              console.log('horizontal');
+              player.setScreenDirection('horizontal');
+            }
+          }
+          clearInterval(playerInterval);
+        }
+      }, 100);
+    }
+
+    $("a[data-toggle='modal']").on('click', function(e) {
+      $('#lid').val($(this).attr('data-liveid'));
+      $('#luid').val($(this).attr('data-uid'));
+      $('#act').val($(this).attr('data-act'));
+      $('#nick').html($(this).attr('data-nick'));
+    });
+
+    Op_common.ajaxForm($('#f1'), function (obj){
+      console.log(obj);
+      if(obj.status=='1'){
+        Op_common.alert('操作成功!',function(){ window.location.href = "";});
+      }else{
+        Op_common.alert(obj.info||'操作失败!');
+      }
+    },{
+      before:function(data){$('#myModal').modal('hide');return data;}
+    });
+  </script>
+</block>

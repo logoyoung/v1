@@ -1,0 +1,260 @@
+/*reset*/
+body{margin:0;padding:0;color:#444;font-size:12px;line-height:1.5em;background-color:#eee;font-family:"microsoft yahei";overflow-x:hidden;}
+ul,li{margin:0;padding:0;list-style:none;}
+h1,h2,h3,h4,h5,h6,p{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+a{text-decoration:none;outline:none;}
+a:hover{text-decoration:none;}
+img{border:none;}
+
+/*common*/
+.l{float: left;display: inline;}
+.r{float: right;display: inline;}
+.of{overflow: hidden;*zoom:1;}
+.clearfix{
+   clear: both;
+}
+.w980{width: 980px;}
+.w1180{width: 1180px;}
+
+
+/*foot*/
+.footer{
+	color: #444;
+	font-size: 14px;
+}
+.footer_top{
+	background: #eee;
+	padding: 20px 0;
+}
+.footer_top_main{
+	border-top: 1px solid #d6d6d6;
+	margin: 0 auto;
+}
+
+.footer_col{
+	float: left;
+	width: 25%;
+}
+
+.footer_logo{
+	height: 76px;
+	margin: 36px 0 24px 12px;
+	width: 180px;
+}
+.footer_logo img{
+	width: 100%;
+	height: 100%;
+}
+
+.help_plate{
+	
+}
+.help_plate li{
+	margin: 18px 0;
+}
+
+.help_plate li a{
+	color: #929292;
+}
+.help_plate li a:hover{
+	color: #ff7800;
+}
+
+.app_plate h3,.app_dl,.qr_code{
+	margin: 18px 0;
+}
+
+.app_plate .app_dl{
+	color: #929292;
+}
+.app_plate .app_dl:hover{
+	color: #ff7800;
+}
+.app_plate .qr_code{
+	width: 132px;
+	height: 132px;
+}
+.app_plate .qr_code img{
+	width: 100%;
+	height: 100%;
+}
+
+.contact_plate{
+	
+}
+
+.contact_plate li{
+	margin: 18px 0;
+}
+
+.contact_plate li span{
+	color: #929292;
+}
+
+.contact_plate li .service-img img{
+	width: auto;
+	height:auto;
+	position: relative;
+	top:8px;
+}
+
+.weixin_share{
+	background: url(../img/footer_share.png) no-repeat 0 0;
+	float: left;
+	height: 32px;
+	position: relative;
+	width: 32px;
+}
+
+.weixin_share:hover{
+	background-position: 0 -32px;
+}
+.weixin_share:hover .weixin_qrcode{
+	display: block;
+}
+.weibo_share{
+	background: url(../img/footer_share.png) no-repeat -33px 0;
+	float: left;
+	margin-left: 20px;
+	height: 32px;
+	position: relative;
+	width: 32px;
+}
+.weibo_share:hover{
+	background-position: -33px -32px;
+}
+.weibo_share:hover .weibo_qrcode{
+	display: block;
+}
+
+.weixin_qrcode{
+	background: #fff none repeat scroll 0 0;
+	border: 1px solid #ddd;
+	display: none;
+	left: -70px;
+	position: absolute;
+	z-index: 999;
+	top: -215px;
+}
+
+.weixin_qrcode img,.weibo_qrcode img{
+	width: 172px;
+	height: 172px;
+}
+
+.weibo_qrcode{
+	background: #fff none repeat scroll 0 0;
+	border: 1px solid #ddd;
+	display: none;
+	left: -70px;
+	position: absolute;
+	z-index: 999;
+	top: -215px;
+}
+
+.weixin_text,.weibo_text{
+	font-size: 12px;
+	height: 32px;
+	line-height: 25px;
+	text-align: center;
+	margin: 0 !important;
+}
+
+
+.triangle{
+	width: 0px;
+	height: 0px;
+	*width: 20px;   
+	*height: 20px;
+	font-size: 0;
+	line-height: 0;
+	overflow: hidden;
+	border-width: 8px;
+	border-style: solid;
+	border-color: #fff transparent transparent transparent;
+	position: absolute;
+	z-index: 1;
+	margin-left: 35px;
+	margin-top: 20px;
+}
+
+.footer_bottom{
+	background: #3c3c3c;
+	color: #acacac;
+	font-size: 12px;
+	padding: 25px 0;
+	width: 100%;
+}
+
+.footer_bottom_main{
+	margin: auto;
+	width: 980px;
+}
+.footer_line{
+	float: left;
+}
+
+.footer_bottom_main span{
+	margin: 0 4px;
+}
+
+.footer_bottom_main a{
+	color: #acacac;
+}
+.foot_lineBox1 a:hover{
+	color: #ff7800;
+}
+.foot_lineBox1{
+	width: 560px;
+	margin: auto;
+}
+
+.footer_copyright{
+	text-align: center;
+}
+.footer_copyright p{
+	margin: 1em 0;
+}
+
+.triangle {
+	width: 0;
+	height: 0;
+	display: inline-block;
+	position: absolute;
+	z-index: 2;
+	margin-left: 78px;
+	margin-top: 209px;
+	line-height: 0;
+	border-color: #ddd transparent transparent;
+	border-image: none;
+	border-style: solid;
+	border-width: 8px 8px 0;
+	
+}
+
+.triangle-2 {
+	width: 0;
+	height: 0;
+	display: inline-block;
+	position: absolute;
+	z-index: 3;
+	margin-left: 79px;
+	margin-top: 207px;
+	line-height: 0;
+	border-color: #fff transparent transparent;
+	border-image: none;
+	border-style: solid;
+	border-width: 7px 7px 0;
+	
+}
+
+
+/*响应式设计*/
+@media screen and (max-width: 1180px) {
+.footer_top_main{
+	width: 980px;
+	border-top: 1px solid #d6d6d6;
+	margin: 0 auto;
+}
+}

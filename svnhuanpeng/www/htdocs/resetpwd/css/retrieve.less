@@ -1,0 +1,377 @@
+@charset "UTF-8";
+
+html,body{
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: 微软雅黑;
+
+  .retrieve-container{
+    width: 100%;
+    min-width: 1200px;
+
+    background-color: whitesmoke;
+
+    .retrieve-header{
+      width: 100%;
+      height: 66px;
+      margin-bottom: 25px;
+      background-color: white;
+    }
+
+    .retrieve-content{
+      width: 90%;
+
+      min-width: 980px;
+      min-height: 640px;
+      margin: 0 auto;
+      background-color: white;
+
+      padding: 2%;
+
+      .content-title{
+
+
+        h2{
+          font-size:28px;
+          width: 120px;
+          margin-bottom: 10px;
+          color: #333333;
+        }
+        hr{
+          background-color: whitesmoke;
+        }
+
+      }
+
+      .content-middle{
+        width: 855px;
+        height: 90px;
+        display: table;
+        margin: 20px auto 0;
+
+        .middle-step{
+          width: 800px;
+          height: 45px;
+
+          display: table-cell;
+          vertical-align: middle;
+
+          .stepFirst{
+            float: left;
+            width: 45px;
+            height: 45px;
+            margin: 0 0 0 20px;
+            border-radius: 50%;
+            background-color: #ff7800;
+            position: relative;
+
+            p{
+              width: 30px;
+              height: 30px;
+              font-family: 微软雅黑;
+              position: absolute;
+              left: 50%;
+              top:50%;
+              margin-left: -15px;
+              margin-top: -15px;
+              background-color: #ffa04c;
+              border-radius: 50%;
+              text-align: center;
+              line-height: 30px;
+              font-weight: bold;
+              text-indent: 2px;
+              color: #fff;
+            }
+            
+            i{
+              position: absolute;
+              font-style: normal;
+              width: 60px;
+              left: -6px;
+              bottom: -25px;
+              font-family: 微软雅黑;
+              font-size:15px;
+              text-align: center;
+              color: #ff7800;
+            }
+            
+          }
+          .progress-First{
+            width: 331px;
+            height: 10px;
+
+            margin: 17px 5px 0;
+            float: left;
+            background-color: #eeeeee;
+          }
+
+          .stepTwo{
+            .stepFirst
+          }
+          .stepTwo{
+            margin-left: 0;
+          }
+
+          .progress-Two{
+            .progress-First
+          }
+
+          .stepThird{
+            .stepFirst
+          }
+          .stepThird{
+            margin-left: 0;
+          }
+
+          .progress-active{
+            background-color: #ff7800;
+          }
+
+          .missActive{
+            background-color: #eeeeee;
+            p{
+              background-color: #cccccc;
+            }
+            i{
+              color: #747474;
+            }
+          }
+
+        }
+
+
+      }
+
+      .content-success{
+
+        width: 549px;
+        height: 303px;
+        margin: 10px auto;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        display: none;
+
+        .successIcon{
+          width: 84px;
+          height: 84px;
+          background: url("../img/success.png") no-repeat;
+          margin: 40px 0 30px 232px;
+        }
+
+        p{
+          width: 100%;
+          text-align: center;
+          font-size: 24px;
+          color: #666;
+          margin-bottom: 40px;
+        }
+
+        .logReturn{
+          width: 549px;
+          height: 40px;
+          margin-bottom: 40px;
+
+          padding-left: 80px;
+
+          #login{
+            width:164px;
+            height: 46px;
+            line-height: 46px;
+            text-align: center;
+            background-color: #ff7800;
+            color: #fff;
+            font-size: 18px;
+            margin-right: 60px;
+            border-radius: 3px;
+            display: inline-block;
+
+          }
+          #backHome{
+            width: 164px;
+            height: 46px;
+            line-height: 46px;
+            text-align: center;
+            background-color: #bbb;
+            font-size:18px;
+            border-radius: 3px;
+            color: #fff;
+            display: inline-block;
+          }
+
+        }
+
+      }
+
+      .content-bottom{
+
+        width: 400px;
+        height: 210px;
+        margin: 80px auto 0;
+
+
+        .content-first{
+          color: #666666;
+          font-size: 18px;
+          position: relative;
+
+          input[type=text]{
+            margin: 0 0 30px 36px;
+            width: 240px;
+            height: 40px;
+            line-height: 40px;
+            text-indent: 5px;
+            color: #333;
+
+            border: 1px solid #cccccc;
+            outline:1px solid #ff7800;
+          }
+
+          input::-webkit-input-placeholder{
+            color: #d5d5d5;
+          }
+          input:-moz-placeholder{
+            color: #d5d5d5;
+          }
+          input::-moz-placeholder{
+            color: #d5d5d5;
+          }
+          input:-ms-input-placeholder{
+            color: #d5d5d5;
+          }
+
+          .checkThis{
+            width: 25px;
+            height: 25px;
+            vertical-align: middle;
+            margin-left: 10px;
+            background: url("../img/right.png") no-repeat;
+            background-size: 100% 100%;
+            display: none;
+          }
+          .wrongCheck{
+            position: absolute;
+            color: red;
+            opacity: 0.8;
+            font-size:14px;
+            right:10px;
+            top:-35px;
+            padding: 5px 10px;
+            line-height: normal;
+            border-radius: 5px;
+            background-color: #d5d5d5;
+            display: none;
+
+            .arrow{
+              position: absolute;
+              left: 10px;
+              bottom:-12px;
+              width:0;
+              height:0;
+              border-left:15px solid transparent;
+              border-right:15px solid transparent;
+              border-top:13px solid #d5d5d5;
+            }
+          }
+          
+          #phoneNum{
+            margin-left: 36px;
+            font-size: 28px;
+            color: #999999;
+            font-weight: 500;
+
+            vertical-align: middle;
+            margin-top: -6px;
+            display: none;
+          }
+          #getCurrent{
+            padding: 8px 18px;
+            border: 1px solid #999999;
+            border-radius: 3px;
+            margin-left: 10px;
+
+            vertical-align: middle;
+            margin-top: -7px;
+            font-size: 15px;
+            font-family: 微软雅黑;
+            font-weight: bold;
+            display: none;
+          }
+
+        }
+
+        .content-Qrcode{
+          width: 240px;
+          height: 50px;
+          background-color: red;
+          margin-left: 94px;
+          margin-bottom: 40px;
+
+
+          p{
+            font-size:13px;
+            color: #666666;
+          }
+        }
+
+        .authCode{
+          margin-top: 30px;
+          margin-bottom: 40px;
+
+          display: none;
+          .authDesc{
+            color: #666;
+            font-size: 18px;
+          }
+          input[type=text]{
+            border-radius: 3px;
+            margin-left: 37px;
+            width: 150px;
+            height:40px;
+            text-indent: 5px;
+            border: 1px solid #ccc;
+            outline: 1px solid #ff7800;
+          }
+
+        }
+
+
+
+        .content-next{
+          width: 300px;
+          height: 46px;
+          margin-left: 94px;
+
+          button{
+            width: 164px;
+            height: 46px;
+            background-color: #ff7800;
+            color: #fff;
+            font-size: 16px;
+            font-family: 微软雅黑;
+            outline: none;
+            text-align: center;
+            border: none;
+            border-radius: 3px;
+            letter-spacing: 2px;
+            box-shadow: 0 2px 0 #c9c9c9;
+            cursor: pointer;
+          }
+        }
+
+      }
+
+      .updateIE{
+        display: none;
+      }
+    }
+
+    .retrieve-footer{
+      width: 100%;
+      height: 30px;
+      background-color: green;
+    }
+
+  }
+
+}

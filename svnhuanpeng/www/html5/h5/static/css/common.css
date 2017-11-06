@@ -1,0 +1,36 @@
+/* rem 1em=10px */
+/*html {
+	font-size: 62.5%;
+}
+@media all and(min-width: 481px) {
+	html {
+		font-size: 94%!important;
+	}
+}
+@media all and(min-width: 561px) {
+	html {
+		font-size: 109%!important;
+	}
+}
+@media all and(min-width: 641px) {
+	html {
+		font-size: 125%!important;
+	}
+}*/
+
+.clearfix::after {
+  display: block;
+  content: '';
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+  clear: both;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
